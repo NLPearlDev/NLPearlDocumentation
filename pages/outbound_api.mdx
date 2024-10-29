@@ -1,0 +1,51 @@
+---
+title: Outbound/API
+description: 'Discover how to leverage the API for dynamic outbound activities, offering direct control over call operations and lead management.'
+---
+
+## API-Driven Outbound Activities
+
+NLPearl.AI's API provides a powerful interface for developers to create and manage outbound call activities directly through code, offering complete control over the implementation and execution of these interactions.
+
+API-driven activities allow you to initiate calls and manage outbound campaigns directly through your existing systems and workflows. While outbound activities can be created and scheduled on the platform, the API offers an additional layer of flexibility for triggering calls outside the predefined schedule.
+
+### Setting Up API Outbound Activities
+
+1. **Obtain an API Key**: Secure an API key from NLPearl.AI to authenticate and interact with our outbound call API.
+
+2. **Create Outbound Activities**: Use the platform to define and create an outbound activity for API use. The process is the same as creating any outbound activity managed by the platform.
+
+3. **Trigger Calls via API**: Once the outbound activity is created, use the API to trigger calls independently of the platform's schedule. This allows for dynamic call initiation based on real-time application logic.
+
+### Mixed-Case Outbound Handling
+
+You can manage outbound campaigns with a combination of scheduled calls from the platform and real-time calls triggered by the API. This mixed approach provides flexibility, allowing you to handle a list of leads based on a predefined schedule while also responding to immediate call requests via the API.
+
+- **Priority Handling**: API-triggered calls take precedence over scheduled calls. If there is a lead scheduled by the platform and an API call request at the same time, the API call will be initiated first.
+
+For more information about making API-triggered calls, refer to the [Make Call API Request](/api-reference/outbound/make-call) documentation.
+
+### Handling Platform-Managed Campaigns
+
+While API calls can be initiated at any time, outbound campaigns managed on the platform still require you to handle the number of simultaneous agents. The API provides the flexibility to manage these aspects, ensuring efficient call handling.
+
+### Conclusion
+
+By combining platform-managed scheduling with API-driven call triggering, NLPearl.AI offers a flexible and powerful solution for outbound call management. Leverage the API to meet your specific needs, ensuring that your outbound communications are both dynamic and highly effective.
+
+<CardGroup cols={2}>
+  <Card
+    title="API Authentication"
+    icon="key"
+    href="/api-reference/authorization"
+  >
+    Learn how to obtain and manage your API key for secure API access.
+  </Card>
+  <Card
+    title="Make Call API Request"
+    icon="phone"
+    href="/api-reference/outbound/make-call"
+  >
+    Discover how to trigger outbound calls via the API.
+  </Card>
+</CardGroup>

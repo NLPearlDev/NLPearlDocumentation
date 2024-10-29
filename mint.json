@@ -1,0 +1,151 @@
+{
+ 
+  "name": "NLPearl Documentation",
+  "logo": {
+    "dark": "/logo/logoWhite.png",
+    "light": "/logo/logoBlack.png"
+  },
+  "favicon": "/logo/logo_favicon.png",
+  "colors": {
+    "primary": "#5C57F4",
+    "light": "#F7F7F7",
+    "dark": "#5C57F4",
+    "anchors": {
+      "from": "#FAADFF",
+      "to": "#5C57F4"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@nlpearl.ai"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Platform",
+    "url": "https://platform.nlpearl.ai/"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Platform",
+      "icon": "globe",
+      "url": "https://platform.nlpearl.ai/"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "",
+      "pages": [
+        "pages/introduction"
+      ]
+    },
+    {
+      "group": "General",
+      "pages": [
+        "pages/overview",
+        "pages/getting_started"
+      ]
+    },
+    {
+      "group": "Pearl",
+      "pages": [
+        "pages/create_pearl",
+        "pages/custom_pearl",
+        "pages/variables",
+        "pages/languages",
+        {
+          "group": "Actions",
+          "pages": [
+            "pages/action",
+            "pages/transfer_call",
+            "pages/email_action",
+            "pages/sms_action",
+            "pages/api_action"
+          ]
+        },
+        "pages/calls"
+      ]
+    },
+    {
+      "group": "Activities",
+      "pages": [
+        "pages/inbound",
+        "pages/outbound",
+        "pages/outbound_api"
+      ]
+    },
+    {
+      "group": "Settings",
+      "pages": [
+        "pages/agents",
+        {
+          "group": "Phone Numbers",
+          "pages": [
+            "pages/phone_overview",
+            "pages/nlpearl_phones",
+            "pages/twilio_integration",
+            "pages/custom_voip"
+          ]
+        },
+        "pages/billing"
+      ]
+    },
+    {
+      "group": "",
+      "pages": [
+        "api-reference/api_quickstart",
+        "api-reference/python_wrapper",
+        "api-reference/authorization"
+      ]
+    },
+        {
+    "group": "Account",
+    "pages": [
+      "api-reference/account/get-account"
+    ]
+  },
+  {
+    "group": "Call",
+    "pages": [
+      "api-reference/call/get-call"
+    ]
+  },
+  {
+    "group": "Inbound",
+    "pages": [
+      "api-reference/inbound/get-inbounds",
+      "api-reference/inbound/get-inbound",
+      "api-reference/inbound/set-activity-state",
+      "api-reference/inbound/search-calls"
+    ]
+  },
+  {
+    "group": "Outbound",
+    "pages": [
+      "api-reference/outbound/get-outbounds",
+      "api-reference/outbound/get-outbound",
+      "api-reference/outbound/set-activity-state",
+      "api-reference/outbound/search-calls",
+      "api-reference/outbound/add-lead",
+      "api-reference/outbound/search-leads",
+      "api-reference/outbound/get-lead",
+      "api-reference/outbound/get-lead-via-external-id",
+      "api-reference/outbound/make-call",
+      "api-reference/outbound/get-call-request",
+      "api-reference/outbound/search-call-requests"
+    ]
+  }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/NLPearlai",
+    "linkedin": "https://www.linkedin.com/company/nlpearl/mycompany/",
+    "youtube": "https://www.youtube.com/@NLPearl",
+    "instagram": "https://www.instagram.com/nlpearl/"
+  }
+}
