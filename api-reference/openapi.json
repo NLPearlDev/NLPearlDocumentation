@@ -1673,21 +1673,6 @@
                         "description": "The identifier for the lead from an external system, such as a CRM.",
                         "nullable": true
                     },
-                    "firstName": {
-                        "type": "string",
-                        "description": "The first name of the lead.",
-                        "nullable": true
-                    },
-                    "lastName": {
-                        "type": "string",
-                        "description": "The last name of the lead.",
-                        "nullable": true
-                    },
-                    "email": {
-                        "type": "string",
-                        "description": "The email address of the lead.",
-                        "nullable": true
-                    },
                     "phoneNumber": {
                         "type": "string",
                         "description": "The phone number of the lead.",
@@ -1716,6 +1701,14 @@
                     },
                     "lastCall": {
                         "$ref": "#/components/schemas/LeadLastCallApiView"
+                    },
+                    "callData": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\n\n\nThis parameter is optional.\r\n\n\nsee [Variables](/pages/variables) for more information.\r\n\n\nHere is an exemple of the json to send:\n\n\r\n`{ \"firstname\" : \"joe\", \"lastName\": \"Martin\" , \"carLicense\" : \"90-929-82\" }`",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -1793,21 +1786,6 @@
                         "description": "The external ID of the lead, typically from a CRM request or another external source.",
                         "nullable": true
                     },
-                    "firstName": {
-                        "type": "string",
-                        "description": "The first name of the lead.",
-                        "nullable": true
-                    },
-                    "lastName": {
-                        "type": "string",
-                        "description": "The last name of the lead.",
-                        "nullable": true
-                    },
-                    "email": {
-                        "type": "string",
-                        "description": "The email address of the lead.",
-                        "nullable": true
-                    },
                     "phoneNumber": {
                         "type": "string",
                         "description": "The phone number of the lead.",
@@ -1825,6 +1803,14 @@
                         "type": "string",
                         "description": "The date and time when the lead was created.",
                         "format": "date-time"
+                    },
+                    "callData": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\n\n\nThis parameter is optional.\r\n\n\nsee [Variables](/pages/variables) for more information.\r\n\n\nHere is an exemple of the json to send:\n\n\r\n`{ \"firstname\" : \"joe\", \"lastName\": \"Martin\" , \"carLicense\" : \"90-929-82\" }`",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -1879,22 +1865,10 @@
             },
             "LeadToAddApi": {
                 "required": [
-                    "firstName",
-                    "lastName",
                     "phoneNumber"
                 ],
                 "type": "object",
                 "properties": {
-                    "firstName": {
-                        "minLength": 1,
-                        "type": "string",
-                        "description": "The first name of the lead."
-                    },
-                    "lastName": {
-                        "minLength": 1,
-                        "type": "string",
-                        "description": "The last name of the lead."
-                    },
                     "phoneNumber": {
                         "minLength": 1,
                         "type": "string",
