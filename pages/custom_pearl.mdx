@@ -1,49 +1,390 @@
+
+
+# Conversation Tree Editor User Guide
+
+Welcome to the Conversation Tree Editor! This guide will help you navigate and make the most of the editor to create engaging and dynamic conversation flows for phone interactions between agents and customers.
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Getting Started](#getting-started)
+  - [Main Interface Overview](#main-interface-overview)
+  - [Creating a New Conversation Flow](#creating-a-new-conversation-flow)
+- [Building Your Conversation Flow](#building-your-conversation-flow)
+  - [Adding Nodes](#adding-nodes)
+    - [Question & Answer (QA) Nodes](#question--answer-qa-nodes)
+    - [Action Nodes](#action-nodes)
+    - [End Call Nodes](#end-call-nodes)
+  - [Configuring Nodes](#configuring-nodes)
+    - [Writing Agent Scripts](#writing-agent-scripts)
+    - [Storing User Responses](#storing-user-responses)
+    - [Using Variables in Actions](#using-variables-in-actions)
+    - [Setting Up Transitions](#setting-up-transitions)
+      - [Adding Transitions](#adding-transitions)
+      - [Editing Transitions](#editing-transitions)
+      - [Conditional Transitions](#conditional-transitions)
+- [Using the Sidebar Tools](#using-the-sidebar-tools)
+- [Managing Variables](#managing-variables)
+  - [Variable Configuration Screen](#variable-configuration-screen)
+    - [Details Tab](#details-tab)
+    - [Options Tab](#options-tab)
+- [Using the Auto-Generate Feature](#using-the-auto-generate-feature)
+- [Best Practices](#best-practices)
+- [Examples](#examples)
+- [Frequently Asked Questions](#frequently-asked-questions)
+- [Conclusion](#conclusion)
+
 ---
-title: Create a Custom Pearl
-description: 'Learn how to create complex conversational flows with a decision tree in NLPearl.AI.'
----
 
-import { CardGroup, Card } from '/snippets';
+## Introduction
 
+The Conversation Tree Editor is a powerful tool that allows you to design and visualize conversation flows in a user-friendly, visual interface. Whether you're creating customer surveys, support dialogues, or interactive voice responses, this editor helps you craft natural and personalized conversations.
 
-At NLPearl.AI, we offer the option to create more complex conversational flows using a decision tree. This advanced feature allows you to design intricate interaction patterns that can cater to specific needs and scenarios.
+## Getting Started
 
-### Decision Tree Flow
+### Main Interface Overview
 
-The decision tree allows you to map out each possible interaction path. Here’s what you can do with it:
+When you open the Conversation Tree Editor, you'll see the main workspace divided into several key areas:
 
-- **Define Multiple Branches**: Create branches for different responses and outcomes based on the user's inputs.
-- **Conditional Actions**: Set conditions for actions that the AI agent can take during the conversation. For example, the agent can offer different responses or actions based on the user's answers.
-- **Dynamic Interaction**: Make the conversation more dynamic and responsive to the user's needs, ensuring a personalized and effective interaction.
+- **Top Bar**: Contains navigation buttons, settings, the auto-generate feature, and save options.
+- **Sidebar**: Offers various node subtypes to add to your conversation flow.
+- **Canvas**: The central area where you'll build and visualize your conversation tree.
+- **Variable Management Panel**: Accessed via the sidebar, it allows you to manage variables used in your flow.
 
-### Examples of Actions
+### Creating a New Conversation Flow
 
-With a custom Pearl, the range of actions your AI agent can perform expands significantly:
+1. **Start a New Flow**: Click on the **"New Flow"** button or select an existing template.
+2. **Name Your Flow**: Give your conversation flow a descriptive name to easily identify it later.
+3. **Save Your Work**: Regularly click the **"Save"** button in the top bar to save your progress.
 
-- **Book Appointments**: Schedule meetings or appointments based on user preferences.
-- **Transfer Calls**: Direct the call to another department or agent if needed.
-- **Send Follow-Up Messages**: Automatically send SMS or email messages after the call.
-- **Gather Detailed Information**: Collect and process more complex data during the conversation.
+## Building Your Conversation Flow
 
-<CardGroup cols={1}>
-  <Card
-    title="Create Your Pearl"
-    icon="wand-magic"
-    href="/pages/create_pearl"
-  >
-    Learn the basics of creating a Pearl.
-  </Card>
-</CardGroup>
+### Adding Nodes
 
-### Benefits of Custom Pearls
+Nodes are the building blocks of your conversation flow. Each node represents a point in the conversation where the agent interacts with the customer. The sidebar contains the node subtypes, which are:
 
-Custom Pearls offer several advantages:
+- **QA Nodes**: For asking questions and receiving answers.
+- **Action Nodes**: For performing actions like sending emails, SMS messages, booking appointments, or transferring calls.
+- **End Nodes**: For ending the conversation gracefully.
 
-- **Flexibility**: Tailor the conversation flow to meet specific business needs.
-- **Enhanced User Experience**: Provide a more personalized and effective interaction for users.
-- **Comprehensive Data Collection**: Gather detailed and specific information from users to better serve their needs.
+#### Question & Answer (QA) Nodes
+
+- **Purpose**: To ask questions and collect responses from the user.
+- **How to Add**:
+  - Click on the **QA Node** icon (chat bubble) in the sidebar.
+  - Drag and drop it onto the canvas.
+- **Usage**: Ideal for greetings, collecting user information, and any interaction requiring user input.
+
+#### Action Nodes
+
+- **Purpose**: To perform specific actions based on user responses.
+- **Available Action Nodes**:
+  - **Email Node**: Sends an automated email to the user.
+  - **SMS Node**: Sends a text message in real-time during the conversation.
+  - **Booking Node**: Schedules appointments or reservations.
+  - **Taking Message Node**: Records and stores messages from the user.
+  - **Transfer Call Node**: Transfers the call to a live agent (this action ends the conversation with the agent).
+  - **API Node**: Integrates with external systems via API calls.
+- **How to Add**:
+  - Select the appropriate Action Node icon from the sidebar.
+  - Drag and drop it onto the canvas.
+- **Usage**:
+  - Use action nodes at various stages in the conversation to perform tasks like sending information or booking appointments.
+  - **Note**: The **Transfer Call** action will end the conversation with the agent, so it should be used when you intend to transfer the call to a human representative.
+
+#### End Call Nodes
+
+- **Purpose**: To gracefully end the conversation.
+- **How to Add**:
+  - Click on the **End Node** icon in the sidebar.
+  - Place it at the point where the conversation should conclude.
+- **Usage**: Always ensure your flow ends with an End Call node to signal the conversation's closure.
+
+### Configuring Nodes
+
+After adding nodes, you'll need to configure them to define their behavior and content.
+
+#### Writing Agent Scripts
+
+- **Script Field**: Each node has a script field where you write what the agent will say.
+- **Tips**:
+  - Use a friendly and professional tone.
+  - Keep messages clear and concise.
+  - Personalize messages using variables (e.g., "Hello {customerName}").
+
+#### Storing User Responses
+
+- **Variables**: Collect and store user responses in variables for later use.
+- **How to Assign**:
+  - In the node configuration, find the **"Store In Variable"** section.
+  - Select an existing variable or create a new one.
+- **Usage**: Variables can be used to personalize scripts, set conditions for transitions, and be included in actions like emails or SMS messages.
+
+#### Using Variables in Actions
+
+- **Incorporating Variables**: When configuring action nodes, you can use variables to personalize the content.
+- **Example in SMS Node**:
+  - **Message Content**: "Hello {customerName}, here is the link you requested: {linkURL}"
+  - Use the **"+"** button next to the text box to add variables.
+- **Available in All Actions**: Variables can be used in Email, SMS, Booking, API calls, etc.
+
+#### Setting Up Transitions
+
+Transitions define how the conversation moves from one node to the next based on user responses or conditions.
+
+##### Adding Transitions
+
+1. **From a Node**: Click on the node from which you want to create a transition.
+2. **Drag Transition Line**: Click and drag from the transition point (often a small circle or arrow) to the target node.
+3. **Label the Transition**: Give the transition a clear and descriptive label that reflects the condition or response (e.g., "Yes", "No", "Email Provided").
+
+##### Editing Transitions
+
+- **Adjusting Connections**:
+  - To change a transition, click on the transition line and drag it to a different node.
+- **Deleting Transitions**:
+  - Click on the transition line and press the delete key, or use the delete icon in the node's transition settings.
+- **Adding Conditions**:
+  - In the node's configuration panel, you can add new transitions by clicking the **"+"** button.
+
+##### Conditional Transitions
+
+- **Purpose**: To define different paths based on specific conditions or user inputs.
+- **How to Enable**:
+  - In the node configuration, toggle **"Conditional Transitions"** on.
+- **Setting Conditions**:
+  - Define conditions based on variables (e.g., if `satisfactionLevel` is greater than 4).
+  - Label each conditional path clearly.
+- **Benefits**:
+  - Allows for dynamic and personalized conversation flows.
+  - Ensures users receive relevant responses and actions based on their input.
+
+**Example**:
+
+- **Question**: "Would you like to receive updates via email?"
+- **Transitions**:
+  - **Yes**: Connects to the node where the email is collected.
+  - **No**: Connects to the next appropriate node or ends the conversation.
+
+## Using the Sidebar Tools
+
+The sidebar provides quick access to various node subtypes and tools to enhance your conversation flow:
+
+- **QA Nodes**: Use these to ask questions and receive user input.
+- **Action Nodes**:
+  - **Email Node**: Send automated emails.
+  - **SMS Node**: Send text messages in real-time.
+  - **Booking Node**: Schedule appointments or reservations.
+  - **Taking Message Node**: Record messages from the user.
+  - **Transfer Call Node**: Transfer the call to a live agent.
+  - **API Node**: Perform API calls and integrate with external systems.
+- **End Nodes**: Conclude the conversation.
+- **Variable Management**: Create and manage variables.
+- **Transition Tools**: Manage transitions and define the flow between nodes.
+
+**Tip**: Hover over each icon to see its function and a brief description.
+
+## Managing Variables
+
+Variables are essential for creating dynamic and personalized conversations.
+
+- **Accessing Variables**:
+  - Click on the **Variables** icon in the sidebar.
+- **Creating a Variable**:
+  - Click on **"Add New"**.
+  - Provide a name (use camelCase, e.g., `customerName`).
+- **Editing Variables**:
+  - Click the **Edit** icon next to a variable.
+  - Modify the name or settings as needed.
+- **Deleting Variables**:
+  - Click the **Delete** icon, but ensure it's not used elsewhere in your flow.
+
+### Variable Configuration Screen
+
+The **Variable Configuration Screen** allows you to define, manage, and customize variables used in your conversation flow.
+
+#### Details Tab
+
+- **Type Selection**:
+  - Choose the data type for the variable (e.g., **String**, **Number**, **Boolean**).
+- **Name Field**:
+  - Provide a descriptive name for the variable.
+- **Update Button**:
+  - Click **Update** to save any changes made.
+
+#### Options Tab
+
+Use the **Options Tab** when the variable requires predefined selectable options, such as multiple-choice questions.
+
+- **Enable Coded Values**:
+  - Toggle **Coded Values** on or off.
+  - **On**: Assign numerical codes to each option (useful for data analysis).
+  - **Off**: Store options as plain text.
+- **Adding Options**:
+  - Enter the option text (e.g., "Customer Service", "Pricing").
+  - If **Coded Values** are enabled, assign a code to each option.
+- **Deleting Options**:
+  - Click the **Delete** icon next to an option to remove it.
+- **Update Button**:
+  - Click **Update** to save the options.
+
+**Example with Coded Values Enabled**:
+
+- **Option List**:
+  - "Customer Service" - Code: `1`
+  - "Pricing" - Code: `2`
+  - "Product Quality" - Code: `3`
+
+**Using Variables in Scripts**:
+
+- Include variables in your agent's script using curly braces.
+- Example: "Thank you for your feedback on {improvementAreas}!"
+
+**Best Practices for Variables**:
+
+1. **Use Clear Names**: Choose descriptive names for clarity.
+2. **Enable Coded Values When Needed**: Useful for data analysis.
+3. **Keep Options Updated**: Reflect current business needs.
+4. **Test Variables**: Ensure they work correctly in the flow.
+
+## Using the Auto-Generate Feature
+
+The Conversation Tree Editor includes an **Auto-Generate** feature that allows you to quickly create a conversation flow based on a script or description.
+
+### How It Works
+
+1. **Accessing the Feature**:
+   - Click on the **Auto-Generate** icon (magic wand or star) in the top bar.
+2. **Input Your Script or Description**:
+   - A text box will appear where you can paste your script or describe the conversation flow you want to create.
+   - Be as detailed as possible to ensure accurate generation.
+3. **Generate the Flow**:
+   - Click the **"Generate"** button.
+   - The editor will process your input and automatically create a conversation flow on the canvas.
+4. **Review and Customize**:
+   - Once generated, review the flow to ensure it meets your requirements.
+   - Make any necessary adjustments or additions.
+
+### Benefits of the Auto-Generate Feature
+
+- **Saves Time**: Quickly creates a baseline flow without manual node placement.
+- **Consistency**: Ensures that the generated flow follows logical structures and best practices.
+- **Customization**: Allows for easy tweaking and personalization after generation.
+
+**Note**: The Auto-Generate feature is designed to assist you, but always review the generated flow for accuracy and completeness.
+
+## Best Practices
+
+- **Plan Your Flow**: Sketch out the conversation flow before building it.
+- **Use Clear Language**: Ensure scripts are easy to understand.
+- **Personalize Interactions**: Use variables to make the conversation feel tailored.
+- **Test Your Flow**: Simulate conversations to identify any issues.
+- **Cover All Scenarios**: Anticipate various user responses and handle them appropriately.
+- **Keep It Natural**: Aim for a conversational tone that mimics human interaction.
+- **Use Actions Strategically**:
+  - Incorporate action nodes at appropriate stages to enhance user experience.
+  - Remember that you can use multiple actions throughout the conversation.
+  - The **Transfer Call** action will end the conversation with the agent, so use it when appropriate.
+- **Label Transitions Clearly**:
+  - Use descriptive labels for transitions to maintain clarity.
+  - Example: "Email Provided", "Email Not Provided", "User Agrees".
+- **Regularly Save Your Work**: Use the save button to prevent loss of progress.
+
+## Examples
+
+### Example 1: Customer Satisfaction Survey
+
+1. **Greeting Node**:
+   - **Script**: "Hello! Thank you for calling XYZ Company. My name is {agentName}."
+2. **Satisfaction Question Node (QA)**:
+   - **Script**: "On a scale of 1 to 5, how satisfied are you with our service?"
+   - **Store Response In**: `satisfactionLevel`
+   - **Conditional Transitions**:
+     - **If 4 or above**: Proceed to Positive Feedback Node.
+     - **If below 4**: Proceed to Improvement Inquiry Node.
+3. **Positive Feedback Node**:
+   - **Script**: "We're glad you're satisfied! Would you like to receive updates via SMS?"
+   - **Options**: Yes or No.
+4. **Improvement Inquiry Node**:
+   - **Script**: "We're sorry to hear that. Could you tell us how we can improve?"
+   - **Store Response In**: `improvementAreas`
+   - **Options Configuration**:
+     - Enable **Coded Values** if needed.
+     - Provide options like "Customer Service", "Pricing", "Product Quality".
+5. **Email Request Node (QA)**:
+   - **Script**: "Could you please provide your email address so we can send you a summary of your responses?"
+   - **Store Response In**: `customerEmail`
+   - **Transitions**:
+     - **Email Provided**: Proceed to Email Confirmation Node.
+     - **Email Not Provided**: Proceed to End Call Node.
+6. **Email Confirmation Node**:
+   - **Script**: "Thank you! We will send the summary to {customerEmail}."
+7. **SMS Action Node**:
+   - **Purpose**: Send a personalized SMS in real-time.
+   - **Configuration**:
+     - **Message Content**: "{customerName}, here is the link for your summary: https://xyzcompany.com/summary"
+     - **Variables Used**: `customerName`
+     - **Add Variables**: Use the "+" button to insert variables into your message.
+     - **Conditional Transitions**: Enable if you want to send the SMS only under certain conditions.
+8. **End Call Node**:
+   - **Script**: "Thank you for your time. Have a great day!"
+
+### Setting Up Transitions in the Example
+
+- **From Email Request Node**:
+  - **Email Provided**:
+    - **Connect**: Drag the transition line from "Email Provided" to the **Email Confirmation Node**.
+    - **Label**: Ensure the transition is labeled "Email Provided" for clarity.
+  - **Email Not Provided**:
+    - **Connect**: Drag the transition line from "Email Not Provided" to the **End Call Node**.
+    - **Label**: Label the transition accordingly.
+- **Editing Transitions**:
+  - To adjust connections, click and drag the transition lines to the desired nodes.
+  - To delete a transition, click on it and press delete or use the delete icon.
+
+**Benefits of Clear Transitions**:
+
+- **Visual Clarity**: Easily see the flow paths and how nodes are connected.
+- **Logical Flow**: Ensure the conversation progresses logically based on user responses.
+- **Ease of Editing**: Quickly adjust the flow by dragging transitions without deleting nodes.
+
+## Frequently Asked Questions
+
+**Q: How do I test my conversation flow?**
+
+A: Use the simulation feature to walk through the conversation as if you were the user.
+
+**Q: Can I import existing scripts into the editor?**
+
+A: Yes, use the **Auto-Generate** feature to generate flows from your scripts or descriptions.
+
+**Q: How do I handle unexpected user responses?**
+
+A: Include default transitions or error-handling nodes to manage unanticipated inputs.
+
+**Q: Can I customize the actions performed by Action Nodes?**
+
+A: Yes, configure each action node using variables and settings provided.
+
+**Q: How do I use variables with Action Nodes like Email or SMS?**
+
+A: When configuring the action, insert variables into the content fields (e.g., message body, recipient address).
+
+**Q: Can I use multiple actions in my conversation flow?**
+
+A: Yes, you can include multiple actions at different stages, except for the **Transfer Call** action, which ends the conversation with the agent.
+
+**Q: How do I set up conditional transitions?**
+
+A: In the node configuration, enable **"Conditional Transitions"**, define your conditions, and label each transition clearly.
 
 ## Conclusion
 
-Using the custom option in NLPearl.AI allows you to create sophisticated and dynamic conversational flows. By leveraging decision trees, you can ensure that your AI agents are equipped to handle a wide range of scenarios and actions, enhancing the overall interaction quality and effectiveness.
+The Conversation Tree Editor empowers you to create dynamic and personalized conversations with ease. By leveraging nodes, variables, transitions, and actions, you can craft engaging dialogues that enhance customer experience.
+
+Remember to plan your flow carefully, use clear labels, and test thoroughly to ensure a seamless user experience.
+
+---
+
+For further assistance, please consult the support resources or contact our help desk.
 
