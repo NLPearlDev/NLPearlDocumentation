@@ -56,7 +56,7 @@
       "group": "Pearl",
       "pages": [
         "pages/create_pearl",
-        "pages/custom_pearl",
+        "pages/advanced_pearl",
         "pages/variables",
         "pages/languages",
         {
