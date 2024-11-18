@@ -1,131 +1,535 @@
 ---
-title: "Variables"
-description: "Learn how to effectively use variables in NLPearl.AI to enhance your Pearl's conversational flows."
+title: Variables
 ---
 
-## Understanding Variables
-Variables are placeholders that you can fill with different information. 
-They allow you to insert specific details into your conversations, making them more personalized and engaging. 
-For example, you can greet a user by their first name or mention a product they are interested in. 
-By understanding and effectively using variables, you can create more dynamic and impactful AI-driven interactions.
-			
-			<img
-			  className="block dark:hidden"
-			  src="/images/exemples/variable.png"
-			  alt="API Call Setup"
-			  style={{ 
-				borderRadius: '18px', 
-				width: '260px', // Adjust the width as needed
-				height: 'auto'  // Maintains aspect ratio
-			  }}
-			/>
-			<img
-			  className="hidden dark:block"
-			  src="/images/exemples/variable.png"
-			  alt="API Call Setup"
-			   style={{ 
-				borderRadius: '18px', 
-				width: '260px', // Adjust the width as needed
-				height: 'auto'  // Maintains aspect ratio
-			  }}
-			/>
-			
-### Built-In and Custom Variables
+# Variables User Guide
 
-NLPearl.AI comes with a set of built-in variables such as `firstName`, `lastName`, `agentName`, `companyName`, etc. However, you also have the flexibility to create **custom variables** to suit your specific needs.
+Welcome to the **Variables User Guide** for the Conversation Editor! This guide is designed to help you understand what variables are, how to use them effectively, and how they enhance your conversations. Whether you're a new user or looking to deepen your understanding, this guide provides detailed, step-by-step instructions and best practices to create dynamic and personalized interactions.
 
-### Creating a Custom Variable
+## Table of Contents
 
-When creating a new variable, you need to provide the following details:
+- [Introduction to Variables](#introduction-to-variables)
+  - [What Are Variables?](#what-are-variables)
+  - [Why Are Variables Important?](#why-are-variables-important)
+- [Getting Started with Variables](#getting-started-with-variables)
+  - [Accessing the Variables Panel](#accessing-the-variables-panel)
+- [Creating and Managing Variables](#creating-and-managing-variables)
+  - [Creating a New Variable](#creating-a-new-variable)
+  - [Editing an Existing Variable](#editing-an-existing-variable)
+  - [Deleting a Variable](#deleting-a-variable)
+- [Using Variables in Conversations](#using-variables-in-conversations)
+  - [Collecting User Input into Variables](#collecting-user-input-into-variables)
+  - [Inserting Variables into Messages](#inserting-variables-into-messages)
+  - [Using Variables in Actions](#using-variables-in-actions)
+  - [Populating Variables from External Data](#populating-variables-from-external-data)
+    - [Adding Variables to Leads via the Platform (Outbound Campaigns)](#adding-variables-to-leads-via-the-platform-outbound-campaigns)
+    - [Adding Variables to Leads via API](#adding-variables-to-leads-via-api)
+    - [Sending Variables in Single On-Demand Calls](#sending-variables-in-single-on-demand-calls)
+- [Implementing Conditional Logic with Variables](#implementing-conditional-logic-with-variables)
+  - [Conditional Branching in Simple Mode](#conditional-branching-in-simple-mode)
+  - [Conditional Transitions in Advanced Mode (Tree Editor)](#conditional-transitions-in-advanced-mode-tree-editor)
+- [Setting Up Variable Options](#setting-up-variable-options)
+  - [Creating Multiple-Choice Questions](#creating-multiple-choice-questions)
+  - [Using Coded Values](#using-coded-values)
+- [Best Practices for Using Variables](#best-practices-for-using-variables)
+- [Examples](#examples)
+  - [Example 1: Personalizing an Outbound Call](#example-1-personalizing-an-outbound-call)
+  - [Example 2: Dynamic Survey with Conditional Logic](#example-2-dynamic-survey-with-conditional-logic)
+- [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
+- [Conclusion](#conclusion)
 
-- **Display Name**: This is how the variable will appear on the platform and in the call information. It’s the human-readable name of your variable.
-- **Id**: This is the unique identifier for the variable, which you will use as a key in `callData` in [Make Call API Request](/api-reference/outbound/make-call). The Id is automatically generated when you fill in the Display Name but can be customized.
-- **Type**: The data type of the variable, such as `boolean`, `float`, `int`, or `string`.
-- **Description**: This is a critical field where you describe the purpose of the variable. It’s important to fill this out wisely, especially if the variable is meant to be collected during the call.
-		<img
-			  className="block dark:hidden"
-			  src="/images/exemples/variables2.png"
-			  alt="API Call Setup"
-			  style={{ 
-				borderRadius: '18px', 
-			  }}
-			/>
-			<img
-			  className="hidden dark:block"
-			  src="/images/exemples/variables2.png"
-			  alt="API Call Setup"
-			   style={{ 
-				borderRadius: '18px', 
-			  }}
-			/>
-### Types of Variables
+---
 
-There are two main types of variables:
+## Introduction to Variables
 
-### 1. **Predefined Information Variables**: 
-	These variables hold information that is known before the call and can be used as placeholders in your conversational flow.
+### What Are Variables?
 
-   #### Example Usage:
-   - **Opening Sentence**: "Hello, I am `agentName` from `companyName`. How can I assist you?"
-   - **Script Example**: "Ask the prospect if his name is still `firstName` `lastName`."
+Variables are fundamental components in the Conversation Editor that store information during a conversation. Think of variables as labeled containers that hold data like user responses, account information, or any other relevant details. They can be:
 
-   You can also create your own variables to be used in a similar fashion. For instance, if you are selling cars, you could create variables like `Brand`, `color`, or `priceProposed`.
-   <br/>
-   see [Make Call API Request](/api-reference/outbound/make-call).
-   #### API Request Example:
-   ```json
-   {
-     "to": "+1345678991",
-     "callData": {
-       "firstName": "Josh",
-       "lastName": "Martin",
-       "brand": "BMW",
-       "color": "gray",
-       "priceProposed": "two hundred thousand dollars"
-     }
-   }
-   ```
-	- **Opening Sentence**: "Hello `firstName`, I am calling about the `color` `brand` you were interested in..."
-	- **Script Example**: "Ask the prospect if he agrees with the price `priceProposed`."
+- **User Inputs**: Data collected from the user during the conversation.
+- **System Data**: Information imported from external sources like CRM systems.
+- **Computed Values**: Results of expressions or calculations within the conversation.
 
-	**Important:** Make sure to use the **Id** (e.g., `priceProposed`) of the variable in your API request dictionary, not the Display Name (e.g., `Price Proposed`), to ensure proper functionality.
-	   
-	   
-<a id="collected-information-variables"></a>   
-### 2. **Collected Information Variables**:
- These variables are used to gather information during the call that was not known beforehand. For example, you might instruct Pearl to ask the prospect what price they are willing to pay: "Ask the prospect what the `priceProposed` they want."
+### Why Are Variables Important?
 
-   Once the information is collected, it can be reused in the conversation and utilized in any actions requiring this variable. At the end of the call, it will be displayed in the "Call Information" section of the call details.
+Variables enable you to:
 
-### Mixing Use Cases
+- **Personalize Conversations**: Address users by name, reference their specific details, and create a more engaging experience.
+- **Control Conversation Flow**: Make decisions and branch the dialogue based on variable values.
+- **Integrate with External Systems**: Pull in data from CRM or other systems to enrich conversations.
+- **Store and Reuse Information**: Keep track of important data throughout the conversation.
 
-You can combine the use of predefined and collected information variables in a single script. For example:
+---
 
-- **Script Example**: "Verify the price `priceProposed` with the prospect."
+## Getting Started with Variables
 
-If you already have this information before the call:
+### Accessing the Variables Panel
+
+To work with variables, you'll use the **Variables Panel**. Here's how to access it:
+
+1. **Open the Conversation Editor**: Log in and open the conversation you want to edit.
+2. **Locate the Variables Icon**: In the left sidebar, look for the **Variables** icon `{}`.
+3. **Click the Variables Icon**: This opens the Variables Panel, displaying all existing variables and options to create new ones.
+
+![Variables Icon](./images/variables-icon.png)
+
+*Note: The appearance of the icon may vary based on the interface design.*
+
+---
+
+## Creating and Managing Variables
+
+### Creating a New Variable
+
+Follow these steps to create a new variable:
+
+1. **Open the Variables Panel**.
+2. **Click "Add New Variable"**:
+   - This button is usually located at the top or bottom of the Variables Panel.
+3. **Fill in Variable Details**:
+   - **Name**:
+     - Use descriptive, lowercase names with camelCase (e.g., `customerName`).
+     - Avoid spaces and special characters.
+   - **Data Type**:
+     - **String**: For text values (names, addresses).
+     - **Number**: For numerical values (ages, quantities).
+     - **Boolean**: For true/false values.
+     - **Date/Time**: For dates and times.
+   - **Default Value** (Optional):
+     - Assign an initial value if needed.
+   - **Description** (Optional):
+     - Provide a brief explanation of the variable's purpose.
+4. **Click "Save"**:
+   - Your variable is now created and ready to use.
+
+**Example**:
+
+- **Variable Name**: `customerEmail`
+- **Data Type**: String
+- **Description**: Stores the customer's email address for follow-up communications.
+
+### Editing an Existing Variable
+
+To modify a variable:
+
+1. **Open the Variables Panel**.
+2. **Select the Variable**:
+   - Click on the variable you wish to edit.
+3. **Edit Details**:
+   - Change the name, data type, default value, or description.
+4. **Save Changes**:
+   - Click "Update" to apply your edits.
+
+### Deleting a Variable
+
+To remove a variable:
+
+1. **Open the Variables Panel**.
+2. **Select the Variable**:
+   - Click on the variable to delete.
+3. **Click "Delete"**:
+   - Confirm the deletion when prompted.
+
+**Warning**: Deleting a variable that's in use can break your conversation flow. Ensure you remove all references to it before deleting.
+
+---
+
+## Using Variables in Conversations
+
+Variables can be utilized in both **Simple Mode** and **Advanced Mode (Tree Editor)**.
+
+### Collecting User Input into Variables
+
+To store user responses:
+
+1. **Add a Question Node**:
+   - In Simple Mode, insert a **Question** step.
+   - In Advanced Mode, add a **Question & Answer (QA) Node**.
+2. **Compose Your Question**:
+   - Enter the prompt that will be presented to the user.
+3. **Store the Response**:
+   - In the **Save Response To** or **Store In Variable** field, select the variable where the response will be saved.
+
+**Example**:
+
+- **Question**: "What is your contact number?"
+- **Variable**: `contactNumber` (Data Type: String)
+
+### Inserting Variables into Messages
+
+To personalize messages:
+
+1. **Compose a Message**:
+   - In any text field where the agent speaks to the user.
+2. **Insert Variable Placeholder**:
+   - Type `{variableName}` where you want the variable's value to appear.
+
+**Example**:
+
+- **Message**: "Thank you, {customerName}, for providing your details."
+
+**Tip**: Ensure the variable is defined and has a value before using it in messages.
+
+### Using Variables in Actions
+
+Variables can be used in action nodes, such as sending emails or SMS messages.
+
+#### Steps:
+
+1. **Add an Action Node**:
+   - Examples include **Email Node**, **SMS Node**, **API Call Node**.
+2. **Configure the Action**:
+   - **Recipient**: Use variables to specify dynamic recipients (e.g., `{customerEmail}`).
+   - **Message Content**: Personalize content with variables.
+3. **Save the Configuration**.
+
+**Example**:
+
+- **Email Subject**: "Your Order Confirmation, {customerName}"
+- **Email Body**: "Dear {customerName}, your order #{orderNumber} has been shipped."
+
+### Populating Variables from External Data
+
+Variables can be pre-filled with data from external systems for outbound calls or campaigns.
+
+#### Adding Variables to Leads via the Platform (Outbound Campaigns)
+
+When setting up an outbound campaign via the platform, you can import your leads using a CSV file and include variables for personalization.
+
+**Steps:**
+
+1. **Access Outbound Campaigns**:
+   - Navigate to the [Outbound Campaigns page](https://developers.nlpearl.ai/pages/outbound) on the platform.
+
+2. **Select the Correct Pearl**:
+   - Choose the Pearl (conversation script) that you want to use for the campaign.
+
+3. **Import Leads Using CSV**:
+   - Click on the option to import leads.
+   - Download the lead template provided. The template will automatically include column headers matching your defined variables.
+   - Fill in the CSV with your lead data, ensuring that the values for each variable are placed in the correct columns.
+
+4. **Upload the Completed CSV**:
+   - Once your CSV file is prepared, upload it back to the platform.
+
+5. **Verify Imported Data**:
+   - Check that the leads and their associated variable data have been imported correctly.
+
+**Example:**
+
+- **Variables Defined**:
+  - `customerName`
+  - `membershipStatus`
+  - `lastPurchaseDate`
+
+- **CSV Template Columns**:
+  - `phoneNumber`, `customerName`, `membershipStatus`, `lastPurchaseDate`
+
+- **Sample CSV Entry**:
+
+  | phoneNumber   | customerName | membershipStatus | lastPurchaseDate |
+  |---------------|--------------|------------------|------------------|
+  | +1234567890   | Jane Smith   | Gold             | 2023-09-15       |
+
+**Note**: The variable names in your conversation will match the column headers in the CSV template, making it seamless to map data to variables.
+
+#### Adding Variables to Leads via API
+
+You can also add variables to leads programmatically using the API.
+
+**Steps:**
+
+1. **Use the Add Lead API Endpoint**:
+   - Endpoint: `PUT /v1/Outbound/{outboundId}/Lead`
+   - **API Reference**: [Add Lead](https://developers.nlpearl.ai/api-reference/outbound/add-lead)
+
+2. **Prepare the Request**:
+   - Include the `phoneNumber`, optional `externalId`, and `callData` containing your variables.
+
+3. **Example Request**:
+
 ```json
+PUT /v1/Outbound/{outboundId}/Lead
+Content-Type: application/json
+Authorization: Bearer <token>
+
 {
-  "to": "+1345678991",
+  "phoneNumber": "+1234567890",
+  "externalId": "lead123",
   "callData": {
-    "firstName": "Josh",
-    "priceProposed": "two hundred thousand dollars"
+    "customerName": "Jane Smith",
+    "membershipStatus": "Gold"
   }
 }
 ```
-Here ,Pearl will simply ask for confirmation of the price. 
 
--If you don’t have the information:
+4. **Use Variables in Conversations**:
+   - Reference these variables (e.g., `{customerName}`) within your conversation scripts.
+
+**Note**: Replace `{outboundId}` with your actual outbound campaign ID and `<token>` with your authorization token.
+
+#### Sending Variables in Single On-Demand Calls
+
+For single on-demand calls, you can send variables directly in the call request.
+
+**Steps:**
+
+1. **Initiate Call with Variables**:
+   - Use the **Make Call** API endpoint to start a call and include variables.
+   - **API Reference**: [Make Call](https://developers.nlpearl.ai/api-reference/outbound/make-call)
+
+2. **Prepare the Call Data**:
+
 ```json
+POST /v1/Outbound/{outboundId}/Call
+Content-Type: application/json
+Authorization: Bearer <token>
+
 {
-  "to": "+1345678991",
+  "to": "+1234567890",
   "callData": {
-    "firstName": "Josh"
+    "firstName": "John",
+    "lastName": "Doe",
+    "accountBalance": "$100"
   }
 }
 ```
-Pearl will ask for the price during the call based on the variable's definition in the description field.
 
-### Conclusion
+3. **Use Variables in Conversations**:
+   - Access these variables in your conversation scripts (e.g., `{firstName}`, `{accountBalance}`).
 
-Variables in NLPearl.AI offer a powerful way to personalize and optimize your AI-driven conversations. By effectively defining and utilizing variables—whether for integrating pre-existing information or collecting new data during calls—you can significantly enhance your Pearl’s performance and the overall customer experience. Additionally, variables can be leveraged in actions such as sending SMS, emails, or other post-call activities, enabling tailored communications based on the insights gathered during interactions.
+**Example Script**:
+
+- "Hello {firstName}, your current account balance is {accountBalance}."
+
+**Note**: Ensure you have the proper authorization and replace placeholders accordingly.
+
+---
+
+## Implementing Conditional Logic with Variables
+
+Variables enable you to control the flow of the conversation based on data.
+
+### Conditional Branching in Simple Mode
+
+#### Steps:
+
+1. **Add a Conditional Step**:
+   - Insert a **Decision** or **Conditional** step.
+2. **Define the Condition**:
+   - Specify the variable and the condition (e.g., `{preferredContactMethod} == "Email"`).
+3. **Set Up Branches**:
+   - Create different paths based on the condition.
+4. **Continue Building Each Path**.
+
+### Conditional Transitions in Advanced Mode (Tree Editor)
+
+#### Steps:
+
+1. **Enable Conditional Transitions**:
+   - In the node's settings, toggle **"Conditional Transitions"** to **ON**.
+2. **Add Conditions**:
+   - Click the **"+"** icon to add conditions.
+   - Define each condition using variables and operators (e.g., `satisfactionScore >= 4`).
+3. **Label Each Condition**:
+   - Provide clear labels for clarity.
+4. **Connect to Subsequent Nodes**:
+   - Draw transition lines from each condition to the appropriate next node.
+5. **Set a Default Path** (Optional):
+   - Handle cases that don't meet any conditions.
+
+**Example**:
+
+- **Variable**: `satisfactionScore`
+- **Conditions**:
+  - `satisfactionScore >= 4` -> Node expressing thanks.
+  - `satisfactionScore < 4` -> Node asking for improvement suggestions.
+
+---
+
+## Setting Up Variable Options
+
+Variables can have predefined options, useful for multiple-choice questions.
+
+### Creating Multiple-Choice Questions
+
+#### Steps:
+
+1. **Create a Variable**:
+   - **Name**: e.g., `issueType`
+   - **Data Type**: String
+2. **Define Options**:
+   - In the variable's settings, go to the **Options** tab.
+   - Add options (e.g., "Billing", "Technical Support", "General Inquiry").
+3. **Use in a Question**:
+   - Present the options to the user in a question node.
+   - Store the user's selection in the variable.
+
+**Example**:
+
+- **Question**: "Please select the type of issue you're experiencing:"
+- **Options**:
+  - "Billing"
+  - "Technical Support"
+  - "General Inquiry"
+
+### Using Coded Values
+
+Coded values assign numerical codes to options, aiding in data analysis or integration.
+
+#### Steps:
+
+1. **Enable Coded Values**:
+   - In the **Options** tab, toggle **"Use Coded Values"** to **ON**.
+2. **Assign Codes**:
+   - Provide a numerical code for each option.
+3. **Implement Logic Based on Codes**.
+
+**Example**:
+
+- **Options with Codes**:
+  - "Billing" - Code: `1`
+  - "Technical Support" - Code: `2`
+  - "General Inquiry" - Code: `3`
+
+---
+
+## Best Practices for Using Variables
+
+- **Use Descriptive Names**:
+  - Helps in identifying the purpose of each variable.
+- **Consistent Naming Conventions**:
+  - Stick to camelCase or another standard.
+- **Define Variables Early**:
+  - Plan your variables before building the conversation.
+- **Avoid Unnecessary Variables**:
+  - Keep your variable list clean.
+- **Test Thoroughly**:
+  - Regularly simulate conversations to ensure variables behave as expected.
+- **Handle Missing or Invalid Inputs**:
+  - Implement validation and default paths.
+- **Secure Sensitive Data**:
+  - Be cautious when handling personal information.
+- **Document Variables**:
+  - Use descriptions to explain variables for future reference.
+
+---
+
+## Examples
+
+### Example 1: Personalizing an Outbound Call
+
+**Scenario**: Notifying customers about a service upgrade.
+
+#### Steps:
+
+1. **Variables**:
+   - `customerName` (String): Imported via CSV or provided in `callData`.
+   - `currentPlan` (String): Imported via CSV or provided in `callData`.
+2. **Script**:
+   - "Hello {customerName}, we're excited to inform you about an upgrade to your {currentPlan} plan."
+3. **Collect Interest**:
+   - "Would you like to hear more about this upgrade?"
+   - Store response in `interested` (Boolean).
+4. **Implement Conditional Logic**:
+   - If `interested` is true, proceed with details.
+   - If false, thank the customer and end the call.
+5. **Adding Leads via CSV**:
+   - Use the platform to import leads with variables.
+
+**Example CSV Entry**:
+
+| phoneNumber   | customerName   | currentPlan |
+|---------------|----------------|-------------|
+| +1234567890   | Alice Johnson  | Premium     |
+
+### Example 2: Dynamic Survey with Conditional Logic
+
+**Scenario**: Gathering customer feedback.
+
+#### Steps:
+
+1. **Ask Satisfaction Score**:
+   - "On a scale of 1 to 5, how satisfied are you with our service?"
+   - Store in `satisfactionScore` (Number).
+2. **Conditional Paths**:
+   - If `satisfactionScore >= 4`:
+     - "Thank you! We're glad you're satisfied."
+     - Ask for a testimonial.
+   - If `satisfactionScore < 4`:
+     - "We're sorry to hear that. Can you tell us how we can improve?"
+     - Store in `feedbackComments` (String).
+3. **Follow-Up Actions**:
+   - Send a follow-up email using collected data.
+4. **Initiate On-Demand Call with Variables**:
+
+```json
+POST /v1/Outbound/{outboundId}/Call
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "to": "+1234567890",
+  "callData": {
+    "customerName": "Bob Smith"
+  }
+}
+```
+
+---
+
+## Frequently Asked Questions (FAQ)
+
+**Q: Can I use variables in both Simple and Advanced modes?**
+
+A: Yes, variables are available in both modes and function similarly, allowing for data collection and personalization.
+
+**Q: How do I handle situations where a variable might be empty?**
+
+A: Implement checks or default values. You can use conditional logic to handle cases when a variable has no value.
+
+**Q: Are variable names case-sensitive?**
+
+A: Yes, variable names are case-sensitive. Always use the exact name as defined.
+
+**Q: Can I change a variable's value during the conversation?**
+
+A: Yes, variables can be updated multiple times. The latest value will be used in subsequent steps.
+
+**Q: How do I include variables when adding leads to an outbound campaign via the platform?**
+
+A: When importing leads using CSV on the platform, include your variables as columns in the CSV file. Download the lead template, which will automatically include your variable names in the column headers. Refer to the [Outbound Campaigns page](https://developers.nlpearl.ai/pages/outbound) for more details.
+
+**Q: How do I include variables when adding leads via API?**
+
+A: Use the **Add Lead** API endpoint and include variables in the `callData` field. Refer to the [Add Lead API Reference](https://developers.nlpearl.ai/api-reference/outbound/add-lead) for details.
+
+**Q: How can I send variables when making a single on-demand call?**
+
+A: Use the **Make Call** API endpoint and include variables in the `callData` field. Refer to the [Make Call API Reference](https://developers.nlpearl.ai/api-reference/outbound/make-call) for details.
+
+**Q: How do I ensure data security when using variables?**
+
+A: Avoid storing sensitive information unless necessary and ensure compliance with data protection regulations. Use secure connections for CRM integrations.
+
+**Q: What happens if I delete a variable that's in use?**
+
+A: This can cause errors in your conversation flow. Always remove references to the variable before deleting it.
+
+---
+
+## Conclusion
+
+Variables are powerful tools that bring flexibility, personalization, and dynamism to your conversations. By understanding and utilizing variables effectively, you can create professional and engaging interactions that respond intelligently to user inputs and integrate seamlessly with external data.
+
+Remember to:
+
+- Plan your variables carefully.
+- Use them to personalize and control the conversation flow.
+- Test your conversations thoroughly.
+
+By following the guidance in this user guide and adhering to best practices, you'll enhance the user experience and achieve better outcomes with your conversations.
+
+---
+
+For additional support, please refer to our help resources or contact our support team. Happy creating!
