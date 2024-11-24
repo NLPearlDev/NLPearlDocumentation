@@ -14,11 +14,11 @@ Creating a Pearl is similar to hiring a new employee. You choose its language, c
 
 Choose the type of use case for your Pearl:
 
-1. **Personal Secretary**: The secretary provides information, schedules appointments, and performs other tasks in real-time or post-call, just like a real secretary, but without making coffee. Unlike other use cases, she has no script or flow, she is a genuine secretary.
-2. **Sales**: The sales agent can act in real-time or post-call with a predefined behavior focused on selling a product persistently. Give them a script, and they'll handle the rest.
-3. **Support**: Similar to the salesperson, the support agent is trained to provide assistance. Their behavior is more supportive and helpful.
-4. **Surveys**: Engage your audience by sharing surveys and polls via outbound or inbound to gather feedback, opinions, or votes. Enable actions like SMS, email, call transfers, and more. This Pearl model is straightforward, less flexible, and closely follows its script.
-5. **Custom**: Also known as advanced mode, this option lets you create a decision tree and develop complex flows. You can add any action or API request at any point during the conversation. The agent will know what to do and when to do it, from start to finish, including what to say and under which conditions.
+1. **Personal Secretary**: Your reliable assistant for managing tasks like sending messages, scheduling appointments, and providing knowledge-based information—minus the coffee runs.
+2. **Sales**: A supportive model for efficient customer service, handling issues, emails, and ticket creation, capable of performing any type of action.
+3. **Support**: Quick and engaging, driving proactive interactions and performing any type of action seamlessly.
+4. **Surveys**: A straightforward, poll-friendly model, easy to interrupt and efficient for gathering feedback while performing any type of action.
+5. **Concierge**: Trained for hospitality, managing everything from bookings to personalized recommendations and capable of any type of action.
 
 #### Step 2: Agent Customization
 
@@ -71,7 +71,7 @@ For more details on actions, refer to the [Actions](/pages/action) page.
 
 1. **Name of the Pearl**: Assign a friendly name to your Pearl for easy retrieval.
 2. **Choose Your Pearl**: Select a logo for your Pearl from a list of available options.
-3. **Define the Success of Your Pearl**: Specify what constitutes a successful call for your Pearl, such as booking a meeting, obtaining client interest, or qualifying a lead.\n\n
+3. **Define the Success of Your Pearl**: Specify what constitutes a successful call for your Pearl, such as booking a meeting, obtaining client interest, or qualifying a lead. <br />
 This defined success will be reflected in the status of your leads list when you launch a campaign,  allowing you to effectively sort and manage your leads.
 4. **Indicator Tags**:
 	<img
@@ -109,6 +109,39 @@ This defined success will be reflected in the status of your leads list when you
          - **Name**: Tea
          - **When to Assign**: "If the prospect prefers to drink tea in the morning."
      - During the conversation, if the prospect expresses a preference for coffee or tea, the corresponding tag will be assigned, allowing you to easily filter and analyze these interactions later.
+5. **Notifications**
+
+	The **Notifications** feature allows you to receive email summaries of calls based on specific criteria. This ensures you only get updates for the most relevant interactions.
+
+	- Configuration Options:
+	1. **Emails**:
+	- Enter one or more email addresses where notifications should be sent. Make sure the email format is valid to ensure proper delivery.
+
+	2. **Notify If**:
+	- Choose the criteria for triggering notifications:
+		- **Always**: Get notified for every call made by Pearl.
+		- **Based on Tags**: Receive notifications only when a call matches specific **Indicator Tags**.
+
+
+	-Connection with Indicator Tags
+
+	Indicator Tags are closely linked to Notifications, enabling you to tailor your alerts:
+	- **Tag-based Filtering**: Define tags to categorize calls (e.g., "High Priority," "Follow-up Needed"). Notifications can then be filtered to only include calls with these tags.
+	- This connection ensures you focus on the calls that matter most.
+
+
+	- Example Use Case:
+		1. Create an **Indicator Tag**: "Urgent".
+		- Condition: Applied when a customer reports a critical issue.
+		2. Set up **Notifications**:
+		- Enable notifications only for calls tagged as "Urgent".
+		3. Result:
+		- You receive email alerts exclusively for calls requiring immediate attention.
+
+
+	This combination of **Notifications** and **Indicator Tags** helps you manage call summaries effectively and ensures you only receive relevant alerts.
+
+
 
 
 <CardGroup cols={2}>
@@ -120,9 +153,9 @@ This defined success will be reflected in the status of your leads list when you
     Explore the different languages available and how to set them for your Pearl.
   </Card>
   <Card
-    title="Custom Pearl"
+    title="Advanced Pearl"
     icon="screwdriver-wrench"
-    href="/pages/custom_pearl"
+    href="/pages/advanced_pearl"
   >
     Learn about the custom options and decision tree for advanced configuration.
   </Card>
