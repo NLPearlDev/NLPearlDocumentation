@@ -102,8 +102,9 @@ When creating API Action, you can map variables to nested keys in the JSON body 
 
 ### Mapping Variables to Nested API Keys
 
-- **API Keys**: Can include nested keys using dot notation (e.g., `customer.address.street`).
+- **API Keys**: Can include nested keys using dot notation and array indices using square brackets (e.g., `customer.address.street`, `order.items[0].productId`).
 - **Variables**: Map each nested API key to the appropriate variable collected during the conversation.
+
 
 ### Steps to Map Variables to Nested Keys
 
@@ -162,8 +163,8 @@ When creating API Action, you can map variables to nested keys in the JSON body 
 - **customer.email** → `customerEmail`
 - **customer.address.street** → `street`
 - **customer.address.city** → `city`
-- **order.items.productId** → `productId`
-- **order.items.quantity** → `quantity`
+- **order.items[0].productId** → `productId`
+- **order.items[0].quantity** → `quantity`
 
 
 <img
