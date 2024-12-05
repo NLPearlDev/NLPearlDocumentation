@@ -1,41 +1,53 @@
 ---
 title: Variables
 ---
+## Introduction
 
-
-## Introduction to Variables
-
-Variables are placeholders that store and manipulate data during a conversation. They hold information such as:
+Variables are essential placeholders that store and manipulate data during a conversation. They hold information such as:
 
 - **User Inputs**: Data collected from user responses (e.g., names, email addresses).
-- **System Data**: Information from external sources like CRM systems.
-- **Computed Values**: Results of expressions or calculations within the conversation flow.
+- **System Data**: Information retrieved from external sources like CRM systems.
+- **Computed Values**: Results from expressions or calculations within the conversation flow.
 
-**Why Are Variables Important?**
+### Why Are Variables Important?
 
-- **Personalize Interactions**: Tailor conversations to individual users.
+- **Personalize Interactions**: Tailor conversations to individual users for a more engaging experience.
 - **Control Conversation Flow**: Make decisions and branch dialogues based on variable values.
-- **Store and Reuse Information**: Keep track of data throughout the conversation.
-- **Integrate with External Systems**: Enrich conversations with data from other systems.
-- **Include in Actions**: Use variables in actions like sending emails or SMS messages with personalized content.
+- **Store and Reuse Information**: Keep track of data throughout the conversation for consistency.
+- **Integrate with External Systems**: Enrich conversations with data from other platforms.
+- **Enhance Actions**: Use variables in actions like sending personalized emails or SMS messages.
 
 ---
 
-## Accessing the Variable Management Panel
+## Accessing the Variable Manager
 
-Variables can be managed in both **Simple Mode** and **Advanced Mode (Tree Editor)**.
+Variables can be managed using the **Variable Manager**, which is accessible in both **Simple Mode** and **Advanced Mode (Tree Editor)**.
 
-### In Simple Mode
+### Variable Manager Overview
 
-- **Variable Icon**: Represented by a **"+"** symbol.
-- **Location**: Found in the Flow Configuration page, within scripts or actions where variables can be used.
-- **Access**: Click the **"+"** icon to open the Variable Management Panel.
+The Variable Manager allows you to create, edit, and organize variables used in your conversation flows. Variables are categorized into two types:
 
-### In Advanced Mode (Tree Editor)
+- **Pre-call Variables**: Variables configured before the call starts, such as customer information.
+These variables are typically sourced from external systems like CRM or imported via CSV or API. They provide context and initial data that can be used throughout the conversation.
+- **Collected In-call Variables**: Variables captured or updated dynamically during the conversation.
+These variables are collected based on user interactions, inputs, or system computations, allowing the conversation to adapt in real-time and respond to user needs effectively.
 
-- **Variable Icon**: Represented by a **"+"** symbol inside nodes.
-- **Location**: Within the nodes on the Tree Editor page.
-- **Access**: Click the **"+"** icon inside a node to open the Variable Management Panel.
+#### Accessing the Variable Manager
+
+1. **In Simple Mode**:
+   - Navigate to the **Flow Configuration** page.
+   - Click on the **"+"** icon to open the Variable Manager.
+
+2. **In Advanced Mode (Tree Editor)**:
+   - Within the nodes on the **Tree Editor** page, click the **"+"** icon inside a node to open the Variable Manager.
+   - Alternatively, you can press the document icon on the bottom right side of the editor to open the Variable Manager.
+
+#### Variable Categories
+
+- **Pre-call Variables**: Represented with a **person icon**.
+- **Collected In-call Variables**: Represented with a **phone icon**.
+
+     ![Variable Manager](/images/exemples/variable-mangaer-all.png)
 
 ---
 
@@ -43,48 +55,83 @@ Variables can be managed in both **Simple Mode** and **Advanced Mode (Tree Edito
 
 ### Creating a New Variable
 
-1. **Open the Variable Management Panel** by clicking the **"+"** icon.
-2. **Click "Add New"**.
-3. **Enter Variable Details**:
-   - **Name**: Use clear, descriptive names  (e.g., `Customer Name`). Avoid spaces and special characters.
-   - **Data Type**: Choose from String, Number, Boolean, Date/Time.
-   - **Default Value** (Optional): Assign an initial value.
+1. **Open the Variable Manager** by clicking the **"+"** icon.
+2. **Select the Variable Category**:
+   - Choose between **Pre-call** or **Collected In-call** from the dropdown menu.
+
+3. **Click "Create Variable"** to open the variable creation form.
+
+     ![Create Variable Button](/images/exemples/variable-mangaer-add-new-variable.png)
+
+     This will open the **Create Variable** panel where you can enter the details for your new variable.
+     ![Create Panel](/images/exemples/variable-mangaer-edit-variable.png)
+
+4. **Enter Variable Details**:
+
+
+   
+   - **Type**: Select the data type (**Text**, **Whole Number**, **Decimal Number**, **Boolean**, **Date & Time**).
+
+
+   - **Display Name**: Use clear, descriptive names (e.g., `Customer Name`).
+   - **ID**: Automatically generated based on the display name; can be edited.
+
    - **Description** (Optional): Briefly explain the variable's purpose.
-4. **Click "Update"** to save.
+   - **Allow Multiple Entries**: Enable this option if the variable needs to store multiple values (e.g., a list of dates).
+   
+     ![Variable Data Types](/images/exemples/variable-mangaer-edit-variable-list-type.png)
+
+
+5. **Define Allowed Values** (Optional):
+   - Click on the **"Allowed Values"** section.
+   - **Allowed Values**: Specify predefined options that the variable can hold.
+   
+        ![Allow Multiple Entries Option](/images/exemples/variable-mangaer-allowed-value-without-options.png)
+
+   - **Use Codes**: Assign optional codes to each allowed value for backend processing or integration.
+
+     ![Allowed Values with Codes](/images/exemples/variable-mangaer-allowed-value-with-options.png)
+
+6. **Click "Save"** to create the variable.
 
 ### Editing and Deleting Variables
 
-- **Edit**: Click the Edit icon next to the variable, make changes, and click "Update".
-- **Delete**: Click the Delete icon next to the variable and confirm. Ensure the variable is not in use before deleting.
+- **Edit a Variable**: Click on the variable name in the Variable Manager panel to open the edit section.
+
+- **Delete a Variable**: Click the **Delete** icon next to the variable and confirm the deletion.
 
 ---
+
 
 ## Using Variables in Conversations
 
 ### Collecting User Input into Variables
 
-   - **In Simple Mode**: Simply add a variable to the question step; this will automatically store the user's response into that variable.
-   - **In Simple Mode**: In the node's configuration, locate the **"Store In Variable"** field.
+- **In Simple Mode**: Simply add a variable to the question step; this will automatically store the user's response into that variable.
+- **In Advanced Mode**: In the node's configuration, locate the **"Store In Variable"** field.
+
 
 ### Inserting Variables into Agent Scripts
 
-1. **Compose the Agent's Script** in any text field.
-2. **Insert Variable Placeholder** using the **"+"** icon next to text fields.
+1. **Compose the Agent's Script** in any text field within your flow.
+2. **Insert Variable Placeholder**:
+   - Click the **"+"** icon next to the text field.
+   - Select the desired variable from the list.
 
 **Example**:
 
-- **Script**: "Thank you for calling, `Customer Name`!"
+- **Script**: "Thank you for calling, `customerName`!"
 
 ### Using Variables in Actions
 
-1. **Add an Action Node** (e.g., Email Node, SMS Node).
+1. **Add an Action Node** (e.g., **Email Node**, **SMS Node**) to your flow.
 2. **Configure the Action**:
-   - **Message Content**: Include variables in the content.
-3. **Insert Variables** using the **"+"** icon next to text fields.
+   - **Message Content**: Include variables by clicking the **"+"** icon and selecting the desired variable.
+3. **Customize the Message** with variable placeholders.
 
 **Example in SMS Node**:
 
-- **Message Content**: "Hello `Customer Name`, your appointment on `Appointment Date` is confirmed."
+- **Message Content**: "Hello `customerName`, your appointment on `appointmentDate` is confirmed."
 
 ---
 
@@ -92,44 +139,24 @@ Variables can be managed in both **Simple Mode** and **Advanced Mode (Tree Edito
 
 ### Conditional Branching
 
-1. **Enable Conditional Transitions** in a node's configuration.
-2. **Add Conditions** using variables and operators (e.g., `Satisfaction Score>= 4`).
-3. **Label Each Condition**.
-4. **Connect to Subsequent Nodes**.
+1. **Enable Conditional Transitions** in a node's configuration by toggling the **"Conditional Branching"** option.
+
+
+2. **Add Conditions** using variables and operators (e.g., **`satisfactionScore >= 4`**).
+
+
+3. **Label Each Condition** for clarity.
+
+
+4. **Connect to Subsequent Nodes** based on each condition.
 
 **Example**:
 
 - **Variable**: `satisfactionScore`
 - **Conditions**:
-  - If `Satisfaction Score>= 4`, proceed to positive feedback.
-  - If `Satisfaction Score< 4`, proceed to improvement inquiry.
+  - If **`satisfactionScore >= 4`**, proceed to positive feedback node.
+  - If **`satisfactionScore < 4`**, proceed to improvement inquiry node.
 
----
-
-## Setting Up Variable Options
-
-### Creating Multiple-Choice Questions
-
-1. **Create or Edit a Variable**.
-2. **Define Options** in the **Options** tab.
-3. **Use in a Question Node** to present options to the user.
-
-**Example**:
-
-- **Variable**: `issueType`
-- **Options**: "Billing", "Technical Support", "General Inquiry"
-- **Question**: "Please select the type of issue you're experiencing:"
-
-### Using Coded Values
-
-1. **Enable Coded Values** in the **Options** tab.
-2. **Assign Codes** to each option.
-
-**Example**:
-
-- **Options with Codes**:
-  - "Billing" - Code: `1`
-  - "Technical Support" - Code: `2`
 
 ---
 
@@ -137,21 +164,24 @@ Variables can be managed in both **Simple Mode** and **Advanced Mode (Tree Edito
 
 ### Adding Variables via the Platform (Outbound Campaigns)
 
-1. **Access Outbound Campaigns**.
-2. **Download the Lead Template**, which includes columns for your variables.
-3. **Fill in Lead Data** in the CSV file.
-4. **Upload the CSV** back to the platform.
+1. **Navigate to Outbound Campaigns** in the platform.
+2. **Download the Lead Template CSV**, which includes columns for your variables.
+
+
+3. **Fill in Lead Data** in the CSV file, ensuring each variable corresponds to the correct column.
+4. **Upload the Completed CSV** back to the platform.
+
 
 **Example CSV Entry**:
 
-| phoneNumber  | customerName | membershipStatus |
-|--------------|--------------|------------------|
-| +1234567890  | Jane Smith   | Gold             |
+| phoneNumber | customerName | membershipStatus |
+|-------------|--------------|------------------|
+| +1234567890 | Jane Smith   | Gold             |
 
 ### Adding Variables via API
 
 1. **Use the Add Lead API Endpoint**: `PUT /v1/Outbound/{outboundId}/Lead`.
-2. **Include Variables** in the `callData` field.
+2. **Include Variables** in the `callData` field of your JSON payload.
 
 **Example Request**:
 
@@ -173,7 +203,7 @@ Authorization: Bearer <token>
 ### Sending Variables in Single On-Demand Calls
 
 1. **Use the Make Call API Endpoint**: `POST /v1/Outbound/{outboundId}/Call`.
-2. **Include Variables** in the `callData` field.
+2. **Include Variables** in the `callData` field of your JSON payload.
 
 **Example Request**:
 
@@ -195,12 +225,14 @@ Authorization: Bearer <token>
 
 ## Best Practices for Using Variables
 
-- **Use Descriptive Names**: Name variables clearly (e.g., `Customer Email`).
-- **Define Variables Early**: Plan before building the conversation.
-- **Avoid Unnecessary Variables**: Keep the list clean.
-- **Test Thoroughly**: Simulate conversations to ensure correctness.
-- **Handle Data Securely**: Be cautious with personal information.
-- **Document Variables**: Use descriptions for clarity.
+- **Use Descriptive Names**: Clearly name variables for easy identification (e.g., `customerEmail`).
+- **Define Variables Early**: Plan your variables before building the conversation flow.
+- **Categorize Variables**: Use **Pre-call** and **Collected In-call** categories to organize your variables.
+- **Avoid Unnecessary Variables**: Only create variables that are essential to your conversation.
+- **Test Thoroughly**: Simulate conversations to ensure variables function as intended.
+- **Handle Data Securely**: Be cautious with personal and sensitive information.
+- **Document Variables**: Use the description field to note the purpose of each variable.
+- **Use Allowed Values and Codes**: When appropriate, define allowed values and use codes for better data management.
 
 ---
 
@@ -211,28 +243,44 @@ Authorization: Bearer <token>
 **Scenario**: Notifying customers about a service upgrade.
 
 1. **Variables**:
-   - `customerName` (String)
-   - `currentPlan` (String)
-2. **Script**: "Hello {customerName}, we're excited to inform you about an upgrade to your {currentPlan} plan."
+   - **Pre-call Variables**:
+     - `customerName` (Text)
+     - `currentPlan` (Text)
+   - **Collected In-call Variables**:
+     - `interested` (Boolean)
+2. **Script**: "Hello **{customerName}**, we're excited to inform you about an upgrade to your **{currentPlan}** plan."
 3. **Collect Interest**:
-   - "Would you like to hear more about this upgrade?"
+   - Question: "Would you like to hear more about this upgrade?"
    - Store response in `interested` (Boolean).
 4. **Implement Conditional Logic**:
-   - If `interested` is true, proceed with details.
-   - If false, thank the customer and end the call.
-5. **Adding Leads via CSV**: Use the platform to import leads with variables.
+   - If **`interested`** is **true**, proceed with details.
+   - If **false**, thank the customer and end the call.
+5. **Adding Leads via CSV**: Use the platform to import leads with the `customerName` and `currentPlan` variables populated.
 
-### Example 2: Dynamic Survey with Conditional Logic
+### Example 2: Scheduling Multiple Dates
+
+**Scenario**: Collecting multiple available dates from a customer.
+
+1. **Variable**:
+   - `availableDates` (Date & Time)
+   - **Allow Multiple Entries**: Enabled.
+2. **Script**: "Please provide the dates you are available for the meeting."
+3. **Collect Dates**:
+   - The system allows the customer to provide multiple dates, which are stored in the `availableDates` variable.
+4. **Usage**:
+   - The collected dates can be used to schedule meetings or appointments.
+
+### Example 3: Dynamic Survey with Conditional Logic
 
 **Scenario**: Gathering customer feedback.
 
 1. **Ask Satisfaction Score**:
-   - "On a scale of 1 to 5, how satisfied are you with our service?"
-   - Store in `satisfactionScore` (Number).
+   - Question: "On a scale of 1 to 5, how satisfied are you with our service?"
+   - Store in `satisfactionScore` (Whole Number).
 2. **Conditional Paths**:
-   - If `Satisfaction Score>= 4`, thank the customer.
-   - If `Satisfaction Score< 4`, ask for improvement suggestions.
-3. **Follow-Up Actions**: Send a follow-up email using collected data.
+   - If **`satisfactionScore >= 4`**, proceed to a node thanking the customer.
+   - If **`satisfactionScore < 4`**, proceed to a node asking for improvement suggestions.
+3. **Follow-Up Actions**: Send a personalized email using collected data, thanking them or addressing concerns.
 
 ---
 
@@ -240,41 +288,54 @@ Authorization: Bearer <token>
 
 **Q: Can I use variables in both Simple and Advanced modes?**
 
-A: Yes, variables function similarly in both modes.
+A: Yes, variables function similarly in both modes and can be managed accordingly.
 
 **Q: How do I handle empty variables?**
 
-A: Implement checks or default values using conditional logic.
+A: Implement checks using conditional logic or assign default values to handle empty variables gracefully.
 
 **Q: Are variable names case-sensitive?**
 
-A: Yes, always use the exact name as defined.
+A: Yes, variable names are case-sensitive. Ensure consistency when referencing them.
 
 **Q: Can I change a variable's value during the conversation?**
 
-A: Yes, variables can be updated multiple times.
+A: Yes, variables can be updated multiple times as the conversation progresses.
 
 **Q: How do I include variables when adding leads via the platform or API?**
 
-A: Include variables in the CSV file for the platform or in the `callData` field when using the API.
+A: Include variables in the CSV file for platform uploads or in the `callData` field when using the API.
+
+**Q: What is the difference between Pre-call and Collected In-call variables?**
+
+A: **Pre-call Variables** are configured before the conversation starts and typically include data imported from external sources or predefined settings. **Collected In-call Variables** are captured or updated during the conversation based on user interactions.
 
 **Q: What happens if I delete a variable that's in use?**
 
-A: It can cause errors. Remove all references before deleting.
+A: Deleting a variable that's in use can cause errors in your conversation flow. Remove all references before deleting.
 
 ---
 
 ## Conclusion
 
-Variables are powerful tools that enhance conversations by making them dynamic and personalized. By effectively using variables, you can:
+Variables are powerful tools that enhance your conversations by making them dynamic and personalized. By effectively using variables, you can:
 
-- Collect and store user inputs.
-- Personalize interactions.
-- Control conversation flow.
-- Integrate external data.
+- **Collect and Store User Inputs**: Gather essential information from users.
+- **Personalize Interactions**: Create tailored experiences for each user.
+- **Control Conversation Flow**: Direct the conversation based on user responses and data.
+- **Integrate External Data**: Incorporate information from other systems for enriched interactions.
 
-Remember to plan carefully, use variables to enhance user experience, test thoroughly, and follow best practices.
+Remember to:
+
+- **Plan Carefully**: Define your variables before building your conversation.
+- **Organize Variables**: Use categories like Pre-call and Collected In-call for better management.
+- **Enhance User Experience**: Use variables to make interactions meaningful.
+- **Test Thoroughly**: Regularly test your conversation to ensure variables work correctly.
+- **Follow Best Practices**: Keep your variables organized and your data secure.
 
 ---
 
-For additional support, please refer to our help resources or contact our support team.
+For additional support, contact our support team at [support@nlpearl.ai](support@nlpearl.ai).
+
+---
+
