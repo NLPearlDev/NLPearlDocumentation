@@ -2,44 +2,6 @@
 title: Advanced Pearl
 ---
 
-# Conversation Tree Editor User Guide
-
-Welcome to the Conversation Tree Editor! This guide will help you navigate and make the most of the editor to create engaging and dynamic conversation flows for phone interactions between agents and customers.
-
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Getting Started](#getting-started)
-  - [Main Interface Overview](#main-interface-overview)
-  - [Creating a New Conversation Flow](#creating-a-new-conversation-flow)
-- [Building Your Conversation Flow](#building-your-conversation-flow)
-  - [Adding Nodes](#adding-nodes)
-    - [Question & Answer (QA) Nodes](#question--answer-qa-nodes)
-    - [Action Nodes](#action-nodes)
-    - [End Call Nodes](#end-call-nodes)
-  - [Configuring Nodes](#configuring-nodes)
-    - [Writing Agent Scripts](#writing-agent-scripts)
-    - [Storing User Responses](#storing-user-responses)
-    - [Using Variables in Actions](#using-variables-in-actions)
-    - [Setting Up Transitions](#setting-up-transitions)
-      - [Adding Transitions](#adding-transitions)
-      - [Editing Transitions](#editing-transitions)
-      - [Conditional Transitions](#conditional-transitions)
-- [Using the Sidebar Tools](#using-the-sidebar-tools)
-- [Managing Variables](#managing-variables)
-  - [Variable Configuration Screen](#variable-configuration-screen)
-    - [Details Tab](#details-tab)
-    - [Options Tab](#options-tab)
-- [Using the Auto-Generate Feature](#using-the-auto-generate-feature)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
-- [Frequently Asked Questions](#frequently-asked-questions)
-- [Conclusion](#conclusion)
-
----
-
-## Introduction
-
 The Conversation Tree Editor is a powerful tool that allows you to design and visualize conversation flows in a user-friendly, visual interface. Whether you're creating customer surveys, support dialogues, or interactive voice responses, this editor helps you craft natural and personalized conversations.
 
 ## Getting Started
@@ -65,15 +27,15 @@ When you open the Conversation Tree Editor, you'll see the main workspace divide
 
 Nodes are the building blocks of your conversation flow. Each node represents a point in the conversation where the agent interacts with the customer. The sidebar contains the node subtypes, which are:
 
-- **QA Nodes**: For asking questions and receiving answers.
+- **Dialogue Nodes**: For asking questions and receiving answers.
 - **Action Nodes**: For performing actions like sending emails, SMS messages, booking appointments, or transferring calls.
 - **End Nodes**: For ending the conversation gracefully.
 
-#### Question & Answer (QA) Nodes
+#### Dialogue Nodes
 
 - **Purpose**: To ask questions and collect responses from the user.
 - **How to Add**:
-  - Click on the **QA Node** icon (chat bubble) in the sidebar.
+  - Click on the **Dialogue Node** icon (chat bubble) in the sidebar.
   - Drag and drop it onto the canvas.
 - **Usage**: Ideal for greetings, collecting user information, and any interaction requiring user input.
 
@@ -172,7 +134,7 @@ Transitions define how the conversation moves from one node to the next based on
 
 The sidebar provides quick access to various node subtypes and tools to enhance your conversation flow:
 
-- **QA Nodes**: Use these to ask questions and receive user input.
+- **Dialogue Nodes**: Use these to ask questions and receive user input.
 - **Action Nodes**:
   - **Email Node**: Send automated emails.
   - **SMS Node**: Send text messages in real-time.
@@ -275,6 +237,54 @@ The Conversation Tree Editor includes an **Auto-Generate** feature that allows y
 
 **Note**: The Auto-Generate feature is designed to assist you, but always review the generated flow for accuracy and completeness.
 
+## Pre-Call API
+
+The **Pre-Call API** lets you fetch external data—such as customer information—*before* the main conversation flow begins. By retrieving details from an external system, you can personalize your call experience and streamline the flow based on real-time data.
+
+### Configuring the Pre-Call API
+
+1. **Endpoint & Method**  
+   - Enter the API endpoint (e.g., `https://platform.nlpearl.ai/customer/{phone_number}`) and select the HTTP method (e.g., **GET**).
+
+2. **Headers (Optional)**  
+   - If your API requires special headers (like authorization tokens), add them here.
+
+3. **Response Mappings**  
+   - In the **Response** section, map each JSON key from your API response to a corresponding variable in the conversation flow.
+   - For each key, mark it as **Required** or **Optional**:
+     - **Required**: If *any* required key is missing, the outcome is **Not Success**.
+     - **Optional**: Missing keys do *not* affect the success outcome.
+   - When all required fields are present, the flow transitions to **Success**.
+
+4. **Combine Transition**  
+   - Enable **Combine Transition** if you do *not* need separate **Success** and **Not Success** paths. This merges both outcomes into a single flow path, regardless of the response.
+
+
+
+### Using Pre-Call Variables
+
+Any variables populated by the Pre-Call API become available to all subsequent nodes. This allows you to:
+
+  - **Personalize**: responses using the fetched data (for example: "Hello, `{Customer Name}`").
+  - **Branch Logic**: more accurately, based on known user attributes (for example: customer ID or email).
+
+### Example
+
+Below are two images illustrating the Pre-Call API in action:
+
+1. **Flow Example Using the Pre-Call API**  
+   ![Flow Example Using Pre-Call API](/images/exemples/api-pre-call-tree.png "Flow Example Using Pre-Call API")
+   In this example, the conversation will follow the **Success** path if the required fields are found; otherwise, it transitions to **Not Success**.
+
+2. **Pre-Call API Configuration**  
+<img src="/images/exemples/api-pre-call-settings.png" alt="Pre-Call API Configuration Panel" width="50%" height="50%" />
+   This screenshot shows how to specify your endpoint, configure headers, map JSON keys to variables, and set the required/optional status.
+
+For more details on connecting to external systems, see our [API page](/pages/api_action).
+
+---
+
+
 ## Best Practices
 
 - **Plan Your Flow**: Sketch out the conversation flow before building it.
@@ -298,7 +308,7 @@ The Conversation Tree Editor includes an **Auto-Generate** feature that allows y
 
 1. **Greeting Node**:
    - **Script**: "Hello! Thank you for calling XYZ Company. My name is {agentName}."
-2. **Satisfaction Question Node (QA)**:
+2. **Satisfaction Dialogue Node (Dialogue)**:
    - **Script**: "On a scale of 1 to 5, how satisfied are you with our service?"
    - **Store Response In**: `satisfactionLevel`
    - **Conditional Transitions**:
@@ -313,7 +323,7 @@ The Conversation Tree Editor includes an **Auto-Generate** feature that allows y
    - **Options Configuration**:
      - Enable **Coded Values** if needed.
      - Provide options like "Customer Service", "Pricing", "Product Quality".
-5. **Email Request Node (QA)**:
+5. **Email Request Node (Dialogue)**:
    - **Script**: "Could you please provide your email address so we can send you a summary of your responses?"
    - **Store Response In**: `customerEmail`
    - **Transitions**:
