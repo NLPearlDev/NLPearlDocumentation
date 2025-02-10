@@ -1,0 +1,28 @@
+/* Target the Platform anchor by its URL */
+a[href="https://platform.nlpearl.ai/"] {
+  transition: color 0.3s ease, fill 0.3s ease;
+}
+
+/* Change the text color on hover */
+a[href="https://platform.nlpearl.ai/"]:hover {
+  color: #006FFE;  /* Your desired hover color */
+}
+
+/* 
+   For inline SVG icons, force the fill to change on hover.
+   This targets both the <svg> element and its <path> children.
+*/
+a[href="https://platform.nlpearl.ai/"]:hover svg,
+a[href="https://platform.nlpearl.ai/"]:hover svg path {
+  fill: #1620aa !important;
+}
+
+/* 
+   If the icon is rendered via an icon font and uses a pseudo-element,
+   this rule may help. Uncomment it if needed.
+*/
+/*
+a[href="https://platform.nlpearl.ai/"]:hover::before {
+  color: #FF5733 !important;
+}
+*/
