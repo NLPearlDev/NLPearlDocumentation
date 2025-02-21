@@ -9,153 +9,113 @@ description: 'Learn how to integrate your own VoIP service with NLPearl.AI.'
   style={{ width: '50px', float: 'right', marginTop: '-130px' }}
 />
 
-Integrate your own VoIP service with NLPearl.AI to use your existing phone numbers for inbound and outbound calls. This flexibility allows you to leverage your current VoIP infrastructure while benefiting from NLPearl.AI's advanced features.
+Custom VoIP Integration  
+Learn how to integrate your own VoIP service with NLPearl.AI.
+
+Integrate your own VoIP service with NLPearl.AI to use your existing phone numbers for inbound and outbound calls. This flexibility allows you to leverage your current VoIP infrastructure while benefiting from NLPearl.AI’s advanced features.
 
 ### How to Integrate Your Custom VoIP Service
 
 To integrate your custom VoIP service, follow these steps:
 
-1. **Access Settings**:
-   - Click on the **Settings** icon located at the bottom left corner of the NLPearl.AI dashboard.
+- **Access Settings:**  
+  Click on the Settings icon located at the bottom left corner of the NLPearl.AI dashboard.
 
-2. **Navigate to Phone Numbers Tab**:
-   - In the Settings menu, select the **Phone Numbers** tab.
+- **Navigate to Phone Numbers Tab:**  
+  In the Settings menu, select the Phone Numbers tab.
 
-3. **Add Phone Number**:
-   - Click on the **Add Phone Number** button.
+- **Add Phone Number:**  
+  Click on the Add Phone Number button.
 
-4. **Select Custom VoIP Integration**:
-   - Choose the **Custom VoIP** option. A configuration popup will appear where you need to provide specific details.
+- **Select Custom VoIP Integration:**  
+  Choose the Custom VoIP option.  
 
 ### Configuring Your Custom VoIP
 
-In the configuration popup, you'll need to fill in the following information:
+In the configuration popup, you’ll need to fill in the following information:
 
 #### 1. Phone Number
 
-- **Phone Number**: Enter the phone number you wish to integrate. Ensure it is in the correct format, including the country code.
+**Phone Number:** Enter the phone number you wish to integrate.  
+*It can be any number – it's just for display (DID NUMBER/extension, etc.).*  
 
-#### 2. Choose Configuration Type
+Press **Continue**.
 
-Decide whether you are configuring for **Inbound**, **Outbound**, or **Both**:
+#### Inbound Configuration Settings
 
-- **Inbound Configuration**: Allows you to receive calls on NLPearl.AI using your VoIP number.
-- **Outbound Configuration**: Enables NLPearl.AI to make calls using your VoIP number.
-- **Both**: Configure settings for both inbound and outbound calls.
+- **TLS (SRTP) Encryption:**  
+  Toggle On/Off: Enable this if you connect to us with TLS encryption.
 
-### Inbound Configuration Settings
+- **Authentication Methods (choose one):**
 
-If you select **Inbound** or **Both**, provide the following details:
+  - **IP Address Authentication:**  
+    **IP Address:** Enter the IP addresses of your VoIP servers so we can authorize requests from them.
 
-- **TLS (SRTP) Encryption**:
-  - **Toggle On/Off**: Enable this if your VoIP service requires TLS encryption.
+  - **Credentials Authentication (Optional):**  
+    This is the username and password you need to send when making a request.  
+    **Username:** Username for authentication (minimum X and maximum X).  
+    **Password:** Password (minimum X characters, 1 digit, mix, etc.).
 
-- **Authentication Methods** (choose one or both):
+*Once you save the inbound configuration, you will receive a SIP Domain to connect. You will need to add this SIP Domain to your VoIP configuration so it can transfer the call to our platform. If you choose Credentials Authentication, make sure to also include the username and password you select in your VoIP settings.*
 
-  - **IP Address Authentication**:
-    - **IP Address (Optional)**: Enter the IP address authorized to send calls to NLPearl.AI.
 
-  - **Credentials Authentication (Optional)**:
-    - **Username**: Enter the SIP username for authentication.
-    - **Password**: Enter the SIP password.
+#### Outbound Configuration Settings
 
-### Outbound Configuration Settings
+- **TLS (SRTP) Encryption:**  
+  Toggle On/Off: Enable this if your VoIP service requires TLS encryption.
 
-If you select **Outbound** or **Both**, provide the following details:
+- **SIP Trunk URL:**  
+  **URL:** Enter the SIP trunk URL provided by your VoIP provider.
 
-- **TLS (SRTP) Encryption**:
-  - **Toggle On/Off**: Enable this if your VoIP service requires TLS encryption.
+- **User Part:**  
+  **E.164 Number/Extension/User ID:** Enter the identifier used for outbound calls (e.g., your phone number in E.164 format, extension, or user ID).
 
-- **SIP Trunk URL**:
-  - **URL**: Enter the SIP trunk URL provided by your VoIP provider.
+- **Authentication Methods (optional based on your VoIP):**
 
-- **User Part**:
-  - **E.164 Number/Extension/User ID**: Enter the identifier used for outbound calls (e.g., your phone number in E.164 format, extension, or user ID).
+  - **Credentials Authentication:**  
+    **Username:** Enter your SIP username.  
+    **Password:** Enter your SIP password.
 
-- **Authentication Methods** (choose one or more):
+  - **Header-Based Authentication:**  
+    **Header Key:** Enter the header key required for authentication.  
+    **Header Value:** Enter the corresponding header value.
 
-  - **Credentials Authentication (Optional)**:
-    - **Username**: Enter the SIP username for authentication.
-    - **Password**: Enter the SIP password.
-
-  - **Header-Based Authentication (Optional)**:
-    - **Header Key**: Enter the header key required for authentication.
-    - **Header Value**: Enter the corresponding header value.
-
-  - **IP Address Allow List**:
-    - **IP Address (Optional)**: Specify the IP addresses allowed to send calls.
-
-### Finalizing the Integration
-
-After filling in the necessary details:
-
-1. **Review Configuration**:
-   - Ensure all the information provided is correct and complete.
-
-2. **Save Settings**:
-   - Click on the **Save** button to finalize the integration.
-
-3. **Test the Connection**:
-   - It's recommended to perform a test call to verify that the integration works correctly for both inbound and outbound calls.
-
-### Important Considerations
-
-- **Inbound Only, Outbound Only, or Both**:
-  - You have the flexibility to configure your VoIP integration for inbound calls, outbound calls, or both, depending on your needs.
-
-- **Technical Requirements**:
-  - Ensure that your VoIP provider supports SIP protocol and can be configured with the settings provided.
-
-- **Security and Encryption**:
-  - If your VoIP service requires TLS (SRTP) encryption, make sure to enable it during configuration to secure your calls.
-
-- **Authentication Methods**:
-  - Choose the authentication method(s) supported by your VoIP provider. You may need to provide credentials, IP addresses, or header-based authentication details.
-
-- **IP Address Authentication**:
-  - When using IP address authentication, confirm that the specified IP addresses are correctly configured on your VoIP provider's side.
+  - **IP Address Allow List:**  
+    **IP Address:** See [Twilio's SIP Trunking IP Addresses](https://www.twilio.com/docs/sip-trunking/ip-addresses).
 
 ### Managing Your Custom VoIP Phone Numbers
 
 Once integrated:
 
-- **Assign to Campaigns**:
-  - You can assign your custom VoIP phone numbers to inbound or outbound campaigns within NLPearl.AI.
+- **Assign to Inbound/Outbound:**  
+  You can assign your custom VoIP phone numbers to inbound or outbound campaigns within NLPearl.AI.
 
-- **Update Configuration**:
-  - If any changes are needed, you can edit the VoIP settings by accessing the phone number in the **Phone Numbers** tab.
+- **Update Configuration:**  
+  If any changes are needed, you can edit the VoIP settings by accessing the phone number in the Phone Numbers tab.
 
 ### Troubleshooting Tips
 
-- **Connection Issues**:
-  - Double-check all configuration settings, especially SIP URLs, usernames, passwords, and IP addresses.
+- **Connection Issues:**  
+  Double-check all configuration settings, especially SIP URLs, usernames, passwords, and IP addresses.
 
-- **Authentication Failures**:
-  - Verify that the authentication method selected matches what is supported by your VoIP provider.
+- **Authentication Failures:**  
+  Verify that the authentication method selected matches what is supported by your VoIP provider.
 
-- **Call Quality**:
-  - If experiencing poor call quality, consider enabling or disabling TLS encryption as required by your VoIP provider.
-
-- **Provider Support**:
-  - Contact your VoIP provider for any provider-specific settings or requirements.
+- **Provider Support:**  
+  Contact your VoIP provider for any provider-specific settings or requirements.
 
 ### Advantages of Custom VoIP Integration
 
-- **Flexibility**:
-  - Use your existing VoIP infrastructure without the need to switch providers.
+- **Flexibility:**  
+  Use your existing VoIP infrastructure without the need to switch providers.
 
-- **Global Reach**:
-  - Access phone numbers and calling capabilities in regions supported by your VoIP service.
+- **Global Reach:**  
+  Access phone numbers and calling capabilities in regions supported by your VoIP service.
 
 ### Next Steps
 
-- **Need Assistance?**
-  - If you require help with the integration process, please refer to our support resources or contact our support team for guidance.
+- **Need Assistance?**  
+  If you require help with the integration process, please refer to our support resources or contact our support team for guidance.
 
-- **Explore Other Options**:
-  - If Custom VoIP Integration doesn't suit your needs, consider our [NLPearl Phone Numbers](/pages/nlpearl_phones) or [Twilio Integration](/pages/twilio_integration) options.
-
----
-
-By integrating your custom VoIP service with NLPearl.AI, you can seamlessly incorporate your existing phone numbers into our platform, allowing for a unified and efficient communication strategy tailored to your specific requirements.
-
+- **Explore Other Options:**  
+  If Custom VoIP Integration doesn’t suit your needs, consider our [NLPearl Phone Numbers](/pages/nlpearl_phones) or [Twilio Integration](/pages/twilio_integration) options.
