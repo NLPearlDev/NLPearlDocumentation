@@ -247,6 +247,68 @@
                 }
             }
         },
+        "/v1/Inbound/{inboundId}/OngoingCalls": {
+            "get": {
+                "tags": [
+                    "Inbound"
+                ],
+                "summary": "Get Inbound Ongoing Calls",
+                "description": "Returns the number of active calls currently in progress and in queue for the specified inbound ID.",
+                "parameters": [
+                    {
+                        "name": "inboundId",
+                        "in": "path",
+                        "description": "The unique identifier of the inbound.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the specific inbound.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InboundOngoingCallsApiView"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InboundOngoingCallsApiView"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InboundOngoingCallsApiView"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v1/Inbound/{inboundId}/Active": {
             "post": {
                 "tags": [
@@ -1229,34 +1291,28 @@
                 }
             }
         },
-        "/api/Slack/install": {
-            "get": {
+        "/v1/Pearl/{pearlId}/Memory/{phoneNumber}/Reset": {
+            "put": {
                 "tags": [
-                    "Slack"
+                    "Pearl"
                 ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/api/Slack/callback": {
-            "get": {
-                "tags": [
-                    "Slack"
-                ],
+                "summary": "Reset Customer Memory",
+                "description": "Resets stored memory associated with a specific customer's phone number for a given Pearl.",
                 "parameters": [
                     {
-                        "name": "code",
-                        "in": "query",
+                        "name": "pearlId",
+                        "in": "path",
+                        "description": "The unique identifier of the Pearl whose memory should be reset.",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "error",
-                        "in": "query",
+                        "name": "phoneNumber",
+                        "in": "path",
+                        "description": "The phone number associated with the customer whose memory should be reset.",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -1264,50 +1320,47 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/api/Slack/channels": {
-            "get": {
-                "tags": [
-                    "Slack"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/api/Slack/message": {
-            "post": {
-                "tags": [
-                    "Slack"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SlackMessageRequest"
-                            }
-                        },
-                        "text/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SlackMessageRequest"
-                            }
-                        },
-                        "application/*+json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SlackMessageRequest"
+                        "description": "Memory reset successful.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
                             }
                         }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Invalid input parameters.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "An internal server error occurred."
                     }
                 }
             }
@@ -1618,7 +1671,7 @@
                         "items": {
                             "$ref": "#/components/schemas/eLeadStatusView"
                         },
-                        "description": "List of Status to filter by.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Complete`\n\n`150 - Unreachable`\n\n`500 - Error`\n",
+                        "description": "List of Status to filter by.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Complete`\n\n`150 - Unreachable`\n\n`500 - Error`\n",
                         "nullable": true
                     },
                     "searchInput": {
@@ -1757,6 +1810,22 @@
                         "type": "string",
                         "description": "The date and time when the inbound was created.",
                         "format": "date-time"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "InboundOngoingCallsApiView": {
+                "type": "object",
+                "properties": {
+                    "totalOngoingCalls": {
+                        "type": "integer",
+                        "description": "The total number of ongoing calls.",
+                        "format": "int32"
+                    },
+                    "totalOnQueue": {
+                        "type": "integer",
+                        "description": "The total number of calls currently in the queue.",
+                        "format": "int32"
                     }
                 },
                 "additionalProperties": false
@@ -1962,7 +2031,7 @@
                         "items": {
                             "$ref": "#/components/schemas/eLeadStatusView"
                         },
-                        "description": "Optional filters for the status of the leads. Only leads with this status will be included in the results.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Complete`\n\n`150 - Unreachable`\n\n`500 - Error`\n",
+                        "description": "Optional filters for the status of the leads. Only leads with this status will be included in the results.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Complete`\n\n`150 - Unreachable`\n\n`500 - Error`\n",
                         "nullable": true
                     },
                     "searchInput": {
@@ -2189,20 +2258,6 @@
                 "additionalProperties": false,
                 "description": "Defines the request structure for setting the active status of an entity."
             },
-            "SlackMessageRequest": {
-                "type": "object",
-                "properties": {
-                    "channelId": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "message": {
-                        "type": "string",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false
-            },
             "TableDateSearch": {
                 "required": [
                     "fromDate",
@@ -2292,7 +2347,7 @@
             },
             "eCallAuthorizationStatus": {
                 "type": "integer",
-                "description": "Represents the authorization status for making calls.\n\n`1 - FullAccess`\n\n`2 - LimitedAccess`\n\n`3 - NoCredits`\n\n`4 - SuspendedAccount`\n\n",
+                "description": "Represents the authorization status for making calls.\n\n`1 - FullAccess`\n\n`2 - LimitedAccess`\n\n`3 - NoCredits`\n\n`4 - SuspendedAccount`\n\n`5 - DebtReached`\n\n",
                 "format": "int32"
             },
             "eCallStatusView": {
@@ -2312,7 +2367,7 @@
             },
             "eLeadStatusView": {
                 "type": "integer",
-                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Complete`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
+                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Complete`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
                 "format": "int32"
             }
         },

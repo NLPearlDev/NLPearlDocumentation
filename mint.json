@@ -115,12 +115,19 @@
     "pages": [
       "api-reference/call/get-call"
     ]
+  },    
+  {
+    "group": "Pearl",
+    "pages": [
+      "api-reference/pearl/reset-memory"
+    ]
   },
   {
     "group": "Inbound",
     "pages": [
       "api-reference/inbound/get-inbounds",
       "api-reference/inbound/get-inbound",
+      "api-reference/inbound/get-inbound-ongoing-calls",
       "api-reference/inbound/set-activity-state",
       "api-reference/inbound/search-calls"
     ]
