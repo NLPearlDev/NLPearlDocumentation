@@ -1752,6 +1752,7 @@
                             "$ref": "#/components/schemas/eLeadStatusView"
                         },
                         "description": "List of Status to filter by.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Complete`\n\n`150 - Unreachable`\n\n`500 - Error`\n",
+
                         "nullable": true
                     },
                     "searchInput": {
