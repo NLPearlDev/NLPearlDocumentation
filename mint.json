@@ -143,6 +143,7 @@
       "api-reference/outbound/search-leads",
       "api-reference/outbound/get-lead",
       "api-reference/outbound/get-lead-via-external-id",
+      "api-reference/outbound/delete-leads",
       "api-reference/outbound/make-call",
       "api-reference/outbound/get-call-request",
       "api-reference/outbound/search-call-requests"
