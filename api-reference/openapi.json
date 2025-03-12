@@ -1145,6 +1145,88 @@
                 }
             }
         },
+        "/v1/Outbound/{outboundId}/Leads/External": {
+            "delete": {
+                "tags": [
+                    "Outbound"
+                ],
+                "summary": "Delete leads Via External",
+                "description": "Deletes one or more leads associated with a specific outbound campaign.",
+                "parameters": [
+                    {
+                        "name": "outboundId",
+                        "in": "path",
+                        "description": "The unique identifier of the outbound campaign from which the leads should be deleted.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The request object containing the list of external lead IDs to be deleted.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeleteLeadsbyExternalRequestApi"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeleteLeadsbyExternalRequestApi"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeleteLeadsbyExternalRequestApi"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns a boolean indicating if the deletion was successful.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v1/Outbound/{outboundId}/Call": {
             "post": {
                 "tags": [
@@ -1752,7 +1834,6 @@
                             "$ref": "#/components/schemas/eLeadStatusView"
                         },
                         "description": "List of Status to filter by.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Complete`\n\n`150 - Unreachable`\n\n`500 - Error`\n",
-
                         "nullable": true
                     },
                     "searchInput": {
@@ -1826,6 +1907,21 @@
                 },
                 "additionalProperties": false,
                 "description": "Represents the request object for deleting one or more leads associated with an outbound campaign."
+            },
+            "DeleteLeadsbyExternalRequestApi": {
+                "type": "object",
+                "properties": {
+                    "leadExternalIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of external lead IDs to be deleted.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents the request object for deleting one or more leads associated with an outbound campaign using external identifiers."
             },
             "InboundApiView": {
                 "type": "object",
