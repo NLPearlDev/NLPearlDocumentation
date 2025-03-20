@@ -49,7 +49,10 @@ Choose the type of use case for your Pearl:
 
    - **Default Agent Configuration**: The first agent configuration you add is set as the default. This agent will initiate the conversation when a call begins.
 
-3. **Personality**: Set the personality traits of the agent to match the desired interaction style.
+3. **Personality**: Your Pearl’s personality isn’t just for show—it determines the words and tone it uses in conversations.
+Want a funny character? Get ready for the occasional joke (don’t worry, Pearl won’t quit its day job for stand-up).
+Prefer an aggressive closer? Pearl will make sure “no” is just a speed bump on the way to “yes.”
+Choose wisely—your AI’s personality shapes every interaction.
 4. **Timezone**: Define the timezone of the agent. This influences time-related actions, such as booking meetings.
 
 #### Step 3: Agent Knowledge Base
@@ -57,6 +60,28 @@ Choose the type of use case for your Pearl:
 1. **Company Name**: Enter the name of the company the agent represents during conversations.
 2. **Company Description**: Provide a brief description of the company, including sector and basic information.
 3. **Pearl Knowledge Base**: Provide detailed information about your services, pricing, location, operational data, and website. This can be entered as free text or by uploading a file.
+4. **Memory**: When enabled, Pearl remembers the lead or user, allowing it to pick up conversations right where they left off. This is especially useful for multi-step processes, follow-ups, or any scenario requiring continuity.
+Let’s take an example from the hospitality industry—though this feature is a game-changer across all industries.
+Imagine Pearl remembering guests by their room number. It can greet them by name, recall their preferences, and create a seamless, personalized experience. That’s next-level customer engagement!
+Need a fresh start? No problem! You can reset Pearl’s memory via API—crucial in hospitality settings. When a guest checks out, Pearl wipes the slate clean, ensuring that the next visitor starts with a brand-new experience.
+5. **Speech Recognition Keywords**
+Defining your keywords helps Pearl accurately recognize terms specific to your business—especially when dealing with made-up product names or words that aren’t in the dictionary.
+For example, if your bakery sells a revolutionary new pastry called FluffoBun, you can teach Pearl its possible pronunciations:<br />
+<br />__• Keyword:__ FluffoBun
+<br />__• Pronunciations:__ fluh-foh-bun, floof-oh-bun, fluff-bunb (*separate each pronunciation with a comma*)
+<br /><br />This ensures Pearl understands your unique terminology, no matter how creatively named!
+	<img
+	className="block dark:hidden"
+	src="/images/light_mode/speech_reco.png"
+	alt="NLPearl.AI Logo Light"
+	style={{ borderRadius: '18px' }}
+	/>
+	<img
+	className="hidden dark:block"
+	src="/images/dark_mode/speech_reco.png"
+	alt="NLPearl.AI Logo Dark"
+	style={{ borderRadius: '18px' }}
+	/>
 
 #### Step 4: Flow Configuration
 
