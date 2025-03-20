@@ -16,43 +16,58 @@ Outbound campaigns enable your AI agents to make outgoing calls to a list of lea
 ### Steps to Create an Outbound Campaign
 
 1. **Create a Pearl**: Ensure you have created a Pearl that defines the flow of the conversation for your outbound calls.
-
 2. **Add Leads**: Add the leads you want to contact directly from the platform. You can input lead details such as name, phone number, and any other relevant information.
-
 3. **Schedule Calls**: Define the schedule for when the AI agents will make the outbound calls. You can specify dates, times, and frequency to suit your campaign needs.
-
 4. **Configure Outbound Settings**: Set up your outbound parameters, such as:
-
-   - **Number of Agents**: Specify the number of agents that will handle calls simultaneously.
-
-   - **Default Time Zone**: The default time zone will be applied to all leads you enter if you don't specify their individual time zones.
-
-   - **Assign a Phone Number**: When you create an outbound campaign, you are required to assign a phone number from which the calls will originate. 
-   You can choose from your own phone numbers or select from the list of default phone numbers provided by the platform. 
-   See Bellow how choosing a phone number can impact the *country code* of your outbound campaign.
-
-   - **Campaign Budget**: Define the budget for your campaign. Once the budget is reached, Pearl will stop making calls for that campaign.
-
-   - **Call Webhook**: A call webhook is triggered at key points during the call lifecycle, such as when the call is initiated and when it ends.
-	You receive an object similar to the one returned by the [Get Calls](/api-reference/call/get-call) endpoint. This includes details like call duration, outcome, and any data collected during the call.
+   - **Name**: The name of the outbound campaign to easily identify its purpose and target audience.
+   - **Pearl**: Choose the Pearl that defines the conversation flow for this campaign. The AI will follow this predefined script when interacting with leads.
+   - **Phone Number**: Select a phone number for the campaign. *Be careful with the country code—read below to understand its impact.* The number assigned to the campaign dictates which country codes will be supported for lead calls.
+   - **Budget**: Define the budget for your campaign. Once the budget is reached, Pearl will stop making calls for that campaign. This is optional, and you can always increase it if you have enough credit in your account.
+   - **Number of Simultaneous Agents**: Specify how many AI agents can make calls at the same time. A higher number allows for more rapid outreach but may require additional resources.
+   - **Recording Options**:
+     - **Pearl & End-user**: Both the AI and the lead’s voice are recorded.
+     - **Pearl Only**: Only the AI’s voice is recorded.
+     - **No Recording**: No call recording is saved.
+     <br />Choosing the best option depends on your privacy policies and compliance regulations. Some industries require full recordings for auditing purposes, while others prioritize customer privacy.
+   - **Recording After Transfer Call**: *Boolean* - If enabled, the call will continue to be recorded after being transferred. *Note: "Pearl & End-user" must be selected; otherwise, it will be automatically disabled.* This setting is important for maintaining logs in multi-agent interactions.
+   - **Transcript Masking**: _(Post-Call)_ When enabled, sensitive information in conversation transcripts is automatically masked after the call while preserving essential context.
+      This is especially useful for post-call analysis, compliance, and data security, ensuring that private details like:
+      Credit card numbers
+      Social Security numbers
+      Personal identifiers
+      are redacted while keeping the conversation readable.
+    > For example, if a customer says:
+    "My credit card number is 1234-5678-9012-3456."
+    The transcript might store it as:
+    "My credit card number is --**-3456."
+    This helps businesses review interactions safely without exposing sensitive data.
+    - **Retry Call Attempts**: Choose how many times Pearl should retry calling a lead if the initial attempt fails (from 1 to 5 attempts). This prevents leads from being lost due to missed calls while avoiding excessive spam-like behavior.
+      - **Retry Intervals**:
+        - At least every 3 hours
+        - At least every 6 hours
+        - At least once a day
+        - At least once every 3 days
+        - At least once a week
+        - At least once a month
+    <br />Setting the right interval ensures follow-ups occur without overwhelming the lead.
+   - **Ring Duration**: Define how long Pearl will ring before ending the call. You can choose a duration between **10 and 50 seconds**. If the lead does not answer within this time, the call status will be marked as "No Answer." Shorter durations prevent wasted time, while longer durations increase answer rates.
+   - **Voicemail Drop**: When Pearl reaches voicemail, she can leave a **personalized message** using variables like the lead’s first name. This creates a more human-like interaction even when the lead doesn’t answer.
+   <br />_You can only use Pre-Call variables in the voicemail drop_
+   This ensures a friendly and engaging experience for your leads, increasing the chances of a callback. 
+    <br />- **Example:**  
+    > "Hi `First Name`, this is Pearl calling on behalf of `Your Company`. I just tried reaching you but missed you this time! Feel free to call me back at `Your Callback Number`. Looking forward to speaking with you soon!"  
   
-   - **Lead Webhook**: A lead webhook is triggered every time a specific lead changes status, at the beginning of the call and at the end of the call.
-	You receive an object similar to the one returned by the [Get Leads](/api-reference/outbound/get-lead) endpoint. This includes all relevant information about the lead and its current status.
-	Use this webhook to update your CRM or lead management system in real-time, ensuring that you have the most up-to-date information on lead interactions.
-
+   - **Call Webhook**: A call webhook is triggered at key points during the call lifecycle, such as when the call is initiated and when it ends. You receive an object similar to the one returned by the [Get Calls](/api-reference/call/get-call) endpoint, including details like call duration, outcome, and any data collected during the call. This is useful for tracking call performance and automation.
+   - **Lead Webhook**: A lead webhook is triggered every time a specific lead changes status, at the beginning of the call and at the end of the call. You receive an object similar to the one returned by the [Get Leads](/api-reference/outbound/get-lead) endpoint. This includes all relevant information about the lead and its current status. Use this webhook to update your CRM or lead management system in real-time, ensuring that you have the most up-to-date information on lead interactions.
 
 ### Understanding Country Codes
 
 Understanding how the country code affects your campaign is crucial:
 
 - **Single Country Code per Campaign**: Each outbound campaign is restricted to one country code. This means you can only call leads with phone numbers from the same country.
-
 - **Setting and Managing the Country Code**: The country code for your outbound campaign is automatically set based on the phone number you assign during creation. The phone number you select determines the country code for the campaign. Once assigned, the country code matches the phone number's country code and **cannot be changed** for that campaign. You will only be able to add leads with phone numbers matching this country code.
-
-  - **Changing Phone Numbers**: You can change the assigned phone number **within the same country code**. If you need to assign a phone number from a different country code, you will need to create a **new outbound campaign**.
-
+- **Changing Phone Numbers**: You can change the assigned phone number **within the same country code**. If you need to assign a phone number from a different country code, you will need to create a **new outbound campaign**.
 - **Adding Leads**: You can only add leads whose phone numbers match the campaign's country code.
-
 - **Creating Multiple Campaigns**: If you need to operate across multiple country codes, you should create separate outbound campaigns for each country code.
 - As our platform currently only offers US phone numbers, please refer to the Phone Numbers tab to explore the options available if you need to reach phone numbers from other country codes.
 
@@ -72,31 +87,4 @@ Understanding how the country code affects your campaign is crucial:
     Learn how to purchase and manage phone numbers, and configure them for your NLPearl.AI activities.
   </Card>
 </CardGroup>
-
-### Managing Your Outbound Campaigns
-
-Once your campaign is set up, NLPearl.AI handles the outbound calls autonomously, following the Pearl flow you created. The platform allows you to monitor the progress and performance of your campaigns in real-time.
-
-<div className="campaign-management-info">
-  <h3>Campaign Management Features:</h3>
-  <p>Track the status of your outbound calls, view detailed reports on call outcomes, and adjust your campaign settings as needed to optimize performance.</p>
-</div>
-
-### Using the API for Outbound Campaigns
-
-You can also handle your outbound campaigns using the NLPearl.AI API. This allows for more dynamic and flexible management of calling leads. 
-For detailed information, refer to the [Outbound API Documentation](/api-reference/outbound/get-outbounds).
-
-<CardGroup cols={1}>
-  <Card
-    title="Outbound API"
-    icon="network-wired"
-    href="/api-reference/outbound/get-outbounds"
-  >
-    Learn how to manage your outbound campaigns using the API for dynamic and flexible lead calling.
-  </Card>
-</CardGroup>
-
-
-
 
