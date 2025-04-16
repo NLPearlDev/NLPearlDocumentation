@@ -129,7 +129,8 @@
       "api-reference/inbound/get-inbound",
       "api-reference/inbound/get-inbound-ongoing-calls",
       "api-reference/inbound/set-activity-state",
-      "api-reference/inbound/search-calls"
+      "api-reference/inbound/search-calls",
+      "api-reference/inbound/get-analytics"
     ]
   },
   {
@@ -147,7 +148,8 @@
       "api-reference/outbound/delete-leads-external-id",
       "api-reference/outbound/make-call",
       "api-reference/outbound/get-call-request",
-      "api-reference/outbound/search-call-requests"
+      "api-reference/outbound/search-call-requests",
+      "api-reference/outbound/get-analytics"
     ]
   }
   ],
