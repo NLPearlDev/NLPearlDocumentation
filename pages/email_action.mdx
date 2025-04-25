@@ -33,60 +33,78 @@ During the creation of a Pearl, you can easily activate and configure the "Send 
 
 - **When to Trigger the Action**: This field is crucial. Here, you describe the conditions under which you want the agent to send the email. For example, "Send an email when the customer agrees to receive more information" or "Send a confirmation email when the prospect is ready to finalize the deal." Your agent will automatically send the email when these conditions are met during the discussion.
 
-### How to Connect Your Email to Pearl
+## How to Connect Your Email to Pearl
 
-Pearl allows you to send emails directly from your own business email address. You can choose between three connection options: Gmail, Office365 (Microsoft), or Custom SMTP (any provider).
+Pearl can send emails **from your own business address** via one of three connection methods: **Gmail**, **Office 365**, or **Custom SMTP**.
 
-#### 1. Connect Gmail Account
+<div
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',        /* espace entre logo et texte */
+    justifyContent: 'flex-start', /* tout à gauche */
+    width: '100%',
+  }}
+>
+  <img
+    src="/logo/gmail_icon.webp"
+    alt="Gmail icon"
+    style={{ width: '38px', height: '30px' }}
+  />
+  <h3 style={{ margin: 0 }}>1. Connect Gmail Account</h3>
+</div>
 
-<img
-  src="/logo/gmail_icon.webp"
-  alt="gmail Icon"
-  style={{ width: '50px', float: 'right', marginTop: '-40px', marginRight: '420px' }}
-/>
+**Steps**
+1. Select **Gmail** from the provider list.
+2. Enter your **Sender Email** (your Gmail address).
+3. Enter a **Gmail app‑password** (not your normal password – [learn how to generate one](https://support.google.com/accounts/answer/185833)).
+4. *(Optional)* Add an address under **Test Email to**.
+5. Click **Test Config** – if it succeeds, click **Save**.
 
-**Steps:**
-1. Select **Gmail** from the provider dropdown.
-2. Enter your **Sender Email** (the Gmail address you want to send from).
-3. Enter your **Gmail app password** (not your regular Gmail password — learn how to generate an app password).
-4. (Optional) Add a **Test Email** address under **Test Email to**.
-5. Click **Test Config** to confirm the setup.
-6. Once successful, click **Save**.
+<Warning>Enable **2‑factor authentication** on your Google account and use an **app‑password** – not your main password.</Warning>
 
-<Warning>Make sure **2FA is enabled** on your Gmail account. You must use an app-specific password, not your main password.</Warning>
+<div
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',        /* espace entre logo et texte */
+    justifyContent: 'flex-start', /* tout à gauche */
+    width: '100%',
+  }}
+>
+  <img
+    src="/logo/Logo_Outlook 365.png"
+    alt="Gmail icon"
+    style={{ width: '40px', height: '45px' }}
+  />
+  <h3 style={{ margin: 0 }}>2. Connect Office 365 Account </h3>
+</div>
 
-#### 2. Connect Office365 Account
+**Steps**
+1. Select **Office 365** from the provider list.
+2. Enter your **Sender Email** (Microsoft address).
+3. Enter an **Office 365 app‑password** (see your Microsoft security settings).
+4. *(Optional)* Add a **Test Email** address.
+5. Click **Test Config**; then **Save**.
 
-<img
+<Warning>Office 365 may block basic SMTP by default – be sure your tenant allows it and use an app‑password where required.</Warning>
 
-  src="/logo/Logo_Outlook 365.png"
-  alt="Outlook 365 Icon"
-  style={{ width: '200px', float: 'right', marginTop: '-60px', marginRight: '250px' }}
-/>
-
-**Steps:**
-1. Select **Office365** from the provider dropdown.
-2. Enter your **Sender Email** (your Microsoft email address).
-3. Enter your **Office365 app password** (not your regular password — check your Microsoft account settings to create one).
-4. (Optional) Add a **Test Email** address under **Test Email to**.
-5. Click **Test Config** to verify the setup.
-6. Click **Save** when the test succeeds.
-
-<Warning>For security reasons, Office365 may also require app-specific passwords. Make sure your account allows SMTP connections.</Warning>
-
-#### 3. Connect via Custom SMTP
-
-<img
-	className="block dark:hidden"
-  src="/logo/email_icon.png"
-  alt="Custom VoIP Icon"
-  style={{ width: '50px', float: 'right', marginTop: '-50px', marginRight: '400px' }}
-/><img
-	className="hidden dark:block"
-  src="/logo/email_icon.png"
-  alt="Custom VoIP Icon"
-  style={{ width: '50px', float: 'right', marginTop: '-50px', marginRight: '400px' }}
-/>
+<div
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',        /* espace entre logo et texte */
+    justifyContent: 'flex-start', /* tout à gauche */
+    width: '100%',
+  }}
+>
+  <img
+    src="/logo/email_icon.png"
+    alt="Gmail icon"
+    style={{ width: '45px', height: '45px' }}
+  />
+  <h3 style={{ margin: 0 }}>3. Connect via Custom SMTP </h3>
+</div>
 
 **Steps:**
 1. Select **Custom** from the provider dropdown.
