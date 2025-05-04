@@ -77,7 +77,8 @@
       "pages": [
         "pages/inbound",
         "pages/outbound",
-        "pages/outbound_api"
+        "pages/outbound_api",
+        "pages/analytics"
       ]
     },
     {

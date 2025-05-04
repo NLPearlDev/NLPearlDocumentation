@@ -25,7 +25,8 @@ In NLPearl, a **post-call** is a structured summary generated after each phone c
 ## 📝 What Does the Post-Call Include?
 
 A post-call provides multiple key sections to review and analyze the outcome of a conversation:
-
+### Call ID
+ A unique identifier for each call, displayed at the top right of the page. It allows you to quickly reference or search for a specific call across the system.
 ### Call Details  
 This section shows essential information about the call itself, including:
 - **Call Duration**: Total time of the call.
@@ -73,7 +74,6 @@ This section shows essential information about the call itself, including:
   - `Email Sent`: An email was sent during the call.
   - `Appointment Booked`: An appointment was booked in the calendar.
 
-Each event includes a timestamp and details about the action.
 
 - **Sentiment Analysis**:  
   An automatic classification of the customer's tone and emotional state throughout the conversation. Possible sentiment values include:
@@ -109,15 +109,21 @@ Examples:
 - Customer preferences
 
 Variables displayed here are based on those defined in your **Pearl configuration**.  
-👉 You can learn more about creating variables in the Pearl [here](#) (insert actual link).
+👉 You can learn more about creating variables in the Pearl [here](/pages/variables).
 
-Once collected, these variables are visible inside **Call Information** as part of the post-call.
 
 ---
 
-### Recording (if enabled)  
-The audio file of the call may be stored and accessible for legal, training, or operational purposes.  
-⚠️ Note: The recording may not always be visible in the user interface but can be linked to the post-call for internal access when authorized.
+### Recording
+
+The **recording is accessible directly from this page**, allowing you to listen to the entire conversation again for audit, training, or operational purposes.
+
+⚠️ If you wish to **disable call recording**, you can manage this setting from the activity configuration (whether **inbound** or **outbound**).  
+👉 For more information on recording settings, see [Inbound Recording](/pages/inbound) or [Outbound Recording](/pages/outbound).
+
+If you're unable to listen to your recording and you imported a phone number from your Twilio account by connecting it to the platform, it is possible that you cannot access the recording because you have 
+not disabled the 'HTTP Basic Authentication' option in your Twilio settings. For more information see [Disable HTTP Auth from Twilio](/pages/twilio_integration#disabling-http-basic-authentication-for-media-access)
+
 
 ---
 
