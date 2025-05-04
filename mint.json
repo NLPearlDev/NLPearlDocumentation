@@ -69,7 +69,7 @@
             "pages/api_action"
           ]
         },
-        "pages/calls"
+        "pages/postcall"
       ]
     },
     {
