@@ -1,71 +1,173 @@
 ---
 title: "Post-Call"
 description: "All you need to know about Post-Call in NLPearl"
+icon: "pager"
+iconType: "light"
+
 ---
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall.jpeg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-## 📘 What is a Post-Call?  
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall.jpeg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+
+---
+
+## What is a Post-Call?  
 In NLPearl, a **post-call** is a structured summary generated after each phone conversation handled by Pearl. It centralizes all key information captured before, during, and after the call to ensure full traceability, improve quality, and support human follow‑up when needed.
 
-<img
-  className="block dark:hidden"
-  src="/images/light_mode/postcall.png"
-  alt="Send Email Action"
-  style={{ borderRadius: '18px' }}
-/>
-<img
-  className="hidden dark:block"
-  src="/images/dark_mode/postcall.png"
-  alt="Send Email Action"
-  style={{ borderRadius: '18px' }}
-/>
+---
+
+## What Does the Post-Call Include?
+
+A post-call provides multiple key sections to review and analyze the outcome of a conversation:
+
+### Call ID
+ A unique identifier for each call, displayed at the top right of the page. It allows you to quickly reference or search for a specific call across the system.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall_callid.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall_callid.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
 ---
 
-## 📝 What Does the Post-Call Include?
-
-A post-call provides multiple key sections to review and analyze the outcome of a conversation:
-### Call ID
- A unique identifier for each call, displayed at the top right of the page. It allows you to quickly reference or search for a specific call across the system.
 ### Call Details  
 This section shows essential information about the call itself, including:
-- **Call Duration**: Total time of the call.
-- **Date & Time**: When the call took place.
-- **Call Status**: The technical status of the call (whether the user answered or not). Possible values include:
-  - `In Progress`
-  - `Completed`
-  - `Busy`
+
+<CardGroup cols={2}>
+  <Card>
+    <div className="-mx-4 -mt-4 mb-2">
+      <div className="block dark:hidden">
+        <img
+          src="/images/light_mode/postcall_duration.jpg"
+          alt="Call Duration Light Mode"
+          className="rounded-[12px] w-full"
+        />
+      </div>
+      <div className="hidden dark:block">
+        <img
+          src="/images/dark_mode/postcall_duration.jpg"
+          alt="Call Duration Dark Mode"
+          className="rounded-[12px] w-full"
+        />
+      </div>
+    </div>
+    <h3 className="text-md font-semibold mb-1">Call Duration</h3>
+    <p>Total time of the call.</p>
+  </Card>
+
+  <Card>
+    <div className="-mx-4 -mt-4 mb-2">
+      <div className="block dark:hidden">
+        <img
+          src="/images/light_mode/postcall_datetime.jpg"
+          alt="Call ID Light Mode"
+          className="rounded-[12px] w-full"
+        />
+      </div>
+      <div className="hidden dark:block">
+        <img
+          src="/images/dark_mode/postcall_datetime.jpg"
+          alt="Call ID Dark Mode"
+          className="rounded-[12px] w-full"
+        />
+      </div>
+    </div>
+    <h3 className="text-md font-semibold mb-1">Date & Time</h3>
+    <p>When the call took place.</p>
+  </Card>
+</CardGroup>
+
+---
+
+**Call Status** <br />
+The technical status of the call (whether the user answered or not). Possible values include:
+
+  - `In Progress` 
+  - `Completed` 
+  - `Busy` 
   - `Failed`
   - `No Answer`
 
   <Info>Call Status refers to the telephony-level result of the call connection, such as whether the call was picked up, missed, busy, or failed to connect.</Info>
 
-- **Conversation Status**: Indicates the outcome of the conversation from a business or process perspective. Possible values include:
-  - `Voice Mail Left` (only visible for **outbound activities**)
-  - `Need Retry` (only visible for **outbound activities**)
-  - `Unreachable` (only visible for **outbound activities**)
+---
+
+**Conversation Status** <br />
+Indicates the outcome of the conversation from a business or process perspective. Possible values include:
+
+  - `Voice Mail Left` (only visible for outbound activities)
+  - `Need Retry` (only visible for outbound activities)
+  - `Unreachable` (only visible for outbound activities)
   - `Call Successful`
   - `Not Successful`
   - `Completed`
 
-**Important distinctions about Conversation Status**:
+<Card icon="circle-info" iconType="light">
+  <b>Important distinctions about Conversation Status</b>:
 
-- `Voice Mail Left`, `Need Retry`, and `Unreachable` are **only shown for outbound activities**; these statuses are not applicable for inbound calls.
+  - `Voice Mail Left`, `Need Retry`, and `Unreachable` are **only shown for outbound activities**; these statuses are not applicable for inbound calls.
   
-- The difference between `Successful`, `Not Successful`, and `Complete` depends on whether a **Success Definition** was configured when creating the Pearl:
-  - If a **Success Definition** was configured:
-    - `Successful` → the Success Definition criteria were met during the conversation.
-    - `Not Successful` → the conversation did not meet the Success Definition criteria.
-  - If **no Success Definition** was configured:
-    - `Complete` → the conversation was completed without any Success Definition evaluation.
+  - The difference between `Successful`, `Not Successful`, and `Complete` depends on whether a **Success Definition** was configured when creating the Pearl:
+    - If a **Success Definition** was configured:
+      - `Successful` → the Success Definition criteria were met during the conversation.
+      - `Not Successful` → the conversation did not meet the Success Definition criteria.
+    - If **no Success Definition** was configured:
+      - `Complete` → the conversation was completed without any Success Definition evaluation.
+</Card>
 
-👉 For more information on Success Definitions, see [How to Create a Pearl – Step 4: Flow Configuration](/pages/create_pearl#step-4-flow-configuration).
 
-- **Tags**:  
+<Note> For more information on Success Definitions, see [How to Create a Pearl – Step 4: Flow Configuration](/pages/create_pearl#step-4-flow-configuration).</Note>
+
+---
+
+**Tags** <br />
   The list of **tags defined during the last step of the Pearl creation process**. These tags represent key topics or categories you chose when setting up the Pearl configuration.  
-  👉 For more information on setting up tags, see [How to Create a Pearl – Step 4: Flow Configuration](/pages/create_pearl#step-4-flow-configuration).
+<Note>For more information on setting up tags, see [How to Create a Pearl – Step 4: Flow Configuration](/pages/create_pearl#step-4-flow-configuration).</Note>
 
-- **Events**:  
+---
+
+**Events** <br />
   A log of the actions triggered by Pearl during the call. Each event includes a timestamp and details about the action.  
   Possible event types include:
   - `Call Transferred`: The call was transferred.
@@ -74,8 +176,9 @@ This section shows essential information about the call itself, including:
   - `Email Sent`: An email was sent during the call.
   - `Appointment Booked`: An appointment was booked in the calendar.
 
+---
 
-- **Sentiment Analysis**:  
+**Sentiment Analysis**  <br />
   An automatic classification of the customer's tone and emotional state throughout the conversation. Possible sentiment values include:
   - `Positive`
   - `Slightly Positive`
@@ -86,30 +189,106 @@ This section shows essential information about the call itself, including:
 ---
 
 ### Summary  
+
 A concise, human‑readable recap of the conversation, generated by Pearl. This includes:
 - What the customer requested
 - What was confirmed or declined
 - The overall outcome of the interaction
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall_summary.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall_summary.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
 ---
 
 ### Transcript  
+
 A full text version of the conversation between the customer and Pearl. Always available. Useful for:
 - Reviewing the interaction
 - Auditing purposes
 - Training and improvement
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall_transcript.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall_transcript.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
 ---
 
 ### Call Information  
+
 This section displays **structured variables captured before or during the call**, corresponding to the dynamic data collected through the Pearl configuration.  
 Examples:
 - Delivery type
 - Selected options (e.g. “Dessert: Cheesecake”)
 - Customer preferences
 
-Variables displayed here are based on those defined in your **Pearl configuration**.  
-👉 You can learn more about creating variables in the Pearl [here](/pages/variables).
+Variables displayed here are based on those defined in your **Pearl configuration**. 
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall_callinfo.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall_callinfo.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+ 
+<info> You can learn more about creating variables in the Pearl [here](/pages/variables).</info>
 
 
 ---
@@ -118,7 +297,31 @@ Variables displayed here are based on those defined in your **Pearl configuratio
 
 The **recording is accessible directly from this page**, allowing you to listen to the entire conversation again for audit, training, or operational purposes.
 
-⚠️ If you wish to **disable call recording**, you can manage this setting from the activity configuration (whether **inbound** or **outbound**).  
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall_recording.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall_recording.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Warning>If you wish to **disable call recording**, you can manage this setting from the activity configuration (whether **inbound** or **outbound**).</Warning>
 👉 For more information on recording settings, see [Inbound Recording](/pages/inbound) or [Outbound Recording](/pages/outbound).
 
 If you're unable to listen to your recording and you imported a phone number from your Twilio account by connecting it to the platform, it is possible that you cannot access the recording because you have 
@@ -127,19 +330,26 @@ not disabled the 'HTTP Basic Authentication' option in your Twilio settings. For
 
 ---
 
-## ✅ Why the Post-Call Matters
+## Why the Post-Call Matters
 
-- **Traceability**  
+<CardGroup cols={2}>
+
+<Card title="Traceability" icon="check" iconType="light">
   Every call leaves a documented trace for accountability.
-  
-- **Faster Follow‑Up**  
+</Card>
+
+<Card title="Faster Follow‑Up" icon="check" iconType="light">
   Helps support and operations teams follow up efficiently with customers.
+</Card>
 
-- **Quality & Analytics**  
+<Card title="Quality & Analytics" icon="check" iconType="light">
   Enables continuous improvement through quality review, sentiment tracking, and conversation analysis.
+</Card>
 
-- **Auditing & Compliance**  
+<Card title="Auditing & Compliance" icon="check" iconType="light">
   Provides an auditable record of AI-driven conversations to meet regulatory or internal policy needs.
+</Card>
+</CardGroup>
 
 ---
 

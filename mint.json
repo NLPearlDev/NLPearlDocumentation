@@ -1,9 +1,10 @@
 {
  
   "name": "NLPearl Documentation",
+  "theme": "venus",
   "logo": {
-    "dark": "/logo/logoWhite.png",
-    "light": "/logo/NLPearlPhone.png"
+    "dark": "/images/dark_mode/logo_white.png",
+    "light": "/images/light_mode/logo_dark.png"
   },
   "favicon": "/logo/NLPearlPhoneBlack.png",
   "colors": {
@@ -38,6 +39,7 @@
       "url": "https://platform.nlpearl.ai/"
     }
   ],
+  
   "navigation": [
     {
       "group": "",
@@ -61,6 +63,8 @@
         "pages/languages",
         {
           "group": "Actions",
+          "icon": "bolt",
+          "iconType": "light",
           "pages": [
             "pages/action",
             "pages/transfer_call",
@@ -87,6 +91,8 @@
         "pages/agents",
         {
           "group": "Phone Numbers",
+          "icon": "mobile",
+          "iconType": "light",
           "pages": [
             "pages/phone_overview",
             "pages/nlpearl_phones",
@@ -139,21 +145,23 @@
     "pages": [
       "api-reference/outbound/get-outbounds",
       "api-reference/outbound/get-outbound",
+      "api-reference/outbound/get-lead",
+      "api-reference/outbound/get-lead-via-external-id",
+      "api-reference/outbound/get-call-request",
+      "api-reference/outbound/get-analytics",
       "api-reference/outbound/set-activity-state",
       "api-reference/outbound/search-calls",
-      "api-reference/outbound/add-lead",
       "api-reference/outbound/search-leads",
-      "api-reference/outbound/get-lead",
-      "api-reference/outbound/delete-leads",
-      "api-reference/outbound/get-lead-via-external-id",
-      "api-reference/outbound/delete-leads-external-id",
       "api-reference/outbound/make-call",
-      "api-reference/outbound/get-call-request",
       "api-reference/outbound/search-call-requests",
-      "api-reference/outbound/get-analytics"
+      "api-reference/outbound/add-lead",
+      "api-reference/outbound/delete-leads",
+      "api-reference/outbound/delete-leads-external-id"
     ]
   }
   ],
+
+  
   "footerSocials": {
     "x": "https://x.com/NLPearlai",
     "linkedin": "https://www.linkedin.com/company/nlpearl/mycompany/",
