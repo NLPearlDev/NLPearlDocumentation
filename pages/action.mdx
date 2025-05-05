@@ -1,24 +1,74 @@
 ---
 title: Overview
 description: 'NLPearl.AI provides a range of actions that can be performed by your Pearl both during and after calls. These actions are designed to automate tasks, improve efficiency, and enhance customer interactions.'
+icon: "expand"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_overview.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_overview.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
 ---
 
 ### Call Actions
 
 In call actions are tasks that Pearl can perform during the conversation. Here are some examples:
 
-- **Book a Meeting**: Pearl can automatically schedule a meeting with the prospect and add it to your calendar.
-- **Transfer a Call**: Pearl can transfer the call to another agent or department.
-- **Send an SMS**: Pearl can send an SMS to the prospect during the call.
-- **Send an Email**: Pearl can send an email to the prospect during the call.
-- **API Integration**: Seamlessly connect your agent with any API to retrieve information or perform actions through any available API.
-- **Take a Message**: If the prospect wants to leave a message, Pearl can take the message and send it to your email.
+<CardGroup cols={2}>
 
+<Card title="Book a Meeting" icon="calendar" iconType="light">
+  Pearl can automatically schedule a meeting with the prospect and add it to your calendar.
+</Card>
+
+<Card title="Transfer a Call" icon="phone-volume" href="pages/transfer_call" iconType="light">
+  Pearl can transfer the call to another agent or department.
+</Card>
+
+<Card title="Send an SMS" icon="comments" href="pages/sms_action" iconType="light">
+  Pearl can send an SMS to the prospect during the call.
+</Card>
+
+<Card title="Send an Email" icon="paper-plane" href="pages/email_action" iconType="light">
+  Pearl can send an email to the prospect during the call.
+</Card>
+
+<Card title="API Integration" icon="code" href="pages/api_action" iconType="light">
+  Seamlessly connect your agent with any API to retrieve information or perform actions through any available API.
+</Card>
+
+<Card title="Take a Message" icon="message" iconType="light">
+  If the prospect wants to leave a message, Pearl can take the message and send it to your email.
+</Card>
+</CardGroup>
+
+---
 
 <CardGroup cols={2}>
   <Card
     title="Create a Pearl"
-    icon="wand-magic"
+    icon="subtitles"
+    iconType="light"
     href="/docs/create_pearl"
   >
     Learn how to create and configure a Pearl to perform these actions.
@@ -26,11 +76,14 @@ In call actions are tasks that Pearl can perform during the conversation. Here a
   <Card
     title="Contact Support"
     icon="headset"
+    iconType="light"
     href="mailto:support@nlpearl.ai"
   >
     Get in touch with our support team to request additional actions.
   </Card>
 </CardGroup>
+
+---
 
 ### Expanding Action Capabilities
 
