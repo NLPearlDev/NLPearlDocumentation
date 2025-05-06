@@ -27,3 +27,11 @@ a[href="https://platform.nlpearl.ai/"]:hover::before {
 }
 */
 
+.prose :where(thead th):not(:where([class~=not-prose],[class~=not-prose] *)){
+  color: #A1A1A1;
+  text-align: left;
+}
+
+.prose :where(table):not(:where([class~=not-prose],[class~=not-prose] *)){
+  display: table;
+}
