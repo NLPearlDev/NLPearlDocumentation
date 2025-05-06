@@ -1,142 +1,131 @@
 ---
-title: API
-description: 'Learn how to configure your Pearl to call an API during a live conversation.'
-icon: "code"
+title: API Action
+description: 'Configure the “API” action in SimplePearl and AdvancedPearl to fetch or update data during a live conversation.'
+icon: code
+iconType: light
 ---
 
-NLPearl.AI allows your Pearl to interact with external systems by making API calls in real-time during a conversation. This powerful feature enables your AI agent to fetch, post, or update information dynamically, providing a seamless and personalized experience for your customers.
+Connecting your Pearl to external systems with **API calls** lets it pull or push data in real time while talking to a customer.
 
-<img
-  className="block dark:hidden"
-  src="/images/exemples/apiAction.png"
-  alt="API Call Setup"
-  style={{ borderRadius: '18px' }}
-/>
-<img
-  className="hidden dark:block"
-  src="/images/exemples/apiAction.png"
-  alt="API Call Setup"
-  style={{ borderRadius: '18px' }}
-/>
+This guide covers :
 
-### Configuring API Actions in a Pearl
-
-To set up an API call within your Pearl, follow these steps:
-
-1. **Navigate to the Action Section**: While creating or editing a Pearl, go to the Action section.
-2. **Add a New API Action**: Click on "API" and then "Add New" to start configuring your API request.
-
-<img
-  className="block dark:hidden"
-  src="/images/exemples/apiAction1.png"
-  alt="API Call Setup"
-  style={{ borderRadius: '18px' }}
-/>
-<img
-  className="hidden dark:block"
-  src="/images/exemples/apiAction1.png"
-  alt="API Call Setup"
-  style={{ borderRadius: '18px' }}
-/>
-### Fields to Configure
-
-- **Description**: 
-  - **Purpose**: Write a brief description explaining what this API endpoint is supposed to do. This helps you keep track of the various API calls you might configure within the Pearl.
-
-- **When to Trigger the Action**: 
-  - **Trigger Condition**: Define the conditions under which this API call should be made. For example, "Call this API when the customer requests their account balance," or "Send this API request after the prospect agrees to sign up."
-
-- **URL**: 
-  - **Endpoint**: Enter the URL of the API endpoint you want to call. You can use variables (while clicking on `+` ) in the URL to customize the request for each conversation.
-
-- **Headers**: 
-  - **Header Information**: Add any necessary headers, such as `Content-Type`, `Authorization`, etc. This is where you would include any authorization tokens if required.
-
-- **Body (for POST and PUT requests)**: 
-  - **JSON Body**: Enter the request body in JSON format. You can insert variables into the JSON to ensure the data sent is tailored to the specific conversation.
-
-
-	<img
-	  className="block dark:hidden"
-	  src="/images/exemples/apiAction2.png"
-	  alt="API Call Setup"
-	  style={{ borderRadius: '18px' }}
-	/>
-	<img
-	  className="hidden dark:block"
-	  src="/images/exemples/apiAction2.png"
-	  alt="API Call Setup"
-	  style={{ borderRadius: '18px' }}
-	/>
-	The variables will be collected during the call. For more information about variables, visit our [Variables page](/pages/variables).
-
-### Example Use Cases
-
-Here are a few scenarios where you might use an API call within a Pearl:
-
-- **Fetch Customer Data**: You can set up an API call to retrieve customer details based on their account number. This information can then be used to personalize the conversation.
-
-- **Update CRM Records**: After confirming an order with a customer, Pearl can call an API to update the customer’s information in your CRM system.
-
-- **Post Data**: Pearl can send collected information, such as a lead's contact details or preferences, directly to your backend systems via an API.
-
-### Multiple API Calls
-
-You can add several API actions to a single Pearl, allowing for complex interactions where multiple pieces of information are fetched, posted, or updated in real-time, depending on the conversation flow.
-
-<CardGroup cols={1}>
-  <Card
-    title="Variables"
-    icon="square-root-variable"
-    iconType="light"
-    href="/pages/variables"
-  >
-    Learn how to use variables to expand the functionality of Pearl.
-  </Card>
-</CardGroup>
-
+1. How API Actions differ in **Simple Pearl** vs **Advanced Pearl**  
+2. Every field you can configure (method, URL, headers, body, credentials)  
+3. Output‑schema filtering & variable assignment  
+4. How to test your configuration before going live  
 
 ---
 
-## Using Nested Objects in API Actions
+## 1 · API Action Modes
 
-When creating API Action, you can map variables to nested keys in the JSON body of the API request. This allows you to structure your API calls with nested objects, providing more organized and readable data when integrating with external systems.
+<Steps>
+  <Step title="Simple Pearl">
+    Use the **When to trigger the action** field to state the exact moment or condition that fires the API call.
+  </Step>
 
-### Mapping Variables to Nested API Keys
+  <Step title="Advanced Pearl">
+    Add an **API node** inside the conversation tree. As soon as the flow reaches that node, the request runs automatically—no trigger field needed.
+  </Step>
+</Steps>
 
-- **API Keys**: Can include nested keys using dot notation and array indices using square brackets (e.g., `customer.address.street`, `order.items[0].productId`).
-- **Variables**: Map each nested API key to the appropriate variable collected during the conversation.
+<Info>
+  **Pre‑Call API (AdvancedPearl only)**  
+  You may run a request _before_ the call starts—perfect for:  
+  - **Inbound**: look up the caller by phone number (auto‑captured variable)  
+  - **Outbound**: preload variables already stored on the lead  
+  For details see the Outbound Lead Creation page.
+</Info>
+
+---
+
+## 2 · Configuring an API Action
+
+<Steps>
+  <Step title="HTTP Method">
+    Choose **GET**, **POST**, **PUT**, **DELETE**, or **PATCH** depending on the API’s requirements.  
+    If your API requires another verb, [contact support](/contact) to request it.
+  </Step>
+
+  <Step title="URL">
+    Type the API endpoint URL.  
+    Click **+** to insert a variable into the URL — you can use both **Pre-Call variables** (collected before the call starts) and **In-Call variables** (collected during the conversation).
+  </Step>
+
+  <Step title="Headers">
+    Add any header required by the API, such as `Content-Type`, `Authorization`, etc.  
+    <Info>
+      Header values are static. If you need a **dynamic authorization token**, configure an [OAuth2 Credential](/pages/api_action#3-oauth2-credentials) to automatically inject it into the header at runtime.
+    </Info>
+  </Step>
+
+  <Step title="Body">
+    Supply Key / Value pairs as required by the API.
+    Each **Value** field can be:
+    - A variable
+    - A Text (string literal)
+    - A Whole Number (integer)
+    - A Decimal Number (float or double)
+    - A Boolean (true/false)
+    - A Date & Time
+    - A **Custom Template** (a mix of static text and variables)
+
+<Info>
+      For each variable, you can toggle a **"Required" checkbox**:  
+      - If checked, Pearl will automatically prompt the customer to provide the variable’s value before sending the API request, if it hasn’t been collected yet.  
+      - If unchecked, the API request will still be sent even if the variable is missing. In that case, the variable will simply be omitted from the request body.
+    </Info>
+
+    When using a variable in the body, be aware that:
+    - The platform will **cast the variable to the corresponding data type** when sending the request.
+    - For example, a variable of type **Whole Number** will be sent as an integer, while a **Text** variable will be quoted as a string.
+    - If the variable type doesn’t match what the API expects, the API might reject the request or throw an error.
+
+    You can mix static values and variables in the same request body to create dynamic payloads.
+
+    <Info>
+      If the API expects a nested JSON object, you can use **dot notation** in the Key to define nested paths (e.g., `customer.address.street`).
+      Arrays can be represented using square brackets with an index (e.g., `order.items[0].productId`). see bellow Nested objects.
+    </Info>
+  </Step>
+</Steps>
+
+---
+
+### Additional notes
+
+✅ You can configure different API Actions inside the same Pearl if your flow needs multiple calls.
+
+✅ Every API Action can use a different set of variables, headers, and credentials.
+
+✅ You can use variables in **URL**, and **Body** to pass dynamic data collected during the call.
 
 
-### Steps to Map Variables to Nested Keys
+### Using Nested Objects in API Actions
 
-1. **Add an API Action Node** to your conversation flow.
-2. **Configure the API Request**:
-   - **Method**: Choose the HTTP method (e.g., POST, PUT).
-   - **URL**: Enter the endpoint URL.
-3. **Define the Request Body**:
-   - Use JSON format for the body.
-   - In the keys of your JSON object, use dot notation to represent nested structures.
-4. **Map Variables to Nested Keys**:
-   - For each API key, specify the path using dot notation.
-   - Assign the corresponding variable to each key.
+Many APIs expect a **nested JSON structure** in their request body.  
+You can map variables to **nested keys** so your payload remains well organised and readable.
 
-### Example
+#### How to define nested keys
 
-**Variables Collected**:
+- Use **dot notation** for properties &nbsp;(`customer.address.street`)  
+- Use **square brackets** for array indices &nbsp;(`order.items[0].productId`)
 
-- `customerName` (String)
-- `customerEmail` (String)
-- `street` (String)
-- `city` (String)
-- `productId` (String)
-- `quantity` (Number)
+<Info>
+You can pair nested paths with any variable type—Text, Number, Boolean, etc.
+</Info>
 
-**API Request Configuration**:
+#### Example
 
-- **Method**: POST
-- **URL**: `https://api.example.com/orders`
-- **Body**:
+Variables collected:
+
+- `customerName` (Text)  
+- `customerEmail` (Text)  
+- `street` (Text)  
+- `city` (Text)  
+- `productId` (Text)  
+- `quantity` (Number)  
+
+Desired API body:
 
 ```json
 {
@@ -157,29 +146,190 @@ When creating API Action, you can map variables to nested keys in the JSON body 
     ]
   }
 }
-```
+````
 
-**Mapping Variables**:
+Mapping table:
 
-- **customer.name** → `customerName`
-- **customer.email** → `customerEmail`
-- **customer.address.street** → `street`
-- **customer.address.city** → `city`
-- **order.items[0].productId** → `productId`
-- **order.items[0].quantity** → `quantity`
+| API key                    | Variable        |
+| -------------------------- | --------------- |
+| `customer.name`            | `customerName`  |
+| `customer.email`           | `customerEmail` |
+| `customer.address.street`  | `street`        |
+| `customer.address.city`    | `city`          |
+| `order.items[0].productId` | `productId`     |
+| `order.items[0].quantity`  | `quantity`      |
 
+<Info>
+If the body contains deeper nesting or arrays, this mapping guarantees every variable lands at the correct path.
+</Info>
 
-<img
-  className="block dark:hidden"
-  src="/images/exemples/api-nested-objects.png"
-  alt="API Call Setup"
-  style={{ borderRadius: '18px' }}
-/>
-<img
-  className="hidden dark:block"
-  src="/images/exemples/api-nested-objects.png"
-  alt="API Call Setup"
-  style={{ borderRadius: '18px' }}
-/>
 
 ---
+
+## 3 · OAuth2 Credentials
+
+If your API requires OAuth2 authentication, you’ll need to create a **Credential** on the platform to automatically manage token retrieval and injection.
+
+This allows the platform to securely fetch an access token and automatically insert it into your API request headers.
+
+### Why use a Credential?
+
+✅ Avoid hardcoding tokens manually in every API action  
+✅ Automatically refresh tokens based on TTL (time‑to‑live)  
+✅ Centralized management if multiple API actions reuse the same token  
+✅ No need to manually parse token responses — the platform extracts it for you
+
+---
+
+### How to configure a Credential
+
+<Steps>
+  <Step title="1. Create a Credential">
+    Go to **Credentials → Add New**, choose a **Name** (a label to help you identify it later), and select **OAuth2** as the type.
+  </Step>
+
+  <Step title="2. Fill Credential Details">
+    You’ll be asked to provide:
+    - **Access Token URL**: the API endpoint to request the token
+    - Optional **headers** (e.g. `Content-Type: application/json`) for the token request
+    - Optional **body** parameters (e.g. `grant_type`, `client_id`, `client_secret`)
+    - **Token Config**:
+      - `token path`: JSONPath to locate the token in the API response (e.g. "response.access_token")
+      - `ttl`: time‑to‑live for the token (default **300 seconds**; adjust if needed)
+      - `header key`: name of the header where the token will be injected (e.g. `Authorization`)
+      - `header prefix`: optional prefix for the token (e.g. `Bearer` or `Basic`)
+  </Step>
+
+  <Step title="3. Test Credential">
+    Use the **Test Credential** button to send a request to the token endpoint and preview the JSON response.
+    This test confirms that your configuration retrieves the token successfully.
+  </Step>
+</Steps>
+
+---
+
+### How the Credential is used in API actions
+
+Once saved, you can select this Credential from the **Credential** dropdown in any API Action.
+
+When selected:
+
+✅ The platform automatically adds the token to the API request header, using the configured `header key` and optional `header prefix`.
+
+✅ The token is refreshed automatically when expired, based on the configured `ttl`.
+
+<Info>
+If you don’t need authentication, simply leave the Credential toggle off.
+</Info>
+
+<Warning>
+Make sure the `token path` you enter corresponds to the exact location of the token in the JSON response.  
+If the platform can’t find the token at this path, the Credential will fail.
+</Warning>
+
+
+
+---
+
+## 4 · Output Schema & Variable Assignment
+
+<Warning>
+API responses are capped at **10 000 characters**. Anything longer is automatically truncated.
+</Warning>
+
+When using API actions, it’s crucial to control what part of the response is passed back into the conversation. That’s where the **Output Schema** comes in: it lets you filter the API response so only specific data is kept.
+
+Without filtering, the entire JSON is returned — including irrelevant or unnecessary data. This can reduce the precision of the conversation, because the AI receives too much unrelated information.
+
+Even if your API response is well under **10 000 characters**, we strongly recommend setting an Output Schema to focus the conversation on relevant data.
+
+### How it works
+
+- Provide a list of **JSONPath strings**.  
+- The system extracts only those paths from the API response.  
+- Everything else is discarded.
+
+Benefits:
+
+- Keeps the response size small  
+- Improves the quality and relevance of AI outputs  
+- Prevents hitting the 10 000-character truncation limit  
+- Ensures that only the necessary fields are carried into the next steps of the conversation
+
+### Assigning to a variable (optional)
+
+You can assign the value from a JSONPath directly to a variable.
+
+Key things to know:
+
+- **The variable’s type must match the data type returned by the API at that path.**
+- If the value returned is a list, make sure the variable is configured to **allow multiple values.**
+- A variable can store up to **600 characters.** Any data beyond this limit will be **truncated.**
+
+<Info>
+Assigning a variable is optional.  
+If you don’t assign a variable, the filtered JSON is still available for the conversation’s internal logic but may not be stored under a variable it should be if it is not obvious.
+</Info>
+
+In many cases, assigning variables helps later actions reuse that data (e.g. using a customer’s name in a message, or passing an ID into another API call).
+
+---
+
+### Why Output Schema is critical
+
+Without an Output Schema:
+
+- The conversation may receive **unnecessary data**, lowering the accuracy of Pearl.
+- You risk hitting the **10 000-character response cap** and losing critical data.
+- This is the best way to map data directly to variables.
+
+By setting an Output Schema:
+
+✅ You control what gets passed into the conversation logic  
+✅ You improve Pearl decision‑making by focusing on relevant fields  
+✅ You unlock the ability to assign variables with safe and predictable data
+
+<Warning>
+Remember: if you assign to a variable, and the returned data exceeds **600 characters**, the variable’s value will be **cut off**.
+</Warning>
+
+---
+
+
+
+## 5 · Testing Your API Action
+
+<Steps>
+  <Step title="Assign Test Values">
+    Give sample values to every variable used in the request.
+  </Step>
+
+  <Step title="Run Test API">
+    Click **Test API** to send the call.
+  </Step>
+
+  <Step title="Inspect">
+    Mintlify shows  
+    - Raw response  
+    - Filtered response (if you set an Output Schema)  
+    - Any variables populated from the response  
+  </Step>
+</Steps>
+
+Use this tool to debug and perfect your setup before you put the Pearl in production.
+
+---
+
+<CardGroup cols={1}>
+  <Card
+    title="Variables"
+    icon="square-root-variable"
+    iconType="light"
+    href="/pages/variables"
+  >
+    Learn how to create and use variables inside API actions.
+  </Card>
+</CardGroup>
+---
+
+_Last updated: May 6, 2025_
