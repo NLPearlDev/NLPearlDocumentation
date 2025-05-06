@@ -5,6 +5,30 @@ icon: code
 iconType: light
 ---
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
 Connecting your Pearl to external systems with **API calls** lets it pull or push data in real time while talking to a customer.
 
 This guide covers :
@@ -16,17 +40,24 @@ This guide covers :
 
 ---
 
-## 1 · API Action Modes
+## API Action Modes
 
-<Steps>
-  <Step title="Simple Pearl">
+<CardGroup cols={2}>
+  <Card
+    title="Simple Pearl"
+    icon="subtitles"
+    iconType="light"
+  >
     Use the **When to trigger the action** field to state the exact moment or condition that fires the API call.
-  </Step>
-
-  <Step title="Advanced Pearl">
+  </Card>
+  <Card
+    title="Advanced Pearl"
+    icon="diagram-subtask"
+    iconType="light"
+  >
     Add an **API node** inside the conversation tree. As soon as the flow reaches that node, the request runs automatically—no trigger field needed.
-  </Step>
-</Steps>
+  </Card>
+</CardGroup>
 
 <Info>
   **Pre‑Call API (AdvancedPearl only)**  
@@ -38,21 +69,96 @@ This guide covers :
 
 ---
 
-## 2 · Configuring an API Action
+## Configuring an API Action
 
 <Steps>
   <Step title="HTTP Method">
     Choose **GET**, **POST**, **PUT**, **DELETE**, or **PATCH** depending on the API’s requirements.  
     If your API requires another verb, [contact support](/contact) to request it.
+
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api-url-type.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api-url-type.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
   </Step>
 
   <Step title="URL">
     Type the API endpoint URL.  
     Click **+** to insert a variable into the URL — you can use both **Pre-Call variables** (collected before the call starts) and **In-Call variables** (collected during the conversation).
+  
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api-url.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api-url.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+  
   </Step>
 
   <Step title="Headers">
-    Add any header required by the API, such as `Content-Type`, `Authorization`, etc.  
+    Add any header required by the API, such as `Content-Type`, `Authorization`, etc. 
+
+      <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api-header.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api-header.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
     <Info>
       Header values are static. If you need a **dynamic authorization token**, configure an [OAuth2 Credential](/pages/api_action#3-oauth2-credentials) to automatically inject it into the header at runtime.
     </Info>
@@ -60,6 +166,31 @@ This guide covers :
 
   <Step title="Body">
     Supply Key / Value pairs as required by the API.
+
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api-body.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api-body.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
     Each **Value** field can be:
     - A variable
     - A Text (string literal)
@@ -68,6 +199,30 @@ This guide covers :
     - A Boolean (true/false)
     - A Date & Time
     - A **Custom Template** (a mix of static text and variables)
+
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api-customvariable.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api-customvariable.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
 <Info>
       For each variable, you can toggle a **"Required" checkbox**:  
@@ -91,43 +246,57 @@ This guide covers :
 
 ---
 
-### Additional notes
+<Note>
+Additional notes
 
-✅ You can configure different API Actions inside the same Pearl if your flow needs multiple calls.
+- You can configure different API Actions inside the same Pearl if your flow needs multiple calls.
+- Every API Action can use a different set of variables, headers, and credentials.
+- You can use variables in **URL**, and **Body** to pass dynamic data collected during the call.
+</Note>
 
-✅ Every API Action can use a different set of variables, headers, and credentials.
-
-✅ You can use variables in **URL**, and **Body** to pass dynamic data collected during the call.
-
+---
 
 ### Using Nested Objects in API Actions
 
 Many APIs expect a **nested JSON structure** in their request body.  
 You can map variables to **nested keys** so your payload remains well organised and readable.
 
-#### How to define nested keys
-
-- Use **dot notation** for properties &nbsp;(`customer.address.street`)  
+  <Card
+    title="How to define nested keys"
+  >
+    - Use **dot notation** for properties &nbsp;(`customer.address.street`)  
 - Use **square brackets** for array indices &nbsp;(`order.items[0].productId`)
 
 <Info>
 You can pair nested paths with any variable type—Text, Number, Boolean, etc.
 </Info>
 
-#### Example
+<Card>
+### Example
 
 Variables collected:
 
-- `customerName` (Text)  
-- `customerEmail` (Text)  
-- `street` (Text)  
-- `city` (Text)  
-- `productId` (Text)  
-- `quantity` (Number)  
+<ParamField path="customerName" type="text">
+</ParamField>
+
+<ParamField path="customerEmail" type="text">
+</ParamField>
+
+<ParamField path="street" type="text">
+</ParamField>
+
+<ParamField path="city" type="text">
+</ParamField>
+
+<ParamField path="productId" type="text">
+</ParamField>
+
+<ParamField path="quantity" type="number">
+</ParamField>
 
 Desired API body:
 
-```json
+```json body.json
 {
   "customer": {
     "name": "{{customerName}}",
@@ -148,6 +317,8 @@ Desired API body:
 }
 ````
 
+---
+
 Mapping table:
 
 | API key                    | Variable        |
@@ -163,22 +334,50 @@ Mapping table:
 If the body contains deeper nesting or arrays, this mapping guarantees every variable lands at the correct path.
 </Info>
 
-
+</Card>
+  </Card>
 ---
 
-## 3 · OAuth2 Credentials
+## OAuth2 Credentials
 
 If your API requires OAuth2 authentication, you’ll need to create a **Credential** on the platform to automatically manage token retrieval and injection.
 
 This allows the platform to securely fetch an access token and automatically insert it into your API request headers.
 
-### Why use a Credential?
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api-credentials.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-✅ Avoid hardcoding tokens manually in every API action  
-✅ Automatically refresh tokens based on TTL (time‑to‑live)  
-✅ Centralized management if multiple API actions reuse the same token  
-✅ No need to manually parse token responses — the platform extracts it for you
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api-credentials.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
+<Tip>
+
+Why use a Credential?
+
+- Avoid hardcoding tokens manually in every API action  
+- Automatically refresh tokens based on TTL (time‑to‑live)  
+- Centralized management if multiple API actions reuse the same token  
+- No need to manually parse token responses — the platform extracts it for you
+
+</Tip>
 ---
 
 ### How to configure a Credential
@@ -186,18 +385,118 @@ This allows the platform to securely fetch an access token and automatically ins
 <Steps>
   <Step title="1. Create a Credential">
     Go to **Credentials → Add New**, choose a **Name** (a label to help you identify it later), and select **OAuth2** as the type.
+
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api-create-credential.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api-create-credential.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
   </Step>
 
   <Step title="2. Fill Credential Details">
     You’ll be asked to provide:
     - **Access Token URL**: the API endpoint to request the token
+
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api-access-token-url.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api-access-token-url.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
     - Optional **headers** (e.g. `Content-Type: application/json`) for the token request
     - Optional **body** parameters (e.g. `grant_type`, `client_id`, `client_secret`)
+
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api-auth-head-body.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api-auth-head-body.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
     - **Token Config**:
       - `token path`: JSONPath to locate the token in the API response (e.g. "response.access_token")
       - `ttl`: time‑to‑live for the token (default **300 seconds**; adjust if needed)
       - `header key`: name of the header where the token will be injected (e.g. `Authorization`)
       - `header prefix`: optional prefix for the token (e.g. `Bearer` or `Basic`)
+
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/action_api-token-config.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/action_api-token-config.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
   </Step>
 
   <Step title="3. Test Credential">
@@ -206,17 +505,15 @@ This allows the platform to securely fetch an access token and automatically ins
   </Step>
 </Steps>
 
----
-
+<Card icon="circle-info" iconType="light">
 ### How the Credential is used in API actions
 
 Once saved, you can select this Credential from the **Credential** dropdown in any API Action.
 
 When selected:
 
-✅ The platform automatically adds the token to the API request header, using the configured `header key` and optional `header prefix`.
-
-✅ The token is refreshed automatically when expired, based on the configured `ttl`.
+- The platform automatically adds the token to the API request header, using the configured `header key` and optional `header prefix`.
+- The token is refreshed automatically when expired, based on the configured `ttl`.
 
 <Info>
 If you don’t need authentication, simply leave the Credential toggle off.
@@ -227,11 +524,11 @@ Make sure the `token path` you enter corresponds to the exact location of the to
 If the platform can’t find the token at this path, the Credential will fail.
 </Warning>
 
-
+</Card>
 
 ---
 
-## 4 · Output Schema & Variable Assignment
+## Output Schema & Variable Assignment
 
 <Warning>
 API responses are capped at **10 000 characters**. Anything longer is automatically truncated.
@@ -243,19 +540,24 @@ Without filtering, the entire JSON is returned — including irrelevant or unnec
 
 Even if your API response is well under **10 000 characters**, we strongly recommend setting an Output Schema to focus the conversation on relevant data.
 
+---
+
 ### How it works
 
 - Provide a list of **JSONPath strings**.  
 - The system extracts only those paths from the API response.  
 - Everything else is discarded.
 
+<Check>
 Benefits:
 
 - Keeps the response size small  
 - Improves the quality and relevance of AI outputs  
 - Prevents hitting the 10 000-character truncation limit  
 - Ensures that only the necessary fields are carried into the next steps of the conversation
+</Check>
 
+<Card icon="circle-info" iconType="light">
 ### Assigning to a variable (optional)
 
 You can assign the value from a JSONPath directly to a variable.
@@ -272,32 +574,37 @@ If you don’t assign a variable, the filtered JSON is still available for the c
 </Info>
 
 In many cases, assigning variables helps later actions reuse that data (e.g. using a customer’s name in a message, or passing an ID into another API call).
+</Card>
 
 ---
 
+<Card icon="triangle-exclamation" iconType="light">
 ### Why Output Schema is critical
 
+<Card icon="x" iconType="light">
 Without an Output Schema:
 
 - The conversation may receive **unnecessary data**, lowering the accuracy of Pearl.
 - You risk hitting the **10 000-character response cap** and losing critical data.
 - This is the best way to map data directly to variables.
+</Card>
 
+<Card icon="check" iconType="light">
 By setting an Output Schema:
 
-✅ You control what gets passed into the conversation logic  
-✅ You improve Pearl decision‑making by focusing on relevant fields  
-✅ You unlock the ability to assign variables with safe and predictable data
+- You control what gets passed into the conversation logic  
+- You improve Pearl decision‑making by focusing on relevant fields  
+- You unlock the ability to assign variables with safe and predictable data
 
+</Card>
 <Warning>
 Remember: if you assign to a variable, and the returned data exceeds **600 characters**, the variable’s value will be **cut off**.
 </Warning>
+</Card>
 
 ---
 
-
-
-## 5 · Testing Your API Action
+## Testing Your API Action
 
 <Steps>
   <Step title="Assign Test Values">
@@ -316,8 +623,9 @@ Remember: if you assign to a variable, and the returned data exceeds **600 chara
   </Step>
 </Steps>
 
+<Tip>
 Use this tool to debug and perfect your setup before you put the Pearl in production.
-
+</Tip>
 ---
 
 <CardGroup cols={1}>
