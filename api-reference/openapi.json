@@ -2840,12 +2840,17 @@
                         "description": "An optional external identifier for the lead.",
                         "nullable": true
                     },
+                    "timeZoneId": {
+                        "type": "string",
+                        "description": "Optional time zone identifier for the lead.  \r\nIf provided, this will override the default time zone configured at the outbound level.  \r\nBy default, an outbound campaign has a predefined time zone (set during creation or modified later on the platform),  \r\nbut you can assign a specific time zone to a lead by specifying this property.  \r\n\r\nIf not provided, the lead will use the outbound's default time zone.  \r\n\r\nFor valid values, refer to the \"TimeZone\" column in the following list:  \r\n[Time Zone List](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11) \r\n\r\nExamples: `\"Pacific Standard Time\"`, `\"Türkiye Standard Time\"`",
+                        "nullable": true
+                    },
                     "callData": {
                         "type": "object",
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\nsee [Variables](/pages/variables) for more information.\r\nHere is an exemple of the json to send:\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
+                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\n\r\nSee [Variables](/pages/variables) for more information.\r\nHere is an exemple of the json to send:\r\n\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
                         "nullable": true
                     }
                 },
