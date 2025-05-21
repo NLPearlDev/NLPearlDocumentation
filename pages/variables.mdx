@@ -3,6 +3,33 @@ title: Variables
 icon: "square-root-variable"
 iconType: "light"
 ---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_timeline.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_timeline.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
 ## Introduction
 
 Variables are essential placeholders that store and manipulate data during a conversation. They hold information such as:
@@ -11,135 +38,565 @@ Variables are essential placeholders that store and manipulate data during a con
 - **System Data**: Information retrieved from external sources like CRM systems.
 - **Computed Values**: Results from expressions or calculations within the conversation flow.
 
-### Why Are Variables Important?
+<Check>
+  <b>Why Are Variables Important?</b>
 
 - **Personalize Interactions**: Tailor conversations to individual users for a more engaging experience.
 - **Control Conversation Flow**: Make decisions and branch dialogues based on variable values.
 - **Store and Reuse Information**: Keep track of data throughout the conversation for consistency.
 - **Integrate with External Systems**: Enrich conversations with data from other platforms.
 - **Enhance Actions**: Use variables in actions like sending personalized emails or SMS messages.
+</Check>
 
 ---
 
-## Accessing the Variable Manager
+## Variable Manager Overview
 
 Variables can be managed using the **Variable Manager**, which is accessible in both **Simple Mode** and **Advanced Mode (Tree Editor)**.
 
-### Variable Manager Overview
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-The Variable Manager allows you to create, edit, and organize variables used in your conversation flows. Variables are categorized into two types:
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-- **Pre-call Variables**: Variables configured before the call starts, such as customer information.
-These variables are typically sourced from external systems like CRM or imported via CSV or API. They provide context and initial data that can be used throughout the conversation.
-- **Collected In-call Variables**: Variables captured or updated dynamically during the conversation.
-These variables are collected based on user interactions, inputs, or system computations, allowing the conversation to adapt in real-time and respond to user needs effectively.
+<br />
+
+The Variable Manager allows you to create, edit, and organize variables used in your conversation flows. Variables are categorized into three types:
+
+| **Type**                   | **Description**                                                                                                                                                                                                                                                                                                    | **Representation**                                  |
+|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------|
+| **Pre-call Variables**    | Variables configured before the call starts, such as customer information. These variables are typically sourced from external systems like CRM or imported via CSV or API.                                                                                                                                    | <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}><span style={{ width: "18px", height: "18px", background: "#006BFF", borderRadius: "2px" }}></span>`blue`</span> |
+| **Collected In-call Variables** | Variables captured or updated dynamically during the conversation. These variables are collected based on user interactions, inputs, or system computations.                                                                                                                                            | <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}><span style={{ width: "18px", height: "18px", background: "#28A948", borderRadius: "2px" }}></span>`green`</span>    |
+| **Post-call Variables**   | Variables generated after the call ends, such as the call transcript, recording URL, and conversation summary. These variables are automatically produced and can be used for follow-up actions.                                                                                                                 | <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}><span style={{ width: "18px", height: "18px", background: "#FFAE00", borderRadius: "2px" }}></span>`orange`</span>  |
+
+<Warning>
+**Note about Post-call Variables**  
+Post-call variables are **not accessible via the Variable Manager**, as they **cannot be created or modified by users**. These variables are **pre-defined by our team** and become available only **within End Call Notifications**. They’re designed to let your agents send structured data (like summaries or recordings) to external systems **after the call ends**.
+</Warning>
+
+---
 
 #### Accessing the Variable Manager
 
-1. **In Simple Mode**:
-   - Navigate to the **Flow Configuration** page.
-   - Click on the **"+"** icon to open the Variable Manager.
+You can access the Variable Manager in **two quick ways** depending on your editor mode:
 
-2. **In Advanced Mode (Tree Editor)**:
-   - Within the nodes on the **Tree Editor** page, click the **"+"** icon inside a node to open the Variable Manager.
-   - Alternatively, you can press the document icon on the bottom right side of the editor to open the Variable Manager.
+<Steps>
+<Step title="From the Header">
 
-#### Variable Categories
+You can access the **Variable Manager** directly from:
 
-- **Pre-call Variables**: Represented with a **person icon**.
-- **Collected In-call Variables**: Represented with a **phone icon**.
+- The **top navigation bar**, available in both **Simple** and **Advanced Mode**.
+- The **bottom-right corner** of the **Tree Editor**, exclusive to **Advanced Mode** — alongside zoom and instruction buttons.
 
-     ![Variable Manager](/images/exemples/variable-mangaer-all.png)
+<div className="flex gap-6">
+  <div className="w-1/2">
+    <div className="block dark:hidden">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/light_mode/variables_simple-emplacement.jpg"
+            alt="Frame 1 – Light Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/dark_mode/variables_simple-emplacement.jpg"
+            alt="Frame 1 – Dark Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+  </div>
+
+  <div className="w-1/2">
+    <div className="block dark:hidden">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/light_mode/variables_simple-emplacement3.jpg"
+            alt="Frame 2 – Light Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/dark_mode/variables_simple-emplacement3.jpg"
+            alt="Frame 2 – Dark Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+  </div>
+</div>
+
+<br />
+</Step>
+
+<Step title="From a Text Field">
+
+You can also access the **Variable Manager** from a text field — in both **Simple** and **Advanced Mode** — whenever the `+` icon is available.
+
+<Note>
+Only fields that support variables will display the **“+”** icon.  
+For example, some duration or static option fields won’t offer variable insertion.
+</Note>
+
+- Go to the **Flow Configuration** page (Simple Mode), or open a **Node** (Advanced Mode).
+- Click the **“+” icon** inside the supported text input field.
+- At the bottom of the dropdown, click **“Variable Manager”**.
+
+<div className="flex gap-6">
+  <div className="w-1/2">
+    <div className="block dark:hidden">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/light_mode/variables_simple-emplacement2.jpg"
+            alt="Frame 1 – Light Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/dark_mode/variables_simple-emplacement2.jpg"
+            alt="Frame 1 – Dark Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+  </div>
+
+  <div className="w-1/2">
+    <div className="block dark:hidden">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/light_mode/variables_simple-emplacement4.jpg"
+            alt="Frame 2 – Light Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/dark_mode/variables_simple-emplacement4.jpg"
+            alt="Frame 2 – Dark Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+  </div>
+</div>
+</Step>
+</Steps>
 
 ---
 
-## Creating and Managing Variables
+#### Creating and Managing Variables
+Variables help you store and reuse dynamic information throughout your flows. Here's how to create, edit, and manage them from the **Variable Manager**.
 
-### Creating a New Variable
+<Steps>
+<Step title="Open the Variable Manager">
+Click the **“+”** icon in a text field or use the **Variable Manager** button (in the header or tree editor).
+</Step>
 
-1. **Open the Variable Manager** by clicking the **"+"** icon.
-2. **Select the Variable Category**:
-   - Choose between **Pre-call** or **Collected In-call** from the dropdown menu.
+<Step title="Select the Variable Category">
+- **Pre-call** (available before the call starts)
+- **Collected In-call** (captured during the conversation)
 
-3. **Click "Create Variable"** to open the variable creation form.
+<Warning>
+Post-call variables are predefined by our team and cannot be created manually. They are only available inside End Call Notifications.
+</Warning>
 
-     ![Create Variable Button](/images/exemples/variable-mangaer-add-new-variable.png)
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-create.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-     This will open the **Create Variable** panel where you can enter the details for your new variable.
-     ![Create Panel](/images/exemples/variable-mangaer-edit-variable.png)
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-create.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+</Step>
 
-4. **Enter Variable Details**:
+<Step title="Fill in the Variable Details">
 
+| Field | Description |
+|-------|-------------|
+| **Type** | Select the data type: `Text`, `Whole Number`, `Decimal`, `Boolean`, or `Date & Time`. |
+| **Display Name** | Use a clear, descriptive label (e.g. `Customer Name`). |
+| **ID** | Auto-generated from the Display Name — you can edit it. |
+| **Description** _(optional)_ | Explain the purpose or usage of this variable. |
+| **Allow Multiple Entries** | Toggle this if the variable needs to hold multiple values (e.g. list of dates). |
 
-   
-   - **Type**: Select the data type (**Text**, **Whole Number**, **Decimal Number**, **Boolean**, **Date & Time**).
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-create2.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-create2.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+</Step>
 
-   - **Display Name**: Use clear, descriptive names (e.g., `Customer Name`).
-   - **ID**: Automatically generated based on the display name; can be edited.
+<Step title="Define Allowed Values (Optional)">
+Use this section to limit inputs to specific options.
 
-   - **Description** (Optional): Briefly explain the variable's purpose.
-   - **Allow Multiple Entries**: Enable this option if the variable needs to store multiple values (e.g., a list of dates).
-   
-     ![Variable Data Types](/images/exemples/variable-mangaer-edit-variable-list-type.png)
+- Add a list of accepted values.
+- Optionally assign **backend codes** to each value.
+- Toggle **Allow Multiple Entries** if more than one value can be selected.
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-create3.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-5. **Define Allowed Values** (Optional):
-   - Click on the **"Allowed Values"** section.
-   - **Allowed Values**: Specify predefined options that the variable can hold.
-   
-        ![Allow Multiple Entries Option](/images/exemples/variable-mangaer-allowed-value-without-options.png)
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-create3.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-   - **Use Codes**: Assign optional codes to each allowed value for backend processing or integration.
+<Info>
+This is ideal for dropdowns or structured inputs (e.g. `Issue Type`, `Region`, etc.).
+</Info>
+</Step>
 
-     ![Allowed Values with Codes](/images/exemples/variable-mangaer-allowed-value-with-options.png)
+<Step title="Save the Variable">
+It will now be available anywhere in your flow where variables are supported.
+</Step>
 
-6. **Click "Save"** to create the variable.
+<Step title="Use your variables wherever applicable">
 
-### Editing and Deleting Variables
+<Info>
+Some fields — like the **Opening Sentence** — do not support the use of **in-call variables**.
 
-- **Edit a Variable**: Click on the variable name in the Variable Manager panel to open the edit section.
+When testing your flows via **Test Calls**, note that **Pre-call variables are required**, while **In-call variables are optional**.  
 
-- **Delete a Variable**: Click the **Delete** icon next to the variable and confirm the deletion.
+Also, when uploading a lead file, **only the variables you've actually used** in your flows will appear in the platform’s lead mapping interface.
+
+In other words:  
+If you’ve created variables in the Variable Manager but haven’t used them anywhere, they **won’t show up** when setting up an outbound campaign or importing leads.
+</Info>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-add.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-add.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+</Step>
+</Steps>
+
+<Card icon="circle-info" iconType="light">
+  <b>Edit or Delete a Variable</b>
+
+**To edit a variable:**
+- Open the **Variable Manager**.
+- Click on the variable name to open its edit form.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-edit.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-edit.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+**To delete a variable:**
+- Click the **Trash icon** next to the variable.
+- Confirm the deletion in the dialog box.
+
+<Warning>
+Deleting a variable will remove it from all flows where it's used. Proceed with caution!
+</Warning>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-delete.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-delete.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Card>
 
 ---
-
 
 ## Using Variables in Conversations
 
-### Collecting User Input into Variables
+<span style={{ fontSize: '18px', fontWeight: 600, color: 'white' }}>
+  Collecting User Input into Variables
+</span>
 
 - **In Simple Mode**: Simply add a variable to the question step; this will automatically store the user's response into that variable.
 - **In Advanced Mode**: In the node's configuration, locate the **"Store In Variable"** field.
 
+---
 
-### Inserting Variables into Agent Scripts
+<span style={{ fontSize: '18px', fontWeight: 600, color: 'white' }}>
+  Inserting Variables into Agent Scripts
+</span>
 
 1. **Compose the Agent's Script** in any text field within your flow.
 2. **Insert Variable Placeholder**:
    - Click the **"+"** icon next to the text field.
    - Select the desired variable from the list.
 
-**Example**:
+<Card title="Example">
+**Script**: "Thank you for calling, `customerName`!"
+</Card>
 
-- **Script**: "Thank you for calling, `customerName`!"
+<br/>
 
-### Using Variables in Actions
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-script.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-script.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+<span style={{ fontSize: '18px', fontWeight: 600, color: 'white' }}>
+  Using Variables in Actions
+</span>
 
 1. **Add an Action Node** (e.g., **Email Node**, **SMS Node**) to your flow.
 2. **Configure the Action**:
    - **Message Content**: Include variables by clicking the **"+"** icon and selecting the desired variable.
 3. **Customize the Message** with variable placeholders.
 
-**Example in SMS Node**:
+<Card title="Example in SMS Node">
+**Message Content**: "Hello `customerName`, your appointment on `appointmentDate` is confirmed."
+</Card>
 
-- **Message Content**: "Hello `customerName`, your appointment on `appointmentDate` is confirmed."
+<br/>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-smssend.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-smssend.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+<span style={{ fontSize: '18px', fontWeight: 600, color: 'white' }}>
+  Using Variables in EndCall Notifications
+</span>
+
+1. Add an EndCall Notification to your flow (`Email`, `Slack`, `API`).
+2. Write the Notification Message, using the “+” icon to insert dynamic variables
+3. Customize the content to provide a clear summary of each completed call.
+
+<Card title="Exemple Email Notification to Client">
+**Subject**: New call from `customerName` — Summary for `companyName` <br/><br/>
+**Message Content**: "Hello `companyName`, You have received a new call from `customerName`. Here are some details:
+- Call Duration: `callDuration`
+- Summary: `callSummary`"
+</Card>
+
+<br/>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-notification.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-notification.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
 ---
 
 ## Implementing Conditional Logic with Variables
 
-### Conditional Branching
+<span style={{ fontSize: '18px', fontWeight: 600, color: 'white' }}>
+  Conditional Branching
+</span>
 
 1. **Enable Conditional Transitions** in a node's configuration by toggling the **"Conditional Branching"** option.
 
@@ -152,40 +609,161 @@ These variables are collected based on user interactions, inputs, or system comp
 
 4. **Connect to Subsequent Nodes** based on each condition.
 
-**Example**:
-
+<Card title="Example">
 - **Variable**: `satisfactionScore`
 - **Conditions**:
   - If **`satisfactionScore >= 4`**, proceed to positive feedback node.
   - If **`satisfactionScore < 4`**, proceed to improvement inquiry node.
+</Card>
 
+<br/>
+
+<div className="flex gap-6">
+  <div className="w-1/2">
+    <div className="block dark:hidden">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/light_mode/variables_tree-1.jpg"
+            alt="Frame 1 – Light Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/dark_mode/variables_tree-1.jpg"
+            alt="Frame 1 – Dark Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+  </div>
+
+  <div className="w-1/2">
+    <div className="block dark:hidden">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/light_mode/variables_tree-2.jpg"
+            alt="Frame 2 – Light Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <div className="p-0 pb-0">
+          <img
+            src="/images/dark_mode/variables_tree-2.jpg"
+            alt="Frame 2 – Dark Mode"
+            className="rounded-[14px] w-full block"
+          />
+        </div>
+      </Frame>
+    </div>
+  </div>
+</div>
 
 ---
 
 ## Populating Variables from External Data
+Call variables can be filled dynamically from CSV files or APIs to personalize outbound calls.
 
-### Adding Variables via the Platform (Outbound Campaigns)
+<span style={{ fontSize: '18px', fontWeight: 600, color: 'white' }}>
+  Adding Variables via the Platform (Outbound Campaigns)
+</span>
 
-1. **Navigate to Outbound Campaigns** in the platform.
-2. **Download the Lead Template CSV**, which includes columns for your variables.
+<Steps>
+<Step title="Download the Lead Template CSV">
+Go to the **Outbound Campaigns** section of the platform, then click **Download Lead Template**.
 
+This CSV contains predefined columns where you can add your custom variables.
 
-3. **Fill in Lead Data** in the CSV file, ensuring each variable corresponds to the correct column.
-4. **Upload the Completed CSV** back to the platform.
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-download.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-download.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+</Step>
+<Step title="Fill in the CSV with your Lead Data">
+Open the downloaded CSV and complete it by filling in the lead information, including any custom variables in the appropriate columns.
 
-**Example CSV Entry**:
+Make sure each variable matches the column header to avoid upload issues.
+
+Once completed, **upload the CSV back into the platform**.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/variables_manager-addlead.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/variables_manager-addlead.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
+</Steps>
+
+<br/>
+
+<Card title="Example CSV Entry">
 
 | phoneNumber | customerName | membershipStatus |
 |-------------|--------------|------------------|
 | +1234567890 | Jane Smith   | Gold             |
 
-### Adding Variables via API
+</Card>
+
+---
+
+
+<span style={{ fontSize: '18px', fontWeight: 600, color: 'white' }}>
+  Adding Variables via API
+</span>
 
 1. **Use the Add Lead API Endpoint**: `PUT /v1/Outbound/{outboundId}/Lead`.
 2. **Include Variables** in the `callData` field of your JSON payload.
 
-**Example Request**:
+<Card title="Example Request">
 
 ```http
 PUT /v1/Outbound/{outboundId}/Lead
@@ -201,13 +779,18 @@ Authorization: Bearer <token>
   }
 }
 ```
+</Card>
 
-### Sending Variables in Single On-Demand Calls
+---
+
+<span style={{ fontSize: '18px', fontWeight: 600, color: 'white' }}>
+  Sending Variables in Single On-Demand Calls
+</span>
 
 1. **Use the Make Call API Endpoint**: `POST /v1/Outbound/{outboundId}/Call`.
 2. **Include Variables** in the `callData` field of your JSON payload.
 
-**Example Request**:
+<Card title="Example Request">
 
 ```http
 POST /v1/Outbound/{outboundId}/Call
@@ -222,10 +805,12 @@ Authorization: Bearer <token>
   }
 }
 ```
+</Card>
 
 ---
 
-## Best Practices for Using Variables
+<Note>
+Best Practices for Using Variables
 
 - **Use Descriptive Names**: Clearly name variables for easy identification (e.g., `customerEmail`).
 - **Define Variables Early**: Plan your variables before building the conversation flow.
@@ -235,14 +820,16 @@ Authorization: Bearer <token>
 - **Handle Data Securely**: Be cautious with personal and sensitive information.
 - **Document Variables**: Use the description field to note the purpose of each variable.
 - **Use Allowed Values and Codes**: When appropriate, define allowed values and use codes for better data management.
+</Note>
 
 ---
 
 ## Examples
 
-### Example 1: Personalizing an Outbound Call
-
+<Card title="Example 1: Personalizing an Outbound Call">
+<Info>
 **Scenario**: Notifying customers about a service upgrade.
+</Info>
 
 1. **Variables**:
    - **Pre-call Variables**:
@@ -257,11 +844,19 @@ Authorization: Bearer <token>
 4. **Implement Conditional Logic**:
    - If **`interested`** is **true**, proceed with details.
    - If **false**, thank the customer and end the call.
-5. **Adding Leads via CSV**: Use the platform to import leads with the `customerName` and `currentPlan` variables populated.
 
-### Example 2: Scheduling Multiple Dates
+<Note>
+  **Lead Import Tip**  
+  Use the platform to import leads with the `customerName` and `currentPlan` variables populated.
+</Note>
+</Card>
 
+<br/>
+
+<Card title="Example 2: Scheduling Multiple Dates">
+<Info>
 **Scenario**: Collecting multiple available dates from a customer.
+</Info>
 
 1. **Variable**:
    - `availableDates` (Date & Time)
@@ -272,9 +867,14 @@ Authorization: Bearer <token>
 4. **Usage**:
    - The collected dates can be used to schedule meetings or appointments.
 
-### Example 3: Dynamic Survey with Conditional Logic
+</Card>
 
+<br/>
+
+<Card title="Example 3: Dynamic Survey with Conditional Logic">
+<Info>
 **Scenario**: Gathering customer feedback.
+</Info>
 
 1. **Ask Satisfaction Score**:
    - Question: "On a scale of 1 to 5, how satisfied are you with our service?"
@@ -284,37 +884,40 @@ Authorization: Bearer <token>
    - If **`satisfactionScore < 4`**, proceed to a node asking for improvement suggestions.
 3. **Follow-Up Actions**: Send a personalized email using collected data, thanking them or addressing concerns.
 
+</Card>
 ---
 
 ## Frequently Asked Questions (FAQ)
 
-**Q: Can I use variables in both Simple and Advanced modes?**
+<AccordionGroup>
+  <Accordion title="Can I use variables in both Simple and Advanced modes?">
+    Yes, variables function similarly in both modes and can be managed accordingly.
+  </Accordion>
 
-A: Yes, variables function similarly in both modes and can be managed accordingly.
+    <Accordion title="How do I handle empty variables?">
+    Implement checks using conditional logic or assign default values to handle empty variables gracefully.
+  </Accordion>
 
-**Q: How do I handle empty variables?**
+    <Accordion title="Are variable names case-sensitive?">
+    Yes, variable names are case-sensitive. Ensure consistency when referencing them.
+  </Accordion>
 
-A: Implement checks using conditional logic or assign default values to handle empty variables gracefully.
+    <Accordion title="Can I change a variable's value during the conversation?">
+    Yes, variables can be updated multiple times as the conversation progresses.
+  </Accordion>
 
-**Q: Are variable names case-sensitive?**
+    <Accordion title="How do I include variables when adding leads via the platform or API?">
+    Include variables in the CSV file for platform uploads or in the `callData` field when using the API.
+  </Accordion>
 
-A: Yes, variable names are case-sensitive. Ensure consistency when referencing them.
+    <Accordion title="What is the difference between Pre-call and Collected In-call variables?">
+    **Pre-call Variables** are configured before the conversation starts and typically include data imported from external sources or predefined settings. **Collected In-call Variables** are captured or updated during the conversation based on user interactions.
+  </Accordion>
 
-**Q: Can I change a variable's value during the conversation?**
-
-A: Yes, variables can be updated multiple times as the conversation progresses.
-
-**Q: How do I include variables when adding leads via the platform or API?**
-
-A: Include variables in the CSV file for platform uploads or in the `callData` field when using the API.
-
-**Q: What is the difference between Pre-call and Collected In-call variables?**
-
-A: **Pre-call Variables** are configured before the conversation starts and typically include data imported from external sources or predefined settings. **Collected In-call Variables** are captured or updated during the conversation based on user interactions.
-
-**Q: What happens if I delete a variable that's in use?**
-
-A: Deleting a variable that's in use can cause errors in your conversation flow. Remove all references before deleting.
+    <Accordion title="What happens if I delete a variable that’s in use?">
+    Deleting a variable that’s in use can cause errors in your conversation flow. Remove all references before deleting.
+  </Accordion>
+</AccordionGroup>
 
 ---
 
@@ -327,6 +930,7 @@ Variables are powerful tools that enhance your conversations by making them dyna
 - **Control Conversation Flow**: Direct the conversation based on user responses and data.
 - **Integrate External Data**: Incorporate information from other systems for enriched interactions.
 
+<Note>
 Remember to:
 
 - **Plan Carefully**: Define your variables before building your conversation.
@@ -334,10 +938,10 @@ Remember to:
 - **Enhance User Experience**: Use variables to make interactions meaningful.
 - **Test Thoroughly**: Regularly test your conversation to ensure variables work correctly.
 - **Follow Best Practices**: Keep your variables organized and your data secure.
+</Note>
 
 ---
 
 For additional support, contact our support team at [support@nlpearl.ai](support@nlpearl.ai).
 
 ---
-
