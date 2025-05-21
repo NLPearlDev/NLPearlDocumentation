@@ -1,58 +1,189 @@
 ---
 title: Getting Started
-description: 'Discover how to make the most of NLPearl.AI from your initial registration to full platform utilization.'
+description: "Welcome to NLPearl! We're excited to have you onboard. This guide will walk you through the steps from registration to utilizing the full potential of our platform, including creating Pearls, managing activities, and understanding our billing system."
 icon: "circle-play"
 iconType: "light"
 ---
 
-import { CardGroup, Card } from '/snippets';
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/getting_started-cover.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-## Getting Started with NLPearl.AI
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/getting_started-cover.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-Welcome to NLPearl.AI! We're excited to have you onboard. This guide will walk you through the steps from registration to utilizing the full potential of our platform, including creating Pearls, managing activities, and understanding our billing system.
+---
 
 ### Registration and Initial Setup
 
 When you first register on our platform, we offer a few complimentary minutes and the ability to create Pearls to test a few calls. This allows you to get a feel for our system without any initial commitment.
 
+---
+
 ### Trial Phase
 
 During the trial phase, you can:
 
-- **Create Pearls**: Set up your conversational flows and test a few calls to understand how our AI agents operate.
-- **Complimentary Minutes**: Utilize the included minutes provided to make initial test calls.
+<CardGroup cols={2}>
+<Card title="Create Pearls" icon="check" iconType="light">
+Set up your conversational flows and test a few calls to understand how our AI agents operate.
+</Card>
 
+<Card title="Complimentary Minutes" icon="check" iconType="light">
+Utilize the included minutes provided to make initial test calls.
+</Card>
+</CardGroup>
+
+<Warning>
 However, note that at this stage, access to full inbound and outbound activities is restricted. To unlock the complete range of features, you need to subscribe to a plan.
+</Warning>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/getting_started-unsubscribe.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/getting_started-unsubscribe.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
 
 ### Subscribing to a Plan
 
 Once you subscribe to a plan, you unlock the full potential of the NLPearl.AI platform. Here's what you get:
 
-- **Full Access to Activities**: Engage in both inbound and outbound activities with no restrictions.
-- **Included Agents**: Receive a number concurrent agents based on your subscription plan, which will be automatically available for your activities.
-- **Included US Phone Numbers**: All our plans include at least one free US number.
-- **Included Minutes**: Each plan comes with a set of call minutes included.
+<CardGroup cols={2}>
+<Card title="Full Access to Activities" icon="check" iconType="light">
+Engage in both inbound and outbound activities with no restrictions.
+</Card>
+
+<Card title="Included Agents" icon="check" iconType="light">
+Receive a number concurrent agents based on your subscription plan, which will be automatically available for your activities.
+</Card>
+
+<Card title="Included US Phone Numbers" icon="check" iconType="light">
+All our plans include at least one free US number.
+</Card>
+
+<Card title="Included Minutes" icon="check" iconType="light">
+Each plan comes with a set of call minutes included.
+</Card>
+</CardGroup>
+
+---
 
 ### Credits and Minutes Usage
 
-Each minute of your calls will be deducted from the minutes included in your plan. Once the minutes are exhausted, your credits are being used.\n\n
+Each minute of your calls will be deducted from the minutes included in your plan. Once the minutes are exhausted, your credits are being used.
 Credits can also be used to purchase additional agents or phone numbers if you have sufficient balance.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/getting_started-minutes-included.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/getting_started-minutes-included.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
 
 #### Auto-Recharge
 
 To ensure uninterrupted service, we recommend activating the auto-recharge feature, in order to add credit to your account. You can find it in the
-[Billing Section](https://platform.nlpearl.ai/app/settings/billing) under the Settings Page. This will automatically top up your account to a target balance when it falls below a defined threshold, ensuring your operations continue smoothly without any disruptions due to insufficient funds.
+[Billing Section](https://platform.nlpearl.ai/app/settings/subscriptions-and-payments/credits) under the Settings Page. This will automatically top up your account to a target balance when it falls below a defined threshold, ensuring your operations continue smoothly without any disruptions due to insufficient funds.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/getting_started-autorecharge.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/getting_started-autorecharge.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
 
 ### Pricing and Credits
 
 The price for additional minutes varies based on your subscription plan.
 
+---
+
+<Warning>
 ### Managing Your Credits
 
 Once you exhaust your credits, your account will go through two stages:
 
 1. **Limited Activities**: When your credits are below zero, your activities will continue, but the number of concurrent agents per activity will be reduced to one.
 2. **Blocked Activities**: If your account reaches a debt of 10% of your monthly subscription price, all activities will be suspended until you recharge your credits.
+</Warning>
+
+---
+
 
 <CardGroup cols={2}>
   <Card

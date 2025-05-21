@@ -5,42 +5,280 @@ icon: "phone"
 iconType: "light"
 ---
 
-import { CardGroup, Card } from '@theme';
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_cover.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_cover.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
 
 ## Setting Up Inbound Activities
 
 Once you have created a Pearl in NLPearl.AI, you can utilize it to set up Inbound Activities. This feature enables your Pearl to receive inbound calls, providing a dynamic and responsive customer service experience.
 
-
-### What are Inbound Activities?
+<Info>
+What are Inbound Activities?
 
 Inbound Activities refer to the capability of your conversational AI to handle incoming calls. This feature allows you to engage with callers immediately and effectively, using the conversational flows defined in your Pearl.
+</Info>
+---
 
 ### Steps to Create an Inbound Activity
 
-1. **Purchase a Phone Number**: You first need to acquire a phone number from our platform. This number will be dedicated to your Inbound Activity and can receive calls from anywhere at any time.
+<Steps>
+<Step title="Purchase a Phone Number">
+You first need to acquire a phone number from our platform. This number will be dedicated to your Inbound Activity and can receive calls from anywhere at any time.
 
-2. **Assign the Phone Number to Your Pearl**: Link the purchased phone number to the Pearl you want to use for handling inbound calls. This connects your conversational flow to real-world interactions.
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_purchasephone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-3. **Configure Inbound Settings**: Set up your inbound call parameters, such as:
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_purchasephone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+</Step>
+<Step title="Assign the Phone Number to Your Pearl">
+Link the purchased phone number to the Pearl you want to use for handling inbound calls. This connects your conversational flow to real-world interactions.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_addphone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_addphone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
+<Step title="Configure Inbound Setting">
+Set up your inbound call parameters, such as:
+
    - **Number of Agents**: Specify the number of agents that will handle calls simultaneously.
+
+   <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_agents.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_agents.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
    - **Waiting Queue Message**: Define the sentence that will be said to callers if they enter the waiting queue.
+
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_waitingqueue.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_waitingqueue.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
    - **Queue Music**: Choose the song that will be played while callers wait in the queue.
+
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_queuemusic.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_queuemusic.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
    - **Recording Option**: If recording is enabled, this conversation will be recorded and saved for future access. If recording is disabled, the conversation will not be recorded and no audio will be available. 
    - **Recording After Transfer Call**: *Boolean* - If enabled, the call will continue to be recorded after being transferred. *Note: "Pearl & End-user" must be selected; otherwise, it will be automatically disabled.* This setting is important for maintaining logs in multi-agent interactions.
+
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_recordingoptions.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_recordingoptions.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
    - **Transcript Masking**: _(Post-Call)_ When enabled, sensitive information in conversation transcripts is automatically masked after the call while preserving essential context.
       This is especially useful for post-call analysis, compliance, and data security, ensuring that private details like:
       Credit card numbers
       Social Security numbers
       Personal identifiers
       are redacted while keeping the conversation readable.
+
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_transcriptmasking.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_transcriptmasking.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+<Card>
     > For example, if a customer says:
     "My credit card number is 1234-5678-9012-3456."
     The transcript might store it as:
     "My credit card number is --**-3456."
     This helps businesses review interactions safely without exposing sensitive data.
-    - **Call Webhook**: A call webhook is triggered at key points during the call lifecycle, such as when the call is initiated and when it ends. You receive an object similar to the one returned by the [Get Calls](/api-reference/call/get-call) endpoint, including details like call duration, outcome, and any data collected during the call. This is useful for tracking call performance and automation.
+</Card>
+</Step>
+<Step>
+    - Call Webhook: A call webhook is triggered at key points during the call lifecycle, such as when the call is initiated and when it ends. You receive an object similar to the one returned by the [Get Calls Endpoint](/api-reference/call/get-call), including details like call duration, outcome, and any data collected during the call. This is useful for tracking call performance and automation.
+  
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_webhook.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_webhook.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+</Step>
+
+</Steps>
+---
 
 <CardGroup cols={2}>
   <Card
@@ -61,16 +299,22 @@ Inbound Activities refer to the capability of your conversational AI to handle i
   </Card>
 </CardGroup>
 
+---
+
 ### Managing Call Volume with Queues
 
 If your Inbound Activity experiences high call volumes, callers will not be turned away. Instead, they will enter a waiting queue where they can listen to customizable messages and music until an AI agent becomes available.
 
-<div className="call-queue-info">
-  <h3>Call Queue Configuration:</h3>
-  <p>Customize the waiting message and background music to keep your callers engaged while they wait. This feature helps in maintaining a professional and pleasant waiting experience.</p>
-</div>
+<Note>
+  ### Call Queue Configuration
 
+  Customize the waiting message and background music to keep your callers engaged while they wait. This feature helps in maintaining a professional and pleasant waiting experience.
+
+</Note>
+---
+
+<Info>
 ### Monitoring and Adjusting Your Inbound Activities
 
 While basic monitoring of call logs and activity reports can be done via our API, any modifications to the activity setup or features like voice changes and language settings need to be handled directly on the platform.
-
+</Info>
