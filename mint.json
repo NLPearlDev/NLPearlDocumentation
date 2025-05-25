@@ -147,6 +147,7 @@
       "api-reference/outbound/get-outbound",
       "api-reference/outbound/get-lead",
       "api-reference/outbound/get-lead-via-external-id",
+      "api-reference/outbound/get-lead-via-phone-number",
       "api-reference/outbound/get-call-request",
       "api-reference/outbound/get-analytics",
       "api-reference/outbound/set-activity-state",
