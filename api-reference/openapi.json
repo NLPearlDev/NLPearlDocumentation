@@ -1161,8 +1161,8 @@
                 "tags": [
                     "Outbound"
                 ],
-                "summary": "Get Lead Via External ID",
-                "description": "Retrieves details of a specific lead within a outbound",
+                "summary": "Get Lead via External ID",
+                "description": "Retrieves details of a specific lead within an outbound",
                 "parameters": [
                     {
                         "name": "outboundId",
@@ -1177,6 +1177,77 @@
                         "name": "externalId",
                         "in": "path",
                         "description": "The external identifier of the lead within the outbound campaign.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the specific lead.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LeadApiView"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LeadApiView"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LeadApiView"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/Outbound/{outboundId}/Lead/PhoneNumber/{phoneNumber}": {
+            "get": {
+                "tags": [
+                    "Outbound"
+                ],
+                "summary": "Get Lead via Phone Number",
+                "description": "Retrieves details of a specific lead within an outbound via phone number",
+                "parameters": [
+                    {
+                        "name": "outboundId",
+                        "in": "path",
+                        "description": "The unique identifier of the outbound campaign.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phoneNumber",
+                        "in": "path",
+                        "description": "The phone number of the lead to retrieve.",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -1992,7 +2063,11 @@
                         "nullable": true
                     },
                     "isCallTransferred": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicates whether the call was transferred to a human or another endpoint."
+                    },
+                    "overallSentiment": {
+                        "$ref": "#/components/schemas/eOverallSentiment"
                     }
                 },
                 "additionalProperties": false
@@ -2660,6 +2735,12 @@
                         },
                         "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\nsee [Variables](/pages/variables) for more information.\r\nHere is an exemple of the json to send:\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
                         "nullable": true
+                    },
+                    "collectedData": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "description": "A dictionary containing all the information collected about the lead during the call.  \r\nThese values are the result of the conversation and reflect the answers or actions taken by the lead.  \r\nThe `key` represents the ID of the variable configured on the platform,  \r\nand the `value` corresponds to the collected data.  \r\n            \r\nThis information can be used to understand user intent, track specific responses, or power further automation.  \r\nFor more details on how variables work, see [Variables](/pages/variables).\r\n            \r\nHere is an example of the JSON format:\r\n`{ \"confirmBooking\": true, \"dropOffLocation\": \"Orly Airport\", \"rideTime\": \"Friday at 12:00\", \"userIntent\": \"Book a taxi to the airport\" }`",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -2742,7 +2823,7 @@
                         "description": "The phone number of the lead.",
                         "nullable": true
                     },
-                    "timeZone": {
+                    "timeZoneId": {
                         "type": "string",
                         "description": "The time zone of the lead.",
                         "nullable": true
@@ -3159,6 +3240,11 @@
             "eLeadStatusView": {
                 "type": "integer",
                 "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Complete`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
+                "format": "int32"
+            },
+            "eOverallSentiment": {
+                "type": "integer",
+                "description": "Represents the overall emotional tone detected from the client during the conversation.\n\n`1 - Negative`\n\n`2 - SlightlyNegative`\n\n`3 - Neutral`\n\n`4 - SlightlyPositive`\n\n`5 - Positive`\n\n",
                 "format": "int32"
             }
         },
