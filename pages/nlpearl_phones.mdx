@@ -5,122 +5,345 @@ icon: "mobile"
 iconType: "light"
 ---
 
-<img
-	className="block dark:hidden"
-  src="/logo/NLPearlPhone.png"
-  alt="Custom VoIP Icon"
-  style={{ width: '50px', float: 'right', marginTop: '-130px' }}
-/><img
-	className="hidden dark:block"
-  src="/logo/NLPearlPhoneBlack.png"
-  alt="Custom VoIP Icon"
-  style={{ width: '50px', float: 'right', marginTop: '-130px' }}
-/>
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_nlpearl-cover.png"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_nlpearl-cover.png"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
 NLPearl.AI allows you to purchase phone numbers directly from our platform to support your inbound and outbound call activities. These phone numbers are billed monthly and can be managed easily within your account.
 
+<Card>
 ### Available Countries
 
 Currently, we offer phone numbers for purchase from the following country:
 
-- **United States (US)**
+| Country        | ISO Code | Status                       |
+|----------------|----------|------------------------------|
+| United States  |`US`       | <span style={{ backgroundColor: '#28A948', color: 'white', padding: '4px 8px', borderRadius: '4px', fontWeight: '500', fontSize: '14px' }}>Available</span> |
 
+
+<Note>
 If you require phone numbers from other country codes, please consider using our [Twilio Integration](/pages/twilio_integration) or [Custom VoIP Integration](/pages/custom_voip) options.
+</Note>
+</Card>
+---
 
 ### How to Purchase a Phone Number
 
 Follow these steps to purchase a phone number from NLPearl.AI:
 
-1. **Navigate to Settings**:
-   - On the platform, click on the **Settings** icon located at the bottom left corner of the dashboard.
 
-2. **Access Phone Numbers Tab**:
-   - In the Settings menu, click on the **Phone Numbers** tab to manage your phone numbers.
+<Steps>
 
-3. **Click on Purchase NLPearl Phone Number**:
-   - Click the **Purchase NLPearl Phone Number** button to view available phone numbers.
+<Step title="Go to Phone Numbers Settings">
 
-4. **Select Phone Numbers**:
+Start by clicking your **profile card** <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span> at the bottom-left corner of the sidebar. This opens the Settings panel.
 
-<img
-	className="block dark:hidden"
-	src="/images/exemples/nlpearlPhone.png"
-	alt="API Call Setup"
-	style={{ 
-	borderRadius: '18px', 
+From there, go to the **Phone Numbers tab** <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span> to manage or purchase phone numbers linked to your account.
 
-	}}
-/>
-<img
-	className="hidden dark:block"
-	src="/images/exemples/nlpearlPhone.png"
-	alt="API Call Setup"
-	style={{ 
-	borderRadius: '18px', 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_tab.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-	}}
-/>
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_tab.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-   - Browse through the list of available US phone numbers.
-   - Select the phone numbers you wish to purchase by checking the boxes next to them.
+</Step>
 
-5. **Review Your Cart**:
-   - After selecting your desired numbers, go to the **Cart** to review your selections.
-   - In the Cart, you can:
-     - **Manage Deletions**: Remove any phone numbers you no longer wish to purchase.
-     - **View Total Payment**: See the total monthly cost for the selected phone numbers.
+<Step title="Click on Purchase NLPearl Phone Number">
 
-6. **Complete the Purchase**:
-   - Once you are satisfied with your selections, click on the **Buy** button to finalize the purchase.
-   - The phone numbers will be added to your account immediately.
+In the **Phone Numbers** tab, locate the **Purchase NLPearl Phone Number** button in the center of the screen.
+
+Click it to access the list of available phone numbers for purchase.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_purchasephonenumber.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_purchasephonenumber.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
+
+<Step title="Select Phone Numbers">
+
+Once you click **Purchase NLPearl Number**, a side panel titled **Purchase Phone Numbers** <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span> opens on the right.
+
+Here, you’ll see a list of available US phone numbers. To add a number to your cart, simply click the **Add** button next to it. When selected, the button turns green and updates to **Added** <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span>.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_nlpearl-list.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_nlpearl-list.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Note>
+**Not finding a number you like?** You can refresh the list to generate a new selection of available phone numbers.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/phone_number_nlpearl-refresh.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/phone_number_nlpearl-refresh.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Note>
+
+</Step>
+
+<Step title="Review Your Cart">
+
+
+Once you’ve selected your numbers, scroll to the bottom of the **Purchase Phone Numbers** panel to access your **Cart**.
+
+There, you’ll see the phone numbers you’ve added, along with the monthly pricing details.
+
+- To remove a number, click the **red delete icon** next to it.
+- The **Total** cost is automatically updated based on your selections.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_cart.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_cart.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+</Step>
+
+<Step title="Complete the Purchase">
+
+When you're happy with your selection, click the **Purchase** button at the bottom of the panel to finalize your order. Your selected phone numbers will be instantly added to your account — ready to use without any delay.
+
+</Step>
+
+<Step title="Manage Your Phone Numbers">
+After purchasing, you can assign phone numbers directly to your **inbound** or **outbound campaigns** from the platform.
+
+To assign a phone number, open the settings of the specific campaign (inbound or outbound) and choose the number you'd like to attach.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_campaign.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_campaign.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Warning>
+If a phone number is scheduled for deletion but still linked to an active campaign, that campaign will **automatically stop working** once the number is removed.
+</Warning>
+
+</Step>
+</Steps>
+
+<Card title="Deleting Phone Numbers" icon="circle-info" iconType="light">
+
+If you no longer need a phone number, you can schedule it for deletion directly from your settings.
+
+Start by going to the **Phone Numbers** section in your Settings. From there, locate the number you want to remove and click the **Delete** button next to it.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_delete.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_delete.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+A confirmation step will appear to make sure you really want to delete the selected number. Once confirmed, the deletion is scheduled but not immediate.
+
+Once confirmed, the deletion will be scheduled but not immediate. The phone number remains active until its **billing anniversary date**, when it will be automatically removed from your account.
+
+<Info>
+You can continue using the number normally until that date — deletion only takes effect on its billing anniversary.
+</Info>
+
+</Card>
+---
 
 ### Payment and Billing
 
 Phone numbers are billed on a monthly basis. There are two types of payment methods:
 
-- **Using Credits**:
-  - If you have enough credits in your NLPearl.AI account, the phone numbers will be purchased using these credits.
-  - The cost will be deducted from your available credit balance.
+| Method             | Description |
+|--------------------|-------------|
+| **Credit**   | If you have enough credits available in your NLPearl account, phone numbers will be **automatically purchased using those credits**. The total cost will simply be deducted from your current credit balance — no additional action needed. |
+| **Credit Card** | If your credit balance is **insufficient**, the system will automatically switch to your **saved credit card** to complete the purchase. Once the transaction is processed, you'll receive an invoice by email. |
 
-- **Using Credit Card**:
-  - If you do not have sufficient credits, the phone numbers will be purchased using the credit card associated with your account.
-  - You will receive an invoice for the transaction.
+<Note>
+**Subscription Inclusions**: <br/>
+If your subscription plan includes phone numbers and you have not yet used your included allowance, the purchase will be free for the number of phone numbers included in your plan.
+</Note>
 
-- **Subscription Inclusions**:
-  - If your subscription plan includes phone numbers and you have not yet used your included allowance, the purchase will be free for the number of phone numbers included in your plan.
+---
 
-### Managing Your Phone Numbers
-
-After purchasing, you can manage your phone numbers directly from the platform:
-
-- **Assign to Campaigns**: Allocate phone numbers to your inbound or outbound campaigns as needed.
-
-### Deleting Phone Numbers
-
-If you no longer need a phone number, you can schedule it for deletion:
-
-1. **Access Phone Numbers Tab**:
-   - Go to the **Phone Numbers** section in your Settings.
-
-2. **Select Phone Number to Delete**:
-   - Choose the phone number you wish to delete.
-
-3. **Schedule Deletion**:
-   - Confirm that you want to delete the phone number.
-   - The phone number will remain active until its purchase anniversary date, after which it will be removed from your account.
-
-**Note**: Deletion of phone numbers occurs on the anniversary day of the purchase. This means you can continue to use the phone number until that date.
-
+<Warning>
 ### Important Considerations
 
 - **Monthly Billing Cycle**: Phone numbers are billed on a monthly cycle starting from the date of purchase.
 - **Country Code Limitations**: Currently, only US phone numbers are available for direct purchase. For other countries, consider alternative integration options.
 - **Payment Methods**: Ensure your account has sufficient credits or a valid credit card on file to avoid interruptions in service.
+</Warning>
 
-### Next Steps
+---
 
-- **Need Phone Numbers from Other Countries?**
-  - Explore our [Twilio Integration](/pages/twilio_integration) to access a broader range of international phone numbers.
-  - Consider the [Custom VoIP Integration](/pages/custom_voip) if you have specific VoIP services you wish to use.
+<Card title="Need Phone Numbers from Other Countries?" icon="circle-info" iconType="light">
+  
+  <br/>
 
+<CardGroup cols={2}>
+  <Card
+    title="Twilio Integration"
+    icon="object-intersect"
+    iconType="light"
+    href="/pages/twilio_integration"
+  >
+    Explore our **Twilio Integration** to access a broader range of international phone numbers.
+  </Card>
+  <Card
+    title="Custom VoIP Integration"
+    icon="code-branch"
+    iconType="light"
+    href="/pages/custom_voip"
+  >
+    Consider the **Custom VoIP Integration** if you have specific VoIP services you wish to use.
+  </Card>
+</CardGroup>
+</Card>
 
 

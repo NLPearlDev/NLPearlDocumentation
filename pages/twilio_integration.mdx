@@ -5,184 +5,459 @@ icon: "object-intersect"
 iconType: "light"
 ---
 
-<img
-	className="block dark:hidden"
-  src="/logo/twilioicon.webp"
-  alt="Custom VoIP Icon"
-  style={{ width: '50px', float: 'right', marginTop: '-150px' }}
-/><img
-	className="hidden dark:block"
-  src="/logo/twilioicon.webp"
-  alt="Custom VoIP Icon"
-  style={{ width: '50px', float: 'right', marginTop: '-150px' }}
-/>
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_twilio-cover.png"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_twilio-cover.png"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
 
 Integrate your Twilio account with NLPearl.AI to use your existing Twilio phone numbers on our platform. 
 This integration allows you to leverage your Twilio numbers for inbound and outbound campaigns, 
 providing access to a wide range of phone numbers from various countries while ensuring compliance with local regulations.
 
+---
+
 ### How to Integrate Your Twilio Account
 
 Follow these steps to integrate your Twilio account with NLPearl.AI:
 
-1. **Access Settings**:
-   - Click on the **Settings** icon located at the bottom left corner of the NLPearl.AI dashboard.
+<Steps>
 
-2. **Navigate to Phone Numbers Tab**:
-   - In the Settings menu, select the **Phone Numbers** tab.
+<Step title="Go to Phone Numbers Settings">
 
-3. **Add Phone Number**:
-   - Click on the **Add Phone Number** button.
+Start by clicking your **profile card** <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span> at the bottom-left corner of the sidebar. This opens the Settings panel.
 
-4. **Connect to Twilio**:
+From there, go to the **Phone Numbers tab** <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span> to manage or purchase phone numbers linked to your account.
 
-<img
-	className="block dark:hidden"
-	src="/images/exemples/TwilioConnect.png"
-	alt="API Call Setup"
-	style={{ 
-	borderRadius: '18px', 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_tab.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-	}}
-/>
-<img
-	className="hidden dark:block"
-	src="/images/exemples/TwilioConnect.png"
-	alt="API Call Setup"
-	style={{ 
-	borderRadius: '18px', 
-	}}
-/>
-   - Choose the **Connect to Twilio** option. You have two methods to connect your Twilio account:
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_tab.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
 
-   #### Option 1: Using Account SID and Auth Token
+<Step title="Click on Connect to Twilio">
 
-   - **Account SID**: Enter your Twilio Account SID.
-   - **Auth Token**: Enter your Twilio Auth Token.
+In the **Phone Numbers** tab, locate the **Connect to Twilio** button in the center of the screen.
 
-   #### Option 2: Using Account SID, API Key SID, and API Secret Key
+Click this button to link your Twilio account and access the list of available phone numbers provided by Twilio.
 
-   - **Account SID**: Enter your Twilio Account SID.
-   - **API Key SID**: Enter your Twilio API Key SID.
-   - **API Secret Key**: Enter your Twilio API Secret Key.
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_twilio-connect.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-5. **Submit Credentials**:
-   - After entering the appropriate credentials, click on **Continue**.
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_twilio-connect.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
 
-6. **Verify Credentials**:
-   - If your credentials are correct, you'll proceed to the next page displaying your Twilio phone numbers. If not, you'll be prompted to re-enter your credentials.
+<Step title="Connect to Twilio with Credentials">
 
-### Importing Your Twilio Phone Numbers
+Once you click the **Connect to Twilio** button, you'll be prompted to link your Twilio account. There are two ways to authenticate:
 
-Once connected, you can import your Twilio phone numbers:
-<img
-	className="block dark:hidden"
-	src="/images/exemples/PhoneNumberListTwilio.png"
-	alt="API Call Setup"
-	style={{ 
-	borderRadius: '18px', 
-	}}
-/>
-<img
-	className="hidden dark:block"
-	src="/images/exemples/PhoneNumberListTwilio.png"
-	alt="API Call Setup"
-	style={{ 
-	borderRadius: '18px', 
-	}}
-/>
-1. **List of Phone Numbers**:
-   - A list of all phone numbers associated with your Twilio account will be displayed.
+#### Option 1: Use Account SID + Auth Token
 
-2. **Select Phone Numbers to Import**:
-   - Click on the **Add** button next to each phone number you wish to import to NLPearl.AI.
+This is the simplest method. Use it if you prefer to connect directly with your main Twilio credentials.
 
-3. **Finish Importing**:
-   - After selecting your desired phone numbers, click on **Finish**. The selected phone numbers will now be available in your NLPearl.AI account. 
-	If you forgot to import any phone numbers or have purchased new ones in your Twilio account, you can return to this list at any time to import additional phone numbers.
+- **Account SID**: Enter your Twilio Account SID.  
+- **Auth Token**: Enter your Twilio Auth Token.
 
-### Managing Multiple Twilio Accounts
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_twilio-credential_option1.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-If you have multiple Twilio accounts with different phone numbers:
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_twilio-credential_option1.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-- **Change Account**:
-  - In the Twilio integration page, click on **Change Account** to enter the credentials of another Twilio account.
-  - This action won't affect the phone numbers you've already imported from previous accounts.
-  - You can switch between accounts to import additional phone numbers as needed.
+---
 
-### Deleting Phone Numbers
+<Note>
+You can find both values in your [Twilio Console](https://www.twilio.com/console), under the **Account Info** section at the bottom of the dashboard.
 
-To remove a phone number from NLPearl.AI:
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/phone_number_twilio-credential_where1.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-1. **Access Phone Numbers Tab**:
-   - Go to the **Phone Numbers** section in your Settings.
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/phone_number_twilio-credential_where1.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Note>
+---
 
-2. **Delete Phone Number**:
-   - Click on the **Delete** button next to the phone number you wish to remove.
+#### Option 2: Use API Credentials (more secure)
 
-3. **Confirm Deletion**:
-   - Confirm the deletion. The phone number will be removed from your NLPearl.AI account immediately.
+If you prefer a more secure or limited-access integration, use API credentials.
 
-**Note**: Deleting a phone number from NLPearl.AI does not delete it from your Twilio account. Ensure that the phone number isn't used in any running activities before deleting it from the platform.
+- **Account SID**: Same as above.  
+- **API Key SID**: Enter your Twilio API Key SID.  
+- **API Secret Key**: Enter your Twilio API Secret Key.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_twilio-credential_option2.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_twilio-credential_option2.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+<Note>
+To connect via API Key authentication, you’ll need to generate API credentials from your Twilio Console.
+
+
+<Steps>
+<Step title="Go to Twilio API Keys Settings">
+Visit the [Twilio API Keys page](https://www.twilio.com/console/project/api-keys) in your console. This is where all your existing keys are listed, and where you can create new ones.
+
+Click the **Create API Key** button on the top right of the API Keys page.
+
+<Frame>
+  <div className="block dark:hidden">
+    <img src="/images/light_mode/phone_number_twilio1.jpg" alt="Twilio API Key settings – Light" className="rounded-[14px] w-full" />
+  </div>
+  <div className="hidden dark:block">
+    <img src="/images/dark_mode/phone_number_twilio1.jpg" alt="Twilio API Key settings – Dark" className="rounded-[14px] w-full" />
+  </div>
+</Frame>
+</Step>
+
+<Step title="Select Standard Key Type">
+Give your key a name and select **Standard** as the key type. Then click **Create**.
+
+<Frame>
+  <div className="block dark:hidden">
+    <img src="/images/light_mode/phone_number_twilio2.jpg" alt="Create API Key – Light" className="rounded-[14px] w-full" />
+  </div>
+  <div className="hidden dark:block">
+    <img src="/images/dark_mode/phone_number_twilio2.jpg" alt="Create API Key – Dark" className="rounded-[14px] w-full" />
+  </div>
+</Frame>
+</Step>
+
+<Step title="Copy the SID and Secret">
+Once the key is created, Twilio will display both the **SID** and the **Secret**.  
+
+<Warning>
+You will only see the **Secret Key** once — make sure to copy and store it somewhere safe.
+</Warning>
+
+<Frame>
+  <div className="block dark:hidden">
+    <img src="/images/light_mode/phone_number_twilio3.jpg" alt="Select key type – Light" className="rounded-[14px] w-full" />
+  </div>
+  <div className="hidden dark:block">
+    <img src="/images/dark_mode/phone_number_twilio3.jpg" alt="Select key type – Dark" className="rounded-[14px] w-full" />
+  </div>
+</Frame>
+</Step>
+</Steps>
+</Note>
+
+</Step>
+<Step title="Import Your Twilio Phone Numbers">
+
+Once your Twilio account is connected, a list of all available phone numbers will appear.
+
+To import a number into NLPearl, click the **Add** button next to it <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span>.
+
+When you’re done, click **Finish** to complete the import process.
+
+The selected numbers will immediately appear in your NLPearl account. You can return to this screen at any time to import additional numbers — especially if you’ve added new ones to your Twilio account later on.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_twilio-list-phone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_twilio-list-phone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
+<Step title="Manage Multiple Twilio Accounts">
+
+If you use multiple Twilio accounts with different sets of phone numbers, you can easily switch between them without losing your imported data.
+
+On the Twilio integration page, locate the current account section <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span>. Hovering over it will display the **Twilio Account SID** currently in use.
+
+Click the **Change Account** button at the bottom <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span> to enter new Twilio credentials.
+
+<Info>
+Already imported phone numbers will remain linked to your NLPearl account — switching accounts won’t affect them.
+</Info>
+
+You can repeat this process at any time to import phone numbers from another Twilio account.
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_twilio-manage-account.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_twilio-manage-account.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
+</Steps>
+
+<Card title="Deleting Phone Numbers" icon="circle-info" iconType="light">
+
+If you no longer need a phone number, you can schedule it for deletion directly from your settings.
+
+Start by going to the **Phone Numbers** section in your Settings. From there, locate the number you want to remove and click the **Delete** button next to it.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_delete.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_delete.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+A confirmation step will appear to make sure you really want to delete the selected number. The phone number will be removed from your NLPearl account immediately.
+
+<Info>
+Deleting a phone number from NLPearl does not delete it from your Twilio account. Ensure that the phone number isn't used in any running activities before deleting it from the platform.
+</Info>
+
+</Card>
+---
 
 ### Disabling HTTP Basic Authentication for Media Access
 
 To ensure full functionality, disable HTTP Basic Authentication for media access in Twilio:
 
-1. **Log in to Twilio Dashboard**:
-   - Access your Twilio account and navigate to the dashboard.
+<Steps>
 
-2. **Access Voice Settings**:
-   - Click on **Voice** in the left-hand menu.
+<Step title="Access Twilio Voice Settings">
 
-3. **Select General Settings**:
-   - Under the **Voice** section, select **General**.
+Start by logging into your **Twilio dashboard**. In the left-hand navigation, click on **Voice** <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span> to open the voice-related settings. Under the Voice section, select **Manage** <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span>, then click on **General** <span style={{ color: '#f87171', fontWeight: 600 }}>(3)</span> to access the general voice configuration panel.
 
-4. **Disable HTTP Basic Authentication**:
-   - Scroll down to the **HTTP Basic Authentication for media access** section.
-   - Click on **Disable** to turn off this setting.
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_twilio-1.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-	<img
-	  className="block"
-	  src="/images/exemples/twilio_config.jpg"
-	  alt="Transfer Call Setup"
-	  style={{ borderRadius: '18px' }}
-	/>
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_twilio-1.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
 
+<Step title="Disable HTTP Basic Authentication in Twilio">
+Once you're in the **Voice > General** settings, scroll down to the **HTTP Basic Authentication for media access** section.
 
-5. **Save Changes**:
-   - Click on **Save** to apply the changes.
+Under this section, select **Disable** to allow media URLs to be publicly accessible <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span>. Then, click the **Save** button at the bottom of the page <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span> to apply your changes.
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/phone_number_twilio-2.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/phone_number_twilio-2.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<Note>
 By disabling this setting, you ensure that NLPearl.AI can access and use media resources without authentication issues.
+</Note>
+</Step>
+</Steps>
 
+---
+<Info>
 ### Advantages of Twilio Integration
 
-- **Access to Global Phone Numbers**:
-  - Use phone numbers from countries not directly supported by NLPearl.AI by purchasing them through Twilio.
+- **Access to Global Phone Numbers**: Use phone numbers from countries not directly supported by NLPearl.AI by purchasing them through Twilio.
 
-- **Compliance with Country Regulations**:
-  - Twilio handles country-specific regulations, allowing you to purchase numbers that comply with local laws.
+- **Compliance with Country Regulations**: Twilio handles country-specific regulations, allowing you to purchase numbers that comply with local laws.
 
-- **Leverage Existing Numbers**:
-  - Utilize the phone numbers you already own in Twilio without needing to acquire new ones.
+- **Leverage Existing Numbers**: Utilize the phone numbers you already own in Twilio without needing to acquire new ones.
+</Info>
 
+<Warning>
 ### Important Considerations
 
-- **Phone Number Management**:
-  - Purchase and manage phone numbers through your Twilio account. NLPearl.AI allows you to use these numbers within our platform.
+- **Phone Number Management**: Purchase and manage phone numbers through your Twilio account. NLPearl.AI allows you to use these numbers within our platform.
 
-- **Removing Phone Numbers**:
-  - Deleting a phone number from NLPearl.AI doesn't affect its status in your Twilio account.
+- **Removing Phone Numbers**: Deleting a phone number from NLPearl.AI doesn't affect its status in your Twilio account.
 
-- **Running Activities**:
-  - Before deleting a phone number from NLPearl.AI, ensure it's not assigned to any active campaigns or activities to prevent disruptions.
-
-### Using Twilio Integration for Wider Availability
-
-Integrating with Twilio allows you to access a broader range of phone numbers, especially from countries with specific regulations. 
-By directly contacting Twilio to purchase these numbers, you can ensure compliance and expand your reach.
+- **Running Activities**: Before deleting a phone number from NLPearl.AI, ensure it's not assigned to any active campaigns or activities to prevent disruptions.
+</Warning>
 
 ---
 
