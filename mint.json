@@ -156,6 +156,7 @@
       "api-reference/outbound/make-call",
       "api-reference/outbound/search-call-requests",
       "api-reference/outbound/add-lead",
+      "api-reference/outbound/update-lead",
       "api-reference/outbound/delete-leads",
       "api-reference/outbound/delete-leads-external-id"
     ]
