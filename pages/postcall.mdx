@@ -10,7 +10,7 @@ iconType: "light"
   <Frame>
     <div className="p-4">
       <img
-        src="/images/light_mode/postcall.jpeg"
+        src="/images/light_mode/postcall-cover.jpg"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -22,14 +22,13 @@ iconType: "light"
   <Frame>
     <div className="p-4">
       <img
-        src="/images/dark_mode/postcall.jpeg"
+        src="/images/dark_mode/postcall-cover.jpg"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
     </div>
   </Frame>
 </div>
-
 
 ---
 
@@ -72,76 +71,68 @@ A post-call provides multiple key sections to review and analyze the outcome of 
 ---
 
 ### Call Details  
-This section shows essential information about the call itself, including:
 
-<CardGroup cols={2}>
-  <Card>
-    <div className="-mx-4 -mt-4 mb-2">
-      <div className="block dark:hidden">
-        <img
-          src="/images/light_mode/postcall_duration.jpg"
-          alt="Call Duration Light Mode"
-          className="rounded-[12px] w-full"
-        />
-      </div>
-      <div className="hidden dark:block">
-        <img
-          src="/images/dark_mode/postcall_duration.jpg"
-          alt="Call Duration Dark Mode"
-          className="rounded-[12px] w-full"
-        />
-      </div>
-    </div>
-    <h3 className="text-md font-semibold mb-1">Call Duration</h3>
-    <p>Total time of the call.</p>
-  </Card>
+This section summarizes the essential metadata captured during the call, including participant details, call status, timing, and performance metrics.
 
-  <Card>
-    <div className="-mx-4 -mt-4 mb-2">
-      <div className="block dark:hidden">
-        <img
-          src="/images/light_mode/postcall_datetime.jpg"
-          alt="Call ID Light Mode"
-          className="rounded-[12px] w-full"
-        />
-      </div>
-      <div className="hidden dark:block">
-        <img
-          src="/images/dark_mode/postcall_datetime.jpg"
-          alt="Call ID Dark Mode"
-          className="rounded-[12px] w-full"
-        />
-      </div>
+
+| Ref | Section              | Description |
+|-----|----------------------|-------------|
+| ①   | **Header Information** | Displays the phone numbers for both the caller and the receiver. Also includes the name of the Pearl used and the status of the call (e.g. “Call Successful”). |
+| ②   | **Call Metrics**        | Shows the duration of the call (in mm:ss) and the final call status (e.g. Completed, Busy, Missed). |
+| ③   | **Timestamp**           | Located on the right-hand side, this shows the exact date and time the call took place. |
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall_details.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
     </div>
-    <h3 className="text-md font-semibold mb-1">Date & Time</h3>
-    <p>When the call took place.</p>
-  </Card>
-</CardGroup>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall_details.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
 ---
 
 **Call Status** <br />
 The technical status of the call (whether the user answered or not). Possible values include:
 
-  - `In Progress` 
-  - `Completed` 
-  - `Busy` 
-  - `Failed`
-  - `No Answer`
+| Status        | Description                                                                 |
+|---------------|-----------------------------------------------------------------------------|
+| `In Progress` | The call is currently ongoing or being connected.                          |
+| `Completed`   | The call was successfully connected and ended normally.                    |
+| `Busy`        | The receiver was already on another call or rejected the call.             |
+| `Failed`      | The call could not be established due to an error or network issue.        |
+| `No Answer`   | The call rang but no one picked up before the timeout.                     |
 
-  <Info>Call Status refers to the telephony-level result of the call connection, such as whether the call was picked up, missed, busy, or failed to connect.</Info>
+<Info>Call Status refers to the telephony-level result of the call connection, such as whether the call was picked up, missed, busy, or failed to connect.</Info>
 
 ---
 
 **Conversation Status** <br />
 Indicates the outcome of the conversation from a business or process perspective. Possible values include:
 
-  - `Voice Mail Left` (only visible for outbound activities)
-  - `Need Retry` (only visible for outbound activities)
-  - `Unreachable` (only visible for outbound activities)
-  - `Call Successful`
-  - `Not Successful`
-  - `Completed`
+| Status               | Description                                                            |
+|----------------------|------------------------------------------------------------------------|
+| `Voice Mail Left`    | A voicemail was successfully left. *(Outbound only)*                  |
+| `Need Retry`         | The contact attempt failed and should be retried. *(Outbound only)*   |
+| `Unreachable`        | The user could not be reached. *(Outbound only)*                      |
+| `Call Successful`    | The conversation achieved its expected outcome.                       |
+| `Not Successful`     | The conversation failed to meet its objective.                        |
+| `Completed`          | The conversation was conducted and finalized, regardless of outcome.  |
 
 <Card icon="circle-info" iconType="light">
   <b>Important distinctions about Conversation Status</b>:
@@ -163,28 +154,138 @@ Indicates the outcome of the conversation from a business or process perspective
 
 **Tags** <br />
   The list of **tags defined during the last step of the Pearl creation process**. These tags represent key topics or categories you chose when setting up the Pearl configuration.  
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall_tags.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall_tags.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
 <Note>For more information on setting up tags, see [How to Create a Pearl – Step 4: Flow Configuration](/pages/create_pearl#step-4-flow-configuration).</Note>
 
 ---
 
 **Events** <br />
   A log of the actions triggered by Pearl during the call. Each event includes a timestamp and details about the action.  
+
   Possible event types include:
-  - `Call Transferred`: The call was transferred.
-  - `SMS Sent`: A text message was sent to the customer.
-  - `API`: An API was triggered during the conversation.
-  - `Email Sent`: An email was sent during the call.
-  - `Appointment Booked`: An appointment was booked in the calendar.
+
+| Event Type             | Description                                           |
+|------------------------|-------------------------------------------------------|
+| `Call Transferred`     | The call was transferred to another destination.     |
+| `SMS Sent`             | A text message was sent to the customer.             |
+| `API`                  | An API was triggered during the conversation.        |
+| `Email Sent`           | An email was sent during the call.                   |
+| `Appointment Booked`   | An appointment was booked in the calendar.           |
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall_events.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall_events.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+**Events Log** <br />
+
+The Event Log provides a chronological view of all actions triggered by Pearl during the call. Each entry includes the action type (such as API call, SMS sent, or email), the execution status, and contextual data.
+
+This section allows users to review the flow of automated operations, verify that each action was successfully executed, and understand the resulting outputs in detail.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall_eventlog.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall_eventlog.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
 ---
 
 **Sentiment Analysis**  <br />
   An automatic classification of the customer's tone and emotional state throughout the conversation. Possible sentiment values include:
-  - `Positive`
-  - `Slightly Positive`
-  - `Neutral`
-  - `Slightly Negative`
-  - `Negative`
+
+| Sentiment Value       | Description                                                       |
+|------------------------|-------------------------------------------------------------------|
+| `Positive`             | The conversation was clearly positive in tone and emotion.        |
+| `Slightly Positive`    | The overall tone was mostly positive, with minor neutral moments. |
+| `Neutral`              | The sentiment was balanced or emotionless.                       |
+| `Slightly Negative`    | The tone leaned slightly negative, but not strongly so.           |
+| `Negative`             | The conversation had a clearly negative emotional tone.           |
+
+  <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/postcall_sentiments.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/postcall_sentiments.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
 ---
 
@@ -288,7 +389,9 @@ Variables displayed here are based on those defined in your **Pearl configuratio
   </Frame>
 </div>
  
-<info> You can learn more about creating variables in the Pearl [here](/pages/variables).</info>
+<Info> 
+You can learn more about creating variables in the Pearl [here](/pages/variables).
+</Info>
 
 
 ---

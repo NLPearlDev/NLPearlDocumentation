@@ -6,62 +6,617 @@ iconType: "light"
 
 ---
 
-import { CardGroup, Card } from '@theme';
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound-cover.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound-cover.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
 
 ## Setting Up Outbound Campaigns
 
 NLPearl.AI provides robust features to manage outbound campaigns efficiently. Using the Pearl flows you have created, you can set up outbound calls to engage with your leads according to a predefined schedule.
 
+<Info>
 ### What are Outbound Campaigns?
-
 Outbound campaigns enable your AI agents to make outgoing calls to a list of leads. These calls follow the conversational logic defined in your Pearl, ensuring consistent and effective communication with your potential clients.
+</Info>
+
+---
 
 ### Steps to Create an Outbound Campaign
 
-1. **Create a Pearl**: Ensure you have created a Pearl that defines the flow of the conversation for your outbound calls.
-2. **Add Leads**: Add the leads you want to contact directly from the platform. You can input lead details such as name, phone number, and any other relevant information.
-3. **Schedule Calls**: Define the schedule for when the AI agents will make the outbound calls. You can specify dates, times, and frequency to suit your campaign needs.
-4. **Configure Outbound Settings**: Set up your outbound parameters, such as:
-   - **Name**: The name of the outbound campaign to easily identify its purpose and target audience.
-   - **Pearl**: Choose the Pearl that defines the conversation flow for this campaign. The AI will follow this predefined script when interacting with leads.
-   - **Phone Number**: Select a phone number for the campaign. *Be careful with the country code—read below to understand its impact.* The number assigned to the campaign dictates which country codes will be supported for lead calls.
-   - **Budget**: Define the budget for your campaign. Once the budget is reached, Pearl will stop making calls for that campaign. This is optional, and you can always increase it if you have enough credit in your account.
-   - **Number of Simultaneous Agents**: Specify how many AI agents can make calls at the same time. A higher number allows for more rapid outreach but may require additional resources.
-   - **Recording Options**:
-     - **Pearl & End-user**: Both the AI and the lead’s voice are recorded.
-     - **Pearl Only**: Only the AI’s voice is recorded.
-     - **No Recording**: No call recording is saved.
-     <br />Choosing the best option depends on your privacy policies and compliance regulations. Some industries require full recordings for auditing purposes, while others prioritize customer privacy.
-   - **Recording After Transfer Call**: *Boolean* - If enabled, the call will continue to be recorded after being transferred. *Note: "Pearl & End-user" must be selected; otherwise, it will be automatically disabled.* This setting is important for maintaining logs in multi-agent interactions.
-   - **Transcript Masking**: _(Post-Call)_ When enabled, sensitive information in conversation transcripts is automatically masked after the call while preserving essential context.
-      This is especially useful for post-call analysis, compliance, and data security, ensuring that private details like:
-      Credit card numbers
-      Social Security numbers
-      Personal identifiers
-      are redacted while keeping the conversation readable.
-    > For example, if a customer says:
-    "My credit card number is 1234-5678-9012-3456."
-    The transcript might store it as:
-    "My credit card number is --**-3456."
-    This helps businesses review interactions safely without exposing sensitive data.
-    - **Retry Call Attempts**: Choose how many times Pearl should retry calling a lead if the initial attempt fails (from 1 to 5 attempts). This prevents leads from being lost due to missed calls while avoiding excessive spam-like behavior.
-      - **Retry Intervals**:
-        - At least every 3 hours
-        - At least every 6 hours
-        - At least once a day
-        - At least once every 3 days
-        - At least once a week
-        - At least once a month
-    <br />Setting the right interval ensures follow-ups occur without overwhelming the lead.
-   - **Ring Duration**: Define how long Pearl will ring before ending the call. You can choose a duration between **10 and 50 seconds**. If the lead does not answer within this time, the call status will be marked as "No Answer." Shorter durations prevent wasted time, while longer durations increase answer rates.
-   - **Voicemail Drop**: When Pearl reaches voicemail, she can leave a **personalized message** using variables like the lead’s first name. This creates a more human-like interaction even when the lead doesn’t answer.
-   <br />_You can only use Pre-Call variables in the voicemail drop_
-   This ensures a friendly and engaging experience for your leads, increasing the chances of a callback. 
+<Steps>
+<Step title="Create a Pearl">
+
+To get started, create the Pearl that best fits your outbound use case.
+
+<CardGroup cols={2}>
+  <Card
+    title="Simple Pearl"
+    icon="subtitles"
+	iconType="light"
+    href="/pages/create_pearl"
+  >
+    Ideal for quick setups or basic use cases. Easy to configure and perfect for testing or lightweight interactions. 
+  </Card>
+  <Card
+    title="Advanced Pearl"
+    icon="diagram-subtask"
+	iconType="light"
+    href="/pages/advanced_pearl"
+  >
+    Designed for more complex scenarios, including multi-step logic. 
+  </Card>
+</CardGroup>
+</Step>
+
+<Step title="Purchase a Phone Number">
+You first need to acquire a phone number from our platform. This number will be dedicated to your Inbound Activity and can receive calls from anywhere at any time.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_purchasephone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_purchasephone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+</Step>
+<Step title="Assign the Phone Number to Your Campaign">
+Link the purchased phone number to the Pearl you want to use for handling onbound calls. This connects your conversational flow to real-world interactions.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_addphone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_addphone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
+<Step title="Configure Outbound Settings">
+Set up your outbound parameters, such as:
+
+- **Name**: The name of the outbound campaign to easily identify its purpose and target audience.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_name.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_name.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+- **Pearl**: Choose the Pearl that defines the conversation flow for this campaign. The AI will follow this predefined script when interacting with leads.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_pearl.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_pearl.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+- **Timezone:** You can set a specific timezone for your campaign to ensure all actions are triggered at the right local time for your leads.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_timezone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_timezone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+- **Budget**: Define the budget for your campaign. Once the budget is reached, Pearl will stop making calls for that campaign. This is optional, and you can always increase it if you have enough credit in your account.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_budget.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_budget.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+- **Number of Simultaneous Agents**: Specify how many AI agents can make calls at the same time. A higher number allows for more rapid outreach but may require additional resources.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_agents.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_agents.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+- **Recording Options**:
+
+| Option             | Description                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| **Pearl & End-user** | Records both Pearl and the lead’s voice.                          |
+| **Pearl Only**       | Records only Pearl voice.                                               |
+| **No Recording**     | Disables call recording entirely.                                          |
+
+<Note>
+Select the recording mode based on your privacy policies and legal requirements. Some industries (e.g. finance, insurance) require full call recordings for compliance, while others may choose to limit or disable them to respect user privacy.
+</Note>
+
+---
+
+- **Recording After Transfer Call**: *Boolean*  
+  If enabled, recording will continue even after the call is transferred to a human agent or external number.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_recordingoptions.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_recordingoptions.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+- **Transcript Options** _(Post-Call)_
+
+When enabled, conversation transcripts are generated after the call. You can choose the level of detail and whether to apply automatic masking of sensitive information.
+
+Available Options:
+
+| Option                | Description                                                                 |
+|------------------------|-----------------------------------------------------------------------------|
+| **Masking Sensitive Information** | Automatically redacts private data (e.g. credit card numbers, SSNs, personal identifiers) while preserving the conversation’s context. Ideal for compliance and post-call analysis. |
+| **Full Transcript**    | Stores the entire conversation without redaction. Use with caution in sensitive environments. |
+| **No Transcript**      | Disables transcript generation entirely. Nothing is stored after the call.   |
+
+<Note>
+Example of masking:  
+Customer says: “My credit card number is **1234-5678-9012-3456**.”  
+Transcript output: “My credit card number is **--**-3456.”
+
+This allows your team to review conversations safely, without exposing sensitive data.
+</Note>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_transcriptoption.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_transcriptoption.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+- **Retry Call Attempts**
+
+Define how many times Pearl should retry reaching out to a lead if the initial call fails.  
+You can set between **1 and 5 attempts**, balancing persistence and user experience.
+
+This helps reduce lead loss from missed calls, while avoiding spammy behavior.
+
+**Retry Intervals**
+
+| Interval Option          | Description                                 |
+|--------------------------|---------------------------------------------|
+| **Every 3 hours**        | Fast retry cycle for urgent contact needs.  |
+| **Every 6 hours**        | Moderate retry pace during the same day.    |
+| **Once a day**           | Standard daily follow-up.                   |
+| **Once every 3 days**    | More spaced follow-up.                      |
+| **Once a week**          | Low-frequency retries.                      |
+| **Once a month**         | For long-term or non-urgent callbacks.      |
+
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_retrycallattempts.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_retrycallattempts.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Note>
+Setting the right interval ensures follow-ups occur without overwhelming the lead.
+</Note>
+
+- **Ring Duration**: Define how long Pearl will ring before ending the call. You can choose a duration between **10 and 50 seconds**. If the lead does not answer within this time, the call status will be marked as "No Answer." Shorter durations prevent wasted time, while longer durations increase answer rates.
+
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_ringduration.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_ringduration.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+- **Voicemail Drop**: When Pearl reaches voicemail, she can leave a **personalized message** using variables like the lead’s first name. This creates a more human-like interaction even when the lead doesn’t answer.
+
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_voicemail.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_voicemail.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Note>
+You can only use Pre-Call variables in the voicemail drop
+
+This ensures a friendly and engaging experience for your leads, increasing the chances of a callback. 
     <br />- **Example:**  
     > "Hi `First Name`, this is Pearl calling on behalf of `Your Company`. I just tried reaching you but missed you this time! Feel free to call me back at `Your Callback Number`. Looking forward to speaking with you soon!"  
-  
+</Note>
+
+- **Schedule Calls**: Define the schedule for when the AI agents will make the outbound calls. You can specify dates, times, and frequency to suit your campaign needs.
+
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_shcedulling.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_shcedulling.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
    - **Call Webhook**: A call webhook is triggered at key points during the call lifecycle, such as when the call is initiated and when it ends. You receive an object similar to the one returned by the [Get Calls](/api-reference/call/get-call) endpoint, including details like call duration, outcome, and any data collected during the call. This is useful for tracking call performance and automation.
+   
    - **Lead Webhook**: A lead webhook is triggered every time a specific lead changes status, at the beginning of the call and at the end of the call. You receive an object similar to the one returned by the [Get Leads](/api-reference/outbound/get-lead) endpoint. This includes all relevant information about the lead and its current status. Use this webhook to update your CRM or lead management system in real-time, ensuring that you have the most up-to-date information on lead interactions.
+
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_webhook.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_webhook.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+</Step>
+
+<Step title="Add Leads">
+
+Easily add the leads you want to contact directly from the platform. You can enter lead details such as name, phone number, and any other relevant information.
+
+| Step | Action                                   | Description                                                                 |
+|------|------------------------------------------|-----------------------------------------------------------------------------|
+| 1    | **Go to "Leads"**                        | Navigate to the **Leads** tab in your campaign sidebar.                     |
+| 2    | **Click "Add Lead"**                     | Open the lead addition modal to choose between manual entry or file upload. |
+
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_addlead.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_addlead.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+**Step 2:** Choose how you want to add your leads:
+
+---
+
+**Option 1: Upload a File**
+
+| Step | Action            | Description                                                                                          |
+|-------|-------------------|----------------------------------------------------------------------------------------------------|
+| 1     | **Click Upload File** | Start the file upload process.                                                                     |
+| 2     | **Download Template** | Download a pre-filled CSV template including only variables used in your Pearl.                    |
+| 3     | **Fill and Upload**  | Complete the template with your lead data, then upload it back to the platform.                   |
+
+<Note>
+When you download the template, the file will only contain column names for the variables *actually used* in your flow. If you create a variable but don’t use it, it won’t appear in the file.  
+
+If you manually add new columns that aren’t linked to your Pearl, they won’t be recognized when re-uploading the file.
+</Note>
+
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_addleadoption-one.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_addleadoption-one.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+**Option 2: Add Manually**
+
+| Step | Action            | Description                                       |
+|-------|-------------------|-------------------------------------------------|
+| 1     | **Click Manually**  | Switch to manual lead entry mode.                |
+| 2     | **Enter Lead Data** | Fill in lead details directly in the platform, one by one. |
+
+ <div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound_addleadoption-two.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound_addleadoption-two.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+</Step>
+
+</Steps>
+
+---
 
 ### Understanding Country Codes
 
@@ -73,6 +628,8 @@ Understanding how the country code affects your campaign is crucial:
 - **Adding Leads**: You can only add leads whose phone numbers match the campaign's country code.
 - **Creating Multiple Campaigns**: If you need to operate across multiple country codes, you should create separate outbound campaigns for each country code.
 - As our platform currently only offers US phone numbers, please refer to the Phone Numbers tab to explore the options available if you need to reach phone numbers from other country codes.
+
+---
 
 <CardGroup cols={2}>
   <Card

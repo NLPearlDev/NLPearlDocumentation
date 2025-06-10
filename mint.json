@@ -1,7 +1,7 @@
 {
  
   "name": "NLPearl Documentation",
-  "theme": "prism",
+  "theme": "venus",
   "logo": {
     "dark": "/images/dark_mode/logo_white.png",
     "light": "/images/light_mode/logo_dark.png"

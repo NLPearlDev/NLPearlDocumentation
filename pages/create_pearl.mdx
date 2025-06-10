@@ -1,195 +1,1068 @@
 ---
 title: Simple Pearl
-description: 'First it is important to understand that the process of creating your phone agent is divided into two parts: the first part involves creating and customizing your Pearl for personalized conversational flows in NLPearl.AI, and the second part focuses on setting up your inbound or outbound campaign that will utilize your Pearl. Let’s start by explaining and detail the first part of this process.'
+description: ''
 icon: "subtitles"
 iconType: "light"
+mode: "wide"
+
 ---
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/simplepearl_cover.png"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/simplepearl_cover.png"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+First, it’s important to understand that the process of creating your phone agent is divided into two parts: the first part involves creating and customizing your Pearl for personalized conversational flows within NLPearl.AI, and the second focuses on setting up your inbound or outbound campaign that will use your Pearl.
+
+<Info>
 ### What is a Pearl?
 
 Creating a Pearl is similar to hiring a new employee. You choose its language, character, and provide a script that explains how it should interact with customers, guiding its actions, knowledge, and responses.
+</Info>
 
-### Step-by-Step Guide to Creating a Pearl
+---
 
-#### Step 1: Select Use Case
+## Step-by-Step Guide to Creating a Simple Pearl
 
-Choose the type of use case for your Pearl:
+<Steps>
 
-1. **Personal Secretary**: Your reliable assistant for managing tasks like sending messages, scheduling appointments, and providing knowledge-based information—minus the coffee runs.
-2. **Sales**: A supportive model for efficient customer service, handling issues, emails, and ticket creation, capable of performing any type of action.
-3. **Support**: Quick and engaging, driving proactive interactions and performing any type of action seamlessly.
-4. **Surveys**: A straightforward, poll-friendly model, easy to interrupt and efficient for gathering feedback while performing any type of action.
-5. **Concierge**: Trained for hospitality, managing everything from bookings to personalized recommendations and capable of any type of action.
-6. **Conversationalist**: A fully open conversational model. Ready for any topic, including the bold. Always handled with nuance, control… and let’s be honest, not always politically correct.
+<Step title="Select “Simple” Mode and Define the Pearl’s Use Case">
 
-#### Step 2: Agent Customization
+When you first land on the platform, you’ll have the option to select a **use case** to start configuring your Pearl. If you skip this step, you can still create a Pearl at any time by navigating to the **Phone Pearls** page and clicking the **Create** button.
 
-1. **Agent Names, Languages & Voices**:
-	<img
-	className="block dark:hidden"
-	src="/images/light_mode/voices.png"
-	alt="NLPearl.AI Logo Light"
-	style={{ borderRadius: '18px' }}
-	/>
-	<img
-	className="hidden dark:block"
-	src="/images/dark_mode/voices.png"
-	alt="NLPearl.AI Logo Dark"
-	style={{ borderRadius: '18px' }}
-	/>
-   - **Add Multilingual Agents**: If you want your Pearl to speak more than one language, click on the **"+"** button to add additional agent configurations.
-	If during the conversation the caller requests to switch to another language, and you've added that language to your agent configurations, Pearl will smoothly inform the caller that they will be transferred to a representative who speaks that language. 
-	The conversation will then continue with the agent configured for the requested language.
-	Assign a name to each agent configuration. This name will be used during phone conversations in the corresponding language.
-	Explore  [Voice and Language](/pages/languages) to view all the language options available.
+<Note>
+To create a **Simple Pearl**, make sure to select the **Simple** tab at the top of the page before proceeding.
+</Note>
+
+Choose the type of Pearl that fits your use case below.
+
+| Model | Description |
+|---------|-------------|
+| `PersonalSecretary` | A reliable assistant for sending messages, scheduling appointments, and delivering knowledge-based responses — minus the coffee runs. |
+| `Support` | Efficient for handling customer service, managing issues, sending emails, or creating tickets. Handles any action smoothly. |
+| `Sales` | Fast and engaging, ideal for proactive conversations, lead qualification, and seamless sales-related tasks. |
+| `Surveys` | Great for collecting feedback. Lightweight and easy to interrupt while remaining effective in any context. |
+| `Concierge` | Tailored for hospitality. Can handle bookings, provide recommendations, and perform various service-oriented actions. |
+| `Conversationalist` | A fully open conversational model. Great for exploring ideas, casual discussions, or anything that requires nuance — even bold topics. |
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_usecase.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_usecase.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+</Step>
+
+<Step title="Set a Name and Icon for Your Pearl">
+
+Before diving into the setup of your agent’s features and behaviors, begin by giving your Pearl a name and a face. This simple step helps make your agent feel more personal and easier to identify as you build it out.
+
+Start by assigning a clear, **friendly name to your Pearl**. It should be easy to recognize at a glance — especially if you plan to create multiple Pearls later. A good name helps you keep things organized and find the right agent quickly.
+
+Then, choose an **icon from the avatar gallery** to visually represent your Pearl. This visual identity gives your agent a face and helps you spot it instantly, even in a long list of Pearls.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_nameandpearl.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_nameandpearl.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+</Step>
+
+<Step title="Agent Customization">
+In this step, you can customize your voice agent’s identity and behavior by setting its **name**, **language**, **voice**, **personality**, and **timezone**.
+
+<Card>
+
+**Agent Names, Languages & Voices**
+
+To define your agent’s identity:
+
+- **<span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span> Agent Name** – Give your agent a name (e.g., *Joa*, *Victoria*). This name helps humanize the interaction and reflect your brand identity.
+- **<span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span> Language** – Select the default language your agent will speak. This ensures accurate pronunciation and localized expressions.
+- **<span style={{ color: '#f87171', fontWeight: 600 }}>(3)</span> Voice** – Choose the voice that will represent your agent. You can preview voices and select the one that fits your tone.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_voicechoose.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_voicechoose.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+**Multilingual Agent Configuration:**
+
+You can set up your Pearl to support multiple languages by creating several agent configurations — each with a specific **name**, **language**, and **voice**.
+
+- To add a new language configuration, click on the **"+"** button <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span>. This allows you to define additional agents who can handle conversations in other languages.
+- Each configuration should include a **name** (used during calls), a **language**, and a corresponding **voice**.
+
+When a caller requests to switch to another language during the conversation, Pearl will automatically reroute the call to the agent associated with that language — ensuring a smooth and localized experience.
+
+- The **first agent** you create is automatically marked as the **Default Agent** <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span>. This agent will always initiate the conversation when a call begins, unless another language is requested by the caller.
+
+<Note>
+You can define as many language configurations as needed — perfect for global audiences or multilingual teams.
+</Note>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_defaultagent.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_defaultagent.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Info>
+Explore  [Voice and Language](/pages/languages) to view all the language options available.
+</Info>
+
+---
+
+**Personality**
+
+Your AI agent can take on a wide range of personalities — from natural and professional to wild, fictional, or downright iconic.
+
+| Personality Name             | Description (vibe / reference)                            |
+|-----------------------------|------------------------------------------------------------|
+| Natural                     | Neutral and balanced — default tone.                      |
+| Friendly Consultant         | Warm, helpful, and a touch conversational.                |
+| Aggressive Closer           | Direct, assertive, always aiming for a “yes.”             |
+| Donald Trump                | Bold, confident, and controversial.                       |
+| Joe Biden                   | Soft-spoken, empathetic, with a hint of grandpa energy.   |
+| Wolf of Wall Street         | Energetic, persuasive, and money-focused.                 |
+| Elon Musk                   | Visionary, quirky, and matter-of-fact.                    |
+| Kevin Hart                  | Fast-talking and hilarious.                              |
+| The Rock                    | Charismatic and full of hype.                            |
+| Jar Jar Binks               | Clumsy comic relief with a chaotic syntax.               |
+| Yoda                        | Wise, reversed sentence order, it has.                   |
+| Tommy Shelby               | Cold, calculated, Peaky Blinders style.                  |
+| Saul Goodman                | Slick, legal hustler energy.                             |
+| Heisenberg (Walter White)   | Dark, serious, calculated — “I am the danger.”           |
+| Jesse Pinkman               | Street-smart, informal, frequent “yo.”                   |
+| Optimus Prime               | Heroic, formal, and noble.                              |
+| Megatron                   | Villainous and authoritarian.                           |
+| Son Goku                    | Cheerful and battle-ready.                               |
+| Daenerys Targaryen          | Regal, determined, breaker of chains.                    |
+| Hermione Granger            | Book-smart, precise, articulate.                         |
+| Mulan                       | Brave, focused, honorable.                               |
+| Lady Gaga                   | Glamorous and creatively intense.                        |
+| Tony Stark (Iron Man)       | Witty, tech-savvy, and full of sarcasm.                  |
+| Elsa (Frozen)               | Calm, regal, with an icy edge.                           |
+| Michael Scott (The Office)  | Awkward, unpredictable, tries to be funny.               |
+| Moana                       | Adventurous, optimistic, and kind.                       |
+| Frida Kahlo                 | Artistic, deep, and passionate.                          |
+| Jack Sparrow                | Eccentric and unpredictable.                            |
+| Indiana Jones               | Adventurous and confident.                              |
+| Beyoncé                     | Empowered, elegant, and commanding.                      |
+| Sherlock Holmes             | Analytical, detached, brilliant.                        |
+| Tiana (The Princess & Frog) | Driven, grounded, and focused.                          |
+| Charlie Chaplin             | Silent-era charm with expressive tone.                   |
+| Katniss Everdeen            | Stoic, focused, and fiercely independent.               |
+| Groot                       | Repetitive but expressive (“I am Groot”).                |
+| Deadpool                    | Chaotic, irreverent, 4th-wall-breaking.                 |
+| The Joker                   | Unhinged, theatrical, and darkly funny.                 |
+| Loki                        | Mischievous, cunning, and charismatic.                  |
+| Bugs Bunny                  | Witty, cheeky, and playful.                             |
+| Pee-wee Herman              | Eccentric and unpredictable.                            |
+| Dr. Evil                   | Satirical villain, comically ambitious.                 |
+| Borat Sagdiyev              | Naive, awkward, hilariously inappropriate.              |
+| Albert Einstein             | Brilliant, theoretical, with quirky logic.              |
+| Dorothy Gale                | Innocent, curious, with wonder in her tone.             |
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_personnality.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_personnality.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Note>
+Choose wisely — your agent’s personality will shape how it sounds and behaves in every interaction.
+</Note>
+
+---
+
+**Timezone**
+
+Define the timezone of the agent. This influences time-related actions, such as booking meetings.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_timezone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_timezone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Card>
+</Step>
+
+<Step title="Agent Knowledge Base">
+
+Before your Pearl can answer questions accurately, it needs context. This step helps define the essential background information your agent will rely on during conversations.
+
+<Card>
+
+**Company Name**
+
+Give your Pearl the name of the company it represents. This name may be used when Pearl introduces itself or provides company-related information.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_companyname.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_companyname.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+---
+
+**Company Description**
+
+Add a brief company description including your industry, mission, or key services. This allows Pearl to answer questions with more contextual relevance.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_companydescription.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_companydescription.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+---
+
+**Pearl Knowledge Base**
+
+This is where you teach Pearl what it needs to know to respond with relevance and accuracy. Add detailed information about your services, pricing, opening hours, locations, and any key operational data.
+
+<Note>
+You can either write this content manually or upload a reference file.  
+Multiple documents can be added if needed — supported formats: `.doc`, `.docx`, `.txt`.
+</Note>
+
+Whether you're describing how your subscription plans work, listing available services, or clarifying your business hours, this section allows Pearl to access structured information that supports more precise answers.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_knowledgebase.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_knowledgebase.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+---
+
+**Memory**
+
+When enabled, Pearl remembers the user or lead, allowing it to seamlessly continue conversations from where they left off.
+
+<Tip>
+This feature is particularly useful for:
+- Multi-step processes  
+- Follow-ups  
+- Any scenario where continuity matters
+</Tip>
+
+<Card>
+### Example use case: Hospitality
+
+Let’s say a guest checks into a hotel. Pearl can:
+- Remember their room number  
+- Greet them by name  
+- Recall their preferences (like “extra towels” or “no wake-up call”)  
+- Offer a smooth, personalized experience every time they call
+</Card>
+
+<Info>
+**Resetting Memory**
+
+Need a fresh start? Pearl’s memory can be reset via API.
+
+This is especially important in contexts like hospitality, where once a guest checks out, Pearl clears the slate — ensuring the next visitor starts with a clean experience.
+</Info>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_memory.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_memory.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+---
+
+**Speech Recognition Keywords**
+
+Some words are just… not in the dictionary. Whether you’re using brand-specific terms, creative product names, or industry jargon, teaching Pearl how to recognize them makes all the difference.
+
+Use this feature to define:
+- **Keywords**: The unique word or name you want Pearl to catch
+- **Pronunciations**: Variations of how users might say it (spoken form)
+
+<Card>
+### Example
+
+Let’s say your bakery sells a pastry called `FluffoBun`.
+
+Here’s how you’d define it:
+- **Keyword:** FluffoBun  
+- **Pronunciations:** fluh-foh-bun, floof-oh-bun, fluff-bunb  
+*(Separate each pronunciation with a comma)*
+
+This helps Pearl match even creatively named terms to real user input — no matter how it’s pronounced.
+</Card>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_keywords.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_keywords.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+</Card>
+</Step>
+
+<Step title="Flow Configuration">
+Design how Pearl interacts with callers, from the very first sentence to the full script and in-call actions. This step allows you to craft a smooth, human-like call experience.
+
+<Card>
+
+**Opening Sentence**
+
+Set the first sentence Pearl will say when answering a call. This is your agent’s opening line — keep it simple, clear, and aligned with your brand.
 
 
+<Warning>
 
-   - **Default Agent Configuration**: The first agent configuration you add is set as the default. This agent will initiate the conversation when a call begins.
+- **Using variables**:  
+  You can include dynamic variables like `{{company name}}` or `{{agent name}}` in your sentence. <br/>  
+  However, avoid using lead-specific variables — they won’t be available during inbound calls.
 
-3. **Personality**: Your Pearl’s personality isn’t just for show—it determines the words and tone it uses in conversations.
-Want a funny character? Get ready for the occasional joke (don’t worry, Pearl won’t quit its day job for stand-up).
-Prefer an aggressive closer? Pearl will make sure “no” is just a speed bump on the way to “yes.”
-Choose wisely—your AI’s personality shapes every interaction.
-4. **Timezone**: Define the timezone of the agent. This influences time-related actions, such as booking meetings.
 
-#### Step 3: Agent Knowledge Base
+- **Multilingual setup**:  
+  The sentence is spoken exactly as written in the default language. <br/> 
+  For example, if your default language is Spanish, the sentence must also be in Spanish.  <br/> <br/> 
+  If you later change the default language, don’t forget to update your sentence accordingly.
 
-1. **Company Name**: Enter the name of the company the agent represents during conversations.
-2. **Company Description**: Provide a brief description of the company, including sector and basic information.
-3. **Pearl Knowledge Base**: Provide detailed information about your services, pricing, location, operational data, and website. This can be entered as free text or by uploading a file.
-4. **Memory**: When enabled, Pearl remembers the lead or user, allowing it to pick up conversations right where they left off. This is especially useful for multi-step processes, follow-ups, or any scenario requiring continuity.
-Let’s take an example from the hospitality industry—though this feature is a game-changer across all industries.
-Imagine Pearl remembering guests by their room number. It can greet them by name, recall their preferences, and create a seamless, personalized experience. That’s next-level customer engagement!
-Need a fresh start? No problem! You can reset Pearl’s memory via API—crucial in hospitality settings. When a guest checks out, Pearl wipes the slate clean, ensuring that the next visitor starts with a brand-new experience.
-5. **Speech Recognition Keywords**
-Defining your keywords helps Pearl accurately recognize terms specific to your business—especially when dealing with made-up product names or words that aren’t in the dictionary.
-For example, if your bakery sells a revolutionary new pastry called FluffoBun, you can teach Pearl its possible pronunciations:<br />
-<br />__• Keyword:__ FluffoBun
-<br />__• Pronunciations:__ fluh-foh-bun, floof-oh-bun, fluff-bunb (*separate each pronunciation with a comma*)
-<br /><br />This ensures Pearl understands your unique terminology, no matter how creatively named!
-	<img
-	className="block dark:hidden"
-	src="/images/light_mode/speech_reco.png"
-	alt="NLPearl.AI Logo Light"
-	style={{ borderRadius: '18px' }}
-	/>
-	<img
-	className="hidden dark:block"
-	src="/images/dark_mode/speech_reco.png"
-	alt="NLPearl.AI Logo Dark"
-	style={{ borderRadius: '18px' }}
-	/>
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_openingsentence-multilingual.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-#### Step 4: Flow Configuration
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_openingsentence-multilingual.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-1. **Opening Sentence**: Define the first sentence Pearl will say when answering the phone. You can include variables like "company name" or "agent name." Avoid using lead-specific variables for inbound calls.
-2. **Flow Script**: For use cases other than Personal Secretary, provide the script that Pearl will follow during conversations, similar to a script given to a human salesperson. It's very important to understand how to use [Variables](/pages/variables) to enhance the conversation experience and give Pearl better capabilities to handle the interaction.
-3. **Call Actions**: Specify actions that Pearl can perform during the call, such as booking meetings, transferring calls, or sending emails and SMS messages.
+- **In-call variables are not yet available**:<br/> 
+  These are not available in the opening sentence, as Pearl doesn't have user-specific data at that point in the conversation.
+</Warning>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_openingsentence.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_openingsentence.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+---
+
+**Flow Script**
+
+The flow script defines how Pearl will handle a conversation from start to finish — much like what you'd give a human agent. It guides the dialogue, handles objections, answers key questions, and helps your caller reach the right outcome.
+
+To make it dynamic and personalized, we strongly recommend using [Variables](/pages/variables).
+
+<Note>
+The flow script is not required for the **Personal Secretary** use case. In that scenario, Pearl operates without a predefined script.
+</Note>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_flowscript.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_flowscript.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+Not sure where to start? Click **Help me** to launch the script generator.
+
+Just describe your use case (e.g. “I want Pearl to handle delivery issues and send tracking links”), and it’ll generate a ready-to-edit flow tailored to that context.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_flowscript-generator.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_flowscript-generator.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+---
+
+**Call Actions**
+Specify actions that Pearl can perform during the call, such as booking meetings, transferring calls, or sending emails and SMS messages.
 
 For more details on actions, refer to the [Actions](/pages/action) page.
 
-<a id="pearl-name"></a>   
-#### Step 5: Pearl Name
+<CardGroup cols={2}>
 
-1. **Name of the Pearl**: Assign a friendly name to your Pearl for easy retrieval.
-2. **Choose Your Pearl**: Select a logo for your Pearl from a list of available options.
-3. **Define the Success of Your Pearl**: Specify what constitutes a successful call for your Pearl, such as booking a meeting, obtaining client interest, or qualifying a lead. <br />
-This defined success will be reflected in the status of your leads list when you launch a campaign,  allowing you to effectively sort and manage your leads.
-4. **Indicator Tags**:
-	<img
-	className="block dark:hidden"
-	src="/images/light_mode/tags.png"
-	alt="NLPearl.AI Logo Light"
-	style={{ borderRadius: '18px' }}
-	/>
-	<img
-	className="hidden dark:block"
-	src="/images/dark_mode/tags.png"
-	alt="NLPearl.AI Logo Dark"
-	style={{ borderRadius: '18px' }}
-	/>
-   - **Purpose of Indicator Tags**: Indicator tags allow you to label your conversations based on specific criteria or events that occur during the interaction. This helps in categorizing and analyzing conversations later.
+<Card title="Book a Meeting" icon="calendar" iconType="light">
+  Pearl can automatically schedule a meeting with the prospect and add it to your calendar.
+</Card>
 
-   - **How to Add Indicator Tags**:
-     - **Add a Tag**: Click on the option to add a new indicator tag.
-     - **Color**: Choose a color for the tag to make it easily identifiable.
-     - **Name**: Provide a name for the tag.
-     - **Description (When to Assign)**: Describe the condition or event when the tag should be assigned during the conversation.
+<Card title="Transfer a Call" icon="phone-volume" href="pages/transfer_call" iconType="light">
+  Pearl can transfer the call to another agent or department.
+</Card>
 
-   - **Example Use Case**:
-     - If you're conducting a poll to find out what people prefer to drink in the morning:
-       - **Tag "Coffee"**:
-         - **Color**: Brown
-         - **Name**: Coffee
-         - **When to Assign**: "If the prospect prefers to drink coffee in the morning."
-       - **Tag "Tea"**:
-         - **Color**: Green
-         - **Name**: Tea
-         - **When to Assign**: "If the prospect prefers to drink tea in the morning."
-     - During the conversation, if the prospect expresses a preference for coffee or tea, the corresponding tag will be assigned, allowing you to easily filter and analyze these interactions later.
-5. **Notifications**
+<Card title="Send an SMS" icon="comments" href="pages/sms_action" iconType="light">
+  Pearl can send an SMS to the prospect during the call.
+</Card>
 
-	The **Notifications** feature allows you to receive email summaries of calls based on specific criteria. This ensures you only get updates for the most relevant interactions.
+<Card title="Send an Email" icon="paper-plane" href="pages/email_action" iconType="light">
+  Pearl can send an email to the prospect during the call.
+</Card>
 
-	- Configuration Options:
-	1. **Emails**:
-	- Enter one or more email addresses where notifications should be sent. Make sure the email format is valid to ensure proper delivery.
+<Card title="API Integration" icon="code" href="pages/api_action" iconType="light">
+  Seamlessly connect your agent with any API to retrieve information or perform actions through any available API.
+</Card>
 
-	2. **Notify If**:
-	- Choose the criteria for triggering notifications:
-		- **Always**: Get notified for every call made by Pearl.
-		- **Based on Tags**: Receive notifications only when a call matches specific **Indicator Tags**.
+<Card title="Take a Message" icon="message" iconType="light">
+  If the prospect wants to leave a message, Pearl can take the message and send it to your email.
+</Card>
+</CardGroup>
 
+<br/>
 
-	-Connection with Indicator Tags
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_actions.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-	Indicator Tags are closely linked to Notifications, enabling you to tailor your alerts:
-	- **Tag-based Filtering**: Define tags to categorize calls (e.g., "High Priority," "Follow-up Needed"). Notifications can then be filtered to only include calls with these tags.
-	- This connection ensures you focus on the calls that matter most.
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_actions.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+</Card>
+</Step>
 
+<Step title="Analytics">
+Use this section to track, evaluate, and act on your Pearl’s performance. Define what success looks like, apply custom tags to key conversation moments, and set up notifications to stay on top of important calls.
+<Card>
 
-	- Example Use Case:
-		1. Create an **Indicator Tag**: "Urgent".
-		- Condition: Applied when a customer reports a critical issue.
-		2. Set up **Notifications**:
-		- Enable notifications only for calls tagged as "Urgent".
-		3. Result:
-		- You receive email alerts exclusively for calls requiring immediate attention.
+**Define the Success of Your Pearl**
 
+Specify what constitutes a successful call for your Pearl — such as booking a meeting, confirming interest, or qualifying a lead. This success definition will be reflected in your campaign analytics and lead statuses, helping you sort and follow up efficiently.
 
-	This combination of **Notifications** and **Indicator Tags** helps you manage call summaries effectively and ensures you only receive relevant alerts.
+<Info>
+If you don’t define success for your Pearl, all answered calls will be marked as **Completed** by default.  <br/><br/>
+By using this feature, you’ll unlock two possible outcomes instead: **Call Successful** and **Call Unsuccessful**, giving you more control over lead qualification.
+</Info>
 
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_definesuccess.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_definesuccess.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+---
+
+**Indicator Tags**
+
+Use **Indicator Tags** to label and categorize key moments in a conversation.  <br/><br/>
+They help you structure your data, identify important insights, and filter your leads with precision.
+
+Each tag includes:
+
+- **Name** — A clear label (e.g. `"Interested"`, `"Mentioned Competitor"`)
+- **Color** — Used for visual sorting in your interface
+- **Assignment rule** — A short description of when the tag should be applied
+
+Tags are assigned automatically during the call, based on the conditions you define.
+
+<Card>
+### Example
+
+You're asking leads what they usually drink in the morning. You might define:
+
+- **Tag**: `Coffee`  
+  - **Color**: Brown  
+  - **When to assign**: If the lead mentions drinking coffee
+
+- **Tag**: `Tea`  
+  - **Color**: Green  
+  - **When to assign**: If the lead mentions drinking tea
+
+These tags will then appear in your lead data and call logs, making it easy to segment and analyze responses.
+</Card>
+
+<Info>
+Indicator Tags are not just for display — they’re functional. You can filter campaigns by tag, trigger notifications, or use them to define success in analytics.
+</Info>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_indicatortags.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_indicatortags.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+---
+
+**Notifications**
+
+Notifications allow you to receive updates about Pearl’s calls through the channel of your choice.  
+
+You can be alerted when specific conditions are met — ensuring you focus only on what matters most.
+
+**Configuration Options**
+
+| Channel      | Description |
+|--------------|-------------|
+| **Email**    | Enter one or more email addresses to receive call summaries. Make sure each address is valid to ensure proper delivery. |
+| **Slack**    | Connect your Slack workspace and select the channel where notifications should be posted. This is done via OAuth integration. |
+| **API**      | Define a webhook URL where Pearl will POST call notification data in real time. Useful for CRM or custom workflow integrations. |
+
+**When to Trigger Notifications**
+
+| Trigger Type          | Description |
+|-----------------------|-------------|
+| **Always**            | Get notified after **every call**, regardless of outcome. |
+| **Based on Tags**     | Notify only when specific **Indicator Tags** are assigned. |
+| **Based on Success**  | Notify when the call is marked as **Successful** or **Unsuccessful**, based on your **Define Success** setup. |
+| **Based on Actions**  | Notify when specific **Actions** are triggered during the call — such as booking a meeting, sending an email or SMS, or transferring the call. |
+
+
+<Info>
+Notifications and Indicator Tags are closely connected. Tags act as filters for when a notification should be triggered.  
+
+For example, you might define a tag like `"High Priority"` or `"Follow-up Needed"` — and configure notifications to trigger only when those tags are present.  
+
+This ensures you’re alerted only for meaningful, action-worthy calls.
+</Info>
+
+
+<Card title="Example: Getting notified for urgent calls only">
+1. **Create a Tag**: `Urgent`  
+&nbsp;&nbsp;&nbsp;&nbsp;Condition: Applied when a customer reports a critical issue.
+
+2. **Configure Notifications**:  
+&nbsp;&nbsp;&nbsp;&nbsp;Enable notifications only for calls tagged as `Urgent`.
+
+3. **Result**:  
+&nbsp;&nbsp;&nbsp;&nbsp;You receive real-time alerts only for critical calls that need immediate attention.
+</Card>
+
+<Note>
+**Available Variables for End Call Notifications**
+
+When configuring your notification messages (email, Slack, or API), a dedicated set of **end-of-call variables** is available — including call duration, summary, recording...
+</Note>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_notifications.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_notifications.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+</Card>
+</Step>
+
+<Step title="Try your Pearl with a Test Call">
+
+Before launching your Pearl in production, test it live with a simple trial call. This lets you validate the agent's behavior, voice settings, and how it handles variables.
+
+---
+
+**How to run a test call**
+
+1. Go to the test call panel 
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_testcall-location.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_testcall-location.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+2. Enter a **valid phone number** (in international format)  
+3. Optionally, fill in additional test variables like email, first name, or other dynamic fields  
+4. Launch the call and observe the interaction
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_testcall.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_testcall.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+<Card>
+Once the call is complete, you can review the result in the **Post-Call view**, including:
+
+- Transcript of the call  
+- Variable values filled during the conversation  
+- Actions triggered by Pearl  
+- Final status (e.g. success, no answer, fallback)
+
+<Card
+    title="Post Call"
+    icon="pager"
+	iconType="light"
+    href="/pages/postcall"
+  >
+    Explore the Post Call Capabilities.
+</Card>
+</Card>
+
+
+</Step>
+
+<Step title="Connect your Pearl to an Inbound or Outbound Campaign">
+
+Your Pearl is now fully configured — it’s time to put it to work.
+
+Depending on your use case, you can connect Pearl to an **Inbound** or **Outbound** campaign.  
+
+Choose the appropriate setup and follow the dedicated documentation to go live.
 
 
 <CardGroup cols={2}>
   <Card
-    title="Languages & Voices"
-    icon="language"
+    title="Inbound"
+    icon="phone"
 	iconType="light"
-    href="/pages/languages"
+    href="/pages/inbound"
   >
-    Explore the different languages available and how to set them for your Pearl.
+    Handle incoming calls.  
   </Card>
   <Card
-    title="Advanced Pearl"
-    icon="diagram-subtask"
+    title="Outbound"
+    icon="phone-arrow-up-right"
 	iconType="light"
-    href="/pages/advanced_pearl"
+    href="/pages/outbound"
   >
-    Learn about the custom options and decision tree for advanced configuration.
+    Launch automated outbound call campaigns.
   </Card>
 </CardGroup>
+</Step>
 
-## Best Practices for Pearl Creation
+</Steps>
+
+<Card title="Deleting or Updating a Pearl" icon="circle-info" iconType="light">
+
+If you no longer need a Pearl, you can either **delete** it or **edit** it directly from your settings.
+
+**Delete a Pearl:**
+1. Go to the **Pearl page**  
+2. Locate the Pearl you want to remove  
+3. Click the **Delete** button next to it
+
+**Update a Pearl:**  
+To edit a Pearl, simply click into it and select the **Edit** button to make your changes.
+
+<Warning>
+If the Pearl is currently connected to a campaign, be careful when modifying or deleting it:  
+- **Deleting** a Pearl will immediately stop the campaign it’s attached to.  
+- **Editing** a Pearl will apply the changes in real-time to the ongoing campaign.  
+Make sure you review your setup before making live edits.
+</Warning>
+
+</Card>
+
+---
+
+<Tip>
+### Best Practices for Pearl Creation
 
 When creating your Pearl, consider the following best practices to ensure optimal performance and customer satisfaction:
 
 - **Use Variables Wisely**: Add the first name and last name variables into the opening sentence only for outbound calls when you are sure that the lead list contains this information.
 - **Cultural Alignment**: Ensure the chosen language and conversational style align with the cultural expectations of your audience.
 - **Feedback Incorporation**: Continuously refine your Pearl based on feedback and interaction outcomes to improve conversational effectiveness.
+</Tip>
+
+---
 
 ## Summary
 
