@@ -6,34 +6,205 @@ iconType: "light"
 
 ---
 
-import { CardGroup, Card } from '@theme';
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/outbound-cover.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/outbound-cover.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
 
 ## Setting Up Outbound Campaigns
 
 NLPearl.AI provides robust features to manage outbound campaigns efficiently. Using the Pearl flows you have created, you can set up outbound calls to engage with your leads according to a predefined schedule.
 
+<Info>
 ### What are Outbound Campaigns?
-
 Outbound campaigns enable your AI agents to make outgoing calls to a list of leads. These calls follow the conversational logic defined in your Pearl, ensuring consistent and effective communication with your potential clients.
+</Info>
+
+---
 
 ### Steps to Create an Outbound Campaign
 
-1. **Create a Pearl**: Ensure you have created a Pearl that defines the flow of the conversation for your outbound calls.
-2. **Add Leads**: Add the leads you want to contact directly from the platform. You can input lead details such as name, phone number, and any other relevant information.
-3. **Schedule Calls**: Define the schedule for when the AI agents will make the outbound calls. You can specify dates, times, and frequency to suit your campaign needs.
-4. **Configure Outbound Settings**: Set up your outbound parameters, such as:
-   - **Name**: The name of the outbound campaign to easily identify its purpose and target audience.
-   - **Pearl**: Choose the Pearl that defines the conversation flow for this campaign. The AI will follow this predefined script when interacting with leads.
-   - **Phone Number**: Select a phone number for the campaign. *Be careful with the country code—read below to understand its impact.* The number assigned to the campaign dictates which country codes will be supported for lead calls.
-   - **Budget**: Define the budget for your campaign. Once the budget is reached, Pearl will stop making calls for that campaign. This is optional, and you can always increase it if you have enough credit in your account.
-   - **Number of Simultaneous Agents**: Specify how many AI agents can make calls at the same time. A higher number allows for more rapid outreach but may require additional resources.
-   - **Recording Options**:
-     - **Pearl & End-user**: Both the AI and the lead’s voice are recorded.
-     - **Pearl Only**: Only the AI’s voice is recorded.
-     - **No Recording**: No call recording is saved.
-     <br />Choosing the best option depends on your privacy policies and compliance regulations. Some industries require full recordings for auditing purposes, while others prioritize customer privacy.
-   - **Recording After Transfer Call**: *Boolean* - If enabled, the call will continue to be recorded after being transferred. *Note: "Pearl & End-user" must be selected; otherwise, it will be automatically disabled.* This setting is important for maintaining logs in multi-agent interactions.
-   - **Transcript Masking**: _(Post-Call)_ When enabled, sensitive information in conversation transcripts is automatically masked after the call while preserving essential context.
+<Steps>
+<Step title="Create a Pearl">
+
+To get started, create the Pearl that best fits your outbound use case.
+
+<CardGroup cols={2}>
+  <Card
+    title="Simple Pearl"
+    icon="subtitles"
+	iconType="light"
+    href="/pages/create_pearl"
+  >
+    Ideal for quick setups or basic use cases. Easy to configure and perfect for testing or lightweight interactions. 
+  </Card>
+  <Card
+    title="Advanced Pearl"
+    icon="diagram-subtask"
+	iconType="light"
+    href="/pages/advanced_pearl"
+  >
+    Designed for more complex scenarios, including multi-step logic. 
+  </Card>
+</CardGroup>
+</Step>
+
+<Step title="Purchase a Phone Number">
+You first need to acquire a phone number from our platform. This number will be dedicated to your Inbound Activity and can receive calls from anywhere at any time.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_purchasephone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_purchasephone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+</Step>
+<Step title="Assign the Phone Number to Your Campaign">
+Link the purchased phone number to the Pearl you want to use for handling inbound calls. This connects your conversational flow to real-world interactions.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_addphone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_addphone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
+<Step title="Configure Outbound Settings">
+Set up your outbound parameters, such as:
+
+- **Name**: The name of the outbound campaign to easily identify its purpose and target audience.
+
+- **Pearl**: Choose the Pearl that defines the conversation flow for this campaign. The AI will follow this predefined script when interacting with leads.
+
+- **Timezone:
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_timezone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_timezone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+- **Budget**: Define the budget for your campaign. Once the budget is reached, Pearl will stop making calls for that campaign. This is optional, and you can always increase it if you have enough credit in your account.
+
+- **Number of Simultaneous Agents**: Specify how many AI agents can make calls at the same time. A higher number allows for more rapid outreach but may require additional resources.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/inbound_agents.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/inbound_agents.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+- **Recording Options**:
+  - **Pearl & End-user**: Both the AI and the lead’s voice are recorded.
+  - **Pearl Only**: Only the AI’s voice is recorded.
+  - **No Recording**: No call recording is saved.
+
+<Note>
+Choosing the best option depends on your privacy policies and compliance regulations. Some industries require full recordings for auditing purposes, while others prioritize customer privacy.
+</Note>
+
+- **Recording After Transfer Call**: *Boolean* - If enabled, the call will continue to be recorded after being transferred. 
+
+<Note>
+"Pearl & End-user" must be selected; otherwise, it will be automatically disabled.* This setting is important for maintaining logs in multi-agent interactions.
+</Note>
+
+- **Transcript Options**: _(Post-Call)_ When enabled, sensitive information in conversation transcripts is automatically masked after the call while preserving essential context.
+      
+      -  Masking Sensitive Information
       This is especially useful for post-call analysis, compliance, and data security, ensuring that private details like:
       Credit card numbers
       Social Security numbers
@@ -44,7 +215,11 @@ Outbound campaigns enable your AI agents to make outgoing calls to a list of lea
     The transcript might store it as:
     "My credit card number is --**-3456."
     This helps businesses review interactions safely without exposing sensitive data.
-    - **Retry Call Attempts**: Choose how many times Pearl should retry calling a lead if the initial attempt fails (from 1 to 5 attempts). This prevents leads from being lost due to missed calls while avoiding excessive spam-like behavior.
+    - Full Transcript
+    - No Transcript
+
+
+ - **Retry Call Attempts**: Choose how many times Pearl should retry calling a lead if the initial attempt fails (from 1 to 5 attempts). This prevents leads from being lost due to missed calls while avoiding excessive spam-like behavior.
       - **Retry Intervals**:
         - At least every 3 hours
         - At least every 6 hours
@@ -52,16 +227,38 @@ Outbound campaigns enable your AI agents to make outgoing calls to a list of lea
         - At least once every 3 days
         - At least once a week
         - At least once a month
-    <br />Setting the right interval ensures follow-ups occur without overwhelming the lead.
-   - **Ring Duration**: Define how long Pearl will ring before ending the call. You can choose a duration between **10 and 50 seconds**. If the lead does not answer within this time, the call status will be marked as "No Answer." Shorter durations prevent wasted time, while longer durations increase answer rates.
-   - **Voicemail Drop**: When Pearl reaches voicemail, she can leave a **personalized message** using variables like the lead’s first name. This creates a more human-like interaction even when the lead doesn’t answer.
-   <br />_You can only use Pre-Call variables in the voicemail drop_
-   This ensures a friendly and engaging experience for your leads, increasing the chances of a callback. 
+  
+<Note>
+Setting the right interval ensures follow-ups occur without overwhelming the lead.
+</Note>
+
+- **Ring Duration**: Define how long Pearl will ring before ending the call. You can choose a duration between **10 and 50 seconds**. If the lead does not answer within this time, the call status will be marked as "No Answer." Shorter durations prevent wasted time, while longer durations increase answer rates.
+
+- **Voicemail Drop**: When Pearl reaches voicemail, she can leave a **personalized message** using variables like the lead’s first name. This creates a more human-like interaction even when the lead doesn’t answer.
+
+- **Schedule Calls**: Define the schedule for when the AI agents will make the outbound calls. You can specify dates, times, and frequency to suit your campaign needs.
+
+<Note>
+You can only use Pre-Call variables in the voicemail drop_
+
+This ensures a friendly and engaging experience for your leads, increasing the chances of a callback. 
     <br />- **Example:**  
     > "Hi `First Name`, this is Pearl calling on behalf of `Your Company`. I just tried reaching you but missed you this time! Feel free to call me back at `Your Callback Number`. Looking forward to speaking with you soon!"  
-  
+</Note>
+
    - **Call Webhook**: A call webhook is triggered at key points during the call lifecycle, such as when the call is initiated and when it ends. You receive an object similar to the one returned by the [Get Calls](/api-reference/call/get-call) endpoint, including details like call duration, outcome, and any data collected during the call. This is useful for tracking call performance and automation.
+   
    - **Lead Webhook**: A lead webhook is triggered every time a specific lead changes status, at the beginning of the call and at the end of the call. You receive an object similar to the one returned by the [Get Leads](/api-reference/outbound/get-lead) endpoint. This includes all relevant information about the lead and its current status. Use this webhook to update your CRM or lead management system in real-time, ensuring that you have the most up-to-date information on lead interactions.
+
+</Step>
+
+<Step title="Add Leads">
+Add the leads you want to contact directly from the platform. You can input lead details such as name, phone number, and any other relevant information.
+</Step>
+
+</Steps>
+
+---
 
 ### Understanding Country Codes
 
