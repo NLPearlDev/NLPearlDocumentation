@@ -2976,10 +2976,6 @@
                         },
                         "description": "The tags or labels triggered during the conversation",
                         "nullable": true
-                    },
-                    "chargedMinutes": {
-                        "type": "number",
-                        "format": "double"
                     }
                 },
                 "additionalProperties": false
