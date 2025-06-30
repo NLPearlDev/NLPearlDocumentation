@@ -125,6 +125,77 @@
                 }
             }
         },
+        "/v1/Call": {
+            "delete": {
+                "tags": [
+                    "Call"
+                ],
+                "summary": "Delete Calls",
+                "description": "Deletes one or more calls",
+                "requestBody": {
+                    "description": "The request object containing the list of call IDs to be deleted.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeleteCallsRequestApi"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeleteCallsRequestApi"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeleteCallsRequestApi"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns a boolean indicating if the deletion was successful.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v1/Inbound": {
             "get": {
                 "tags": [
@@ -414,17 +485,17 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CallsTableDateSearch"
+                                "$ref": "#/components/schemas/CallsTableDateSearchApi"
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CallsTableDateSearch"
+                                "$ref": "#/components/schemas/CallsTableDateSearchApi"
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CallsTableDateSearch"
+                                "$ref": "#/components/schemas/CallsTableDateSearchApi"
                             }
                         }
                     }
@@ -782,17 +853,17 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CallsTableDateSearch"
+                                "$ref": "#/components/schemas/CallsTableDateSearchApi"
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CallsTableDateSearch"
+                                "$ref": "#/components/schemas/CallsTableDateSearchApi"
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CallsTableDateSearch"
+                                "$ref": "#/components/schemas/CallsTableDateSearchApi"
                             }
                         }
                     }
@@ -2515,7 +2586,7 @@
                 },
                 "additionalProperties": false
             },
-            "CallsTableDateSearch": {
+            "CallsTableDateSearchApi": {
                 "required": [
                     "fromDate",
                     "toDate"
@@ -2645,6 +2716,21 @@
                 "type": "integer",
                 "description": "\n\n`0 - Sunday`\n\n`1 - Monday`\n\n`2 - Tuesday`\n\n`3 - Wednesday`\n\n`4 - Thursday`\n\n`5 - Friday`\n\n`6 - Saturday`\n\n",
                 "format": "int32"
+            },
+            "DeleteCallsRequestApi": {
+                "type": "object",
+                "properties": {
+                    "callIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The list of unique call IDs to delete.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents the request object used to delete one or more calls."
             },
             "DeleteLeadsRequestApi": {
                 "type": "object",
@@ -2890,6 +2976,10 @@
                         },
                         "description": "The tags or labels triggered during the conversation",
                         "nullable": true
+                    },
+                    "chargedMinutes": {
+                        "type": "number",
+                        "format": "double"
                     }
                 },
                 "additionalProperties": false
