@@ -6,13 +6,39 @@ iconType: "light"
 
 The Conversation Tree Editor is a powerful tool that allows you to design and visualize conversation flows in a user-friendly, visual interface. Whether you're creating customer surveys, support dialogues, or interactive voice responses, this editor helps you craft natural and personalized conversations.
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/tree.gif"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/tree.gif"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
 ## Getting Started
 
 ### Main Interface Overview
 
 When you open the Conversation Tree Editor, you'll see the main workspace divided into several key areas:
 
-- **Top Bar**: Contains navigation buttons, settings, the auto-generate feature, and save options.
+- **Bottom Bar**: Contains navigation buttons, settings, the auto-generate feature, and save options.
 - **Sidebar**: Offers various node subtypes to add to your conversation flow.
 - **Canvas**: The central area where you'll build and visualize your conversation tree.
 - **Variable Management Panel**: Accessed via the sidebar, it allows you to manage variables used in your flow.
@@ -275,12 +301,60 @@ Any variables populated by the Pre-Call API become available to all subsequent n
 Below are two images illustrating the Pre-Call API in action:
 
 1. **Flow Example Using the Pre-Call API**  
-   ![Flow Example Using Pre-Call API](/images/exemples/api-pre-call-tree.png "Flow Example Using Pre-Call API")
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/api-pre-call-tree.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/api-pre-call-tree.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
    In this example, the conversation will follow the **Success** path if the required fields are found; otherwise, it transitions to **Not Success**.
 
 2. **Pre-Call API Configuration**  
-<img src="/images/exemples/api-pre-call-settings.png" alt="Pre-Call API Configuration Panel" width="50%" height="50%" />
-   This screenshot shows how to specify your endpoint, configure headers, map JSON keys to variables, and set the required/optional status.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/api-pre-call-settings.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/api-pre-call-settings.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+This screenshot shows how to specify your endpoint, configure headers, map JSON keys to variables, and set the required/optional status.
 
 For more details on connecting to external systems, see our [API page](/pages/api_action).
 
@@ -362,35 +436,42 @@ For more details on connecting to external systems, see our [API page](/pages/ap
 - **Logical Flow**: Ensure the conversation progresses logically based on user responses.
 - **Ease of Editing**: Quickly adjust the flow by dragging transitions without deleting nodes.
 
-## Frequently Asked Questions
+---
 
-**Q: How do I test my conversation flow?**
+## Frequently Asked Questions (FAQ)
 
-A: Use the simulation feature to walk through the conversation as if you were the user.
+<AccordionGroup>
+  <Accordion title="How do I test my conversation flow?">
+    Use the simulation feature to walk through the conversation as if you were the user.
+  </Accordion>
 
-**Q: Can I import existing scripts into the editor?**
+    <Accordion title="Can I import existing scripts into the editor?">
+    Yes, use the **Auto-Generate** feature to generate flows from your scripts or descriptions.
+  </Accordion>
 
-A: Yes, use the **Auto-Generate** feature to generate flows from your scripts or descriptions.
+    <Accordion title="How do I handle unexpected user responses?">
+    Include default transitions or error-handling nodes to manage unanticipated inputs.
+  </Accordion>
 
-**Q: How do I handle unexpected user responses?**
+    <Accordion title="Can I customize the actions performed by Action Nodes?">
+    Yes, configure each action node using variables and settings provided.
+  </Accordion>
 
-A: Include default transitions or error-handling nodes to manage unanticipated inputs.
+    <Accordion title="How do I use variables with Action Nodes like Email or SMS?">
+    When configuring the action, insert variables into the content fields (e.g., message body, recipient address).
+  </Accordion>
 
-**Q: Can I customize the actions performed by Action Nodes?**
+    <Accordion title="Can I use multiple actions in my conversation flow?">
+    Yes, you can include multiple actions at different stages, except for the **Transfer Call** action, which ends the conversation with the agent.
+  </Accordion>
 
-A: Yes, configure each action node using variables and settings provided.
+    <Accordion title="How do I set up conditional transitions?">
+In the node configuration, enable **"Conditional Transitions"**, define your conditions, and label each transition clearly.
+  </Accordion>
 
-**Q: How do I use variables with Action Nodes like Email or SMS?**
+</AccordionGroup>
 
-A: When configuring the action, insert variables into the content fields (e.g., message body, recipient address).
-
-**Q: Can I use multiple actions in my conversation flow?**
-
-A: Yes, you can include multiple actions at different stages, except for the **Transfer Call** action, which ends the conversation with the agent.
-
-**Q: How do I set up conditional transitions?**
-
-A: In the node configuration, enable **"Conditional Transitions"**, define your conditions, and label each transition clearly.
+---
 
 ## Conclusion
 
