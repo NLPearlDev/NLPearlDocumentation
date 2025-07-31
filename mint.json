@@ -100,7 +100,9 @@
             "pages/custom_voip"
           ]
         },
-        "pages/billing"
+        "pages/billing",
+        "pages/security",
+        "pages/blacklist"
       ]
     },
     {
