@@ -51,7 +51,8 @@
       "group": "General",
       "pages": [
         "pages/overview",
-        "pages/getting_started"
+        "pages/getting_started",
+        "pages/shopify"
       ]
     },
     {

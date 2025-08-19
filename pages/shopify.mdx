@@ -1,0 +1,628 @@
+---
+title: Shopify App
+description: ''
+icon: "shopify"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/shopify_cover.png"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/shopify_cover.png"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+Pearl is an AI phone agent for Shopify stores. It answers calls 24/7, handles support and upsells, recovers abandoned carts, and integrates directly with your store. Each call is transcribed, summarized, and analyzed so you stay informed in real time. Fully automated, multilingual, and cost‑effective, Pearl extends your Shopify customer experience without the overhead of a call center.
+
+---
+
+## Setting up your Pearl
+
+### Pearl AI Settings
+
+Configure your AI agent’s behavior, tone, and objectives.
+
+<Steps>
+  <Step title="Agent Names, Languages & Voices">
+
+You can set up your Pearl to support multiple languages by creating several agent configurations — each with a specific **name**, **language**, and **voice**.
+
+- To add a new language configuration, click on the **"+"** button <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span>. This allows you to define additional agents who can handle conversations in other languages.
+- Each configuration should include a **name** (used during calls), a **language**, and a corresponding **voice**.
+
+When a caller requests to switch to another language during the conversation, Pearl will automatically reroute the call to the agent associated with that language — ensuring a smooth and localized experience.
+
+- The **first agent** you create is automatically marked as the **Default Agent** <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span>. This agent will always initiate the conversation when a call begins, unless another language is requested by the caller.
+
+<Note>
+You can define as many language configurations as needed — perfect for global audiences or multilingual teams.
+</Note>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_defaultagent.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_defaultagent.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Info>
+Explore  [Voice and Language](/pages/languages) to view all the language options available.
+</Info>
+
+  </Step>
+  <Step title="Store Name">
+
+    Give your Pearl the name of the store it represents. This name may be used when Pearl introduces itself or provides company-related information.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_companyname.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_companyname.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+  </Step>
+  <Step title="Transfer Call">
+    The **Transfer Call** action lets your Pearl seamlessly transfer an active call to a phone number you define.
+
+    **Setup**
+    - While creating a Pearl, enable the **Transfer Call** option.  
+    - Enter the destination phone number where calls should be redirected.  
+    - Make sure the number is correct and able to receive calls from your Pearl’s assigned phone number.  
+
+    **Management**
+    - You can disable Transfer Call at any time.  
+    - When disabled, your agent will no longer be able to forward calls to the specified number.  
+
+    <Note>
+    Always enter the number in **international format** with country code, e.g. `+1 555 123 4567`.
+    </Note>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/shopify_transfercall.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/shopify_transfercall.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+
+  </Step>
+</Steps>
+
+---
+
+### Analytics & Notifications
+
+Use this section to track, evaluate, and act on your Pearl’s performance. Define what success looks like, apply custom tags to key conversation moments, and set up notifications to stay on top of important calls.
+
+**Indicator Tags**
+
+Use **Indicator Tags** to label and categorize key moments in a conversation.  <br/><br/>
+They help you structure your data, identify important insights, and filter your leads with precision.
+
+Each tag includes:
+
+- **Name** — A clear label (e.g. `"Interested"`, `"Mentioned Competitor"`)
+- **Color** — Used for visual sorting in your interface
+- **Assignment rule** — A short description of when the tag should be applied
+
+Tags are assigned automatically during the call, based on the conditions you define.
+
+<Card>
+### Example
+
+You're asking leads what they usually drink in the morning. You might define:
+
+- **Tag**: `Coffee`  
+  - **Color**: Brown  
+  - **When to assign**: If the lead mentions drinking coffee
+
+- **Tag**: `Tea`  
+  - **Color**: Green  
+  - **When to assign**: If the lead mentions drinking tea
+
+These tags will then appear in your lead data and call logs, making it easy to segment and analyze responses.
+</Card>
+
+<Info>
+Indicator Tags are not just for display — they’re functional. You can filter campaigns by tag, trigger notifications, or use them to define success in analytics.
+</Info>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_indicatortags.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_indicatortags.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+---
+
+**Notifications**
+
+Notifications allow you to receive updates about Pearl’s calls through the channel of your choice.  
+
+You can be alerted when specific conditions are met — ensuring you focus only on what matters most.
+
+**Configuration Options**
+
+| Channel      | Description |
+|--------------|-------------|
+| **Email**    | Enter one or more email addresses to receive call summaries. Make sure each address is valid to ensure proper delivery. |
+| **Slack**    | Connect your Slack workspace and select the channel where notifications should be posted. This is done via OAuth integration. |
+| **API**      | Define a webhook URL where Pearl will POST call notification data in real time. Useful for CRM or custom workflow integrations. |
+
+**When to Trigger Notifications**
+
+| Trigger Type          | Description |
+|-----------------------|-------------|
+| **Always**            | Get notified after **every call**, regardless of outcome. |
+| **Based on Tags**     | Notify only when specific **Indicator Tags** are assigned. |
+| **Based on Success**  | Notify when the call is marked as **Successful** or **Unsuccessful**, based on your **Define Success** setup. |
+
+
+<Info>
+Notifications and Indicator Tags are closely connected. Tags act as filters for when a notification should be triggered.  
+
+For example, you might define a tag like `"High Priority"` or `"Follow-up Needed"` — and configure notifications to trigger only when those tags are present.  
+
+This ensures you’re alerted only for meaningful, action-worthy calls.
+</Info>
+
+
+<Card title="Example: Getting notified for urgent calls only">
+1. **Create a Tag**: `Urgent`  
+&nbsp;&nbsp;&nbsp;&nbsp;Condition: Applied when a customer reports a critical issue.
+
+2. **Configure Notifications**:  
+&nbsp;&nbsp;&nbsp;&nbsp;Enable notifications only for calls tagged as `Urgent`.
+
+3. **Result**:  
+&nbsp;&nbsp;&nbsp;&nbsp;You receive real-time alerts only for critical calls that need immediate attention.
+</Card>
+
+<Note>
+**Available Variables for End Call Notifications**
+
+When configuring your notification messages (email, Slack, or API), a dedicated set of **end-of-call variables** is available — including call duration, summary, recording...
+</Note>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_notifications.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_notifications.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+
+---
+
+### Customization
+
+<Steps>
+  <Step title="Opening Sentence">
+    Set the first sentence Pearl will say when answering a call. This is your agent’s opening line — keep it simple, clear, and aligned with your brand.
+
+In the Shopify app, you can define **two distinct opening sentences**:
+
+- **New customers**: caller **not found** in your Shopify customer database  
+- **Existing customers**: caller **matches** a Shopify customer (phone number match)
+
+<Note>
+Matching is based on the **incoming phone number** compared to Shopify customer phone fields. 
+</Note>
+
+#### Behavior
+| Incoming condition | Sentence used |
+|--------------------|---------------|
+| Phone number matches a Shopify customer | **Existing customers** |
+| No match / hidden number / invalid format | **New customers** |
+
+<Tip>
+### Best practices
+- Keep both sentences **short** and **aligned with your brand tone**.  
+- Use the difference to signal context (“new” vs “returning”) **without assuming identity**.
+</Tip>
+
+<Warning>
+
+- **Using variables**:  
+  You can include dynamic variables like `{{company name}}` or `{{agent name}}` in your sentence. <br/>  
+  However, avoid using lead-specific variables — they won’t be available during inbound calls.
+
+
+- **Multilingual setup**:  
+  The sentence is spoken exactly as written in the default language. <br/> 
+  For example, if your default language is Spanish, the sentence must also be in Spanish.  <br/> <br/> 
+  If you later change the default language, don’t forget to update your sentence accordingly.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_openingsentence-multilingual.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_openingsentence-multilingual.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+- **In-call variables are not yet available (New customers)**:<br/> 
+  These are not available in the opening sentence, as Pearl doesn't have user-specific data at that point in the conversation.
+</Warning>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_openingsentence.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_openingsentence.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+  </Step>
+  <Step title="Realtime Actions">
+    Real-Time Actions allow Pearl to automatically send information to customers **during the call**. For example, when a customer asks *“Where’s my order?”* or requests a payment link, Pearl can instantly send an SMS or email with the relevant details.
+
+    **Available actions**
+    - **Order Tracking** → Sends tracking details (carrier, tracking number, and link).  
+    - **Payment Link** → Sends a secure link to complete a payment.  
+
+    **Message customization**
+
+    You can fully **customize the content** of the SMS or email sent. Variables such as `First Name`, `Order Number`, `Carrier Name`, `Tracking Number`, and `Tracking URL` can be inserted to personalize the message.
+
+    <Note>
+    Messages are generated and delivered in **real time** while the call is active, ensuring customers immediately receive the requested information.
+    </Note>
+
+    **Example**
+    - **SMS template (Order Tracking):**  
+    `Hi {{First Name}}, here is your order {{Order Number}} tracking info - Carrier: {{Carrier Name}}, Tracking: {{Tracking Number}}, Track: {{Tracking URL}}`
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/shopify-realtimeaction.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/shopify-realtimeaction.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+  </Step>
+
+</Steps>
+
+---
+
+### Knowledge Base
+
+Feed Pearl with your product catalog, FAQs, and policies so it can provide accurate answers to your customers.
+
+In the Shopify app, Pearl automatically builds its **Knowledge Base** from your store’s data.  
+There are **four dedicated sections** that sync directly with Shopify:
+
+- **FAQ**  
+- **Store description**  
+- **Shipment details**  
+- **Return policy**
+
+**Behavior**
+- Content is **pulled automatically** from your Shopify store.  
+- You can **edit or override** these entries at any time inside the app.  
+- Updates made in Shopify are synced to ensure Pearl always stays current.  
+
+This Knowledge Base provides Pearl with accurate, structured data to answer common questions about your store, policies, and services — without extra configuration.  
+
+<Note>
+Unlike manual knowledge bases, this data is directly tied to your Shopify store and stays up to date whenever your store content changes.
+</Note>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/light_mode/simplepearl_knowledgebase.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/simplepearl_knowledgebase.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
+
+---
+
+### Phone Number
+
+Choose a dedicated phone number for your store or connect an existing one. All customer calls to that number will be answered by Pearl 24/7.  
+
+<div className="block dark:hidden">
+  <Card
+  title="Phone Number"
+  icon="mobile"
+  iconType="light"
+  href="pages/postcall"
+  img="/images/light_mode/inbound_purchasephone.jpg"
+  arrow="true"
+>
+  Learn more in the Phone Number setup guide
+</Card>
+</div>
+
+<div className="hidden dark:block">
+  <Card
+  title="Phone Number"
+  icon="mobile"
+  iconType="light"
+  href="pages/postcall"
+  img="/images/dark_mode/inbound_purchasephone.jpg"
+  arrow="true"
+>
+  Learn more in the Phone Number setup guide
+</Card>
+</div>
+
+---
+
+### Blacklist
+
+Manage a list of blocked phone numbers or prefixes. Calls from these numbers will be automatically filtered out, saving time and avoiding spam.  
+
+
+<div className="block dark:hidden">
+  <Card
+  title="Blacklist"
+  icon="list"
+  iconType="light"
+  href="pages/postcall"
+  img="/images/light_mode/blacklist_cover.jpg"
+  arrow="true"
+>
+  Learn more in the Blacklist guide
+</Card>
+</div>
+
+<div className="hidden dark:block">
+  <Card
+  title="Blacklist"
+  icon="list"
+  iconType="light"
+  href="pages/postcall"
+  img="/images/dark_mode/blacklist_cover.jpg"
+  arrow="true"
+>
+  Learn more in the Blacklist guide
+</Card>
+</div>
+
+---
+
+## Call Tracking
+
+### Post Calls
+
+After every call, Pearl provides a full transcription, a concise summary, and sentiment analysis. This allows you to quickly understand what happened without having to listen to the entire call. 
+
+<div className="block dark:hidden">
+  <Card
+  title="Post Call"
+  icon="pager"
+  iconType="light"
+  href="pages/postcall"
+  img="/images/light_mode/postcall-cover.jpg"
+  arrow="true"
+>
+  Learn more in the Post Calls guide
+</Card>
+</div>
+
+<div className="hidden dark:block">
+  <Card
+  title="Post Call"
+  icon="pager"
+  iconType="light"
+  href="pages/postcall"
+  img="/images/dark_mode/postcall-cover.jpg"
+  arrow="true"
+>
+  Learn more in the Post Calls guide
+</Card>
+</div>
+
+---
+
+### Analytics
+
+Dive deeper into call performance with detailed analytics. Track call outcomes, average handling times, upsell conversions, and customer satisfaction metrics to continuously optimize your store’s phone support.  
+
+<div className="block dark:hidden">
+  <Card
+  title="Analytics"
+  icon="chart-simple"
+  iconType="light"
+  href="pages/postcall"
+  img="/images/light_mode/analytics-page.jpg"
+  arrow="true"
+>
+  Learn more in the Call Analytics guide
+</Card>
+</div>
+
+<div className="hidden dark:block">
+  <Card
+  title="Analytics"
+  icon="chart-simple"
+  iconType="light"
+  href="pages/postcall"
+  img="/images/dark_mode/analytics-page.jpg"
+  arrow="true"
+>
+  Learn more in the Call Analytics guide
+</Card>
+</div>
+
+
