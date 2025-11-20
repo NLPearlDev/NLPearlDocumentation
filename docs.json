@@ -21,12 +21,6 @@
     "name": "Platform",
     "url": "https://platform.nlpearl.ai/"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
   "anchors": [
     {
       "name": "Platform",
@@ -34,87 +28,88 @@
       "url": "https://platform.nlpearl.ai/"
     }
   ],
-  "navigation": {
-    "pages": [
-      "pages/introduction"
-    ],
-    "groups": [
+   "navigation": {
+    "tabs": [
       {
-        "group": "General",
+        "tab": "Docs",
         "pages": [
-          "pages/overview",
-          "pages/getting_started"
-        ]
-      },
-      {
-        "group": "Pearl",
-        "pages": [
-          "pages/create_pearl",
-          "pages/advanced_pearl",
-          "pages/variables",
-          "pages/languages",
+          "pages/introduction"
+        ],
+        "groups": [
           {
-            "group": "Actions",
-            "icon": "bolt",
+            "group": "General",
             "pages": [
-              "pages/action",
-              "pages/transfer_call",
-              "pages/email_action",
-              "pages/sms_action",
-              "pages/api_action"
+              "pages/overview",
+              "pages/getting_started"
             ]
           },
-          "pages/postcall"
-        ]
-      },
-      {
-        "group": "Activities",
-        "pages": [
-          "pages/inbound",
-          "pages/outbound",
-          "pages/outbound_api",
-          "pages/analytics"
-        ]
-      },
-      {
-        "group": "Settings",
-        "pages": [
-          "pages/agents",
           {
-            "group": "Phone Numbers",
-            "icon": "mobile",
+            "group": "Pearl",
             "pages": [
-              "pages/phone_overview",
-              "pages/nlpearl_phones",
-              "pages/twilio_integration",
-              "pages/custom_voip"
+              "pages/create_pearl",
+              "pages/advanced_pearl",
+              "pages/variables",
+              "pages/languages",
+              {
+                "group": "Actions",
+                "icon": "bolt",
+                "pages": [
+                  "pages/action",
+                  "pages/transfer_call",
+                  "pages/email_action",
+                  "pages/sms_action",
+                  "pages/api_action"
+                ]
+              },
+              "pages/postcall"
             ]
           },
-          "pages/billing",
-          "pages/security",
-          "pages/blacklist"
+          {
+            "group": "Activities",
+            "pages": [
+              "pages/inbound",
+              "pages/outbound",
+              "pages/outbound_api",
+              "pages/analytics"
+            ]
+          },
+          {
+            "group": "Settings",
+            "pages": [
+              "pages/agents",
+              {
+                "group": "Phone Numbers",
+                "icon": "mobile",
+                "pages": [
+                  "pages/phone_overview",
+                  "pages/nlpearl_phones",
+                  "pages/twilio_integration",
+                  "pages/custom_voip"
+                ]
+              },
+              "pages/billing",
+              "pages/security",
+              "pages/blacklist"
+            ]
+          }
         ]
       },
       {
-        "group": "API Reference",
-        "pages": [
+        "tab": "API Reference",
+        "groups": [
           {
-          "group": "Getting Started",
-          "expanded": true,
-              "pages": [
-                "api-reference/api_quickstart",
-                "api-reference/python_wrapper",
-                "api-reference/authorization"
-              ]
-        },
+            "group": "Getting Started",
+            "pages": [
+              "api-reference/api_quickstart",
+              "api-reference/python_wrapper",
+              "api-reference/authorization"
+            ]
+          },
           {
-            
             "group": "API V2 (latest)",
-            "expanded": true,
             "pages": [
               {
                 "group": "Account",
-               
                 "pages": [
                   "api-reference/v2/account/get-account"
                 ]
