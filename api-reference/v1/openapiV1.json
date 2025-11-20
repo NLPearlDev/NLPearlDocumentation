@@ -3297,7 +3297,7 @@
                 "properties": {
                     "id": {
                         "type": "string",
-                        "description": "The unique identifier for the Request. This Request ID can be used to track or reference the specific call request from [Get Call Request](/api-reference/outbound/get-call-request).",
+                        "description": "The unique identifier for the Request. This Request ID can be used to track or reference the specific call request from [Get Call Request](/api-reference/v1/outbound/get-call-request).",
                         "nullable": true
                     },
                     "from": {
@@ -3437,7 +3437,7 @@
             },
             "eConversationStatusView": {
                 "type": "integer",
-                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
+                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-success) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eLeadStatusInputApi": {
@@ -3452,7 +3452,7 @@
             },
             "eLeadStatusView": {
                 "type": "integer",
-                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
+                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-success) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eOverallSentiment": {
