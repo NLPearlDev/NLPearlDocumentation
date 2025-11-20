@@ -107,16 +107,16 @@
       "group": "API Reference",
       "pages": [
         {
+          "group": "Getting Started",
+              "pages": [
+                "api-reference/api_quickstart",
+                "api-reference/python_wrapper",
+                "api-reference/authorization"
+              ]
+        },
+        {
           "group": "V2 (latest)",
           "pages": [
-            {
-              "group": "",
-              "pages": [
-                "api-reference/v2/api_quickstart",
-                "api-reference/v2/python_wrapper",
-                "api-reference/v2/authorization"
-              ]
-            },
             {
               "group": "Account",
               "pages": [
@@ -152,10 +152,7 @@
                 "api-reference/v2/outbound/get-lead-via-phone-number",
                 "api-reference/v2/outbound/search-leads",
                 "api-reference/v2/outbound/delete-leads",
-                "api-reference/v2/outbound/delete-leads-external-id",
-                "api-reference/v2/outbound/make-call",
-                "api-reference/v2/outbound/get-call-request",
-                "api-reference/v2/outbound/search-call-requests"
+                "api-reference/v2/outbound/delete-leads-external-id"
               ]
             }
           ]
@@ -163,14 +160,6 @@
         {
           "group": "V1 (legacy)",
           "pages": [
-            {
-              "group": "",
-              "pages": [
-                "api-reference/v1/api_quickstart",
-                "api-reference/v1/python_wrapper",
-                "api-reference/v1/authorization"
-              ]
-            },
             {
               "group": "Account",
               "pages": [
