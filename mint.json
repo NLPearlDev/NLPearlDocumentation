@@ -1,5 +1,4 @@
 {
- 
   "name": "NLPearl Documentation",
   "theme": "prism",
   "logo": {
@@ -39,7 +38,6 @@
       "url": "https://platform.nlpearl.ai/"
     }
   ],
-  
   "navigation": [
     {
       "group": "",
@@ -106,67 +104,118 @@
       ]
     },
     {
-      "group": "",
+      "group": "API Reference",
       "pages": [
-        "api-reference/api_quickstart",
-        "api-reference/python_wrapper",
-        "api-reference/authorization"
-      ]
-    },
         {
-    "group": "Account",
-    "pages": [
-      "api-reference/account/get-account"
-    ]
-  },
-  {
-    "group": "Call",
-    "pages": [
-      "api-reference/call/get-call",
-      "api-reference/call/delete-call"
-    ]
-  },    
-  {
-    "group": "Pearl",
-    "pages": [
-      "api-reference/pearl/reset-memory"
-    ]
-  },
-  {
-    "group": "Inbound",
-    "pages": [
-      "api-reference/inbound/get-inbounds",
-      "api-reference/inbound/get-inbound",
-      "api-reference/inbound/get-inbound-ongoing-calls",
-      "api-reference/inbound/set-activity-state",
-      "api-reference/inbound/search-calls",
-      "api-reference/inbound/get-analytics"
-    ]
-  },
-  {
-    "group": "Outbound",
-    "pages": [
-      "api-reference/outbound/get-outbounds",
-      "api-reference/outbound/get-outbound",
-      "api-reference/outbound/get-lead",
-      "api-reference/outbound/get-lead-via-external-id",
-      "api-reference/outbound/get-lead-via-phone-number",
-      "api-reference/outbound/get-call-request",
-      "api-reference/outbound/get-analytics",
-      "api-reference/outbound/set-activity-state",
-      "api-reference/outbound/search-calls",
-      "api-reference/outbound/search-leads",
-      "api-reference/outbound/make-call",
-      "api-reference/outbound/search-call-requests",
-      "api-reference/outbound/add-lead",
-      "api-reference/outbound/update-lead",
-      "api-reference/outbound/delete-leads",
-      "api-reference/outbound/delete-leads-external-id"
-    ]
-  }
+          "group": "Getting Started",
+              "pages": [
+                "api-reference/api_quickstart",
+                "api-reference/python_wrapper",
+                "api-reference/authorization"
+              ]
+        },
+        {
+          "group": "V2 (latest)",
+          "pages": [
+            {
+              "group": "Account",
+              "pages": [
+                "api-reference/v2/account/get-account"
+              ]
+            },
+            {
+              "group": "Call",
+              "pages": [
+                "api-reference/v2/call/get-call",
+                "api-reference/v2/call/delete-call"
+              ]
+            },
+            {
+              "group": "Pearl",
+              "pages": [
+                "api-reference/v2/pearl/get-pearls",
+                "api-reference/v2/pearl/get-pearl",
+                "api-reference/v2/pearl/set-activity-state",
+                "api-reference/v2/pearl/get-calls",
+                "api-reference/v2/pearl/get-ongoing-calls",
+                "api-reference/v2/pearl/get-analytics",
+                "api-reference/v2/pearl/reset-memory"
+              ]
+            },
+            {
+              "group": "Outbound",
+              "pages": [
+                "api-reference/v2/outbound/add-lead",
+                "api-reference/v2/outbound/update-lead",
+                "api-reference/v2/outbound/get-lead",
+                "api-reference/v2/outbound/get-lead-via-external-id",
+                "api-reference/v2/outbound/get-lead-via-phone-number",
+                "api-reference/v2/outbound/search-leads",
+                "api-reference/v2/outbound/delete-leads",
+                "api-reference/v2/outbound/delete-leads-external-id"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "V1 (legacy)",
+          "pages": [
+            {
+              "group": "Account",
+              "pages": [
+                "api-reference/v1/account/get-account"
+              ]
+            },
+            {
+              "group": "Call",
+              "pages": [
+                "api-reference/v1/call/get-call",
+                "api-reference/v1/call/delete-call"
+              ]
+            },
+            {
+              "group": "Pearl",
+              "pages": [
+                "api-reference/v1/pearl/reset-memory"
+              ]
+            },
+            {
+              "group": "Inbound",
+              "pages": [
+                "api-reference/v1/inbound/get-inbounds",
+                "api-reference/v1/inbound/get-inbound",
+                "api-reference/v1/inbound/get-inbound-ongoing-calls",
+                "api-reference/v1/inbound/set-activity-state",
+                "api-reference/v1/inbound/search-calls",
+                "api-reference/v1/inbound/get-analytics"
+              ]
+            },
+            {
+              "group": "Outbound",
+              "pages": [
+                "api-reference/v1/outbound/get-outbounds",
+                "api-reference/v1/outbound/get-outbound",
+                "api-reference/v1/outbound/get-lead",
+                "api-reference/v1/outbound/get-lead-via-external-id",
+                "api-reference/v1/outbound/get-lead-via-phone-number",
+                "api-reference/v1/outbound/get-call-request",
+                "api-reference/v1/outbound/get-analytics",
+                "api-reference/v1/outbound/set-activity-state",
+                "api-reference/v1/outbound/search-calls",
+                "api-reference/v1/outbound/search-leads",
+                "api-reference/v1/outbound/make-call",
+                "api-reference/v1/outbound/search-call-requests",
+                "api-reference/v1/outbound/add-lead",
+                "api-reference/v1/outbound/update-lead",
+                "api-reference/v1/outbound/delete-leads",
+                "api-reference/v1/outbound/delete-leads-external-id"
+              ]
+            }
+          ]
+        }
+      ]
+    }
   ],
-
-  
   "footerSocials": {
     "x": "https://x.com/NLPearlai",
     "linkedin": "https://www.linkedin.com/company/nlpearl/mycompany/",

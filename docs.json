@@ -1,0 +1,224 @@
+{
+  "name": "NLPearl Documentation",
+  "theme": "mint",
+  "logo": {
+    "dark": "/images/dark_mode/logo_white.png",
+    "light": "/images/light_mode/logo_dark.png"
+  },
+  "favicon": "/logo/NLPearlPhoneBlack.png",
+  "colors": {
+    "primary": "#111111",
+    "light": "#F7F7F7",
+    "dark": "#111111"
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@nlpearl.ai"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Platform",
+    "url": "https://platform.nlpearl.ai/"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Platform",
+      "icon": "globe",
+      "url": "https://platform.nlpearl.ai/"
+    }
+  ],
+  "navigation": {
+    "pages": [
+      "pages/introduction"
+    ],
+    "groups": [
+      {
+        "group": "General",
+        "pages": [
+          "pages/overview",
+          "pages/getting_started"
+        ]
+      },
+      {
+        "group": "Pearl",
+        "pages": [
+          "pages/create_pearl",
+          "pages/advanced_pearl",
+          "pages/variables",
+          "pages/languages",
+          {
+            "group": "Actions",
+            "icon": "bolt",
+            "pages": [
+              "pages/action",
+              "pages/transfer_call",
+              "pages/email_action",
+              "pages/sms_action",
+              "pages/api_action"
+            ]
+          },
+          "pages/postcall"
+        ]
+      },
+      {
+        "group": "Activities",
+        "pages": [
+          "pages/inbound",
+          "pages/outbound",
+          "pages/outbound_api",
+          "pages/analytics"
+        ]
+      },
+      {
+        "group": "Settings",
+        "pages": [
+          "pages/agents",
+          {
+            "group": "Phone Numbers",
+            "icon": "mobile",
+            "pages": [
+              "pages/phone_overview",
+              "pages/nlpearl_phones",
+              "pages/twilio_integration",
+              "pages/custom_voip"
+            ]
+          },
+          "pages/billing",
+          "pages/security",
+          "pages/blacklist"
+        ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          {
+          "group": "Getting Started",
+          "expanded": true,
+              "pages": [
+                "api-reference/api_quickstart",
+                "api-reference/python_wrapper",
+                "api-reference/authorization"
+              ]
+        },
+          {
+            
+            "group": "API V2 (latest)",
+            "expanded": true,
+            "pages": [
+              {
+                "group": "Account",
+               
+                "pages": [
+                  "api-reference/v2/account/get-account"
+                ]
+              },
+              {
+                "group": "Call",
+                "pages": [
+                  "api-reference/v2/call/get-call",
+                  "api-reference/v2/call/delete-call"
+                ]
+              },
+              {
+                "group": "Pearl",
+                "pages": [
+                  "api-reference/v2/pearl/get-pearls",
+                  "api-reference/v2/pearl/get-pearl",
+                  "api-reference/v2/pearl/set-activity-state",
+                  "api-reference/v2/pearl/get-calls",
+                  "api-reference/v2/pearl/get-ongoing-calls",
+                  "api-reference/v2/pearl/get-analytics",
+                  "api-reference/v2/pearl/reset-memory"
+                ]
+              },
+              {
+                "group": "Outbound",
+                "pages": [
+                  "api-reference/v2/outbound/add-lead",
+                  "api-reference/v2/outbound/update-lead",
+                  "api-reference/v2/outbound/get-lead",
+                  "api-reference/v2/outbound/get-lead-via-external-id",
+                  "api-reference/v2/outbound/get-lead-via-phone-number",
+                  "api-reference/v2/outbound/search-leads",
+                  "api-reference/v2/outbound/delete-leads",
+                  "api-reference/v2/outbound/delete-leads-external-id"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "API V1 (legacy)",
+            "pages": [
+              {
+                "group": "Account",
+                "pages": [
+                  "api-reference/v1/account/get-account"
+                ]
+              },
+              {
+                "group": "Call",
+                "pages": [
+                  "api-reference/v1/call/get-call",
+                  "api-reference/v1/call/delete-call"
+                ]
+              },
+              {
+                "group": "Pearl",
+                "pages": [
+                  "api-reference/v1/pearl/reset-memory"
+                ]
+              },
+              {
+                "group": "Inbound",
+                "pages": [
+                  "api-reference/v1/inbound/get-inbounds",
+                  "api-reference/v1/inbound/get-inbound",
+                  "api-reference/v1/inbound/get-inbound-ongoing-calls",
+                  "api-reference/v1/inbound/set-activity-state",
+                  "api-reference/v1/inbound/search-calls",
+                  "api-reference/v1/inbound/get-analytics"
+                ]
+              },
+              {
+                "group": "Outbound",
+                "pages": [
+                  "api-reference/v1/outbound/get-outbounds",
+                  "api-reference/v1/outbound/get-outbound",
+                  "api-reference/v1/outbound/get-lead",
+                  "api-reference/v1/outbound/get-lead-via-external-id",
+                  "api-reference/v1/outbound/get-lead-via-phone-number",
+                  "api-reference/v1/outbound/get-call-request",
+                  "api-reference/v1/outbound/get-analytics",
+                  "api-reference/v1/outbound/set-activity-state",
+                  "api-reference/v1/outbound/search-calls",
+                  "api-reference/v1/outbound/search-leads",
+                  "api-reference/v1/outbound/make-call",
+                  "api-reference/v1/outbound/search-call-requests",
+                  "api-reference/v1/outbound/add-lead",
+                  "api-reference/v1/outbound/update-lead",
+                  "api-reference/v1/outbound/delete-leads",
+                  "api-reference/v1/outbound/delete-leads-external-id"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footerSocials": {
+    "x": "https://x.com/NLPearlai",
+    "linkedin": "https://www.linkedin.com/company/nlpearl/mycompany/",
+    "youtube": "https://www.youtube.com/@NLPearl",
+    "instagram": "https://www.instagram.com/nlpearl/"
+  },
+  "customCss": "css/custom.css"
+
+}
