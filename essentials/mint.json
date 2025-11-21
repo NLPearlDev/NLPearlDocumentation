@@ -40,14 +40,9 @@
   ],
   "navigation": [
     {
-      "group": "",
-      "pages": [
-        "pages/introduction"
-      ]
-    },
-    {
       "group": "General",
       "pages": [
+        "pages/introduction",
         "pages/overview",
         "pages/getting_started"
       ]
