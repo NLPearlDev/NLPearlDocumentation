@@ -32,13 +32,11 @@
     "tabs": [
       {
         "tab": "Docs",
-        "pages": [
-          "pages/introduction"
-        ],
         "groups": [
           {
             "group": "General",
             "pages": [
+              "pages/introduction",
               "pages/overview",
               "pages/getting_started"
             ]

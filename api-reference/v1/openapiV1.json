@@ -18,10 +18,10 @@
                     "Account"
                 ],
                 "summary": "Get Account",
-                "description": "Retrieves Account informations",
+                "description": "Retrieves Account information",
                 "responses": {
                     "200": {
-                        "description": "Client informations",
+                        "description": "Client information",
                         "content": {
                             "text/plain": {
                                 "schema": {
@@ -69,7 +69,7 @@
                     "Call"
                 ],
                 "summary": "Get Call",
-                "description": "Retrieves all the informations about a call",
+                "description": "Retrieves all the information about a call",
                 "parameters": [
                     {
                         "name": "callId",
@@ -83,7 +83,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Client informations",
+                        "description": "Client information",
                         "content": {
                             "text/plain": {
                                 "schema": {
@@ -2211,7 +2211,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CollectedInfoView"
                         },
-                        "description": "A List containing informations collected during the call.",
+                        "description": "A List containing information collected during the call.",
                         "nullable": true
                     },
                     "tags": {
@@ -2635,7 +2635,7 @@
                         "items": {
                             "$ref": "#/components/schemas/eLeadStatusView"
                         },
-                        "description": "List of Status to filter by.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`500 - Error`\n",
+                        "description": "List of Status to filter by.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`500 - Error`\n",
                         "nullable": true
                     },
                     "searchInput": {
@@ -2908,7 +2908,7 @@
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\nsee [Variables](/pages/variables) for more information.\r\nHere is an exemple of the json to send:\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
+                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\nsee [Variables](/pages/variables) for more information.\r\nHere is an example of the json to send:\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
                         "nullable": true
                     },
                     "collectedData": {
@@ -3016,7 +3016,7 @@
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\nsee [Variables](/pages/variables) for more information.\r\nHere is an exemple of the json to send:\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
+                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\nsee [Variables](/pages/variables) for more information.\r\nHere is an example of the json to send:\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
                         "nullable": true
                     }
                 },
@@ -3068,7 +3068,7 @@
                         "items": {
                             "$ref": "#/components/schemas/eLeadStatusInputView"
                         },
-                        "description": "Optional filters for the status of the leads. Only leads with this status will be included in the results.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`500 - Error`\n",
+                        "description": "Optional filters for the status of the leads. Only leads with this status will be included in the results.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`500 - Error`\n",
                         "nullable": true
                     },
                     "searchInput": {
@@ -3106,7 +3106,7 @@
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\n\r\nSee [Variables](/pages/variables) for more information.\r\nHere is an exemple of the json to send:\r\n\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
+                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\n\r\nSee [Variables](/pages/variables) for more information.\r\nHere is an example of the json to send:\r\n\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
                         "nullable": true
                     }
                 },
@@ -3285,7 +3285,7 @@
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\nsee [Variables](/pages/variables) for more information.\r\nHere is an exemple of the json to send:\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
+                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\nsee [Variables](/pages/variables) for more information.\r\nHere is an example of the json to send:\r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
                         "nullable": true
                     }
                 },
@@ -3437,22 +3437,22 @@
             },
             "eConversationStatusView": {
                 "type": "integer",
-                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-success) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
+                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-success) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eLeadStatusInputApi": {
                 "type": "integer",
-                "description": "The new status to assign to the lead.\n\nThis can be used to update the lead's progression or interaction result.\n\nFor example, if you want the outbound campaign to stop calling this lead, you can set the status to `Completed`.\nOr, if the lead already converted successfully in an external CRM, you can mark it directly as `Success`.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Completed`\n\n",
+                "description": "The new status to assign to the lead.\n\nThis can be used to update the lead's progression or interaction result.\n\nFor example, if you want the outbound campaign to stop calling this lead, you can set the status to `Completed`.\nOr, if the lead already converted successfully in an external CRM, you can mark it directly as `Success`.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n",
                 "format": "int32"
             },
             "eLeadStatusInputView": {
                 "type": "integer",
-                "description": "\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`500 - Error`\n\n",
+                "description": "\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eLeadStatusView": {
                 "type": "integer",
-                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-success) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessfull`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
+                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-success) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eOverallSentiment": {
