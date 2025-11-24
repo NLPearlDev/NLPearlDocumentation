@@ -18,10 +18,10 @@
                     "Account"
                 ],
                 "summary": "Get Account",
-                "description": "Retrieves Account information",
+                "description": "Retrieves account information",
                 "responses": {
                     "200": {
-                        "description": "Client information",
+                        "description": "Account Information",
                         "content": {
                             "text/plain": {
                                 "schema": {
@@ -82,7 +82,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Client information",
+                        "description": "Call information",
                         "content": {
                             "text/plain": {
                                 "schema": {
@@ -195,7 +195,7 @@
             }
         },
         "/v2/Outbound/{pearlId}/Lead": {
-            "put": {
+            "post": {
                 "tags": [
                     "Outbound"
                 ],
@@ -927,7 +927,7 @@
             }
         },
         "/v2/Pearl/{pearlId}/Active": {
-            "post": {
+            "put": {
                 "tags": [
                     "Pearl"
                 ],
@@ -1225,7 +1225,7 @@
                 }
             }
         },
-        "/v2/Pearl/{pearlId}/Memory/{phoneNumber}/Reset": {
+        "/v2/Pearl/{pearlId}/ResetMemory": {
             "put": {
                 "tags": [
                     "Pearl"
@@ -1240,16 +1240,27 @@
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    {
-                        "name": "phoneNumber",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResetMemoryRequest"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResetMemoryRequest"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResetMemoryRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Memory reset successful.",
@@ -2412,6 +2423,16 @@
                 },
                 "additionalProperties": false
             },
+            "ResetMemoryRequest": {
+                "type": "object",
+                "properties": {
+                    "phoneNumber": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "SetActiveRequest": {
                 "required": [
                     "isActive"
@@ -2485,7 +2506,7 @@
             },
             "eConversationStatusView": {
                 "type": "integer",
-                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-success) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
+                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eLeadStatusInputApi": {
@@ -2500,7 +2521,7 @@
             },
             "eLeadStatusView": {
                 "type": "integer",
-                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-success) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
+                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eOverallSentiment": {
