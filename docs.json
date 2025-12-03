@@ -68,7 +68,8 @@
               "pages/inbound",
               "pages/outbound",
               "pages/outbound_api",
-              "pages/analytics"
+              "pages/analytics",
+              "pages/payout"
             ]
           },
           {
