@@ -44,8 +44,7 @@
           {
             "group": "Pearl",
             "pages": [
-              "pages/create_pearl",
-              "pages/advanced_pearl",
+              "pages/pearl_vibe",
               "pages/variables",
               "pages/languages",
               {
