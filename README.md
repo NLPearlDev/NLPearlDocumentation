@@ -10,6 +10,11 @@ Click on `Use this template` to copy the Mintlify starter kit. The starter kit c
 
 ### Development
 
+#### Prerequisites
+
+- **Node.js**: use **Node 22 (LTS)** (newer majors like Node 24 may cause runtime errors in the preview server, e.g. `controller[kState].transformAlgorithm is not a function`).
+- **Mintlify CLI**: install globally via npm.
+
 Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
 
 ```
@@ -19,7 +24,7 @@ npm i -g mintlify
 Run the following command at the root of your documentation (where mint.json is)
 
 ```
-mintlify dev
+mint dev
 ```
 
 ### Publishing Changes

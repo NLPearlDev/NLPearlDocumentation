@@ -113,7 +113,8 @@
                 "group": "Account",
                             "expanded": true, 
                 "pages": [
-                  "api-reference/v2/account/get-account"
+                  "api-reference/v2/account/get-account",
+                  "api-reference/v2/account/get-account-users"
                 ]
               },
               {
