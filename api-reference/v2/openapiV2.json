@@ -18,7 +18,7 @@
                     "Account"
                 ],
                 "summary": "Get Account",
-                "description": "Retrieves account information",
+                "description": "Retrieves account details",
                 "responses": {
                     "200": {
                         "description": "Account Information",
@@ -36,6 +36,66 @@
                             "text/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ClientApiView"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Account/Users": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Get Users",
+                "description": "Retrieves the list of users for the account",
+                "responses": {
+                    "200": {
+                        "description": "users list",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserListViewApi"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserListViewApi"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserListViewApi"
+                                    }
                                 }
                             }
                         }
@@ -1351,6 +1411,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CallsStatusTimeLine"
                         },
+                        "description": "Provides the timeline of call statuses over time for the selected period.",
                         "nullable": true
                     },
                     "callsAverageTimeLine": {
@@ -1358,6 +1419,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CallsAverageTimeLine"
                         },
+                        "description": "Provides the timeline of average call duration over time for the selected period.",
                         "nullable": true
                     },
                     "callsCostTimeLine": {
@@ -1365,6 +1427,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CallsCostTimeLine"
                         },
+                        "description": "Provides the timeline of call cost over time for the selected period.",
                         "nullable": true
                     },
                     "callsPickupRateTimeLine": {
@@ -1372,6 +1435,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CallsPickupRateTimeLine"
                         },
+                        "description": "Provides the timeline of pickup rate over time for the selected period (outbound only).",
                         "nullable": true
                     },
                     "callsSuccessRateTimeLine": {
@@ -1379,6 +1443,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CallsSuccessRateTimeLine"
                         },
+                        "description": "Provides the timeline of success rate over time for the selected period.",
                         "nullable": true
                     },
                     "callLabelCount": {
@@ -1386,6 +1451,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CallLabelCount"
                         },
+                        "description": "Provides the distribution of labels applied to calls for the selected period.",
                         "nullable": true
                     },
                     "callEventsCounts": {
@@ -1396,6 +1462,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CallsByHourDayOfWeek"
                         },
+                        "description": "Provides call volume grouped by hour and day of week for the selected period.",
                         "nullable": true
                     },
                     "callType": {
@@ -1412,9 +1479,14 @@
                         "description": "The unique identifier of the call.",
                         "nullable": true
                     },
+                    "pearlId": {
+                        "type": "string",
+                        "description": "The unique identifier of the Pearl (API v2).",
+                        "nullable": true
+                    },
                     "relatedId": {
                         "type": "string",
-                        "description": "The ID of the related activity. This could be the OutboundId if the call is an outbound call, the InboundId if the call is an inbound call, or the PearlId if it is a test call.",
+                        "description": "The unique identifier of the inbound/outbound (API v1).",
                         "nullable": true
                     },
                     "startTime": {
@@ -1896,7 +1968,7 @@
                         "items": {
                             "$ref": "#/components/schemas/eLeadStatusView"
                         },
-                        "description": "List of Status to filter by.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`500 - Error`\n",
+                        "description": "List of Status to filter by.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n",
                         "nullable": true
                     },
                     "searchInput": {
@@ -2334,10 +2406,12 @@
                 "properties": {
                     "id": {
                         "type": "string",
+                        "description": "The unique identifier of the pearl.",
                         "nullable": true
                     },
                     "name": {
                         "type": "string",
+                        "description": "The name of the pearl.",
                         "nullable": true
                     },
                     "status": {
@@ -2345,50 +2419,61 @@
                     },
                     "phoneNumber": {
                         "type": "string",
+                        "description": "The phone number assigned to the pearl.",
                         "nullable": true
                     },
                     "totalAgents": {
                         "type": "integer",
+                        "description": "The total number of agents allocated to the pearl.",
                         "format": "int32"
                     },
                     "created": {
                         "type": "string",
+                        "description": "The date and time when the pearl was created.",
                         "format": "date-time"
                     },
                     "budgetConsumed": {
                         "type": "integer",
+                        "description": "The amount of budget consumed so far for the pearl.",
                         "format": "int32"
                     },
                     "totalTodayCalls": {
                         "type": "integer",
+                        "description": "The total number of calls made today for the pearl.",
                         "format": "int32"
                     },
                     "totalOngoingCalls": {
                         "type": "integer",
+                        "description": "The total number of ongoing calls for the pearl.",
                         "format": "int32"
                     },
                     "totalOnQueue": {
                         "type": "integer",
+                        "description": "The number of calls currently waiting in the queue (inbound only).",
                         "format": "int32",
                         "nullable": true
                     },
                     "totalLeads": {
                         "type": "integer",
+                        "description": "The total number of leads associated with the pearl (outbound only).",
                         "format": "int32",
                         "nullable": true
                     },
                     "totalLeadsCompleted": {
                         "type": "integer",
+                        "description": "The total number of leads that have been completed (outbound only).",
                         "format": "int32",
                         "nullable": true
                     },
                     "totalLeadsSuccess": {
                         "type": "integer",
+                        "description": "The total number of leads successfully converted (outbound only).",
                         "format": "int32",
                         "nullable": true
                     },
                     "budgetTotal": {
                         "type": "integer",
+                        "description": "The total budget allocated for the pearl (outbound only).",
                         "format": "int32",
                         "nullable": true
                     }
@@ -2400,14 +2485,17 @@
                 "properties": {
                     "id": {
                         "type": "string",
+                        "description": "The unique identifier of the pearl (project).",
                         "nullable": true
                     },
                     "name": {
                         "type": "string",
+                        "description": "The name of the pearl (project).",
                         "nullable": true
                     },
                     "createdAt": {
                         "type": "string",
+                        "description": "The date and time when the pearl (project) was created.",
                         "format": "date-time"
                     },
                     "type": {
@@ -2415,10 +2503,6 @@
                     },
                     "status": {
                         "$ref": "#/components/schemas/eActivityStatus"
-                    },
-                    "created": {
-                        "type": "string",
-                        "format": "date-time"
                     }
                 },
                 "additionalProperties": false
@@ -2446,6 +2530,32 @@
                 },
                 "additionalProperties": false,
                 "description": "Defines the request structure for setting the active status of an entity."
+            },
+            "UserListViewApi": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "The user's email address.",
+                        "nullable": true
+                    },
+                    "roleId": {
+                        "type": "string",
+                        "description": "The identifier of the role assigned to the user (used for permissions).",
+                        "nullable": true
+                    },
+                    "roleName": {
+                        "type": "string",
+                        "description": "The name of the role assigned to the user.",
+                        "nullable": true
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "The date and time when the user was added to the account.",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false
             },
             "ValidationProblemDetails": {
                 "type": "object",
@@ -2506,7 +2616,7 @@
             },
             "eConversationStatusView": {
                 "type": "integer",
-                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
+                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eLeadStatusInputApi": {
@@ -2521,7 +2631,7 @@
             },
             "eLeadStatusView": {
                 "type": "integer",
-                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
+                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eOverallSentiment": {
@@ -2531,7 +2641,7 @@
             },
             "eProjectType": {
                 "type": "integer",
-                "description": "\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n",
+                "description": "Defines the type of activity of the pearl.\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n",
                 "format": "int32"
             }
         },

@@ -644,7 +644,7 @@ The Test Call panel also includes a tab for Post‑Calls:
 - Use this view to verify that your back‑office automation is behaving as expected.
 
 <Info>
-To learn more about Post-Call, see the [Post-Call documentation](/pages/post_call).
+To learn more about Post-Call, see the [Post-Call documentation](/pages/postcall).
 </Info>
 
 </Accordion>
@@ -2017,7 +2017,7 @@ Configure your campaign settings for inbound or outbound calls.
     </Card>
     </Step>
     <Step>
-        - Call Webhook: A call webhook is triggered at key points during the call lifecycle, such as when the call is initiated and when it ends. You receive an object similar to the one returned by the [Get Calls Endpoint](/api-reference/call/get-call), including details like call duration, outcome, and any data collected during the call. This is useful for tracking call performance and automation.
+        - Call Webhook: A call webhook is triggered at key points during the call lifecycle, such as when the call is initiated and when it ends. You receive an object similar to the one returned by the [Get Calls Endpoint](/api-reference/v2/call/get-call), including details like call duration, outcome, and any data collected during the call. This is useful for tracking call performance and automation.
       
       <div className="block dark:hidden">
       <Frame>
@@ -2451,9 +2451,9 @@ Configure your campaign settings for inbound or outbound calls.
       </Frame>
     </div>
 
-       - **Call Webhook**: A call webhook is triggered at key points during the call lifecycle, such as when the call is initiated and when it ends. You receive an object similar to the one returned by the [Get Calls](/api-reference/call/get-call) endpoint, including details like call duration, outcome, and any data collected during the call. This is useful for tracking call performance and automation.
+       - **Call Webhook**: A call webhook is triggered at key points during the call lifecycle, such as when the call is initiated and when it ends. You receive an object similar to the one returned by the [Get Calls](/api-reference/v2/call/get-call) endpoint, including details like call duration, outcome, and any data collected during the call. This is useful for tracking call performance and automation.
        
-       - **Lead Webhook**: A lead webhook is triggered every time a specific lead changes status, at the beginning of the call and at the end of the call. You receive an object similar to the one returned by the [Get Leads](/api-reference/outbound/get-lead) endpoint. This includes all relevant information about the lead and its current status. Use this webhook to update your CRM or lead management system in real-time, ensuring that you have the most up-to-date information on lead interactions.
+       - **Lead Webhook**: A lead webhook is triggered every time a specific lead changes status, at the beginning of the call and at the end of the call. You receive an object similar to the one returned by the [Get Leads](/api-reference/v2/outbound/get-lead) endpoint. This includes all relevant information about the lead and its current status. Use this webhook to update your CRM or lead management system in real-time, ensuring that you have the most up-to-date information on lead interactions.
 
      <div className="block dark:hidden">
       <Frame>
