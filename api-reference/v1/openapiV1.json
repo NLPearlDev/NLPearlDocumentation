@@ -18,10 +18,10 @@
                     "Account"
                 ],
                 "summary": "Get Account",
-                "description": "Retrieves Account informations",
+                "description": "Retrieves account details",
                 "responses": {
                     "200": {
-                        "description": "Client informations",
+                        "description": "Client information",
                         "content": {
                             "text/plain": {
                                 "schema": {
@@ -69,7 +69,7 @@
                     "Call"
                 ],
                 "summary": "Get Call",
-                "description": "Retrieves all the informations about a call",
+                "description": "Retrieves all the information about a call",
                 "parameters": [
                     {
                         "name": "callId",
