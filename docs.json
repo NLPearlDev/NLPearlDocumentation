@@ -140,7 +140,7 @@
               },
               {
                 "group": "Outbound",
-                            "expanded": true, 
+                "expanded": true, 
                 "pages": [
                   "api-reference/v2/outbound/add-lead",
                   "api-reference/v2/outbound/update-lead",
@@ -150,6 +150,24 @@
                   "api-reference/v2/outbound/search-leads",
                   "api-reference/v2/outbound/delete-leads",
                   "api-reference/v2/outbound/delete-leads-external-id"
+                ]
+              },
+              {
+                "group": "Pearl Flow",
+                "expanded": true, 
+                "pages": [
+                  "api-reference/v2/pearlFlow/get-pearl-flow",
+                  "api-reference/v2/pearlFlow/add-pearl-flow",
+                  "api-reference/v2/pearlFlow/update-pearl-flow",
+                  "api-reference/v2/pearlFlow/update-pearl-inbound",
+                  "api-reference/v2/pearlFlow/update-pearl-outbound"
+                ]
+              },{
+                "group": "Pearl Settings",
+                "expanded": true, 
+                "pages": [
+                  "api-reference/v2/pearlSettings/get-voices",
+                  "api-reference/v2/pearlSettings/get-phones"
                 ]
               }
             ]
