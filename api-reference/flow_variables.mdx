@@ -1,0 +1,224 @@
+---
+title: Pearl Flow Variables Guidance
+icon: "square-root-variable"
+iconType: "light"
+---
+
+
+API variables are placeholders you can embed in specific Pearl Flow fields to make your configuration dynamic (scripts, endpoints, messages, and notifications).
+
+Whenever a field is labeled:
+
+`🧩 May support variables`
+
+you can insert variables using this syntax:
+
+```text
+{variableId}
+
+```
+
+Example:
+
+```text
+Hello {firstName}, this is {agentName}.
+
+```
+
+---
+
+## Variable Groups
+
+Variables belong to one of three groups.
+
+### Pre-call variables (Group = `PreCall`)
+
+Pre-call variables are expected to be available **before** the call starts (for example from your lead import, CSV mapping, or an API integration).
+
+If a pre-call value is missing, it’s not always blocking — depending on your flow, the agent may still collect it during the call.
+
+Common usage:
+
+* Opening sentence
+* Pre-call API actions
+* Endpoint URLs and message templates (when supported)
+
+**Opening sentence example (pre-call only):**
+
+```text
+Hello, I’m {agentName}. Am I speaking with {firstName}?
+
+```
+
+---
+
+### In-call variables (Group = `InCall`)
+
+In-call variables are collected or updated **during** the call.
+
+Common usage:
+
+* In-call API actions
+* Email/SMS templates (when supported)
+* Flow scripts (when supported)
+
+**Script example (collecting an in-call variable):**
+
+```text
+Please tell me your address. I will store it as {customerAddress}.
+
+```
+
+---
+
+### Post-call variables (Group = `PostCall`)
+
+Post-call variables are generated **after** the call ends (transcript, summary, duration, etc.).
+
+You **cannot create** post-call variables manually — they are pre-defined by the platform.
+
+Common usage:
+
+* End-call notifications (Email / API)
+
+---
+
+## Built-in Variables (Reserved IDs)
+
+Some variables are built into the platform and already exist by default.
+
+Because they are reserved, **you cannot create a new variable using the same `id**` as a built-in variable.
+If you try, the API will reject it as a duplicate ID.
+
+### Built-in Pre-call Variables
+
+| ID | Name | Description |
+| --- | --- | --- |
+| `agentName` | Agent Name | The name of the agent. |
+| `firstName` | First Name | The customer's first name formatted as a proper first name. |
+| `lastName` | Last Name | The customer's last name formatted as a proper last name. |
+| `emailAddress` | Email Address | The customer's email address in a standard format (RFC 5321 / RFC 5322). |
+| `phoneNumber` | Phone Number | The customer's phone number with country code (digits + optional `+`). |
+| `callId` | Call ID | The identifier of the call. |
+
+### Built-in In-call Variables
+
+There are currently **no built-in in-call variables**.
+In-call variables are typically created per Pearl to match what you want to collect during the conversation.
+
+### Built-in Post-call Variables
+
+| ID | Name | Description |
+| --- | --- | --- |
+| `post_call_duration` | Call Duration | Duration of the call. |
+| `post_call_summary` | Call Summary | Summary generated after the call concludes. |
+| `post_call_transcript` | Call Transcript | Transcript of the call for reference. |
+| `post_call_call_time` | Call Time | Timestamp indicating when the call occurred. |
+| `post_call_recording` | Recording Link | Link to the call recording. |
+
+---
+
+## Where Variables Are Supported
+
+Only fields explicitly marked with:
+
+`🧩 May support variables`
+
+support the `{variableId}` syntax.
+
+Typical examples include:
+
+* Flow scripts (when enabled)
+* API endpoint URLs
+* API body values (when the body field is a string)
+* SMS / Email templates (depending on the action timing)
+* End-call notifications (supports post-call variables)
+
+<Note>
+Only fields that support variables will be labeled with `🧩 May support variables`.
+If the field is not labeled, assume it is static-only.
+</Note>
+
+---
+
+## Using Variables in API Requests
+
+### 1) Use variables inside scripts
+
+Example script snippet:
+
+```text
+Ask the caller for their address and store it in {customerAddress}.
+If {customerAddress} is empty, ask again politely.
+
+```
+
+---
+
+### 2) Use variables in API action endpoint URLs
+
+Example:
+
+```text
+[https://example-crm.com/leads?phone=](https://example-crm.com/leads?phone=){phoneNumber}&name={firstName}
+
+```
+
+---
+
+### 3) Use variables in API action body values (string)
+
+If a body field is a string value, it can include variables:
+
+```json
+{
+  "key": "message",
+  "type": "String",
+  "value": "New call completed for {firstName} {lastName}."
+}
+
+```
+
+<Note>
+**API Body Exception (VariableId field)**
+
+When configuring an API action body, the `VariableId` property must contain the **raw variable ID without brackets**.
+Example: use `firstName` (not `{firstName}`).
+
+This is a special case for the API body schema only — everywhere else, variables are inserted using `{variableId}`.
+</Note>
+
+---
+
+### 4) Use post-call variables in End-call notifications
+
+Example email body:
+
+```text
+Call ended for {firstName} {lastName}.
+Summary: {post_call_summary}
+Transcript: {post_call_transcript}
+Recording: {post_call_recording}
+Duration: {post_call_duration}
+
+```
+
+---
+
+## Best Practices
+
+* Use short, stable variable IDs (e.g., `customerAddress`, `membershipStatus`).
+* Treat built-in variable IDs as reserved keywords.
+* Use post-call variables only in end-call notifications.
+* Avoid defining variables you never reference in your flow.
+
+---
+
+## Quick Reference
+
+* **Syntax:** `{variableId}`
+* **Groups:** `PreCall` / `InCall` / `PostCall`
+* **Built-in InCall variables:** none
+* **Post-call variables:** available inside end-call notifications only
+
+
