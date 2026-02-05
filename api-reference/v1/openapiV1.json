@@ -2410,6 +2410,7 @@
                     },
                     "leadId": {
                         "type": "string",
+                        "description": "If the call is outbound, this is the unique identifier of the lead that was called.\r\nOtherwise, this value is null.",
                         "nullable": true
                     },
                     "startTime": {

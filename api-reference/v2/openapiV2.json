@@ -1135,8 +1135,8 @@
                 "tags": [
                     "Pearl"
                 ],
-                "summary": "Create Pearl Flow",
-                "description": "Creates a new Pearl flow.",
+                "summary": "Create Pearl",
+                "description": "Creates a new Pearl",
                 "requestBody": {
                     "description": "The Pearl flow configuration to create.",
                     "content": {
@@ -2349,6 +2349,7 @@
                     },
                     "leadId": {
                         "type": "string",
+                        "description": "If the call is outbound, this is the unique identifier of the lead that was called.\r\nOtherwise, this value is null.",
                         "nullable": true
                     },
                     "startTime": {
@@ -2974,25 +2975,6 @@
                         "type": "string",
                         "description": "The phone number in E.164 format.",
                         "nullable": true
-                    },
-                    "purchaseDate": {
-                        "type": "string",
-                        "description": "The date and time when the phone number was purchased.",
-                        "format": "date-time"
-                    },
-                    "scheduledDeletionTime": {
-                        "type": "string",
-                        "description": "The scheduled date and time for deletion, if deletion has been requested.",
-                        "format": "date-time",
-                        "nullable": true
-                    },
-                    "status": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/ePhoneNumberStatusApi"
-                            }
-                        ],
-                        "description": "Phone number status.\n\n- Active: The phone number is active and can be used.\n- ToDelete: Deletion has been requested. Check the scheduled deletion time to know when it will be removed.\n\n`50 - Active`\n\n`55 - ToDelete`\n\n"
                     },
                     "direction": {
                         "allOf": [
@@ -3892,7 +3874,7 @@
                     },
                     "openingSentence": {
                         "type": "string",
-                        "description": "`🧩 may include variables`\r\n\r\nThe opening sentence spoken by the agent when a conversation starts.\r\n            \r\nConstraints:\r\n-Max 250 characters only.\r\n-Supports pre-call variables only.",
+                        "description": "`🧩 may include variables`\r\n\r\nThe opening sentence spoken by the agent when a conversation starts.\r\n            \r\nConstraints:\r\n-Max 500 characters only.\r\n-Supports pre-call variables only.",
                         "nullable": true
                     },
                     "flowScript": {
@@ -4450,11 +4432,6 @@
             "ePhoneNumberDirection": {
                 "type": "integer",
                 "description": "Phone number direction (supported call capabilities).\n\n- InboundOutbound: Supports both inbound and outbound calls.\n- Inbound: Supports inbound calls only.\n- Outbound: Supports outbound calls only.\n- NotSet: Direction is not set.\n\n`1 - InboundOutbound`\n\n`2 - Inbound`\n\n`3 - Outbound`\n\n`10 - NotSet`\n\n",
-                "format": "int32"
-            },
-            "ePhoneNumberStatusApi": {
-                "type": "integer",
-                "description": "Phone number status.\n\n- Active: The phone number is active and can be used.\n- ToDelete: Deletion has been requested. Check the scheduled deletion time to know when it will be removed.\n\n`50 - Active`\n\n`55 - ToDelete`\n\n",
                 "format": "int32"
             },
             "ePredefinedCallLabelColors": {
