@@ -123,6 +123,126 @@
                 }
             }
         },
+        "/v2/Account/PhoneNumbers": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Get Phone Numbers",
+                "description": "Retrieves all active phone numbers of the account.",
+                "responses": {
+                    "200": {
+                        "description": "The list of active phone numbers for the account.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Account/Voices": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Get Voices",
+                "description": "Retrieves the available voices grouped by language.",
+                "responses": {
+                    "200": {
+                        "description": "The list of available voices grouped by language.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/LanguageVoicesViewApi"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/LanguageVoicesViewApi"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/LanguageVoicesViewApi"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v2/Call/{callId}": {
             "get": {
                 "tags": [
@@ -195,17 +315,32 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DeleteCallsRequestApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DeleteCallsRequestApi"
+                                    }
+                                ],
+                                "description": "Represents the request object used to delete one or more calls."
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DeleteCallsRequestApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DeleteCallsRequestApi"
+                                    }
+                                ],
+                                "description": "Represents the request object used to delete one or more calls."
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DeleteCallsRequestApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DeleteCallsRequestApi"
+                                    }
+                                ],
+                                "description": "Represents the request object used to delete one or more calls."
                             }
                         }
                     }
@@ -275,17 +410,29 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LeadToAddApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadToAddApi"
+                                    }
+                                ]
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LeadToAddApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadToAddApi"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LeadToAddApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadToAddApi"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -363,17 +510,32 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LeadToUpdateApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadToUpdateApi"
+                                    }
+                                ],
+                                "description": "Represents the data used to update an existing lead in an outbound campaign.\r\nAll fields are optional; only the provided values will be updated."
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LeadToUpdateApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadToUpdateApi"
+                                    }
+                                ],
+                                "description": "Represents the data used to update an existing lead in an outbound campaign.\r\nAll fields are optional; only the provided values will be updated."
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LeadToUpdateApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadToUpdateApi"
+                                    }
+                                ],
+                                "description": "Represents the data used to update an existing lead in an outbound campaign.\r\nAll fields are optional; only the provided values will be updated."
                             }
                         }
                     }
@@ -510,17 +672,32 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LeadSearch"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadSearch"
+                                    }
+                                ],
+                                "description": "Extends TableSearch to include specific search criteria for leads."
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LeadSearch"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadSearch"
+                                    }
+                                ],
+                                "description": "Extends TableSearch to include specific search criteria for leads."
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LeadSearch"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadSearch"
+                                    }
+                                ],
+                                "description": "Extends TableSearch to include specific search criteria for leads."
                             }
                         }
                     }
@@ -588,17 +765,32 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DeleteLeadsRequestApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DeleteLeadsRequestApi"
+                                    }
+                                ],
+                                "description": "Represents the request object for deleting one or more leads associated with an outbound campaign."
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DeleteLeadsRequestApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DeleteLeadsRequestApi"
+                                    }
+                                ],
+                                "description": "Represents the request object for deleting one or more leads associated with an outbound campaign."
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DeleteLeadsRequestApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DeleteLeadsRequestApi"
+                                    }
+                                ],
+                                "description": "Represents the request object for deleting one or more leads associated with an outbound campaign."
                             }
                         }
                     }
@@ -806,17 +998,32 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DeleteLeadsbyExternalRequestApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DeleteLeadsbyExternalRequestApi"
+                                    }
+                                ],
+                                "description": "Represents the request object for deleting one or more leads associated with an outbound campaign using external identifiers."
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DeleteLeadsbyExternalRequestApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DeleteLeadsbyExternalRequestApi"
+                                    }
+                                ],
+                                "description": "Represents the request object for deleting one or more leads associated with an outbound campaign using external identifiers."
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DeleteLeadsbyExternalRequestApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DeleteLeadsbyExternalRequestApi"
+                                    }
+                                ],
+                                "description": "Represents the request object for deleting one or more leads associated with an outbound campaign using external identifiers."
                             }
                         }
                     }
@@ -923,6 +1130,87 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Create Pearl",
+                "description": "Creates a new Pearl",
+                "requestBody": {
+                    "description": "The Pearl flow configuration to create.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AddProjectApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AddProjectApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AddProjectApiRequest"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The ID of the newly created Pearl.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/v2/Pearl/{pearlId}": {
@@ -984,6 +1272,98 @@
                         }
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Update Pearl",
+                "description": "Updates the settings for the specified Pearl.",
+                "parameters": [
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "description": "The unique identifier of the Pearl.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The updated Pearl flow configuration.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateProjectApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateProjectApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateProjectApiRequest"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The Pearl flow was updated successfully.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/v2/Pearl/{pearlId}/Active": {
@@ -1007,17 +1387,32 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/SetActiveRequest"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/SetActiveRequest"
+                                    }
+                                ],
+                                "description": "Defines the request structure for setting the active status of an entity."
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/SetActiveRequest"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/SetActiveRequest"
+                                    }
+                                ],
+                                "description": "Defines the request structure for setting the active status of an entity."
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/SetActiveRequest"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/SetActiveRequest"
+                                    }
+                                ],
+                                "description": "Defines the request structure for setting the active status of an entity."
                             }
                         }
                     }
@@ -1087,17 +1482,29 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CallsTableDateSearchApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CallsTableDateSearchApi"
+                                    }
+                                ]
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CallsTableDateSearchApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CallsTableDateSearchApi"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CallsTableDateSearchApi"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CallsTableDateSearchApi"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -1226,17 +1633,32 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DateSearch"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DateSearch"
+                                    }
+                                ],
+                                "description": "Represents a date range used to query analytics data."
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DateSearch"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DateSearch"
+                                    }
+                                ],
+                                "description": "Represents a date range used to query analytics data."
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/DateSearch"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/DateSearch"
+                                    }
+                                ],
+                                "description": "Represents a date range used to query analytics data."
                             }
                         }
                     }
@@ -1306,17 +1728,29 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResetMemoryRequest"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ResetMemoryRequest"
+                                    }
+                                ]
                             }
                         },
                         "text/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResetMemoryRequest"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ResetMemoryRequest"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResetMemoryRequest"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ResetMemoryRequest"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -1367,15 +1801,400 @@
                     }
                 }
             }
+        },
+        "/v2/Pearl/{pearlId}/Settings": {
+            "get": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Get Pearl Settings",
+                "description": "Retrieves the Settings for the specified Pearl. The Pearl and Variables sections in the response are populated only if the Pearl was created via the API. If the Pearl was created through the platform interface, these fields will be returned empty.",
+                "parameters": [
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "description": "The unique identifier of the Pearl.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The settings for the specified Pearl.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectFlowApiView"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectFlowApiView"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProjectFlowApiView"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Pearl/{pearlId}/Settings/Outbound": {
+            "put": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Update Outbound Settings",
+                "description": "Updates the outbound settings for the specified Pearl.",
+                "parameters": [
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "description": "The unique identifier of the Pearl.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The outbound settings to apply.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/OutboundSettingsApi"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/OutboundSettingsApi"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/OutboundSettingsApi"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Outbound settings updated successfully.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The request is invalid or the data is malformed.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Pearl/{pearlId}/Settings/Inbound": {
+            "put": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Update Inbound Settings",
+                "description": "Updates the inbound settings for the specified Pearl.",
+                "parameters": [
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "description": "The unique identifier of the Pearl.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The inbound settings to apply.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/InboundSettingsApi"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/InboundSettingsApi"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/InboundSettingsApi"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Inbound settings updated successfully.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The request is invalid or the data is malformed.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "APIDataSchemaPropertyApi": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "description": "The request body field name (JSON key).\r\n            \r\nMax 255 characters only.",
+                        "nullable": true
+                    },
+                    "variableId": {
+                        "type": "string",
+                        "description": "The variable ID to send as the value for this field (without curly braces).\r\n            \r\nConstraints:\r\n- If VariableId is provided, Type and Value must be null/empty.",
+                        "nullable": true
+                    },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eStateDataType"
+                            }
+                        ],
+                        "description": "`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n",
+                        "nullable": true
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nThe static value to send for this field.\r\n            \r\nConstraints:\r\n- Max 255 characters.\r\n- Must be provided together with Type when VariableId is not provided.\r\n- Must not be provided when VariableId is provided.\r\n- When Type is String, the value may include variables using curly braces.",
+                        "nullable": true
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicates whether this request body field is required."
+                    }
+                },
+                "additionalProperties": false
+            },
+            "APIMethod": {
+                "type": "integer",
+                "description": "`1 - GET`\n\n`2 - POST`\n\n`3 - PUT`\n\n`4 - DELETE`\n\n`5 - PATCH`\n\n",
+                "format": "int32"
+            },
+            "APISettingsApi": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "A friendly name for this API action.\r\n            \r\nMax 50 characters only.",
+                        "nullable": true
+                    },
+                    "method": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/APIMethod"
+                            }
+                        ],
+                        "description": "`1 - GET`\n\n`2 - POST`\n\n`3 - PUT`\n\n`4 - DELETE`\n\n`5 - PATCH`\n\n"
+                    },
+                    "endpointUrl": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nThe endpoint URL to call.\r\n            \r\nMax 4,000 characters only.\r\n            \r\nVariables support depends on when this API action is executed:\r\n- Pre-call: pre-call variables only.\r\n- In-call: pre-call and in-call variables.\r\n- End-call: pre-call, in-call, and post-call variables.",
+                        "nullable": true
+                    },
+                    "body": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/APIDataSchemaPropertyApi"
+                        },
+                        "description": "Request body definition (key/value pairs) for this API call.\r\n            \r\nConstraints:\r\n- Only applicable for POST, PUT, or PATCH.\r\n- Must be empty for GET, DELETE (and any method that does not send a body).",
+                        "nullable": true
+                    },
+                    "headers": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Optional HTTP headers to include in the API request.",
+                        "nullable": true
+                    },
+                    "triggerDescription": {
+                        "type": "string",
+                        "description": "Describes when this API action should be triggered.\r\n            \r\nMax 1,000 characters only.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "AddProjectApiRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the Pearl.",
+                        "nullable": true
+                    },
+                    "pearl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PearlSettingsApi"
+                            }
+                        ],
+                        "description": "Conversation flow and agent behavior configuration for the Pearl.",
+                        "nullable": true
+                    },
+                    "variables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataSettingsApi"
+                        },
+                        "description": "Variables that can be defined, stored, and used by the agent during conversations.\r\nFor details on variable groups and how to use variables in supported fields, see: [Flow Variables](/api-reference/flow_variables)",
+                        "nullable": true
+                    },
+                    "inbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InboundSettingsApi"
+                            }
+                        ],
+                        "description": "Inbound settings for the Pearl. Required when creating an inbound Pearl. Must not be provided together with Outbound.",
+                        "nullable": true
+                    },
+                    "outbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/OutboundSettingsApi"
+                            }
+                        ],
+                        "description": "Outbound settings for the Pearl. Required when creating an outbound Pearl. Must not be provided together with Inbound.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "AgentChatMessageApiView": {
                 "type": "object",
                 "properties": {
                     "role": {
-                        "$ref": "#/components/schemas/eChatMessageRoleView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eChatMessageRoleView"
+                            }
+                        ],
+                        "description": "`2 - Pearl`\n\n`3 - Client`\n\n"
                     },
                     "content": {
                         "type": "string",
@@ -1397,14 +2216,42 @@
                 },
                 "additionalProperties": false
             },
+            "AgentConfigToAddApi": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The display name of the agent.\n\nConstraints:\n- Max length: 50 characters.",
+                        "nullable": true
+                    },
+                    "voiceId": {
+                        "type": "string",
+                        "description": "The ID of the voice to use for this agent.\r\nTo retrieve available voices, see: [Get Voices](/api-reference/v2/pearlSettings/get-voices)\r\n            \r\nConstraints:\r\n- The voice language must be unique across agents in the same Pearl (no two agents can use voices from the same language).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "AnalyticsApi": {
                 "type": "object",
                 "properties": {
                     "callsStatusOverview": {
-                        "$ref": "#/components/schemas/CallsStatusAnalyticsOverview"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CallsStatusAnalyticsOverview"
+                            }
+                        ],
+                        "description": "Provides an overview of call counts by status for the selected period.",
+                        "nullable": true
                     },
                     "callsSentimentOverview": {
-                        "$ref": "#/components/schemas/CallsSentimentOverview"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CallsSentimentOverview"
+                            }
+                        ],
+                        "description": "Provides an overview of call sentiment distribution for the selected period.",
+                        "nullable": true
                     },
                     "callsStatusTimeLine": {
                         "type": "array",
@@ -1455,7 +2302,13 @@
                         "nullable": true
                     },
                     "callEventsCounts": {
-                        "$ref": "#/components/schemas/CallEventsCount"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CallEventsCount"
+                            }
+                        ],
+                        "description": "Provides the total number of call events by event type for the selected period.",
+                        "nullable": true
                     },
                     "callsByHourDayOfWeeks": {
                         "type": "array",
@@ -1466,7 +2319,12 @@
                         "nullable": true
                     },
                     "callType": {
-                        "$ref": "#/components/schemas/eProjectType"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eProjectType"
+                            }
+                        ],
+                        "description": "Defines the type of activity of the pearl.\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n"
                     }
                 },
                 "additionalProperties": false
@@ -1489,6 +2347,11 @@
                         "description": "The unique identifier of the inbound/outbound (API v1).",
                         "nullable": true
                     },
+                    "leadId": {
+                        "type": "string",
+                        "description": "If the call is outbound, this is the unique identifier of the lead that was called.\r\nOtherwise, this value is null.",
+                        "nullable": true
+                    },
                     "startTime": {
                         "type": "string",
                         "description": "The date and time when the call processing started.",
@@ -1496,10 +2359,20 @@
                         "nullable": true
                     },
                     "conversationStatus": {
-                        "$ref": "#/components/schemas/eConversationStatusView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eConversationStatusView"
+                            }
+                        ],
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
                     },
                     "status": {
-                        "$ref": "#/components/schemas/eCallStatusView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eCallStatusView"
+                            }
+                        ],
+                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n"
                     },
                     "from": {
                         "type": "string",
@@ -1560,7 +2433,13 @@
                         "description": "Indicates whether the call was transferred to a human or another endpoint."
                     },
                     "overallSentiment": {
-                        "$ref": "#/components/schemas/eOverallSentiment"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eOverallSentiment"
+                            }
+                        ],
+                        "description": "Represents the overall emotional tone detected from the client during the conversation.\n\n`1 - Negative`\n\n`2 - SlightlyNegative`\n\n`3 - Neutral`\n\n`4 - SlightlyPositive`\n\n`5 - Positive`\n\n",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -1582,6 +2461,38 @@
                             "$ref": "#/components/schemas/CollectedInfoView"
                         },
                         "description": "The information collected during the conversations.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CallEndNotificationApi": {
+                "type": "object",
+                "properties": {
+                    "apiSettings": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/APISettingsApi"
+                            }
+                        ],
+                        "description": "API action to trigger when the notification conditions are met.",
+                        "nullable": true
+                    },
+                    "emailTemplate": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EmailEndCallTemplateApi"
+                            }
+                        ],
+                        "description": "Email template to send when the notification conditions are met.",
+                        "nullable": true
+                    },
+                    "indicatorTagsIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of indicator tag IDs that must be detected to trigger this notification.\r\n            \r\nImportant:\r\n- These must be tag IDs from IndicatorTags (IndicatorTag.Id), not tag names.",
                         "nullable": true
                     }
                 },
@@ -1613,6 +2524,35 @@
                 },
                 "additionalProperties": false,
                 "description": "Summary of events that occurred during calls."
+            },
+            "CallLabelApi": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Identifier of the label.\r\n            \r\nIf not provided, it will be generated automatically.\r\n            \r\nImportant:\r\n- The ID is the stable identifier of the label.\r\n- Changing the ID creates a new label.\r\n- Keeping the same ID while updating the name/description updates the existing label.\r\n            \r\nConstraints:\r\n- Exactly 6 characters.\r\n- Letters only (A–Z, a–z).",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The label name.\r\n            \r\nMax 25 characters only.",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Describes when this label should be applied.\r\n            \r\nMax 250 characters only.",
+                        "nullable": true
+                    },
+                    "color": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ePredefinedCallLabelColors"
+                            }
+                        ],
+                        "description": "`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`8 - gradient1`\n\n`9 - gradient2`\n\n"
+                    }
+                },
+                "additionalProperties": false
             },
             "CallLabelCount": {
                 "type": "object",
@@ -1651,10 +2591,20 @@
                         "nullable": true
                     },
                     "conversationStatus": {
-                        "$ref": "#/components/schemas/eConversationStatusView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eConversationStatusView"
+                            }
+                        ],
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
                     },
                     "status": {
-                        "$ref": "#/components/schemas/eCallStatusView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eCallStatusView"
+                            }
+                        ],
+                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n"
                     },
                     "from": {
                         "type": "string",
@@ -1723,7 +2673,12 @@
                         "format": "int32"
                     },
                     "dayOfWeek": {
-                        "$ref": "#/components/schemas/DayOfWeek"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/DayOfWeek"
+                            }
+                        ],
+                        "description": "`0 - Sunday`\n\n`1 - Monday`\n\n`2 - Tuesday`\n\n`3 - Wednesday`\n\n`4 - Thursday`\n\n`5 - Friday`\n\n`6 - Saturday`\n\n"
                     },
                     "count": {
                         "type": "integer",
@@ -1968,7 +2923,7 @@
                         "items": {
                             "$ref": "#/components/schemas/eLeadStatusView"
                         },
-                        "description": "List of Status to filter by.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n",
+                        "description": "List of Status to filter by.\n\n",
                         "nullable": true
                     },
                     "searchInput": {
@@ -1998,7 +2953,36 @@
                         "format": "double"
                     },
                     "status": {
-                        "$ref": "#/components/schemas/eCallAuthorizationStatus"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eCallAuthorizationStatus"
+                            }
+                        ],
+                        "description": "Represents the authorization status for making calls.\n\n`1 - FullAccess`\n\n`2 - LimitedAccess`\n\n`3 - NoCredits`\n\n`4 - SuspendedAccount`\n\n`5 - DebtReached`\n\n"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ClientPhoneNumberViewApi": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The unique identifier of the phone number.",
+                        "nullable": true
+                    },
+                    "number": {
+                        "type": "string",
+                        "description": "The phone number in E.164 format.",
+                        "nullable": true
+                    },
+                    "direction": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ePhoneNumberDirection"
+                            }
+                        ],
+                        "description": "Phone number direction (supported call capabilities).\n\n- InboundOutbound: Supports both inbound and outbound calls.\n- Inbound: Supports inbound calls only.\n- Outbound: Supports outbound calls only.\n- NotSet: Direction is not set.\n\n`1 - InboundOutbound`\n\n`2 - Inbound`\n\n`3 - Outbound`\n\n`10 - NotSet`\n\n"
                     }
                 },
                 "additionalProperties": false
@@ -2023,6 +3007,120 @@
                 },
                 "additionalProperties": false
             },
+            "DataSettingsApi": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Variable identifier.\r\n            \r\nThis is the ID you must reference when using the variable in scripts and templated fields.\r\nIt must not contain spaces.\r\n            \r\nConstraints:\r\n- Max 40 characters.\r\n- Allowed characters: letters (A–Z, a–z), digits (0–9), underscore (_), hyphen (-).",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Friendly display name for the variable.\r\n            \r\nMax 40 characters only.",
+                        "nullable": true
+                    },
+                    "group": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eDataSettingsGroup"
+                            }
+                        ],
+                        "description": "Variable group.\n\n- PreCall: Variables available before the call (used in pre-call contexts such as opening sentence or pre-call API).\n- InCall: Variables collected or updated during the call.\n- PostCall: Variables generated after the call by the platform (cannot be created via the API).\n\n`1 - PreCall`\n\n`2 - InCall`\n\n`3 - PostCall`\n\n"
+                    },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eStateDataType"
+                            }
+                        ],
+                        "description": "`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n"
+                    },
+                    "isList": {
+                        "type": "boolean",
+                        "description": "Indicates whether the variable can contain multiple values (list) or a single value."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Guidance for the agent on how to collect or infer this variable during the conversation.\r\n            \r\nMax 300 characters only.",
+                        "nullable": true
+                    },
+                    "value": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "options": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OptionChoice"
+                        },
+                        "description": "Optional predefined choices for this variable (allowed/preset values).\r\n            \r\nNotes:\r\n- Use Value for the human-readable label.\r\n- Use Code for an optional internal/normalized value to store or send to integrations.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DataSettingsApiView": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Variable identifier.",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Variable display name.",
+                        "nullable": true
+                    },
+                    "group": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eDataSettingsGroup"
+                            }
+                        ],
+                        "description": "Variable group.\n\n- PreCall: Variables available before the call (used in pre-call contexts such as opening sentence or pre-call API).\n- InCall: Variables collected or updated during the call.\n- PostCall: Variables generated after the call by the platform (cannot be created via the API).\n\n`1 - PreCall`\n\n`2 - InCall`\n\n`3 - PostCall`\n\n"
+                    },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eStateDataType"
+                            }
+                        ],
+                        "description": "`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n"
+                    },
+                    "isList": {
+                        "type": "boolean",
+                        "description": "Indicates whether the variable holds multiple values (list) or a single value."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description of the variable.",
+                        "nullable": true
+                    },
+                    "value": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "options": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OptionChoice"
+                        },
+                        "description": "Predefined choices for the variable (if applicable).",
+                        "nullable": true
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicates whether the variable is required (based on where it is used in the Pearl configuration)."
+                    },
+                    "readOnly": {
+                        "type": "boolean",
+                        "description": "Indicates whether the variable is a platform-built preset.\r\nIf true, the variable can be used but cannot be modified or overridden."
+                    }
+                },
+                "additionalProperties": false
+            },
             "DateSearch": {
                 "type": "object",
                 "properties": {
@@ -2042,8 +3140,32 @@
             },
             "DayOfWeek": {
                 "type": "integer",
-                "description": "\n\n`0 - Sunday`\n\n`1 - Monday`\n\n`2 - Tuesday`\n\n`3 - Wednesday`\n\n`4 - Thursday`\n\n`5 - Friday`\n\n`6 - Saturday`\n\n",
+                "description": "`0 - Sunday`\n\n`1 - Monday`\n\n`2 - Tuesday`\n\n`3 - Wednesday`\n\n`4 - Thursday`\n\n`5 - Friday`\n\n`6 - Saturday`\n\n",
                 "format": "int32"
+            },
+            "DayWorkingHours": {
+                "type": "object",
+                "properties": {
+                    "day": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/DayOfWeek"
+                            }
+                        ],
+                        "description": "`0 - Sunday`\n\n`1 - Monday`\n\n`2 - Tuesday`\n\n`3 - Wednesday`\n\n`4 - Thursday`\n\n`5 - Friday`\n\n`6 - Saturday`\n\n"
+                    },
+                    "start": {
+                        "type": "string",
+                        "description": "Start time of the allowed calling window (based on the campaign time zone).\r\n            \r\nConstraints:\r\n- Must be before End.",
+                        "format": "date-span"
+                    },
+                    "end": {
+                        "type": "string",
+                        "description": "End time of the allowed calling window (based on the campaign time zone).\r\n            \r\nConstraints:\r\n- Must be after Start.",
+                        "format": "date-span"
+                    }
+                },
+                "additionalProperties": false
             },
             "DeleteCallsRequestApi": {
                 "type": "object",
@@ -2090,6 +3212,153 @@
                 "additionalProperties": false,
                 "description": "Represents the request object for deleting one or more leads associated with an outbound campaign using external identifiers."
             },
+            "EmailEndCallTemplateApi": {
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of primary recipients.\r\n            \r\nConstraints:\r\n- Max 10 recipients.\r\n- Max 255 characters per email address.",
+                        "nullable": true
+                    },
+                    "cc": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of CC recipients.\r\n            \r\nConstraints:\r\n- Max 10 recipients.\r\n- Max 255 characters per email address.",
+                        "nullable": true
+                    },
+                    "subject": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nEmail subject.\r\n            \r\nConstraints:\r\n- Max 150 characters.\r\n- Supports pre-call, in-call, and post-call variables.",
+                        "nullable": true
+                    },
+                    "body": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nEmail body content.\r\n            \r\nConstraints:\r\n- Max 100,000 characters.\r\n- Supports pre-call, in-call, and post-call variables.",
+                        "nullable": true
+                    },
+                    "triggerDescription": {
+                        "type": "string",
+                        "description": "Instructions describing when the email should be sent (trigger conditions).\r\n            \r\nMax 500 characters only.",
+                        "nullable": true
+                    },
+                    "smtpSettings": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SmtpSettings"
+                            }
+                        ],
+                        "description": "Optional SMTP configuration used to send the email.\r\nIf not provided, the email is sent using the default platform email sender.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "EmailProvider": {
+                "type": "integer",
+                "description": "`1 - Gmail`\n\n`2 - Office365`\n\n`10 - Custom`\n\n",
+                "format": "int32"
+            },
+            "EmailTemplateApi": {
+                "type": "object",
+                "properties": {
+                    "subject": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n\r\nEmail subject.\r\n            \r\nMax 150 characters only.",
+                        "nullable": true
+                    },
+                    "body": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nEmail body content.\r\n            \r\nMax 100,000 characters only.",
+                        "nullable": true
+                    },
+                    "triggerDescription": {
+                        "type": "string",
+                        "description": "Instructions describing when the email should be sent (trigger conditions).\r\n            \r\nMax 500 characters only.",
+                        "nullable": true
+                    },
+                    "smtpSettings": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SmtpSettings"
+                            }
+                        ],
+                        "description": "Optional SMTP configuration used to send the email.\r\nIf not provided, the email is sent using the default platform email sender.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "InboundSettingsApi": {
+                "type": "object",
+                "properties": {
+                    "phoneNumberId": {
+                        "type": "string",
+                        "description": "The phone number ID to use for this Pearl.\r\nTo retrieve available phone numbers, see: [Get Phone Numbers](/api-reference/v2/pearlSettings/get-phones)\r\n            \r\nConstraints:\r\n- A phone number cannot be assigned to more than one active inbound Pearl at the same time.",
+                        "nullable": true
+                    },
+                    "totalAgents": {
+                        "type": "integer",
+                        "description": "Total number of agents allocated to this inbound activity.",
+                        "format": "int32"
+                    },
+                    "recordingOptions": {
+                        "type": "boolean",
+                        "description": "Enables or disables call recording."
+                    },
+                    "isStopRecordingAfterTransferCall": {
+                        "type": "boolean",
+                        "description": "Indicates whether recording should continue after a call is transferred.",
+                        "nullable": true
+                    },
+                    "transcriptOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTranscriptOptions"
+                            }
+                        ],
+                        "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
+                    },
+                    "callWebhookUrl": {
+                        "type": "string",
+                        "description": "Optional webhook URL to receive call events (for example call started and call ended).",
+                        "nullable": true
+                    },
+                    "waitingSentence": {
+                        "type": "string",
+                        "description": "Message played to the caller when no agent is available and the caller is waiting in the queue.\r\n            \r\nMax 300 characters only.",
+                        "nullable": true
+                    },
+                    "isSayQueueDetails": {
+                        "type": "boolean",
+                        "description": "When enabled, the caller is informed about queue details (for example how many callers are ahead) while waiting."
+                    }
+                },
+                "additionalProperties": false
+            },
+            "LanguageVoicesViewApi": {
+                "type": "object",
+                "properties": {
+                    "language": {
+                        "type": "string",
+                        "description": "The language for this group of voices.",
+                        "nullable": true
+                    },
+                    "voices": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/VoiceViewApi"
+                        },
+                        "description": "The list of voices available for this language.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "LeadApiView": {
                 "type": "object",
                 "properties": {
@@ -2114,7 +3383,12 @@
                         "nullable": true
                     },
                     "status": {
-                        "$ref": "#/components/schemas/eLeadStatusView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eLeadStatusView"
+                            }
+                        ],
+                        "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
                     },
                     "created": {
                         "type": "string",
@@ -2130,7 +3404,12 @@
                         "nullable": true
                     },
                     "lastCall": {
-                        "$ref": "#/components/schemas/LeadLastCallApiView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/LeadLastCallApiView"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "callData": {
                         "type": "object",
@@ -2168,7 +3447,12 @@
                         "nullable": true
                     },
                     "status": {
-                        "$ref": "#/components/schemas/eCallStatusView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eCallStatusView"
+                            }
+                        ],
+                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n"
                     },
                     "from": {
                         "type": "string",
@@ -2181,7 +3465,13 @@
                         "nullable": true
                     },
                     "collectedData": {
-                        "$ref": "#/components/schemas/CallCollectedDataApiView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CallCollectedDataApiView"
+                            }
+                        ],
+                        "description": "The object including all the information collected during the call.",
+                        "nullable": true
                     },
                     "summary": {
                         "type": "string",
@@ -2233,7 +3523,12 @@
                         "nullable": true
                     },
                     "status": {
-                        "$ref": "#/components/schemas/eLeadStatusView"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eLeadStatusView"
+                            }
+                        ],
+                        "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
                     },
                     "created": {
                         "type": "string",
@@ -2297,7 +3592,7 @@
                         "items": {
                             "$ref": "#/components/schemas/eLeadStatusInputView"
                         },
-                        "description": "Optional filters for the status of the leads. Only leads with this status will be included in the results.\n\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`220 - Blacklisted`\n\n`500 - Error`\n",
+                        "description": "Optional filters for the status of the leads. Only leads with this status will be included in the results.\n\n",
                         "nullable": true
                     },
                     "searchInput": {
@@ -2378,7 +3673,13 @@
                         "nullable": true
                     },
                     "status": {
-                        "$ref": "#/components/schemas/eLeadStatusInputApi"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eLeadStatusInputApi"
+                            }
+                        ],
+                        "description": "The new status to assign to the lead.\n\nThis can be used to update the lead's progression or interaction result.\n\nFor example, if you want the outbound campaign to stop calling this lead, you can set the status to `Completed`.\nOr, if the lead already converted successfully in an external CRM, you can mark it directly as `Success`.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false,
@@ -2401,6 +3702,242 @@
                 },
                 "additionalProperties": false
             },
+            "OptionChoice": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "string",
+                        "description": "The option value (human-readable label).\r\nIf Code is empty, this value is also used for display.",
+                        "nullable": true
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Optional display/encoded value for the option.\r\nUse this to store a mapped value (for example a normalized code, an internal identifier, or a hex color).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "OutboundSettingsApi": {
+                "type": "object",
+                "properties": {
+                    "phoneNumberId": {
+                        "type": "string",
+                        "description": "The phone number ID to use for this Pearl.\r\nTo retrieve available phone numbers, see: [Get Phone Numbers](/api-reference/v2/pearlSettings/get-phones)",
+                        "nullable": true
+                    },
+                    "totalAgents": {
+                        "type": "integer",
+                        "description": "Total number of agents allocated to this outbound activity.",
+                        "format": "int32"
+                    },
+                    "recordingTrack": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eRecordingTrack"
+                            }
+                        ],
+                        "description": "Call recording track selection.\n\n- Both: Records both sides of the call (agent and lead/customer).\n- Outbound: Records only the agent side.\n- Inbound: Records only the lead/customer side.\n- None: Disables call recording.\n\n`1 - Outbound`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n"
+                    },
+                    "isStopRecordingAfterTransferCall": {
+                        "type": "boolean",
+                        "description": "Indicates whether recording should continue after a call is transferred.",
+                        "nullable": true
+                    },
+                    "transcriptOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTranscriptOptions"
+                            }
+                        ],
+                        "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
+                    },
+                    "budgetTotal": {
+                        "type": "integer",
+                        "description": "Total budget allocated for the outbound activity.\r\nIf null, the outbound activity runs without a budget limit.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "timeZone": {
+                        "type": "string",
+                        "description": "Default time zone for the outbound activity.\r\n            \r\nLeads are called according to this time zone unless a lead-specific time zone is provided when adding leads.\r\nFor accepted values, refer to the [Windows Time Zones list](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11).\r\n            \r\nExample: \"Pacific Standard Time\", \"Romance Standard Time\".",
+                        "nullable": true
+                    },
+                    "maximumCallAttempts": {
+                        "type": "integer",
+                        "description": "Maximum number of call attempts per lead.\r\n            \r\nConstraints:\r\n- Max 5 attempts.",
+                        "format": "int32"
+                    },
+                    "minimumRetryIntervalHours": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eMinimumRetryIntervalHours"
+                            }
+                        ],
+                        "description": "`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n"
+                    },
+                    "ringDuration": {
+                        "type": "integer",
+                        "description": "Ringing duration (in seconds) before considering the call unanswered.\r\n            \r\nConstraints:\r\n- Min 10 seconds.\r\n- Max 50 seconds.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "callTimeout": {
+                        "type": "integer",
+                        "description": "Maximum call duration (in minutes). The call is ended when this limit is reached.\r\n            \r\nConstraints:\r\n- Min 1 minute.\r\n- Max 120 minutes.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "voiceMail": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nVoicemail message left when a voicemail/answering machine is detected.\r\nIf empty, the agent will not leave voicemails.\r\n            \r\nNotes:\r\n- Supports pre-call variables only.\r\n- When a voicemail is left, the call is marked as \"voicemail left\" and no further retries are attempted.\r\n            \r\nMax 500 characters only.",
+                        "nullable": true
+                    },
+                    "callingHours": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DayWorkingHours"
+                        },
+                        "description": "Allowed calling hours for the outbound activity.",
+                        "nullable": true
+                    },
+                    "callWebhookUrl": {
+                        "type": "string",
+                        "description": "Optional webhook URL to receive call events (for example call started and call ended).",
+                        "nullable": true
+                    },
+                    "leadWebhookUrl": {
+                        "type": "string",
+                        "description": "Optional webhook URL to receive lead events (for example lead created/updated).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "PearlSettingsApi": {
+                "type": "object",
+                "properties": {
+                    "agents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AgentConfigToAddApi"
+                        },
+                        "description": "Agents configured for the Pearl.\n\n- Each agent represents a language-specific entry point (based on the selected voice).\n- Configure multiple agents to support multilingual experiences and language-based transfers.\n\nConstraints:\n- Voice language must be unique across agents (no duplicates).",
+                        "nullable": true
+                    },
+                    "agentPersonality": {
+                        "type": "string",
+                        "description": "Defines the agent's personality and tone (for example, more assertive or more calm).\n\nConstraints:\n- Max length: 35 characters.",
+                        "nullable": true
+                    },
+                    "timeZone": {
+                        "type": "string",
+                        "description": "Time zone identifier used by the Pearl's agents.\r\n            \r\nThe agent will operate according to this time zone, regardless of the lead/customer local time zone.\r\nFor accepted values, refer to the [Windows Time Zones list](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11).\r\n            \r\nExample: \"Pacific Standard Time\", \"Romance Standard Time\".",
+                        "nullable": true
+                    },
+                    "modelType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eBrainModelType"
+                            }
+                        ],
+                        "description": "Agent model type.\n\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n",
+                        "nullable": true
+                    },
+                    "companyName": {
+                        "type": "string",
+                        "description": "The company name used by the agent during conversations.\r\n            \r\nConstraints:\r\n- Max length: 100 characters.",
+                        "nullable": true
+                    },
+                    "companyDescription": {
+                        "type": "string",
+                        "description": "The company name used by the agent during conversations.\r\n            \r\nConstraints:\r\n- Max length: 500 characters.",
+                        "nullable": true
+                    },
+                    "knowledgeBase": {
+                        "type": "string",
+                        "description": "Knowledge base content provided to the agent, such as FAQs, internal context, and operational instructions.\r\n            \r\nConstraints:\r\n- Max length: 20,000 characters.",
+                        "nullable": true
+                    },
+                    "memory": {
+                        "type": "boolean",
+                        "description": "Indicates whether memory is enabled. When enabled, the Pearl can remember previous conversations for a given phone number.",
+                        "nullable": true
+                    },
+                    "speechRecognitionKeywords": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/VocabularyEntry"
+                        },
+                        "description": "Keywords configured to improve speech recognition accuracy (for example product names, acronyms, or domain-specific terms).\r\n            \r\nConstraints:\r\n- Max entries: 10.",
+                        "nullable": true
+                    },
+                    "openingSentence": {
+                        "type": "string",
+                        "description": "`🧩 may include variables`\r\n\r\nThe opening sentence spoken by the agent when a conversation starts.\r\n            \r\nConstraints:\r\n-Max 500 characters only.\r\n-Supports pre-call variables only.",
+                        "nullable": true
+                    },
+                    "flowScript": {
+                        "type": "string",
+                        "description": "`🧩 may include variables`\r\n\r\nThe flow script the agent follows to drive the conversation.\r\n            \r\nConstraints:\r\n- Max 20,000 characters.\r\n- Supports pre-call variables and in-call variables.",
+                        "nullable": true
+                    },
+                    "transferCallSettings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TransferCallSettingsApi"
+                        },
+                        "description": "Call transfer rules configured for the Pearl (when and where calls should be transferred).\r\n            \r\nConstraints:\r\n- Max rules: 10.",
+                        "nullable": true
+                    },
+                    "smsSettings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SMSTemplateApi"
+                        },
+                        "description": "SMS templates and triggers configured for the Pearl.\r\n            \r\nDuring a call, the agent can send SMS messages based on these rules.\r\n            \r\nConstraints:\r\n- Max templates: 10.",
+                        "nullable": true
+                    },
+                    "emailSettings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EmailTemplateApi"
+                        },
+                        "description": "Email templates and triggers configured for the Pearl.\r\n            \r\nDuring a call, the agent can send emails based on these rules.\r\n            \r\nConstraints:\r\n- Max templates: 10.",
+                        "nullable": true
+                    },
+                    "apiSettings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/APISettingsApi"
+                        },
+                        "description": "API actions configured for the Pearl.\r\n            \r\nConstraints:\r\n- Max actions: 10.",
+                        "nullable": true
+                    },
+                    "successDescription": {
+                        "type": "string",
+                        "description": "Definition of what is considered a successful call for this Pearl.\r\nThis is used to classify call outcomes as successful or not successful.\r\n            \r\nIf left empty, calls will only be marked as completed (no success classification).\r\n            \r\nMax 200 characters only.",
+                        "nullable": true
+                    },
+                    "indicatorTags": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CallLabelApi"
+                        },
+                        "description": "Indicator labels that can be applied to calls for classification and reporting.\r\n            \r\nAt the end of the conversation, an AI analyzes the call and determines which of the configured labels should be applied.\r\n            \r\nConstraints:\r\n- Max labels: 10.",
+                        "nullable": true
+                    },
+                    "notifications": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CallEndNotificationApi"
+                        },
+                        "description": "Notifications configured to be triggered when a call ends.\r\n            \r\nA notification can trigger an API call or send an email when specific indicator tags are detected.\r\n            \r\nConstraints:\r\n- Max notifications: 30.\r\n- Each notification must reference indicator tag IDs (not tag names).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "ProjectApiView": {
                 "type": "object",
                 "properties": {
@@ -2414,8 +3951,22 @@
                         "description": "The name of the pearl.",
                         "nullable": true
                     },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eProjectType"
+                            }
+                        ],
+                        "description": "Defines the type of activity of the pearl.\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n",
+                        "nullable": true
+                    },
                     "status": {
-                        "$ref": "#/components/schemas/eActivityStatus"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eActivityStatus"
+                            }
+                        ],
+                        "description": "Here is the activity status\n\n`1 - Running`\n\n`2 - Paused`\n\n`3 - Suspended`\n\n`10 - TemporaryMaintenance`\n\n"
                     },
                     "phoneNumber": {
                         "type": "string",
@@ -2480,29 +4031,94 @@
                 },
                 "additionalProperties": false
             },
+            "ProjectFlowApiView": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the Pearl.",
+                        "nullable": true
+                    },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eProjectType"
+                            }
+                        ],
+                        "description": "Defines the type of activity of the pearl.\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n"
+                    },
+                    "pearl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PearlSettingsApi"
+                            }
+                        ],
+                        "description": "Conversation flow and agent behavior configuration for the Pearl.\r\n            \r\nThis field is populated only if the Pearl was created via the API.\r\nIf the Pearl was created through the platform interface, this field will be empty.",
+                        "nullable": true
+                    },
+                    "variables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataSettingsApiView"
+                        },
+                        "description": "Variables defined for the Pearl and used by the agent during conversations.\r\n            \r\nThis field is populated only if the Pearl was created via the API.\r\nIf the Pearl was created through the platform interface, this field will be empty.",
+                        "nullable": true
+                    },
+                    "inbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InboundSettingsApi"
+                            }
+                        ],
+                        "description": "Inbound settings for the Pearl. Present only when the Pearl type is inbound.",
+                        "nullable": true
+                    },
+                    "outbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/OutboundSettingsApi"
+                            }
+                        ],
+                        "description": "Outbound settings for the Pearl. Present only when the Pearl type is outbound.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "ProjectListApiView": {
                 "type": "object",
                 "properties": {
                     "id": {
                         "type": "string",
-                        "description": "The unique identifier of the pearl (project).",
+                        "description": "The unique identifier of the pearl.",
                         "nullable": true
                     },
                     "name": {
                         "type": "string",
-                        "description": "The name of the pearl (project).",
+                        "description": "The name of the pearl.",
                         "nullable": true
                     },
                     "createdAt": {
                         "type": "string",
-                        "description": "The date and time when the pearl (project) was created.",
+                        "description": "The date and time when the pearl was created.",
                         "format": "date-time"
                     },
                     "type": {
-                        "$ref": "#/components/schemas/eProjectType"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eProjectType"
+                            }
+                        ],
+                        "description": "Defines the type of activity of the pearl.\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n",
+                        "nullable": true
                     },
                     "status": {
-                        "$ref": "#/components/schemas/eActivityStatus"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eActivityStatus"
+                            }
+                        ],
+                        "description": "Here is the activity status\n\n`1 - Running`\n\n`2 - Paused`\n\n`3 - Suspended`\n\n`10 - TemporaryMaintenance`\n\n"
                     }
                 },
                 "additionalProperties": false
@@ -2512,6 +4128,22 @@
                 "properties": {
                     "phoneNumber": {
                         "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SMSTemplateApi": {
+                "type": "object",
+                "properties": {
+                    "body": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nThe SMS message content.\r\n            \r\nConstraints:\r\n- Max 2,000 characters.\r\n- Supports pre-call and in-call variables.\r\n- If sent at end of call, may also support post-call variables.",
+                        "nullable": true
+                    },
+                    "triggerDescription": {
+                        "type": "string",
+                        "description": "Instructions describing when the SMS should be sent (trigger conditions).\r\n            \r\nMax 500 characters only.",
                         "nullable": true
                     }
                 },
@@ -2530,6 +4162,106 @@
                 },
                 "additionalProperties": false,
                 "description": "Defines the request structure for setting the active status of an entity."
+            },
+            "SmtpSettings": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Optional SMTP configuration identifier.",
+                        "nullable": true
+                    },
+                    "provider": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EmailProvider"
+                            }
+                        ],
+                        "description": "`1 - Gmail`\n\n`2 - Office365`\n\n`10 - Custom`\n\n",
+                        "nullable": true
+                    },
+                    "smtpServer": {
+                        "type": "string",
+                        "description": "SMTP server hostname.",
+                        "nullable": true
+                    },
+                    "port": {
+                        "type": "integer",
+                        "description": "SMTP server port.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "enableSsl": {
+                        "type": "boolean",
+                        "description": "Indicates whether SSL/TLS is enabled for the SMTP connection.",
+                        "nullable": true
+                    },
+                    "senderEmail": {
+                        "type": "string",
+                        "description": "Sender email address used for SMTP authentication and as the \"From\" address.",
+                        "nullable": true
+                    },
+                    "senderPassword": {
+                        "type": "string",
+                        "description": "Sender password or SMTP credential used for authentication.",
+                        "nullable": true
+                    },
+                    "displayName": {
+                        "type": "string",
+                        "description": "Display name shown in the recipient inbox (the \"From\" name).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "TransferCallSettingsApi": {
+                "type": "object",
+                "properties": {
+                    "transferCallPhoneNumber": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nThe destination phone number to transfer the call to.\r\nIf a variable is used, it must resolve to a valid phone number, otherwise the transfer will fail.\r\n            \r\nMax 25 characters only.",
+                        "nullable": true
+                    },
+                    "triggerDescription": {
+                        "type": "string",
+                        "description": "Instructions describing when the agent should transfer the call (for example, when the caller asks to speak with a human).\r\n            \r\nMax 500 characters only.",
+                        "nullable": true
+                    },
+                    "warmTransferMessage": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nOptional warm transfer message spoken by the agent when the transfer starts.\r\nIf empty, warm transfer is disabled.\r\n            \r\nMax 2,000 characters only.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "UpdateProjectApiRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The updated name of the Pearl.",
+                        "nullable": true
+                    },
+                    "pearl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PearlSettingsApi"
+                            }
+                        ],
+                        "description": "Updated conversation flow and agent behavior configuration for the Pearl.",
+                        "nullable": true
+                    },
+                    "variables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataSettingsApi"
+                        },
+                        "description": "Variables that can be defined, stored, and used by the agent during conversations.\r\nFor details on variable groups and how to use variables in supported fields, see: [Flow Variables](/api-reference/flow_variables)",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
             },
             "UserListViewApi": {
                 "type": "object",
@@ -2594,9 +4326,57 @@
                 },
                 "additionalProperties": {}
             },
+            "VocabularyEntry": {
+                "type": "object",
+                "properties": {
+                    "word": {
+                        "type": "string",
+                        "description": "The keyword to recognize in speech recognition.\r\n            \r\n- Max length: 50 characters.",
+                        "nullable": true
+                    },
+                    "pronunciations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Alternative pronunciations for the keyword.\r\n            \r\nConstraints:\r\n- Max elements: 3.\r\n- Each pronunciation max length: 50 characters.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "VoiceViewApi": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The unique identifier of the voice.",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The display name of the voice.",
+                        "nullable": true
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Tags describing the voice (for example accent, style, or other voice characteristics).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "eActivityStatus": {
                 "type": "integer",
                 "description": "Here is the activity status\n\n`1 - Running`\n\n`2 - Paused`\n\n`3 - Suspended`\n\n`10 - TemporaryMaintenance`\n\n",
+                "format": "int32"
+            },
+            "eBrainModelType": {
+                "type": "integer",
+                "description": "Agent model type.\n\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n",
                 "format": "int32"
             },
             "eCallAuthorizationStatus": {
@@ -2611,12 +4391,17 @@
             },
             "eChatMessageRoleView": {
                 "type": "integer",
-                "description": "\n\n`2 - Pearl`\n\n`3 - Client`\n\n",
+                "description": "`2 - Pearl`\n\n`3 - Client`\n\n",
                 "format": "int32"
             },
             "eConversationStatusView": {
                 "type": "integer",
-                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
+                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
+                "format": "int32"
+            },
+            "eDataSettingsGroup": {
+                "type": "integer",
+                "description": "Variable group.\n\n- PreCall: Variables available before the call (used in pre-call contexts such as opening sentence or pre-call API).\n- InCall: Variables collected or updated during the call.\n- PostCall: Variables generated after the call by the platform (cannot be created via the API).\n\n`1 - PreCall`\n\n`2 - InCall`\n\n`3 - PostCall`\n\n",
                 "format": "int32"
             },
             "eLeadStatusInputApi": {
@@ -2626,7 +4411,7 @@
             },
             "eLeadStatusInputView": {
                 "type": "integer",
-                "description": "\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
+                "description": "`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eLeadStatusView": {
@@ -2634,14 +4419,44 @@
                 "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
+            "eMinimumRetryIntervalHours": {
+                "type": "integer",
+                "description": "`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n",
+                "format": "int32"
+            },
             "eOverallSentiment": {
                 "type": "integer",
                 "description": "Represents the overall emotional tone detected from the client during the conversation.\n\n`1 - Negative`\n\n`2 - SlightlyNegative`\n\n`3 - Neutral`\n\n`4 - SlightlyPositive`\n\n`5 - Positive`\n\n",
                 "format": "int32"
             },
+            "ePhoneNumberDirection": {
+                "type": "integer",
+                "description": "Phone number direction (supported call capabilities).\n\n- InboundOutbound: Supports both inbound and outbound calls.\n- Inbound: Supports inbound calls only.\n- Outbound: Supports outbound calls only.\n- NotSet: Direction is not set.\n\n`1 - InboundOutbound`\n\n`2 - Inbound`\n\n`3 - Outbound`\n\n`10 - NotSet`\n\n",
+                "format": "int32"
+            },
+            "ePredefinedCallLabelColors": {
+                "type": "integer",
+                "description": "`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`8 - gradient1`\n\n`9 - gradient2`\n\n",
+                "format": "int32"
+            },
             "eProjectType": {
                 "type": "integer",
                 "description": "Defines the type of activity of the pearl.\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n",
+                "format": "int32"
+            },
+            "eRecordingTrack": {
+                "type": "integer",
+                "description": "Call recording track selection.\n\n- Both: Records both sides of the call (agent and lead/customer).\n- Outbound: Records only the agent side.\n- Inbound: Records only the lead/customer side.\n- None: Disables call recording.\n\n`1 - Outbound`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n",
+                "format": "int32"
+            },
+            "eStateDataType": {
+                "type": "integer",
+                "description": "`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n",
+                "format": "int32"
+            },
+            "eTranscriptOptions": {
+                "type": "integer",
+                "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n",
                 "format": "int32"
             }
         },

@@ -101,7 +101,8 @@
             "pages": [
               "api-reference/api_quickstart",
               "api-reference/python_wrapper",
-              "api-reference/authorization"
+              "api-reference/authorization",
+              "api-reference/flow_variables"
             ]
           },
           {
@@ -114,7 +115,9 @@
                             "expanded": true, 
                 "pages": [
                   "api-reference/v2/account/get-account",
-                  "api-reference/v2/account/get-account-users"
+                  "api-reference/v2/account/get-account-users",
+                   "api-reference/v2/pearlSettings/get-voices",
+                  "api-reference/v2/pearlSettings/get-phones"
                 ]
               },
               {
@@ -139,8 +142,19 @@
                 ]
               },
               {
+                "group": "Pearl Settings",
+                "expanded": true, 
+                "pages": [
+                  "api-reference/v2/pearlFlow/get-pearl-flow",
+                  "api-reference/v2/pearlFlow/add-pearl-flow",
+                  "api-reference/v2/pearlFlow/update-pearl-flow",
+                  "api-reference/v2/pearlFlow/update-pearl-inbound",
+                  "api-reference/v2/pearlFlow/update-pearl-outbound"
+                ]
+              },
+              {
                 "group": "Outbound",
-                            "expanded": true, 
+                "expanded": true, 
                 "pages": [
                   "api-reference/v2/outbound/add-lead",
                   "api-reference/v2/outbound/update-lead",
