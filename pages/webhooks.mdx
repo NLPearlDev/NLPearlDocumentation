@@ -1,0 +1,606 @@
+---
+title: Webhooks
+description: 'Understand the webhook payloads sent by NLPearl.AI for lead and call events in real time.'
+icon: "webhook"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/webhooks_image.jpg"
+        alt="Webhooks documentation light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/webhooks_image.jpg"
+        alt="Webhooks documentation dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+## Overview
+
+When configuring a Pearl, you can set up webhooks to receive real-time notifications at key moments of the call lifecycle. The webhooks available to you depend on whether your Pearl is configured for **Inbound** or **Outbound** activity.
+
+<CardGroup cols={2}>
+  <Card
+    title="Inbound Pearl"
+    icon="phone-arrow-down-left"
+    iconType="light"
+  >
+    Access to the **Call Webhook** only.
+  </Card>
+  <Card
+    title="Outbound Pearl"
+    icon="phone-arrow-up-right"
+    iconType="light"
+  >
+    Access to both the **Call Webhook** and the **Lead Webhook**.
+  </Card>
+</CardGroup>
+
+<Info>
+The **Call Webhook** payload is identical whether it originates from an Inbound or Outbound Pearl. The **Lead Webhook** is exclusive to Outbound campaigns, as leads are a concept specific to outbound call management.
+</Info>
+
+---
+
+## Webhook Types
+
+<CardGroup cols={2}>
+  <Card
+    title="Call Webhook"
+    icon="phone"
+    iconType="light"
+    href="#call-webhook-payload"
+  >
+    Triggered at the start and end of every call. Available for both Inbound and Outbound Pearls.
+  </Card>
+  <Card
+    title="Lead Webhook"
+    icon="user"
+    iconType="light"
+    href="#lead-webhook-payload"
+  >
+    Triggered every time a lead changes status. Available for Outbound Pearls only.
+  </Card>
+</CardGroup>
+
+---
+
+## Webhook Version
+
+Select the version that matches your Pearl configuration. **V2 is the recommended version** and is selected by default.
+
+<Tabs>
+  <Tab title="V2 (Latest)">
+
+<Note>
+In V2, all JSON payload keys use **camelCase** (e.g. `pearlId`, `phoneNumber`, `collectedData`).
+</Note>
+
+---
+
+## Call Webhook Payload
+
+The **Call Webhook** is triggered at the start and at the end of every call. It provides comprehensive data about the call, including its outcome, duration, transcript, and any information collected during the conversation.
+
+> Available for both **Inbound** and **Outbound** Pearls.
+
+### Payload Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `string` | The unique identifier of the call. |
+| `pearlId` | `string` | The unique identifier of the Pearl used during this call. |
+| `startTime` | `datetime` | The date and time when the call processing started. |
+| `conversationStatus` | `eConversationStatusView` | The status of the conversation. See [Conversation Statuses](#conversation-statuses) below. |
+| `status` | `eCallStatusView` | The overall technical status of the call. See [Call Statuses](#call-statuses) below. |
+| `from` | `string` | The phone number from which the call was made. |
+| `to` | `string` | The phone number to which the call was made. |
+| `name` | `string` | The name associated with the call, if available. |
+| `duration` | `integer` | The duration of the call in seconds. |
+| `recording` | `string` *(URL)* | A URL to the call recording, if recording is enabled. |
+| `transcript` | `AgentChatMessageApiView[]` | The full conversation transcript as a list of messages. See [Transcript Message](#transcript-message) below. |
+| `summary` | `string` | A concise AI-generated summary of the conversation. |
+| `collectedInfo` | `CollectedInfoView[]` | Structured data points collected during the call. See [Collected Info](#collected-info) below. |
+| `tags` | `string[]` | Tags or labels triggered during the conversation based on your Pearl configuration. |
+| `isCallTransferred` | `boolean` | Whether the call was transferred to a human agent or external number. |
+| `overallSentiment` | `eOverallSentiment` | The overall emotional tone detected from the client. See [Sentiment Values](#sentiment-values) below. |
+| `leadId` | `string` | The unique identifier of the associated lead, if the call is linked to one. Otherwise `null`. |
+
+### Conversation Statuses
+
+| Value | Code | Description |
+|-------|------|-------------|
+| `NeedRetry` | 10 | The call will be retried. |
+| `InCallQueue` | 20 | The call is queued and waiting to be placed. |
+| `OnCall` | 40 | The call is currently in progress. |
+| `VoiceMailLeft` | 70 | Pearl reached voicemail and left a message. |
+| `Success` | 100 | The conversation ended with a successful outcome as defined in the Pearl. |
+| `NotSuccessful` | 110 | The conversation ended without achieving the defined success criteria. |
+| `Completed` | 130 | The conversation was completed (neutral outcome). |
+| `Unreachable` | 150 | The lead could not be reached after all attempts. |
+| `Blacklisted` | 220 | The number is blacklisted and will not be contacted. |
+| `QueueAbandon` | 300 | The call was abandoned while in the queue. |
+| `Error` | 500 | An error occurred during the conversation. |
+
+<Note>
+The definition of **Success** and **NotSuccessful** is configured at the Pearl level. Refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page for more details.
+</Note>
+
+### Call Statuses
+
+| Value | Code | Description |
+|-------|------|-------------|
+| `InProgress` | 3 | The call is currently active. |
+| `Completed` | 4 | The call ended normally. |
+| `Busy` | 5 | The line was busy when the call was placed. |
+| `Failed` | 6 | The call could not be connected due to a technical issue. |
+| `NoAnswer` | 7 | The call was not answered within the configured ring duration. |
+| `Canceled` | 8 | The call was canceled before being connected. |
+
+### Transcript Message
+
+Each entry in the `transcript` array represents a single message in the conversation.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `role` | `eChatMessageRoleView` | The speaker: `Pearl` (2) or `Client` (3). |
+| `content` | `string` | The text content of the message. |
+| `startTime` | `float` | The timestamp (in seconds) when the message started. |
+| `endTime` | `float` | The timestamp (in seconds) when the message ended. |
+
+### Collected Info
+
+Each entry in the `collectedInfo` array represents a variable captured during the call.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `string` | The ID of the variable as configured in your Pearl. |
+| `name` | `string` | The display name of the variable. |
+| `value` | `any` | The value collected for this variable during the call. |
+
+### Sentiment Values
+
+| Value | Code | Description |
+|-------|------|-------------|
+| `Negative` | 1 | Clear signals of anger, disappointment, or distress. |
+| `SlightlyNegative` | 2 | Some negative emotions present, but overall tone remains close to neutral. |
+| `Neutral` | 3 | Balanced, objective, or factual — no significant positive or negative leanings. |
+| `SlightlyPositive` | 4 | More positive cues than negative, though enthusiasm is mild. |
+| `Positive` | 5 | Positive emotions, enthusiasm, satisfaction, or gratitude. |
+
+### Example Payload
+
+```json
+{
+  "id": "64f3c300e4b0d3a5f1c9e299",
+  "pearlId": "64f3b9ffe4b0d3a5f1c9e100",
+  "startTime": "2024-06-01T10:15:00Z",
+  "conversationStatus": "Success",
+  "status": "Completed",
+  "from": "+18005550100",
+  "to": "+14155552671",
+  "name": "John Doe",
+  "duration": 142,
+  "recording": "https://recordings.nlpearl.ai/calls/64f3c300e4b0d3a5f1c9e299.mp3",
+  "transcript": [
+    {
+      "role": "Pearl",
+      "content": "Hi John, this is Pearl calling on behalf of Acme Corp. How are you today?",
+      "startTime": 0.0,
+      "endTime": 4.2
+    },
+    {
+      "role": "Client",
+      "content": "I'm good, thanks. What's this about?",
+      "startTime": 4.8,
+      "endTime": 7.1
+    }
+  ],
+  "summary": "The lead was informed about the Premium plan and expressed interest in a follow-up.",
+  "collectedInfo": [
+    {
+      "id": "var_001",
+      "name": "Interested In Plan",
+      "value": "Premium"
+    }
+  ],
+  "tags": ["interested", "callback-requested"],
+  "isCallTransferred": false,
+  "overallSentiment": "SlightlyPositive",
+  "leadId": "64f3c2a1e4b0d3a5f1c9e271"
+}
+```
+
+---
+
+## Lead Webhook Payload
+
+The **Lead Webhook** is triggered every time a lead changes status — at the beginning and at the end of a call. It contains all relevant information about the lead and its current state.
+
+> Available for **Outbound** Pearls only.
+
+### Payload Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `string` *(ObjectId)* | The unique identifier of the lead in the NLPearl.AI system. |
+| `pearlId` | `string` | The unique identifier of the Pearl associated with this lead. |
+| `externalId` | `string` | The ID from an external system such as a CRM, for cross-referencing. |
+| `phoneNumber` | `string` | The phone number of the lead. |
+| `timeZone` | `string` | The time zone assigned to the lead. |
+| `status` | `eLeadStatusView` | The current status of the lead. See [Lead Statuses](#lead-statuses) below. |
+| `created` | `datetime` | The date and time when the lead was created. |
+| `callsId` | `string[]` | A list of all call IDs associated with this lead. |
+| `callData` | `object` *(key-value)* | Custom variables provided before the call to personalize the Pearl conversation. |
+| `collectedData` | `object` *(key-value)* | Data collected **during** the call. Keys correspond to variable IDs configured in the Pearl. |
+
+### `callData` vs `collectedData`
+
+| | `callData` | `collectedData` |
+|---|---|---|
+| **When** | Provided before the call | Filled during the call |
+| **Purpose** | Personalizes the Pearl's script and opening | Captures outcomes and responses from the conversation |
+| **Example** | `{ "firstName": "John", "plan": "Premium" }` | `{ "confirmBooking": true, "rideTime": "Friday 12:00" }` |
+
+### Lead Statuses
+
+| Value | Code | Description |
+|-------|------|-------------|
+| `New` | 1 | The lead has just been added, no call attempted yet. |
+| `NeedRetry` | 10 | The call will be retried according to the retry configuration. |
+| `InCallQueue` | 20 | The lead is queued and waiting for a call to be placed. |
+| `WrongCountryCode` | 30 | The phone number does not match the campaign's country code. |
+| `OnCall` | 40 | The lead is currently in an active call. |
+| `VoiceMailLeft` | 70 | Pearl reached voicemail and left a personalized message. |
+| `Success` | 100 | The conversation ended with a successful outcome as defined in the Pearl. |
+| `NotSuccessful` | 110 | The conversation ended without achieving the success criteria. |
+| `Completed` | 130 | All attempts are done (neutral outcome). |
+| `Unreachable` | 150 | The lead could not be reached after all retry attempts. |
+| `Blacklisted` | 220 | The number is blacklisted and will not be contacted. |
+| `QueueAbandon` | 300 | The call was abandoned while in the queue. |
+| `Error` | 500 | An error occurred while processing this lead. |
+
+<Note>
+The definition of **Success** and **NotSuccessful** is set at the Pearl level. Refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page for details.
+</Note>
+
+### Example Payload
+
+```json
+{
+  "id": "64f3c2a1e4b0d3a5f1c9e271",
+  "pearlId": "64f3b9ffe4b0d3a5f1c9e100",
+  "externalId": "crm-lead-00482",
+  "phoneNumber": "+14155552671",
+  "timeZone": "America/New_York",
+  "status": "Success",
+  "created": "2024-06-01T09:00:00Z",
+  "callsId": [
+    "64f3c300e4b0d3a5f1c9e299"
+  ],
+  "callData": {
+    "firstName": "John",
+    "email": "john.doe@example.com",
+    "plan": "Premium"
+  },
+  "collectedData": {
+    "confirmBooking": true,
+    "dropOffLocation": "Orly Airport",
+    "rideTime": "Friday at 12:00",
+    "userIntent": "Book a taxi to the airport"
+  }
+}
+```
+
+  </Tab>
+  <Tab title="V1">
+
+<Warning>
+**V1 is a legacy version.** We recommend migrating to V2 for access to additional fields like `collectedData` on leads and a more consistent structure.
+</Warning>
+
+<Note>
+In V1, all JSON payload keys use **PascalCase** (e.g. `PearlId`, `PhoneNumber`, `CollectedInfo`).
+</Note>
+
+---
+
+## Call Webhook Payload
+
+The **Call Webhook** is triggered at the start and at the end of every call.
+
+> Available for both **Inbound** and **Outbound** Pearls.
+
+### Payload Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Id` | `string` | The unique identifier of the call. |
+| `PearlId` | `string` | The unique identifier of the Pearl used during this call. |
+| `RelatedId` | `string` | The unique identifier of the related inbound or outbound entity (e.g. campaign ID). |
+| `StartTime` | `datetime` | The date and time when the call processing started. |
+| `ConversationStatus` | `eConversationStatusView` | The status of the conversation. See [Conversation Statuses](#conversation-statuses-v1) below. |
+| `Status` | `eCallStatusView` | The overall technical status of the call. See [Call Statuses](#call-statuses-v1) below. |
+| `From` | `string` | The phone number from which the call was made. |
+| `To` | `string` | The phone number to which the call was made. |
+| `Name` | `string` | The name associated with the call, if available. |
+| `Duration` | `integer` | The duration of the call in seconds. |
+| `Recording` | `string` *(URL)* | A URL to the call recording, if recording is enabled. |
+| `Transcript` | `AgentChatMessageApiView[]` | The full conversation transcript as a list of messages. See [Transcript Message](#transcript-message-v1) below. |
+| `Summary` | `string` | A concise AI-generated summary of the conversation. |
+| `CollectedInfo` | `CollectedInfoView[]` | Structured data points collected during the call. See [Collected Info](#collected-info-v1) below. |
+| `Tags` | `string[]` | Tags or labels triggered during the conversation. |
+| `IsCallTransferred` | `boolean` | Whether the call was transferred to a human agent or external number. |
+| `OverallSentiment` | `eOverallSentiment` | The overall emotional tone detected from the client. See [Sentiment Values](#sentiment-values-v1) below. |
+| `LeadId` | `string` | The unique identifier of the associated lead, if applicable. Otherwise `null`. |
+
+<Note>
+V1 includes an additional `RelatedId` field referencing the inbound or outbound entity. This field does not exist in V2.
+</Note>
+
+### Conversation Statuses
+
+| Value | Code | Description |
+|-------|------|-------------|
+| `NeedRetry` | 10 | The call will be retried. |
+| `InCallQueue` | 20 | The call is queued and waiting to be placed. |
+| `OnCall` | 40 | The call is currently in progress. |
+| `VoiceMailLeft` | 70 | Pearl reached voicemail and left a message. |
+| `Success` | 100 | The conversation ended with a successful outcome as defined in the Pearl. |
+| `NotSuccessful` | 110 | The conversation ended without achieving the defined success criteria. |
+| `Completed` | 130 | The conversation was completed (neutral outcome). |
+| `Unreachable` | 150 | The lead could not be reached after all attempts. |
+| `Blacklisted` | 220 | The number is blacklisted and will not be contacted. |
+| `QueueAbandon` | 300 | The call was abandoned while in the queue. |
+| `Error` | 500 | An error occurred during the conversation. |
+
+### Call Statuses
+
+| Value | Code | Description |
+|-------|------|-------------|
+| `InProgress` | 3 | The call is currently active. |
+| `Completed` | 4 | The call ended normally. |
+| `Busy` | 5 | The line was busy when the call was placed. |
+| `Failed` | 6 | The call could not be connected due to a technical issue. |
+| `NoAnswer` | 7 | The call was not answered within the configured ring duration. |
+| `Canceled` | 8 | The call was canceled before being connected. |
+
+### Transcript Message
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Role` | `eChatMessageRoleView` | The speaker: `Pearl` (2) or `Client` (3). |
+| `Content` | `string` | The text content of the message. |
+| `StartTime` | `float` | The timestamp (in seconds) when the message started. |
+| `EndTime` | `float` | The timestamp (in seconds) when the message ended. |
+
+### Collected Info
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Id` | `string` | The ID of the variable as configured in your Pearl. |
+| `Name` | `string` | The display name of the variable. |
+| `Value` | `any` | The value collected for this variable during the call. |
+
+### Sentiment Values
+
+| Value | Code | Description |
+|-------|------|-------------|
+| `Negative` | 1 | Clear signals of anger, disappointment, or distress. |
+| `SlightlyNegative` | 2 | Some negative emotions present, but overall tone remains close to neutral. |
+| `Neutral` | 3 | Balanced, objective, or factual — no significant positive or negative leanings. |
+| `SlightlyPositive` | 4 | More positive cues than negative, though enthusiasm is mild. |
+| `Positive` | 5 | Positive emotions, enthusiasm, satisfaction, or gratitude. |
+
+### Example Payload
+
+```json
+{
+  "Id": "64f3c300e4b0d3a5f1c9e299",
+  "PearlId": "64f3b9ffe4b0d3a5f1c9e100",
+  "RelatedId": "64f3c1ffe4b0d3a5f1c9e200",
+  "StartTime": "2024-06-01T10:15:00Z",
+  "ConversationStatus": "Success",
+  "Status": "Completed",
+  "From": "+18005550100",
+  "To": "+14155552671",
+  "Name": "John Doe",
+  "Duration": 142,
+  "Recording": "https://recordings.nlpearl.ai/calls/64f3c300e4b0d3a5f1c9e299.mp3",
+  "Transcript": [
+    {
+      "Role": "Pearl",
+      "Content": "Hi John, this is Pearl calling on behalf of Acme Corp. How are you today?",
+      "StartTime": 0.0,
+      "EndTime": 4.2
+    },
+    {
+      "Role": "Client",
+      "Content": "I'm good, thanks. What's this about?",
+      "StartTime": 4.8,
+      "EndTime": 7.1
+    }
+  ],
+  "Summary": "The lead was informed about the Premium plan and expressed interest in a follow-up.",
+  "CollectedInfo": [
+    {
+      "Id": "var_001",
+      "Name": "Interested In Plan",
+      "Value": "Premium"
+    }
+  ],
+  "Tags": ["interested", "callback-requested"],
+  "IsCallTransferred": false,
+  "OverallSentiment": "SlightlyPositive",
+  "LeadId": "64f3c2a1e4b0d3a5f1c9e271"
+}
+```
+
+---
+
+## Lead Webhook Payload
+
+The **Lead Webhook** is triggered every time a lead changes status — at the beginning and at the end of a call.
+
+> Available for **Outbound** Pearls only.
+
+### Payload Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Id` | `string` *(ObjectId)* | The unique identifier of the lead in the NLPearl.AI system. |
+| `OutboundId` | `string` | The unique identifier of the outbound campaign or configuration associated with this lead. |
+| `ExternalId` | `string` | The ID from an external system such as a CRM, for cross-referencing. |
+| `PhoneNumber` | `string` | The phone number of the lead. |
+| `TimeZone` | `string` | The time zone assigned to the lead. |
+| `Status` | `eLeadStatusView` | The current status of the lead. See [Lead Statuses](#lead-statuses-v1) below. |
+| `Created` | `datetime` | The date and time when the lead was created. |
+| `CallsId` | `string[]` | A list of all call IDs associated with this lead. |
+| `CallData` | `object` *(key-value)* | Custom variables provided before the call to personalize the Pearl conversation. |
+
+<Note>
+V1 uses `OutboundId` to reference the campaign. V2 replaces this with `pearlId` and adds the `collectedData` field to expose data collected during the call.
+</Note>
+
+### Lead Statuses
+
+| Value | Code | Description |
+|-------|------|-------------|
+| `New` | 1 | The lead has just been added, no call attempted yet. |
+| `NeedRetry` | 10 | The call will be retried according to the retry configuration. |
+| `InCallQueue` | 20 | The lead is queued and waiting for a call to be placed. |
+| `WrongCountryCode` | 30 | The phone number does not match the campaign's country code. |
+| `OnCall` | 40 | The lead is currently in an active call. |
+| `VoiceMailLeft` | 70 | Pearl reached voicemail and left a personalized message. |
+| `Success` | 100 | The conversation ended with a successful outcome as defined in the Pearl. |
+| `NotSuccessful` | 110 | The conversation ended without achieving the success criteria. |
+| `Completed` | 130 | All attempts are done (neutral outcome). |
+| `Unreachable` | 150 | The lead could not be reached after all retry attempts. |
+| `Blacklisted` | 220 | The number is blacklisted and will not be contacted. |
+| `QueueAbandon` | 300 | The call was abandoned while in the queue. |
+| `Error` | 500 | An error occurred while processing this lead. |
+
+### Example Payload
+
+```json
+{
+  "Id": "64f3c2a1e4b0d3a5f1c9e271",
+  "OutboundId": "64f3c1ffe4b0d3a5f1c9e200",
+  "ExternalId": "crm-lead-00482",
+  "PhoneNumber": "+14155552671",
+  "TimeZone": "America/New_York",
+  "Status": "Success",
+  "Created": "2024-06-01T09:00:00Z",
+  "CallsId": [
+    "64f3c300e4b0d3a5f1c9e299"
+  ],
+  "CallData": {
+    "FirstName": "John",
+    "Email": "john.doe@example.com",
+    "Plan": "Premium"
+  }
+}
+```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Differences Between V1 and V2
+
+| | V1 | V2 |
+|---|---|---|
+| **JSON key format** | `PascalCase` | `camelCase` |
+| **Lead: campaign reference** | `OutboundId` | `pearlId` |
+| **Lead: post-call collected data** | ❌ Not available | ✅ `collectedData` |
+| **Call: entity reference** | `RelatedId` | ❌ Removed |
+
+---
+
+## Setting Up Webhooks
+
+You can configure webhook URLs directly in your Pearl or outbound campaign settings.
+
+<Steps>
+<Step title="Open Your Campaign Settings">
+Navigate to the Pearl or outbound campaign you want to configure and open its settings panel.
+</Step>
+
+<Step title="Locate the Webhook Section">
+Scroll to the **Webhooks** section in the configuration form.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/webhooks_image2.jpg"
+        alt="Webhook settings on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-4">
+      <img
+        src="/images/dark_mode/webhooks_image2.jpg"
+        alt="Webhook settings on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Step>
+
+<Step title="Enter Your Webhook URLs">
+Provide the endpoint URLs for the webhooks you want to receive:
+- **Call Webhook** — available for Inbound and Outbound Pearls.
+- **Lead Webhook** — available for Outbound Pearls only.
+
+Your server must respond with an HTTP `200 OK` to acknowledge receipt.
+</Step>
+</Steps>
+
+<Note>
+Make sure your webhook endpoint is publicly accessible and responds within a reasonable timeout. NLPearl.AI does not retry failed webhook deliveries by default.
+</Note>
+
+---
+
+<CardGroup cols={2}>
+  <Card
+    title="Outbound Campaigns"
+    icon="phone-arrow-up-right"
+    iconType="light"
+    href="/pages/outbound"
+  >
+    Learn how to create and configure outbound campaigns, including webhook setup.
+  </Card>
+  <Card
+    title="API Reference – Get Calls"
+    icon="code"
+    iconType="light"
+    href="/api-reference/v2/call/get-call"
+  >
+    Explore the full call object structure returned by the API.
+  </Card>
+</CardGroup>
