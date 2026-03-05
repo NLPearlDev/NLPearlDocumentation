@@ -107,19 +107,19 @@ The **Call Webhook** is triggered at the start and at the end of every call. It 
 | `id` | `string` | The unique identifier of the call. |
 | `pearlId` | `string` | The unique identifier of the Pearl used during this call. |
 | `startTime` | `datetime` | The date and time when the call processing started. |
-| `conversationStatus` | `eConversationStatusView` | The status of the conversation. See [Conversation Statuses](#conversation-statuses) below. |
-| `status` | `eCallStatusView` | The overall technical status of the call. See [Call Statuses](#call-statuses) below. |
+| `conversationStatus` | `int (enum)` | The status of the conversation. See [Conversation Statuses](#conversation-statuses) below. |
+| `status` | `int (enum)` | The overall technical status of the call. See [Call Statuses](#call-statuses) below. |
 | `from` | `string` | The phone number from which the call was made. |
 | `to` | `string` | The phone number to which the call was made. |
 | `name` | `string` | The name associated with the call, if available. |
 | `duration` | `integer` | The duration of the call in seconds. |
 | `recording` | `string` *(URL)* | A URL to the call recording, if recording is enabled. |
-| `transcript` | `AgentChatMessageApiView[]` | The full conversation transcript as a list of messages. See [Transcript Message](#transcript-message) below. |
+| `transcript` | `object[]` | The full conversation transcript as a list of messages. See [Transcript Message](#transcript-message) below. |
 | `summary` | `string` | A concise AI-generated summary of the conversation. |
-| `collectedInfo` | `CollectedInfoView[]` | Structured data points collected during the call. See [Collected Info](#collected-info) below. |
+| `collectedInfo` | `object[]` | Structured data points collected during the call. See [Collected Info](#collected-info) below. |
 | `tags` | `string[]` | Tags or labels triggered during the conversation based on your Pearl configuration. |
 | `isCallTransferred` | `boolean` | Whether the call was transferred to a human agent or external number. |
-| `overallSentiment` | `eOverallSentiment` | The overall emotional tone detected from the client. See [Sentiment Values](#sentiment-values) below. |
+| `overallSentiment` | `int (enum)` | The overall emotional tone detected from the client. See [Sentiment Values](#sentiment-values) below. |
 | `leadId` | `string` | The unique identifier of the associated lead, if the call is linked to one. Otherwise `null`. |
 
 ### Conversation Statuses
@@ -159,7 +159,7 @@ Each entry in the `transcript` array represents a single message in the conversa
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `role` | `eChatMessageRoleView` | The speaker: `Pearl` (2) or `Client` (3). |
+| `role` | `int (enum)` | The speaker: `Pearl` (2) or `Client` (3). |
 | `content` | `string` | The text content of the message. |
 | `startTime` | `float` | The timestamp (in seconds) when the message started. |
 | `endTime` | `float` | The timestamp (in seconds) when the message ended. |
@@ -244,7 +244,7 @@ The **Lead Webhook** is triggered every time a lead changes status - at the begi
 | `externalId` | `string` | The ID from an external system such as a CRM, for cross-referencing. |
 | `phoneNumber` | `string` | The phone number of the lead. |
 | `timeZone` | `string` | The time zone assigned to the lead. |
-| `status` | `int` | The current status of the lead. See [Lead Statuses](#lead-statuses) below. |
+| `status` | `int (enum)` | The current status of the lead. See [Lead Statuses](#lead-statuses) below. |
 | `created` | `datetime` | The date and time when the lead was created. |
 | `callsId` | `string[]` | A list of all call IDs associated with this lead. |
 | `callData` | `object` *(key-value)* | Custom variables provided before the call to personalize the Pearl conversation. |
@@ -335,19 +335,19 @@ The **Call Webhook** is triggered at the start and at the end of every call.
 | `PearlId` | `string` | The unique identifier of the Pearl used during this call. |
 | `RelatedId` | `string` | The unique identifier of the related inbound or outbound entity (e.g. campaign ID). |
 | `StartTime` | `datetime` | The date and time when the call processing started. |
-| `ConversationStatus` | `eConversationStatusView` | The status of the conversation. See [Conversation Statuses](#conversation-statuses-v1) below. |
-| `Status` | `eCallStatusView` | The overall technical status of the call. See [Call Statuses](#call-statuses-v1) below. |
+| `ConversationStatus` | `int (enum)` | The status of the conversation. See [Conversation Statuses](#conversation-statuses-v1) below. |
+| `Status` | `int (enum)` | The overall technical status of the call. See [Call Statuses](#call-statuses-v1) below. |
 | `From` | `string` | The phone number from which the call was made. |
 | `To` | `string` | The phone number to which the call was made. |
 | `Name` | `string` | The name associated with the call, if available. |
 | `Duration` | `integer` | The duration of the call in seconds. |
 | `Recording` | `string` *(URL)* | A URL to the call recording, if recording is enabled. |
-| `Transcript` | `AgentChatMessageApiView[]` | The full conversation transcript as a list of messages. See [Transcript Message](#transcript-message-v1) below. |
+| `Transcript` | `object[]` | The full conversation transcript as a list of messages. See [Transcript Message](#transcript-message-v1) below. |
 | `Summary` | `string` | A concise AI-generated summary of the conversation. |
-| `CollectedInfo` | `CollectedInfoView[]` | Structured data points collected during the call. See [Collected Info](#collected-info-v1) below. |
+| `CollectedInfo` | `object[]` | Structured data points collected during the call. See [Collected Info](#collected-info-v1) below. |
 | `Tags` | `string[]` | Tags or labels triggered during the conversation. |
 | `IsCallTransferred` | `boolean` | Whether the call was transferred to a human agent or external number. |
-| `OverallSentiment` | `eOverallSentiment` | The overall emotional tone detected from the client. See [Sentiment Values](#sentiment-values-v1) below. |
+| `OverallSentiment` | `int (enum)` | The overall emotional tone detected from the client. See [Sentiment Values](#sentiment-values-v1) below. |
 | `LeadId` | `string` | The unique identifier of the associated lead, if applicable. Otherwise `null`. |
 
 <Note>
@@ -385,7 +385,7 @@ V1 includes an additional `RelatedId` field referencing the inbound or outbound 
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `Role` | `eChatMessageRoleView` | The speaker: `Pearl` (2) or `Client` (3). |
+| `Role` | `int (enum)` | The speaker: `Pearl` (2) or `Client` (3). |
 | `Content` | `string` | The text content of the message. |
 | `StartTime` | `float` | The timestamp (in seconds) when the message started. |
 | `EndTime` | `float` | The timestamp (in seconds) when the message ended. |
@@ -469,7 +469,7 @@ The **Lead Webhook** is triggered every time a lead changes status - at the begi
 | `ExternalId` | `string` | The ID from an external system such as a CRM, for cross-referencing. |
 | `PhoneNumber` | `string` | The phone number of the lead. |
 | `TimeZone` | `string` | The time zone assigned to the lead. |
-| `Status` | `int` | The current status of the lead. See [Lead Statuses](#lead-statuses-v1) below. |
+| `Status` | `int (enum)` | The current status of the lead. See [Lead Statuses](#lead-statuses-v1) below. |
 | `Created` | `datetime` | The date and time when the lead was created. |
 | `CallsId` | `string[]` | A list of all call IDs associated with this lead. |
 | `CallData` | `object` *(key-value)* | Custom variables provided before the call to personalize the Pearl conversation. |
