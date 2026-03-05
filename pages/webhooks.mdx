@@ -244,7 +244,7 @@ The **Lead Webhook** is triggered every time a lead changes status - at the begi
 | `externalId` | `string` | The ID from an external system such as a CRM, for cross-referencing. |
 | `phoneNumber` | `string` | The phone number of the lead. |
 | `timeZone` | `string` | The time zone assigned to the lead. |
-| `status` | `eLeadStatusView` | The current status of the lead. See [Lead Statuses](#lead-statuses) below. |
+| `status` | `int` | The current status of the lead. See [Lead Statuses](#lead-statuses) below. |
 | `created` | `datetime` | The date and time when the lead was created. |
 | `callsId` | `string[]` | A list of all call IDs associated with this lead. |
 | `callData` | `object` *(key-value)* | Custom variables provided before the call to personalize the Pearl conversation. |
@@ -469,7 +469,7 @@ The **Lead Webhook** is triggered every time a lead changes status - at the begi
 | `ExternalId` | `string` | The ID from an external system such as a CRM, for cross-referencing. |
 | `PhoneNumber` | `string` | The phone number of the lead. |
 | `TimeZone` | `string` | The time zone assigned to the lead. |
-| `Status` | `eLeadStatusView` | The current status of the lead. See [Lead Statuses](#lead-statuses-v1) below. |
+| `Status` | `int` | The current status of the lead. See [Lead Statuses](#lead-statuses-v1) below. |
 | `Created` | `datetime` | The date and time when the lead was created. |
 | `CallsId` | `string[]` | A list of all call IDs associated with this lead. |
 | `CallData` | `object` *(key-value)* | Custom variables provided before the call to personalize the Pearl conversation. |
