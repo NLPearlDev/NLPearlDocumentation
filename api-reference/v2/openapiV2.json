@@ -243,6 +243,97 @@
                 }
             }
         },
+        "/v2/Account/AuditLog": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Get Audit Log",
+                "description": "Retrieves the audit log.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AuditLogAPIRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AuditLogAPIRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AuditLogAPIRequest"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The list of audit log.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AuditLogView"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AuditLogView"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AuditLogView"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v2/Call/{callId}": {
             "get": {
                 "tags": [
@@ -2329,6 +2420,93 @@
                 },
                 "additionalProperties": false
             },
+            "AuditLogAPIRequest": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "description": "The start date and time of the audit log query range (UTC).",
+                        "format": "date-time"
+                    },
+                    "to": {
+                        "type": "string",
+                        "description": "The end date and time of the audit log query range (UTC).",
+                        "format": "date-time"
+                    },
+                    "eventType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eAuditLogEvent"
+                            }
+                        ],
+                        "description": "The type of event recorded in the audit log.\n\n`1 - LoginAttempt`\n\n`2 - LoginSuccessful`\n\n`10 - PublishPearl`\n\n`11 - PearlStatus`\n\n`18 - TransferPearl`\n\n`19 - DeletePearl`\n\n`30 - CreateAPIKey`\n\n`31 - DeleteAPIKey`\n\n`40 - PurchaseAgents`\n\n`41 - DeleteAgent`\n\n`50 - SetBillingDetails`\n\n`51 - SetPaymentMethod`\n\n`52 - SetSubscription`\n\n`59 - CancelSubscription`\n\n`60 - PurchaseCredits`\n\n`61 - SetAutoRecharge`\n\n`70 - InviteUser`\n\n`71 - UserJoin`\n\n`72 - InvitationCanceled`\n\n`73 - UpdateUserRole`\n\n`80 - UpdateSessionTTL`\n\n`81 - Set2FA`\n\n",
+                        "nullable": true
+                    },
+                    "userId": {
+                        "type": "string",
+                        "description": "Optional filter by user ID. If not provided, logs for all users are returned.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "AuditLogUserInfo": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The unique identifier of the user.",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The display name of the user.",
+                        "nullable": true
+                    },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eUserType"
+                            }
+                        ],
+                        "description": "The type/role of the user who triggered the audit log event.\n\n`1 - Platform`\n\n`3 - APIKey`\n\n`90 - Support`\n\n`99 - System`\n\n"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "AuditLogView": {
+                "type": "object",
+                "properties": {
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "eventType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eAuditLogEvent"
+                            }
+                        ],
+                        "description": "The type of event recorded in the audit log.\n\n`1 - LoginAttempt`\n\n`2 - LoginSuccessful`\n\n`10 - PublishPearl`\n\n`11 - PearlStatus`\n\n`18 - TransferPearl`\n\n`19 - DeletePearl`\n\n`30 - CreateAPIKey`\n\n`31 - DeleteAPIKey`\n\n`40 - PurchaseAgents`\n\n`41 - DeleteAgent`\n\n`50 - SetBillingDetails`\n\n`51 - SetPaymentMethod`\n\n`52 - SetSubscription`\n\n`59 - CancelSubscription`\n\n`60 - PurchaseCredits`\n\n`61 - SetAutoRecharge`\n\n`70 - InviteUser`\n\n`71 - UserJoin`\n\n`72 - InvitationCanceled`\n\n`73 - UpdateUserRole`\n\n`80 - UpdateSessionTTL`\n\n`81 - Set2FA`\n\n"
+                    },
+                    "user": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AuditLogUserInfo"
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "additionalData": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "CallApiView": {
                 "type": "object",
                 "properties": {
@@ -4374,6 +4552,11 @@
                 "description": "Here is the activity status\n\n`1 - Running`\n\n`2 - Paused`\n\n`3 - Suspended`\n\n`10 - TemporaryMaintenance`\n\n",
                 "format": "int32"
             },
+            "eAuditLogEvent": {
+                "type": "integer",
+                "description": "The type of event recorded in the audit log.\n\n`1 - LoginAttempt`\n\n`2 - LoginSuccessful`\n\n`10 - PublishPearl`\n\n`11 - PearlStatus`\n\n`18 - TransferPearl`\n\n`19 - DeletePearl`\n\n`30 - CreateAPIKey`\n\n`31 - DeleteAPIKey`\n\n`40 - PurchaseAgents`\n\n`41 - DeleteAgent`\n\n`50 - SetBillingDetails`\n\n`51 - SetPaymentMethod`\n\n`52 - SetSubscription`\n\n`59 - CancelSubscription`\n\n`60 - PurchaseCredits`\n\n`61 - SetAutoRecharge`\n\n`70 - InviteUser`\n\n`71 - UserJoin`\n\n`72 - InvitationCanceled`\n\n`73 - UpdateUserRole`\n\n`80 - UpdateSessionTTL`\n\n`81 - Set2FA`\n\n",
+                "format": "int32"
+            },
             "eBrainModelType": {
                 "type": "integer",
                 "description": "Agent model type.\n\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n",
@@ -4457,6 +4640,11 @@
             "eTranscriptOptions": {
                 "type": "integer",
                 "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n",
+                "format": "int32"
+            },
+            "eUserType": {
+                "type": "integer",
+                "description": "The type/role of the user who triggered the audit log event.\n\n`1 - Platform`\n\n`3 - APIKey`\n\n`90 - Support`\n\n`99 - System`\n\n",
                 "format": "int32"
             }
         },
