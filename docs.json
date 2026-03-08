@@ -116,6 +116,7 @@
                 "pages": [
                   "api-reference/v2/account/get-account",
                   "api-reference/v2/account/get-account-users",
+                  "api-reference/v2/account/get-audit-log",
                    "api-reference/v2/pearlSettings/get-voices",
                   "api-reference/v2/pearlSettings/get-phones"
                 ]
