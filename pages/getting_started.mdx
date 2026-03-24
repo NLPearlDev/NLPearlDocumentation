@@ -1,16 +1,16 @@
 ---
-title: Getting Started
-description: "Welcome to NLPearl! We're excited to have you onboard. This guide will walk you through the steps from registration to utilizing the full potential of our platform, including creating Pearls, managing activities, and understanding our billing system."
-icon: "circle-play"
-iconType: "light"
+title: "Getting Started"
+sidebarTitle: "Quick Start"
+description: "Go from sign-up to your first live AI voice agent in minutes."
+icon: "rocket"
 ---
 
 <div className="block dark:hidden">
   <Frame>
-    <div className="p-4">
+    <div className="p-1">
       <img
-        src="/images/light_mode/getting_started-cover.jpg"
-        alt="Send Email action interface on light mode"
+        src="/images/light_mode/getting_started-cover.png"
+        alt="NLPearl platform home page on light mode"
         className="rounded-[14px]"
       />
     </div>
@@ -19,103 +19,303 @@ iconType: "light"
 
 <div className="hidden dark:block">
   <Frame>
-    <div className="p-4">
+    <div className="p-1">
       <img
-        src="/images/dark_mode/getting_started-cover.jpg"
-        alt="Send Email action interface on dark mode"
+        src="/images/dark_mode/getting_started-cover.png"
+        alt="NLPearl platform home page on dark mode"
         className="rounded-[14px]"
       />
     </div>
   </Frame>
 </div>
 
----
-
-### Registration and Initial Setup
-
-When you first register on our platform, we offer a few complimentary minutes and the ability to create Pearls to test a few calls. This allows you to get a feel for our system without any initial commitment.
+This guide walks you through the full path: create an account, build your first agent, test it, and go live.
 
 ---
 
-### Trial Phase
+## 1. Sign Up
 
-During the trial phase, you can:
+Create your account at [platform.nlpearl.ai](https://platform.nlpearl.ai). You'll get complimentary minutes to test calls — no subscription required to start.
 
-<CardGroup cols={2}>
-<Card title="Create Pearls" icon="check" iconType="light">
-Set up your conversational flows and test a few calls to understand how our AI agents operate.
+<Info>
+During the trial phase, you can create agents and run test calls. To unlock full inbound and outbound campaigns, you'll need to [subscribe to a plan](https://nlpearl.ai/pricing).
+</Info>
+
+---
+
+## 2. Create Your Agent with PearlVibe
+
+PearlVibe is how you build your AI voice agent. Describe what you need in a single prompt — PearlVibe generates the agent's personality, conversation flow, knowledge base, and connected actions.
+
+<Steps>
+
+<Step title="Write your prompt">
+  When you land on the platform, the PearlVibe chat is right in front of you. Describe what your agent should do — be specific about the tone, language, and actions you need. Here are a few examples you can use as a starting point:
+</Step>
+
+<Step title="Review and refine">
+  PearlVibe generates a complete agent configuration. Review the conversation flow, variables, and actions. Adjust anything that needs fine-tuning.
+</Step>
+
+</Steps>
+
+<AccordionGroup>
+
+<Accordion title="Hospitality — Hotel Concierge" icon="hotel">
+```text
+Create an inbound AI voice agent for a luxury hotel.
+The agent should answer guest calls 24/7, handle room reservations,
+check availability, process room service requests, and provide
+information about hotel amenities and local attractions.
+If a guest requests a VIP arrangement or has a complex request,
+transfer the call to the front desk. Send a confirmation email
+after every booking. Speak in a warm, professional tone.
+Support English, French, and Spanish.
+```
+</Accordion>
+
+<Accordion title="Healthcare — Appointment Scheduling" icon="stethoscope">
+```text
+Create an inbound AI voice agent for a medical clinic.
+The agent should schedule, confirm, and reschedule patient appointments.
+Collect the patient's name, date of birth, reason for visit,
+and insurance provider. Send an SMS reminder 24 hours before
+the appointment. If the patient describes an urgent medical situation,
+transfer immediately to the on-call nurse. Tone should be calm,
+empathetic, and reassuring. Support English and Spanish.
+```
+</Accordion>
+
+<Accordion title="E-commerce & Retail — Cart Recovery & Support" icon="cart-shopping">
+```text
+Create an outbound AI voice agent for an online store.
+The agent should call customers who abandoned their cart in the
+last 24 hours, remind them of the items they left, offer assistance
+with any questions, and provide a 10% discount code if they're
+hesitant. Collect the reason for abandonment as a variable.
+If the customer wants to speak to a human, transfer to the
+support team. Tone should be friendly and helpful, not pushy.
+```
+</Accordion>
+
+<Accordion title="Legal — Client Intake & Consultation" icon="scale-balanced">
+```text
+Create an inbound AI voice agent for a law firm.
+The agent should handle new client intake calls by collecting
+the caller's name, contact information, case type (personal injury,
+family law, criminal defense, etc.), and a brief description
+of their situation. Qualify the lead based on case type and urgency.
+If the case qualifies, schedule a consultation with an attorney.
+Send a confirmation email with the appointment details.
+If the matter is urgent, transfer directly to a lawyer.
+Tone should be professional, confidential, and reassuring.
+```
+</Accordion>
+
+<Accordion title="Utilities — Service & Outage Support" icon="bolt">
+```text
+Create an inbound AI voice agent for a utility company.
+The agent should handle outage reports, billing inquiries,
+service activation requests, and meter reading appointments.
+Collect the customer's account number and service address.
+If the customer reports a gas leak or emergency, transfer
+immediately to the emergency line. For billing disputes,
+transfer to a specialist. Send an SMS confirmation for
+any scheduled technician visit. Tone should be clear,
+helpful, and efficient.
+```
+</Accordion>
+
+<Accordion title="Education — Admissions & Enrollment" icon="graduation-cap">
+```text
+Create an inbound AI voice agent for a university admissions office.
+The agent should answer prospective student inquiries about programs,
+application deadlines, tuition, financial aid, and campus visits.
+Collect the student's name, program of interest, and preferred
+start date. Schedule campus tours and admissions consultations.
+Send a follow-up email with program details and application links.
+If a parent or student has a complex financial aid question,
+transfer to an admissions advisor. Friendly and encouraging tone.
+Support English and Spanish.
+```
+</Accordion>
+
+<Accordion title="Telecommunications — Tech Support & Billing" icon="tower-cell">
+```text
+Create an inbound AI voice agent for a telecom provider.
+The agent should handle billing inquiries, plan changes,
+SIM activation, and basic technical troubleshooting (restart router,
+check signal, verify coverage). Collect the customer's account number
+and phone number for verification. If the issue requires advanced
+technical support or the customer wants to cancel, transfer to
+a retention specialist. Schedule fiber installation appointments
+when requested. Send a confirmation SMS after any plan change.
+Professional and patient tone.
+```
+</Accordion>
+
+<Accordion title="Call Center — Multi-Purpose Support" icon="headset">
+```text
+Create an inbound AI voice agent for a BPO call center.
+The agent should handle first-level support across multiple clients:
+answer FAQs, log support tickets via API, collect customer information
+(name, account number, issue description), and route complex cases
+to the appropriate department. If the caller requests a callback,
+schedule one and send a confirmation SMS. The agent should be able
+to handle unlimited simultaneous calls with consistent quality.
+Neutral, professional tone. Support English, Spanish, and French.
+```
+</Accordion>
+
+<Accordion title="Insurance — Claims Intake" icon="shield-halved">
+```text
+Create an inbound AI voice agent for an insurance company.
+The agent should handle first notice of loss calls by collecting
+the policyholder's name, policy number, type of incident,
+date and location of the event, and a brief description.
+Log everything via API to the claims management system.
+If the claim sounds urgent or involves injury, transfer
+to a senior claims adjuster immediately. Tone should be
+calm, professional, and supportive.
+```
+</Accordion>
+
+<Accordion title="Debt Management — Payment Recovery" icon="money-bill-wave">
+```text
+Create an outbound AI voice agent for a debt recovery agency.
+The agent should contact customers with overdue balances,
+verify their identity, inform them of the outstanding amount,
+and offer payment options (full payment, installment plan).
+If the customer agrees to pay, send a payment link via SMS.
+If they dispute the debt, transfer to a specialist.
+Always remain compliant, respectful, and non-aggressive.
+```
+</Accordion>
+
+<Accordion title="Real Estate — Lead Qualification" icon="building">
+```text
+Create an outbound AI voice agent for a real estate agency.
+The agent should call new leads, qualify them by asking about budget,
+preferred location, property type (buy or rent), and timeline.
+Score each lead as hot, warm, or cold based on their answers.
+If the lead is hot, schedule a property viewing and transfer
+to an agent. Send a follow-up email with property listings
+matching their criteria. Professional and knowledgeable tone.
+```
+</Accordion>
+
+<Accordion title="Government — Citizen Services" icon="landmark">
+```text
+Create an inbound AI voice agent for a government public service office.
+The agent should answer citizen inquiries about permits, document
+requirements, office hours, and service locations. Schedule in-person
+appointments for permit applications and document submissions.
+Collect the citizen's name, request type, and preferred appointment date.
+Send a confirmation SMS with appointment details and required documents.
+If the request is sensitive or requires human review, transfer to
+a case officer. Tone should be clear, neutral, and helpful.
+Support English and Spanish.
+```
+</Accordion>
+
+<Accordion title="Airlines — Passenger Support" icon="plane">
+```text
+Create an inbound AI voice agent for an airline.
+The agent should handle booking changes, flight status inquiries,
+seat selection, baggage information, and check-in assistance.
+Collect the passenger's booking reference and last name for
+verification. If a flight is disrupted, offer rebooking options
+and send the updated itinerary by email. For complex itineraries
+or refund requests, transfer to a senior agent.
+Tone should be calm, efficient, and reassuring.
+Support English, French, Spanish, and German.
+```
+</Accordion>
+
+<Accordion title="Survey & Polling — Automated Research" icon="square-poll-vertical">
+```text
+Create an outbound AI voice agent for a market research firm.
+The agent should call respondents, introduce the survey purpose,
+and ask a series of 8-10 structured questions about customer
+satisfaction. Collect each answer as a variable and log responses
+via API to the research platform. If the respondent wants to
+opt out, thank them and end the call. If they want to speak
+to a researcher, schedule a callback. Consistent, neutral tone
+to avoid interviewer bias. Support English and Spanish.
+```
+</Accordion>
+
+</AccordionGroup>
+
+<Card title="PearlVibe Documentation" icon="wand-magic-sparkles" href="/pages/pearl_vibe">
+  Full guide on creating and customizing agents with PearlVibe.
 </Card>
 
-<Card title="Complimentary Minutes" icon="check" iconType="light">
-Utilize the included minutes provided to make initial test calls.
-</Card>
-</CardGroup>
+---
 
-<Warning>
-However, note that at this stage, access to full inbound and outbound activities is restricted. To unlock the complete range of features, you need to subscribe to a plan.
-</Warning>
+## 3. Test Your Agent
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-4">
-      <img
-        src="/images/light_mode/getting_started-unsubscribe.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+Once your agent is ready, run test calls directly from the platform to hear how it sounds, verify the conversation flow, and confirm that actions (API calls, transfers, emails) fire correctly.
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-4">
-      <img
-        src="/images/dark_mode/getting_started-unsubscribe.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Tip>
+Use your complimentary minutes for testing. Iterate on the prompt, variables, and actions until the agent handles your scenarios cleanly.
+</Tip>
 
 ---
 
-### Subscribing to a Plan
+## 4. Tweak and Optimize
 
-Once you subscribe to a plan, you unlock the full potential of the NLPearl.AI platform. Here's what you get:
+Based on your test calls:
+
+- **Adjust the conversation flow** — refine how the agent responds to edge cases or unexpected inputs.
+- **Configure variables** — make sure data collection (names, emails, IDs) works as expected. See [Variables](/pages/variables).
+- **Set up actions** — connect API calls, call transfers, email or SMS triggers. See [Actions](/pages/actions).
+
+---
+
+## 5. Publish Your Agent
+
+When you're satisfied with the agent's performance, publish it. This locks in your configuration and makes the agent available for live campaigns.
+
+---
+
+## 6. Connect a Phone Number
+
+Assign a phone number to your agent. All plans include at least one US number. You can purchase additional numbers or port existing ones from the [Phone Numbers](/pages/phone_numbers) settings.
+
+---
+
+## 7. Go Live
+
+Launch your campaign:
+
+- **Inbound** — Route incoming calls to your agent. See [Inbound](/pages/inbound).
+- **Outbound** — Upload contacts and let your agent initiate calls. See [Outbound](/pages/outbound).
+
+Monitor performance in real time from the [Call Analytics](/pages/analytics) dashboard.
+
+---
+
+## Billing & Credits
+
+Once you subscribe to a plan, you get access to agents, phone numbers, and call minutes. Each call minute is deducted from your plan's included minutes — once exhausted, your credits are used.
 
 <CardGroup cols={2}>
 <Card title="Full Access to Activities" icon="check" iconType="light">
 Engage in both inbound and outbound activities with no restrictions.
 </Card>
 
-<Card title="Included Agents" icon="check" iconType="light">
-Receive a number of concurrent agents based on your subscription plan, which will be automatically available for your activities.
-</Card>
-
-<Card title="Included US Phone Numbers" icon="check" iconType="light">
-All our plans include at least one free US number.
-</Card>
-
-<Card title="Included Minutes" icon="check" iconType="light">
-Each plan comes with a set of call minutes included.
+<Card title="Included Agents & Phone Numbers" icon="check" iconType="light">
+Concurrent agents and at least one US phone number included in every plan.
 </Card>
 </CardGroup>
 
----
-
-### Credits and Minutes Usage
-
-Each minute of your calls will be deducted from the minutes included in your plan. Once the minutes are exhausted, your credits are being used.
-Credits can also be used to purchase additional agents or phone numbers if you have sufficient balance.
-
 <div className="block dark:hidden">
   <Frame>
-    <div className="p-4">
+    <div className="p-1">
       <img
         src="/images/light_mode/getting_started-minutes-included.jpg"
-        alt="Send Email action interface on light mode"
+        alt="Minutes included in plan on light mode"
         className="rounded-[14px]"
       />
     </div>
@@ -124,82 +324,52 @@ Credits can also be used to purchase additional agents or phone numbers if you h
 
 <div className="hidden dark:block">
   <Frame>
-    <div className="p-4">
+    <div className="p-1">
       <img
         src="/images/dark_mode/getting_started-minutes-included.jpg"
-        alt="Send Email action interface on dark mode"
+        alt="Minutes included in plan on dark mode"
         className="rounded-[14px]"
       />
     </div>
   </Frame>
 </div>
 
----
-
-#### Auto-Recharge
-
-To ensure uninterrupted service, we recommend activating the auto-recharge feature, in order to add credit to your account. You can find it in the
-[Billing Section](https://platform.nlpearl.ai/app/settings/subscriptions-and-payments/credits) under the Settings Page. This will automatically top up your account to a target balance when it falls below a defined threshold, ensuring your operations continue smoothly without any disruptions due to insufficient funds.
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-4">
-      <img
-        src="/images/light_mode/getting_started-autorecharge.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-4">
-      <img
-        src="/images/dark_mode/getting_started-autorecharge.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
----
-
-### Pricing and Credits
-
-The price for additional minutes varies based on your subscription plan.
-
----
+<Note>
+**Auto-Recharge** — We recommend activating [auto-recharge](https://platform.nlpearl.ai/app/settings/subscriptions-and-payments/credits) to automatically top up your credits when they fall below a threshold, ensuring uninterrupted service.
+</Note>
 
 <Warning>
-### Managing Your Credits
-
-Once you exhaust your credits, your account will go through two stages:
-
-1. **Limited Activities**: When your credits are below zero, your activities will continue, but the number of concurrent agents per activity will be reduced to one.
-2. **Blocked Activities**: If your account reaches a debt of 10% of your monthly subscription price, all activities will be suspended until you recharge your credits.
+**Credit limits** — When credits drop below zero, your concurrent agents per activity are reduced to one. If your debt reaches 10% of your monthly subscription price, all activities are suspended until you recharge.
 </Warning>
 
 ---
 
+## What's Next
 
 <CardGroup cols={2}>
-  <Card
-    title="Subscription Plans"
-    icon="credit-card"
-    iconType="light"
-    href="https://nlpearl.ai/pricing/"
-  >
-    Learn more about our subscription plans and choose the best one for your needs.
-  </Card>
-  <Card
-    title="Billing and Credits"
-    icon="wallet"
-    iconType="light"
-    href="/pages/billing"
-  >
-    Understand how our billing system works and how to manage your credits.
-  </Card>
+
+<Card title="PearlVibe" icon="wand-magic-sparkles" href="/pages/pearl_vibe">
+  Deep dive into agent creation and customization.
+</Card>
+
+<Card title="Actions" icon="bolt" href="/pages/actions">
+  Configure API calls, transfers, emails, and SMS during live calls.
+</Card>
+
+<Card title="Call Analytics" icon="chart-mixed" href="/pages/analytics">
+  Track and optimize your agent's performance.
+</Card>
+
+<Card title="Billing & Credits" icon="credit-card" href="/pages/billing">
+  Manage your subscription, credits, and auto-recharge.
+</Card>
+
+<Card title="API Quick Start" icon="code" href="/api-reference/api_quickstart">
+  Integrate NLPearl programmatically via the REST API.
+</Card>
+
+<Card title="Subscription Plans" icon="wallet" href="https://nlpearl.ai/pricing/">
+  Compare plans and choose the best one for your needs.
+</Card>
+
 </CardGroup>
