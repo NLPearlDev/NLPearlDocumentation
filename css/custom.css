@@ -27,6 +27,20 @@ a[href="https://platform.nlpearl.ai/"]:hover::before {
 }
 */
 
+[class*="max-w-xl"][class*="max-w-2xl"],
+[class*="max-w-xl"][class*="grow"] {
+  max-width: 48rem !important;
+}
+
+a.nav-tabs-item[href*="api-reference"] {
+  color: #2DBE73 !important;
+  font-weight: 600 !important;
+}
+
+a.nav-tabs-item[href*="api-reference"][class*="text-shadow"] {
+  color: #FFFFFF !important;
+}
+
 .prose :where(thead th):not(:where([class~=not-prose],[class~=not-prose] *)){
   color: #A1A1A1;
   text-align: left;
@@ -35,3 +49,60 @@ a[href="https://platform.nlpearl.ai/"]:hover::before {
 .prose :where(table):not(:where([class~=not-prose],[class~=not-prose] *)){
   display: table;
 }
+
+.dark #content-area div.mdx-content.prose > span[data-as=p],
+.dark #content-area div.mdx-content .prose span[data-as=p],
+.dark #content-area div.mdx-content.prose td,
+.dark #content-area div.mdx-content .prose td,
+.dark #content-area div.mdx-content.prose li,
+.dark #content-area div.mdx-content .prose li {
+  color: #c8c8c8 !important;
+}
+
+.dark #content-area div.mdx-content .callout li,
+.dark #content-area div.mdx-content .callout span[data-as=p],
+.dark #content-area div.mdx-content .callout span,
+.dark #content-area div.mdx-content .callout td,
+.dark #content-area div.mdx-content .callout p {
+  color: inherit !important;
+}
+
+details.accordion {
+  background-color: rgba(255, 255, 255, 0.025) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+details.accordion > summary {
+  padding-top: 13px !important;
+  padding-bottom: 13px !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  transition: background-color 0.2s ease;
+}
+
+details.accordion > summary:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+details.accordion p[data-component-part="accordion-title"] {
+  font-size: 0.9rem !important;
+}
+
+.accordion-group {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.accordion-group > details {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+#banner {
+  background-color: #1F1F1F !important;
+}
+
+/* Override maple theme blue tint on main page background only */
+:root[class~="dark"] {
+  --background: 0 0% 6.7% !important;
+  --background-dark: 17 17 17 !important;
+}
+
