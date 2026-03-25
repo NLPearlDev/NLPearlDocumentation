@@ -15,7 +15,7 @@
     "family": "Roboto"
   },
   "banner": {
-    "content": "🚀 API 2.0 is now live! See our [API Reference](/quickstart) for details.",
+    "content": "🚀 API 2.0 is now live! See our [API Reference](/api-reference/api_quickstart) for details.",
     "dismissible": true
   },
   "topbarLinks": [
