@@ -50,20 +50,20 @@ a.nav-tabs-item[href*="api-reference"][class*="text-shadow"] {
   display: table;
 }
 
-#content-area div.mdx-content.prose > span[data-as=p],
-#content-area div.mdx-content .prose span[data-as=p],
-#content-area div.mdx-content.prose td,
-#content-area div.mdx-content .prose td,
-#content-area div.mdx-content.prose li,
-#content-area div.mdx-content .prose li {
+.dark #content-area div.mdx-content.prose > span[data-as=p],
+.dark #content-area div.mdx-content .prose span[data-as=p],
+.dark #content-area div.mdx-content.prose td,
+.dark #content-area div.mdx-content .prose td,
+.dark #content-area div.mdx-content.prose li,
+.dark #content-area div.mdx-content .prose li {
   color: #c8c8c8 !important;
 }
 
-#content-area div.mdx-content .callout li,
-#content-area div.mdx-content .callout span[data-as=p],
-#content-area div.mdx-content .callout span,
-#content-area div.mdx-content .callout td,
-#content-area div.mdx-content .callout p {
+.dark #content-area div.mdx-content .callout li,
+.dark #content-area div.mdx-content .callout span[data-as=p],
+.dark #content-area div.mdx-content .callout span,
+.dark #content-area div.mdx-content .callout td,
+.dark #content-area div.mdx-content .callout p {
   color: inherit !important;
 }
 
@@ -98,5 +98,11 @@ details.accordion p[data-component-part="accordion-title"] {
 
 #banner {
   background-color: #1F1F1F !important;
+}
+
+/* Override maple theme blue tint on main page background only */
+:root[class~="dark"] {
+  --background: 0 0% 6.7% !important;
+  --background-dark: 17 17 17 !important;
 }
 
