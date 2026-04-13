@@ -2501,6 +2501,12 @@
                         ],
                         "description": "Represents the overall emotional tone detected from the client during the conversation.\n\n`1 - Negative`\n\n`2 - SlightlyNegative`\n\n`3 - Neutral`\n\n`4 - SlightlyPositive`\n\n`5 - Positive`\n\n",
                         "nullable": true
+                    },
+                    "queueDuration": {
+                        "type": "integer",
+                        "description": "The time (in seconds) the user spent in the queue, before being connected or transferred to an agent. (inbound only)",
+                        "format": "int32",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false

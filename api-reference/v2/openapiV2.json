@@ -2618,6 +2618,12 @@
                         ],
                         "description": "Represents the overall emotional tone detected from the client during the conversation.\n\n`1 - Negative`\n\n`2 - SlightlyNegative`\n\n`3 - Neutral`\n\n`4 - SlightlyPositive`\n\n`5 - Positive`\n\n",
                         "nullable": true
+                    },
+                    "queueDuration": {
+                        "type": "integer",
+                        "description": "The time (in seconds) the user spent in the queue, before being connected or transferred to an agent. (inbound only)",
+                        "format": "int32",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -3969,6 +3975,11 @@
                     "voiceMail": {
                         "type": "string",
                         "description": "`🧩 May support variables`\r\n            \r\nVoicemail message left when a voicemail/answering machine is detected.\r\nIf empty, the agent will not leave voicemails.\r\n            \r\nNotes:\r\n- Supports pre-call variables only.\r\n- When a voicemail is left, the call is marked as \"voicemail left\" and no further retries are attempted.\r\n            \r\nMax 500 characters only.",
+                        "nullable": true
+                    },
+                    "bypassIVRInstruction": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nInstructions used to bypass IVR (Interactive Voice Response) systems.\r\n            \r\nAutomatically navigates external IVR systems by detecting voice menu options\r\nand executing the appropriate DTMF inputs, enabling Pearl to reach its intended goal.\r\n            \r\nNotes:\r\n- Supports pre-call variables only.\r\n- Instructions should be clear, sequential, and action-oriented.\r\n- If empty, no IVR bypass will be attempted.\r\n            \r\nExample:\r\n\"If prompted, press 1 for English, then press 2 for support, then press 3 for billing.\"\r\n            \r\nMax 500 characters only.",
                         "nullable": true
                     },
                     "callingHours": {
