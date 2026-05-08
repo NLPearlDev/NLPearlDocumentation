@@ -78,6 +78,40 @@ Here are some scenarios where the "Send SMS" action can be effectively used:
 To ensure compliance with regulations, Pearl will always ask the third-party customer for their consent before sending an SMS. This step is crucial in respecting the customer's preferences and adhering to communication laws.
 
 ---
+### SMS Credit Cost
+
+<Info>
+Sending an SMS consumes credits from your account balance. The cost depends on two factors:
+- **Recipient country** : Each destination country has its own rate per segment. International messages cost more than domestic ones.
+- **Number of segments** : A single SMS is limited in character length. Longer messages are automatically split into multiple segments, each billed individually.
+</Info>
+
+A standard SMS segment contains up to **160 characters** (GSM-7 encoding). If your message uses special characters or emojis, the encoding switches to UCS-2, reducing the limit to **70 characters** per segment. Messages exceeding one segment are concatenated, with each segment charged separately.
+
+| Encoding | Single SMS limit | Concatenated segment limit |
+|----------|-----------------|---------------------------|
+| GSM-7 (standard) | 160 characters | 153 characters per segment |
+| UCS-2 (unicode/emojis) | 70 characters | 67 characters per segment |
+
+When a message exceeds the single SMS limit, a few characters per segment are reserved for concatenation headers, reducing the usable space per segment.
+
+<Warning>
+If your SMS contains **variables** (e.g. `firstName`, `appointmentDate`), the actual total cost may vary. The final number of characters, and therefore segments, depends on the length of each variable's value at the time the message is sent. A short variable like "Tom" uses fewer characters than "Christopher", which could push your message into an additional segment.
+</Warning>
+
+### SMS Credit Calculator
+
+Use this calculator to estimate how many segments your message will use and the total credit cost based on the destination country.
+
+<iframe
+  src="/tools/sms-calculator.html"
+  width="100%"
+  height="690"
+  frameBorder="0"
+  style={{ border: 'none' }}
+/>
+
+---
 
 <CardGroup cols={1}>
   <Card
