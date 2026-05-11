@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMS Cost Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f7f7f7;
+    --ink: hsl(240 10% 3.9%);
+    --ink-soft: hsl(240 3.8% 46.1%);
+    --ink-mute: hsl(240 5% 64.9%);
+    --rule: hsl(240 5.9% 90%);
+    --rule-soft: hsl(240 4.8% 95.9%);
+    --ring: hsl(240 5.9% 10%);
+    --ring-soft: hsl(240 5.9% 10% / 0.18);
+    --muted: hsl(240 4.8% 95.9%);
+    --green: #15803d;
+    --green-soft: #dcfce7;
+    --amber: #b45309;
+    --amber-soft: #fef3c7;
+    --radius: 10px;
+    --radius-card: 14px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111111;
+      --surface: rgba(255, 255, 255, 0.025);
+      --ink: #f3f4f6;
+      --ink-soft: #c8c8c8;
+      --ink-mute: hsl(240 5% 64.9%);
+      --rule: rgba(255, 255, 255, 0.08);
+      --rule-soft: rgba(255, 255, 255, 0.04);
+      --ring: hsl(240 4.9% 83.9%);
+      --ring-soft: hsl(240 4.9% 83.9% / 0.25);
+      --muted: rgba(255, 255, 255, 0.06);
+      --green: #22c55e;
+      --green-soft: #14532d;
+      --amber: #f59e0b;
+      --amber-soft: #451a03;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 100%;
+    padding: 24px 0;
+  }
+
+  .hero {
+    position: relative;
+  }
+
+  .hero-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+
+  .hero-value {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: -2px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .hero-unit {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--ink-soft);
+    text-transform: lowercase;
+  }
+
+  .hero-breakdown {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .hero-breakdown strong { color: var(--ink); font-weight: 600; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-card);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .card-section + .card-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .field-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .field-label .help {
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--ink-mute);
+  }
+
+  /* Custom dropdown */
+  .dropdown {
+    position: relative;
+    width: 100%;
+  }
+
+  .dropdown-selected {
+    width: 100%;
+    height: 36px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 4px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+  }
+
+  .dropdown-selected.open {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px var(--ring-soft);
+  }
+
+  .dropdown-selected .arrow {
+    margin-left: auto;
+    transition: transform 0.2s;
+  }
+
+  .dropdown-selected.open .arrow {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-selected img {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  .dropdown-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.06);
+    max-height: 280px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+  }
+
+  .dropdown-list.show {
+    display: block;
+  }
+
+  .dropdown-search {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    padding: 0 12px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dropdown-search-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--ink-mute);
+    flex-shrink: 0;
+  }
+
+  .dropdown-search input {
+    width: 100%;
+    height: 44px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+  }
+
+  .dropdown-search input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .dropdown-search input::placeholder {
+    color: var(--ink-mute);
+  }
+
+  #dropdown-options {
+    padding: 4px;
+  }
+
+  .dropdown-option {
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: background 0.1s;
+  }
+
+  .dropdown-option:hover,
+  .dropdown-option.selected {
+    background: var(--muted);
+  }
+
+  .dropdown-option img {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .dropdown-option .country-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dropdown-option .country-rate {
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+  }
+
+  .dropdown-option .check-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--ink);
+    flex-shrink: 0;
+    opacity: 0;
+    margin-left: 4px;
+  }
+
+  .dropdown-option.selected .check-icon {
+    opacity: 1;
+  }
+
+  .dropdown-empty {
+    padding: 24px 12px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  textarea {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 8px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  textarea:focus {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px var(--ring-soft);
+  }
+
+  textarea::placeholder { color: var(--ink-mute); }
+
+  .progress-row {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--rule-soft);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--ink);
+    border-radius: 999px;
+    transition: width 0.25s ease, background 0.2s;
+  }
+
+  .progress-fill.warn { background: var(--amber); }
+  .progress-fill.full { background: var(--green); }
+
+  .progress-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 540px) {
+    .stats { grid-template-columns: 1fr; }
+    .hero-value { font-size: 36px; }
+  }
+
+  .stat {
+    padding: 0;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-value {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .stat-meta {
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    color: var(--ink-mute);
+    margin-top: 2px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .badge.gsm { background: var(--green-soft); color: var(--green); }
+  .badge.ucs { background: var(--amber-soft); color: var(--amber); }
+  .badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: currentColor;
+  }
+
+  .rate-display {
+    margin-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .rate-display strong {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 15px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="card-section">
+      <div class="field-label">
+        <span>Destination country</span>
+        <span class="help">select recipient's country</span>
+      </div>
+      <div class="dropdown" id="dropdown">
+        <div class="dropdown-selected" id="dropdown-selected">
+          <img src="https://flagcdn.com/w40/us.png" alt="US">
+          <span>United States (+1)</span>
+          <svg class="arrow" width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M6 8L1 3h10z"/></svg>
+        </div>
+        <div class="dropdown-list" id="dropdown-list">
+          <div class="dropdown-search">
+            <svg class="dropdown-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="dropdown-search-input" placeholder="Search country...">
+          </div>
+          <div id="dropdown-options"></div>
+        </div>
+      </div>
+      <div class="rate-display">
+        Rate: <strong id="rate-value">1</strong> credit(s) per segment
+      </div>
+    </div>
+
+    <div class="card-section">
+      <div class="field-label">
+        <span>Message text</span>
+        <span class="help" id="char-hint">0 characters</span>
+      </div>
+      <textarea id="text" placeholder="Type your SMS message here to calculate the cost..."></textarea>
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" id="progress"></div></div>
+        <span class="progress-text" id="progress-text">0 / 160</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-section">
+      <div class="hero">
+        <div class="hero-label">Total Cost</div>
+        <div class="hero-value">
+          <span id="total">0</span>
+          <span class="hero-unit">credits</span>
+        </div>
+        <div class="hero-breakdown" id="breakdown">
+          <strong>0</strong> segments &times; <strong>1</strong> credit each
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Segments</div>
+          <div class="stat-value" id="segments">0</div>
+          <div class="stat-meta" id="segments-meta">No message yet</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Encoding</div>
+          <div class="stat-value" style="margin-top: 2px;">
+            <span class="badge gsm" id="enc-badge">GSM-7</span>
+          </div>
+          <div class="stat-meta" id="enc-meta">7-bit · 160 chars/segment</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Characters used</div>
+          <div class="stat-value" id="units">0</div>
+          <div class="stat-meta" id="units-meta">of 160 in this segment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const COUNTRIES = [
+    { code: 1, iso: "US", name: "United States", rate: 1 },
+    { code: 7, iso: "RU", name: "Russia", rate: 76 },
+    { code: 20, iso: "EG", name: "Egypt", rate: 40 },
+    { code: 27, iso: "ZA", name: "South Africa", rate: 14 },
+    { code: 30, iso: "GR", name: "Greece", rate: 7 },
+    { code: 31, iso: "NL", name: "Netherlands", rate: 12 },
+    { code: 32, iso: "BE", name: "Belgium", rate: 12 },
+    { code: 33, iso: "FR", name: "France", rate: 8 },
+    { code: 34, iso: "ES", name: "Spain", rate: 9 },
+    { code: 36, iso: "HU", name: "Hungary", rate: 10 },
+    { code: 39, iso: "IT", name: "Italy", rate: 10 },
+    { code: 40, iso: "RO", name: "Romania", rate: 8 },
+    { code: 41, iso: "CH", name: "Switzerland", rate: 8 },
+    { code: 43, iso: "AT", name: "Austria", rate: 10 },
+    { code: 44, iso: "GB", name: "United Kingdom", rate: 6 },
+    { code: 45, iso: "DK", name: "Denmark", rate: 6 },
+    { code: 46, iso: "SE", name: "Sweden", rate: 12 },
+    { code: 47, iso: "NO", name: "Norway", rate: 7 },
+    { code: 48, iso: "PL", name: "Poland", rate: 5 },
+    { code: 49, iso: "DE", name: "Germany", rate: 12 },
+    { code: 51, iso: "PE", name: "Peru", rate: 25 },
+    { code: 52, iso: "MX", name: "Mexico", rate: 19 },
+    { code: 54, iso: "AR", name: "Argentina", rate: 11 },
+    { code: 55, iso: "BR", name: "Brazil", rate: 7 },
+    { code: 56, iso: "CL", name: "Chile", rate: 8 },
+    { code: 57, iso: "CO", name: "Colombia", rate: 6 },
+    { code: 58, iso: "VE", name: "Venezuela", rate: 23 },
+    { code: 60, iso: "MY", name: "Malaysia", rate: 33 },
+    { code: 61, iso: "AU", name: "Australia", rate: 6 },
+    { code: 62, iso: "ID", name: "Indonesia", rate: 45 },
+    { code: 63, iso: "PH", name: "Philippines", rate: 25 },
+    { code: 64, iso: "NZ", name: "New Zealand", rate: 12 },
+    { code: 65, iso: "SG", name: "Singapore", rate: 7 },
+    { code: 66, iso: "TH", name: "Thailand", rate: 4 },
+    { code: 81, iso: "JP", name: "Japan", rate: 9 },
+    { code: 82, iso: "KR", name: "South Korea", rate: 6 },
+    { code: 84, iso: "VN", name: "Vietnam", rate: 29 },
+    { code: 86, iso: "CN", name: "China", rate: 11 },
+    { code: 90, iso: "TR", name: "Turkey", rate: 4 },
+    { code: 91, iso: "IN", name: "India", rate: 9 },
+    { code: 92, iso: "PK", name: "Pakistan", rate: 48 },
+    { code: 93, iso: "AF", name: "Afghanistan", rate: 45 },
+    { code: 94, iso: "LK", name: "Sri Lanka", rate: 42 },
+    { code: 95, iso: "MM", name: "Myanmar", rate: 42 },
+    { code: 211, iso: "SS", name: "South Sudan", rate: 24 },
+    { code: 212, iso: "MA", name: "Morocco", rate: 23 },
+    { code: 213, iso: "DZ", name: "Algeria", rate: 28 },
+    { code: 216, iso: "TN", name: "Tunisia", rate: 54 },
+    { code: 218, iso: "LY", name: "Libya", rate: 45 },
+    { code: 220, iso: "GM", name: "Gambia", rate: 27 },
+    { code: 221, iso: "SN", name: "Senegal", rate: 56 },
+    { code: 222, iso: "MR", name: "Mauritania", rate: 37 },
+    { code: 223, iso: "ML", name: "Mali", rate: 35 },
+    { code: 224, iso: "GN", name: "Guinea", rate: 28 },
+    { code: 225, iso: "CI", name: "C\u00f4te d'Ivoire", rate: 44 },
+    { code: 226, iso: "BF", name: "Burkina Faso", rate: 23 },
+    { code: 227, iso: "NE", name: "Niger", rate: 37 },
+    { code: 228, iso: "TG", name: "Togo", rate: 45 },
+    { code: 229, iso: "BJ", name: "Benin", rate: 30 },
+    { code: 230, iso: "MU", name: "Mauritius", rate: 27 },
+    { code: 231, iso: "LR", name: "Liberia", rate: 25 },
+    { code: 232, iso: "SL", name: "Sierra Leone", rate: 79 },
+    { code: 233, iso: "GH", name: "Ghana", rate: 38 },
+    { code: 234, iso: "NG", name: "Nigeria", rate: 39 },
+    { code: 235, iso: "TD", name: "Chad", rate: 35 },
+    { code: 236, iso: "CF", name: "Central African Republic", rate: 46 },
+    { code: 237, iso: "CM", name: "Cameroon", rate: 32 },
+    { code: 238, iso: "CV", name: "Cape Verde", rate: 23 },
+    { code: 239, iso: "ST", name: "S\u00e3o Tom\u00e9 and Pr\u00edncipe", rate: 14 },
+    { code: 240, iso: "GQ", name: "Equatorial Guinea", rate: 28 },
+    { code: 241, iso: "GA", name: "Gabon", rate: 32 },
+    { code: 242, iso: "CG", name: "Republic of the Congo", rate: 34 },
+    { code: 243, iso: "CD", name: "DR Congo", rate: 26 },
+    { code: 244, iso: "AO", name: "Angola", rate: 31 },
+    { code: 245, iso: "GW", name: "Guinea-Bissau", rate: 48 },
+    { code: 248, iso: "SC", name: "Seychelles", rate: 31 },
+    { code: 249, iso: "SD", name: "Sudan", rate: 48 },
+    { code: 250, iso: "RW", name: "Rwanda", rate: 33 },
+    { code: 251, iso: "ET", name: "Ethiopia", rate: 35 },
+    { code: 252, iso: "SO", name: "Somalia", rate: 38 },
+    { code: 253, iso: "DJ", name: "Djibouti", rate: 17 },
+    { code: 254, iso: "KE", name: "Kenya", rate: 24 },
+    { code: 255, iso: "TZ", name: "Tanzania", rate: 44 },
+    { code: 256, iso: "UG", name: "Uganda", rate: 33 },
+    { code: 257, iso: "BI", name: "Burundi", rate: 47 },
+    { code: 258, iso: "MZ", name: "Mozambique", rate: 42 },
+    { code: 260, iso: "ZM", name: "Zambia", rate: 40 },
+    { code: 261, iso: "MG", name: "Madagascar", rate: 53 },
+    { code: 262, iso: "RE", name: "R\u00e9union", rate: 20 },
+    { code: 263, iso: "ZW", name: "Zimbabwe", rate: 25 },
+    { code: 264, iso: "NA", name: "Namibia", rate: 11 },
+    { code: 265, iso: "MW", name: "Malawi", rate: 34 },
+    { code: 266, iso: "LS", name: "Lesotho", rate: 42 },
+    { code: 267, iso: "BW", name: "Botswana", rate: 16 },
+    { code: 268, iso: "SZ", name: "Eswatini", rate: 27 },
+    { code: 269, iso: "KM", name: "Comoros", rate: 42 },
+    { code: 291, iso: "ER", name: "Eritrea", rate: 13 },
+    { code: 297, iso: "AW", name: "Aruba", rate: 28 },
+    { code: 298, iso: "FO", name: "Faroe Islands", rate: 8 },
+    { code: 299, iso: "GL", name: "Greenland", rate: 5 },
+    { code: 350, iso: "GI", name: "Gibraltar", rate: 11 },
+    { code: 351, iso: "PT", name: "Portugal", rate: 6 },
+    { code: 352, iso: "LU", name: "Luxembourg", rate: 9 },
+    { code: 353, iso: "IE", name: "Ireland", rate: 8 },
+    { code: 354, iso: "IS", name: "Iceland", rate: 8 },
+    { code: 355, iso: "AL", name: "Albania", rate: 12 },
+    { code: 356, iso: "MT", name: "Malta", rate: 7 },
+    { code: 357, iso: "CY", name: "Cyprus", rate: 9 },
+    { code: 358, iso: "FI", name: "Finland", rate: 9 },
+    { code: 359, iso: "BG", name: "Bulgaria", rate: 15 },
+    { code: 370, iso: "LT", name: "Lithuania", rate: 9 },
+    { code: 371, iso: "LV", name: "Latvia", rate: 9 },
+    { code: 372, iso: "EE", name: "Estonia", rate: 10 },
+    { code: 373, iso: "MD", name: "Moldova", rate: 15 },
+    { code: 374, iso: "AM", name: "Armenia", rate: 30 },
+    { code: 375, iso: "BY", name: "Belarus", rate: 26 },
+    { code: 376, iso: "AD", name: "Andorra", rate: 15 },
+    { code: 377, iso: "MC", name: "Monaco", rate: 19 },
+    { code: 378, iso: "SM", name: "San Marino", rate: 13 },
+    { code: 380, iso: "UA", name: "Ukraine", rate: 23 },
+    { code: 381, iso: "RS", name: "Serbia", rate: 41 },
+    { code: 382, iso: "ME", name: "Montenegro", rate: 18 },
+    { code: 385, iso: "HR", name: "Croatia", rate: 14 },
+    { code: 386, iso: "SI", name: "Slovenia", rate: 21 },
+    { code: 387, iso: "BA", name: "Bosnia and Herzegovina", rate: 52 },
+    { code: 389, iso: "MK", name: "North Macedonia", rate: 21 },
+    { code: 420, iso: "CZ", name: "Czech Republic", rate: 8 },
+    { code: 421, iso: "SK", name: "Slovakia", rate: 9 },
+    { code: 423, iso: "LI", name: "Liechtenstein", rate: 4 },
+    { code: 500, iso: "FK", name: "Falkland Islands", rate: 17 },
+    { code: 501, iso: "BZ", name: "Belize", rate: 30 },
+    { code: 502, iso: "GT", name: "Guatemala", rate: 25 },
+    { code: 503, iso: "SV", name: "El Salvador", rate: 30 },
+    { code: 504, iso: "HN", name: "Honduras", rate: 33 },
+    { code: 505, iso: "NI", name: "Nicaragua", rate: 16 },
+    { code: 506, iso: "CR", name: "Costa Rica", rate: 9 },
+    { code: 507, iso: "PA", name: "Panama", rate: 19 },
+    { code: 508, iso: "PM", name: "Saint Pierre and Miquelon", rate: 16 },
+    { code: 509, iso: "HT", name: "Haiti", rate: 30 },
+    { code: 590, iso: "GP", name: "Guadeloupe", rate: 23 },
+    { code: 591, iso: "BO", name: "Bolivia", rate: 23 },
+    { code: 592, iso: "GY", name: "Guyana", rate: 34 },
+    { code: 593, iso: "EC", name: "Ecuador", rate: 34 },
+    { code: 594, iso: "GF", name: "French Guiana", rate: 19 },
+    { code: 595, iso: "PY", name: "Paraguay", rate: 13 },
+    { code: 596, iso: "MQ", name: "Martinique", rate: 19 },
+    { code: 597, iso: "SR", name: "Suriname", rate: 32 },
+    { code: 598, iso: "UY", name: "Uruguay", rate: 9 },
+    { code: 670, iso: "TL", name: "Timor-Leste", rate: 26 },
+    { code: 672, iso: "NF", name: "Norfolk Island", rate: 12 },
+    { code: 673, iso: "BN", name: "Brunei", rate: 7 },
+    { code: 675, iso: "PG", name: "Papua New Guinea", rate: 76 },
+    { code: 676, iso: "TO", name: "Tonga", rate: 22 },
+    { code: 677, iso: "SB", name: "Solomon Islands", rate: 13 },
+    { code: 678, iso: "VU", name: "Vanuatu", rate: 22 },
+    { code: 679, iso: "FJ", name: "Fiji", rate: 22 },
+    { code: 680, iso: "PW", name: "Palau", rate: 24 },
+    { code: 681, iso: "WF", name: "Wallis and Futuna", rate: 11 },
+    { code: 682, iso: "CK", name: "Cook Islands", rate: 14 },
+    { code: 683, iso: "NU", name: "Niue", rate: 24 },
+    { code: 685, iso: "WS", name: "Samoa", rate: 24 },
+    { code: 686, iso: "KI", name: "Kiribati", rate: 15 },
+    { code: 687, iso: "NC", name: "New Caledonia", rate: 18 },
+    { code: 688, iso: "TV", name: "Tuvalu", rate: 30 },
+    { code: 689, iso: "PF", name: "French Polynesia", rate: 18 },
+    { code: 691, iso: "FM", name: "Micronesia", rate: 8 },
+    { code: 692, iso: "MH", name: "Marshall Islands", rate: 16 },
+    { code: 852, iso: "HK", name: "Hong Kong", rate: 8 },
+    { code: 853, iso: "MO", name: "Macau", rate: 11 },
+    { code: 855, iso: "KH", name: "Cambodia", rate: 45 },
+    { code: 856, iso: "LA", name: "Laos", rate: 32 },
+    { code: 880, iso: "BD", name: "Bangladesh", rate: 60 },
+    { code: 886, iso: "TW", name: "Taiwan", rate: 9 },
+    { code: 960, iso: "MV", name: "Maldives", rate: 36 },
+    { code: 961, iso: "LB", name: "Lebanon", rate: 37 },
+    { code: 962, iso: "JO", name: "Jordan", rate: 39 },
+    { code: 964, iso: "IQ", name: "Iraq", rate: 45 },
+    { code: 965, iso: "KW", name: "Kuwait", rate: 32 },
+    { code: 966, iso: "SA", name: "Saudi Arabia", rate: 20 },
+    { code: 967, iso: "YE", name: "Yemen", rate: 30 },
+    { code: 968, iso: "OM", name: "Oman", rate: 22 },
+    { code: 970, iso: "PS", name: "Palestine", rate: 42 },
+    { code: 971, iso: "AE", name: "United Arab Emirates", rate: 12 },
+    { code: 972, iso: "IL", name: "Israel", rate: 25 },
+    { code: 973, iso: "BH", name: "Bahrain", rate: 4 },
+    { code: 974, iso: "QA", name: "Qatar", rate: 27 },
+    { code: 975, iso: "BT", name: "Bhutan", rate: 41 },
+    { code: 976, iso: "MN", name: "Mongolia", rate: 30 },
+    { code: 977, iso: "NP", name: "Nepal", rate: 31 },
+    { code: 992, iso: "TJ", name: "Tajikistan", rate: 46 },
+    { code: 993, iso: "TM", name: "Turkmenistan", rate: 33 },
+    { code: 994, iso: "AZ", name: "Azerbaijan", rate: 42 },
+    { code: 995, iso: "GE", name: "Georgia", rate: 17 },
+    { code: 996, iso: "KG", name: "Kyrgyzstan", rate: 46 },
+    { code: 998, iso: "UZ", name: "Uzbekistan", rate: 46 }
+  ];
+
+  function flagUrl(iso) {
+    return `https://flagcdn.com/w40/${iso.toLowerCase()}.png`;
+  }
+
+  let selectedRate = 1;
+  const sorted = [...COUNTRIES].sort((a, b) => a.name.localeCompare(b.name));
+
+  const $dropdownSelected = document.getElementById('dropdown-selected');
+  const $dropdownList = document.getElementById('dropdown-list');
+  const $dropdownOptions = document.getElementById('dropdown-options');
+  const $searchInput = document.getElementById('dropdown-search-input');
+
+  function renderOptions(filter = '') {
+    $dropdownOptions.innerHTML = '';
+    const filtered = sorted.filter(c =>
+      c.name.toLowerCase().includes(filter.toLowerCase()) ||
+      c.iso.toLowerCase().includes(filter.toLowerCase()) ||
+      ('+' + c.code).includes(filter)
+    );
+    if (filtered.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'dropdown-empty';
+      empty.textContent = 'No results found.';
+      $dropdownOptions.appendChild(empty);
+      return;
+    }
+    filtered.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'dropdown-option' + (c.iso === selectedIso ? ' selected' : '');
+      div.innerHTML = `<img src="${flagUrl(c.iso)}" alt="${c.iso}"><span class="country-name">${c.name} (+${c.code})</span><span class="country-rate">${c.rate} cr/seg</span><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`;
+      div.addEventListener('click', () => selectCountry(c));
+      $dropdownOptions.appendChild(div);
+    });
+  }
+
+  let selectedIso = 'US';
+
+  function selectCountry(c) {
+    selectedRate = c.rate;
+    selectedIso = c.iso;
+    $dropdownSelected.innerHTML = `<img src="${flagUrl(c.iso)}" alt="${c.iso}"><span>${c.name} (+${c.code})</span><svg class="arrow" width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M6 8L1 3h10z"/></svg>`;
+    closeDropdown();
+    update();
+  }
+
+  function openDropdown() {
+    $dropdownList.classList.add('show');
+    $dropdownSelected.classList.add('open');
+    $searchInput.value = '';
+    renderOptions();
+    setTimeout(() => $searchInput.focus(), 10);
+  }
+
+  function closeDropdown() {
+    $dropdownList.classList.remove('show');
+    $dropdownSelected.classList.remove('open');
+  }
+
+  $dropdownSelected.addEventListener('click', () => {
+    if ($dropdownList.classList.contains('show')) closeDropdown();
+    else openDropdown();
+  });
+
+  $searchInput.addEventListener('input', () => {
+    renderOptions($searchInput.value);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('dropdown').contains(e.target)) {
+      closeDropdown();
+    }
+  });
+
+  renderOptions();
+
+  const GSM7_BASIC = new Set([
+    '@','\u00a3','$','\u00a5','\u00e8','\u00e9','\u00f9','\u00ec','\u00f2','\u00c7','\n','\u00d8','\u00f8','\r','\u00c5','\u00e5',
+    '\u0394','_','\u03a6','\u0393','\u039b','\u03a9','\u03a0','\u03a8','\u03a3','\u0398','\u039e',' ','\u00c6','\u00e6','\u00df','\u00c9',
+    ' ','!','"','#','\u00a4','%','&',"'",'(',')','*','+',',','-','.','/',
+    '0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?',
+    '\u00a1','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
+    'P','Q','R','S','T','U','V','W','X','Y','Z','\u00c4','\u00d6','\u00d1','\u00dc','\u00a7',
+    '\u00bf','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
+    'p','q','r','s','t','u','v','w','x','y','z','\u00e4','\u00f6','\u00f1','\u00fc','\u00e0'
+  ]);
+
+  const GSM7_EXT = new Set(['\f','^','{','}','\\','[','~',']','|','\u20ac']);
+
+  function calculate(text, rate) {
+    let segments = 0;
+    let isGsm7 = true;
+    let units = 0;
+    let limit = 160;
+
+    if (text && text.length > 0) {
+      let septets = 0;
+      for (const ch of text) {
+        if (GSM7_BASIC.has(ch)) septets += 1;
+        else if (GSM7_EXT.has(ch)) septets += 2;
+        else { isGsm7 = false; break; }
+      }
+
+      if (isGsm7) {
+        units = septets;
+        if (septets === 0) { segments = 0; limit = 160; }
+        else if (septets <= 160) { segments = 1; limit = 160; }
+        else { segments = Math.ceil(septets / 153); limit = 153; }
+      } else {
+        units = text.length;
+        if (units <= 70) { segments = 1; limit = 70; }
+        else { segments = Math.ceil(units / 67); limit = 67; }
+      }
+    }
+
+    return { segments, total: segments * rate, isGsm7, units, limit };
+  }
+
+  function fmt(n) {
+    if (Number.isInteger(n)) return n.toString();
+    return parseFloat(n.toFixed(4)).toString();
+  }
+
+  function pluralize(n, word) {
+    return n === 1 ? word : word + 's';
+  }
+
+  const $text = document.getElementById('text');
+  const $rateValue = document.getElementById('rate-value');
+  const $total = document.getElementById('total');
+  const $breakdown = document.getElementById('breakdown');
+  const $segments = document.getElementById('segments');
+  const $segmentsMeta = document.getElementById('segments-meta');
+  const $units = document.getElementById('units');
+  const $unitsMeta = document.getElementById('units-meta');
+  const $encBadge = document.getElementById('enc-badge');
+  const $encMeta = document.getElementById('enc-meta');
+  const $charHint = document.getElementById('char-hint');
+  const $progress = document.getElementById('progress');
+  const $progressText = document.getElementById('progress-text');
+
+  function update() {
+    const text = $text.value;
+    const rate = selectedRate;
+    $rateValue.textContent = rate;
+    const r = calculate(text, rate);
+
+    $total.textContent = fmt(r.total);
+    $breakdown.innerHTML =
+      `<strong>${r.segments}</strong> ${pluralize(r.segments, 'segment')} \u00d7 <strong>${fmt(rate)}</strong> ${pluralize(rate, 'credit')} each`;
+
+    $segments.textContent = r.segments;
+    if (r.segments === 0) $segmentsMeta.textContent = 'No message yet';
+    else if (r.segments === 1) $segmentsMeta.textContent = 'Single SMS';
+    else $segmentsMeta.textContent = 'Concatenated SMS';
+
+    $units.textContent = r.units;
+    const inSegPos = r.units === 0 ? 0 : ((r.units - 1) % r.limit) + 1;
+    const remaining = r.limit - inSegPos;
+    if (r.units === 0) $unitsMeta.textContent = `of ${r.limit} in this segment`;
+    else $unitsMeta.textContent = `${remaining} left in current segment`;
+
+    if (r.isGsm7) {
+      $encBadge.className = 'badge gsm';
+      $encBadge.textContent = 'GSM-7';
+      $encMeta.textContent = r.segments > 1 ? '7-bit \u00b7 153 chars/segment' : '7-bit \u00b7 160 chars/segment';
+    } else {
+      $encBadge.className = 'badge ucs';
+      $encBadge.textContent = 'UCS-2';
+      $encMeta.textContent = r.segments > 1 ? '16-bit \u00b7 67 chars/segment' : '16-bit \u00b7 70 chars/segment';
+    }
+
+    $charHint.textContent = `${text.length} ${pluralize(text.length, 'character')}`;
+    $progressText.textContent = `${r.units} / ${r.limit}`;
+
+    const pct = r.units === 0 ? 0 : Math.min(100, (inSegPos / r.limit) * 100);
+    $progress.style.width = pct + '%';
+    $progress.classList.remove('warn', 'full');
+    if (pct >= 100) $progress.classList.add('full');
+    else if (pct > 85) $progress.classList.add('warn');
+  }
+
+  $text.addEventListener('input', update);
+
+  $text.value = 'Hello! This is a test message to see how the segment calculation works.';
+  update();
+</script>
+</body>
+</html>
