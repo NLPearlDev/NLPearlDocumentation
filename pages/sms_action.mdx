@@ -187,7 +187,6 @@ export const SMS_COUNTRIES = [
   { code: 966, iso: "SA", name: "Saudi Arabia", rate: 20 },
   { code: 967, iso: "YE", name: "Yemen", rate: 30 },
   { code: 968, iso: "OM", name: "Oman", rate: 22 },
-  { code: 970, iso: "PS", name: "Palestine", rate: 42 },
   { code: 971, iso: "AE", name: "United Arab Emirates", rate: 12 },
   { code: 972, iso: "IL", name: "Israel", rate: 25 },
   { code: 973, iso: "BH", name: "Bahrain", rate: 4 },
@@ -340,12 +339,12 @@ export const SmsCalculator = () => {
     + '.sms-calc-root .dropdown-selected .arrow{margin-left:auto;transition:transform .2s;color:var(--sms-ink)}'
     + '.sms-calc-root .dropdown-selected.open .arrow{transform:rotate(180deg)}'
     + '.sms-calc-root .dropdown-selected img{width:20px;height:14px;object-fit:cover;border-radius:2px}'
-    + '.sms-calc-root .dropdown-list{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--sms-bg);border:1px solid var(--sms-rule);border-radius:var(--sms-radius);box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.06);max-height:280px;overflow-y:auto;z-index:1000}'
-    + '.sms-calc-root .dropdown-search{position:sticky;top:0;background:var(--sms-bg);padding:0 12px;border-bottom:1px solid var(--sms-rule);display:flex;align-items:center;gap:8px}'
+    + '.sms-calc-root .dropdown-list{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--sms-bg);border:1px solid var(--sms-rule);border-radius:var(--sms-radius);box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.06);z-index:1000;display:flex;flex-direction:column;overflow:hidden}'
+    + '.sms-calc-root .dropdown-search{background:var(--sms-bg);padding:0 12px;border-bottom:1px solid var(--sms-rule);display:flex;align-items:center;gap:8px;flex-shrink:0}'
     + '.sms-calc-root .dropdown-search-icon{width:16px;height:16px;color:var(--sms-ink-mute);flex-shrink:0}'
     + '.sms-calc-root .dropdown-search input{width:100%;height:44px;background:transparent;border:none;padding:0;font-size:14px;color:var(--sms-ink);outline:none}'
     + '.sms-calc-root .dropdown-search input::placeholder{color:var(--sms-ink-mute)}'
-    + '.sms-calc-root .dropdown-options{padding:4px}'
+    + '.sms-calc-root .dropdown-options{padding:4px;max-height:236px;overflow-y:auto}'
     + '.sms-calc-root .dropdown-option{padding:6px 8px;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;border-radius:6px;color:var(--sms-ink)}'
     + '.sms-calc-root .dropdown-option:hover,.sms-calc-root .dropdown-option.selected{background:var(--sms-muted)}'
     + '.sms-calc-root .dropdown-option img{width:20px;height:14px;object-fit:cover;border-radius:2px;flex-shrink:0}'
