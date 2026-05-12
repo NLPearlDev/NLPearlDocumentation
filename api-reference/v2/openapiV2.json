@@ -2478,6 +2478,11 @@
                         "type": "string",
                         "description": "Describes when this API action should be triggered.\r\n            \r\nMax 1,000 characters only.",
                         "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A short description of what this API action does.\r\n            \r\nMax 150 characters only.",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -2797,6 +2802,7 @@
                     },
                     "search": {
                         "type": "string",
+                        "description": "A phone number or partial phone number.\r\n            \r\nMax 50 characters only.",
                         "nullable": true
                     }
                 },
@@ -2953,6 +2959,10 @@
                     "creditDebited": {
                         "type": "integer",
                         "description": "The total amount of credits debited for the entire conversation.",
+                        "format": "int32"
+                    },
+                    "smsCreditDebited": {
+                        "type": "integer",
                         "format": "int32"
                     }
                 },
@@ -3808,12 +3818,16 @@
                 "additionalProperties": false
             },
             "InboundSettingsApi": {
+                "required": [
+                    "phoneNumberId",
+                    "waitingSentence"
+                ],
                 "type": "object",
                 "properties": {
                     "phoneNumberId": {
+                        "minLength": 1,
                         "type": "string",
-                        "description": "The phone number ID to use for this Pearl.\r\nTo retrieve available phone numbers, see: [Get Phone Numbers](/api-reference/v2/pearlSettings/get-phones)\r\n            \r\nConstraints:\r\n- A phone number cannot be assigned to more than one active inbound Pearl at the same time.",
-                        "nullable": true
+                        "description": "The phone number ID to use for this Pearl.\r\nTo retrieve available phone numbers, see: [Get Phone Numbers](/api-reference/v2/pearlSettings/get-phones)\r\n            \r\nConstraints:\r\n- A phone number cannot be assigned to more than one active inbound Pearl at the same time."
                     },
                     "totalAgents": {
                         "type": "integer",
@@ -3843,9 +3857,9 @@
                         "nullable": true
                     },
                     "waitingSentence": {
+                        "minLength": 1,
                         "type": "string",
-                        "description": "Message played to the caller when no agent is available and the caller is waiting in the queue.\r\n            \r\nMax 300 characters only.",
-                        "nullable": true
+                        "description": "Message played to the caller when no agent is available and the caller is waiting in the queue.\r\n            \r\nMax 300 characters only."
                     },
                     "isSayQueueDetails": {
                         "type": "boolean",
