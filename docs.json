@@ -167,6 +167,7 @@
                 "expanded": true, 
                 "pages": [
                   "api-reference/v2/outbound/add-lead",
+                  "api-reference/v2/outbound/add-leads",
                   "api-reference/v2/outbound/update-lead",
                   "api-reference/v2/outbound/get-lead",
                   "api-reference/v2/outbound/get-lead-via-external-id",
