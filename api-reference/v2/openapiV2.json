@@ -824,6 +824,98 @@
                 }
             }
         },
+        "/v2/Outbound/{pearlId}/Leads/Add": {
+            "post": {
+                "tags": [
+                    "Outbound"
+                ],
+                "summary": "Add Leads",
+                "description": "Adds new leads to a specified outbound",
+                "parameters": [
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadsToAddApi"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadsToAddApi"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LeadsToAddApi"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "All leads were added successfully.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The request is invalid or some leads could not be added. The response may contain validation errors or a list of failed leads with their associated errors.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v2/Outbound/{pearlId}/Lead/{leadId}": {
             "put": {
                 "tags": [
@@ -4212,6 +4304,20 @@
                 },
                 "additionalProperties": false,
                 "description": "Represents the data used to update an existing lead in an outbound campaign.\r\nAll fields are optional; only the provided values will be updated."
+            },
+            "LeadsToAddApi": {
+                "type": "object",
+                "properties": {
+                    "leads": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LeadToAddApi"
+                        },
+                        "description": "Collection of leads to add to an outbound Pearl.\r\n            \r\nConstraints:\r\n- Max 50,000 leads.\r\n- Each lead must follow the validation rules defined in LeadToAddApi.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
             },
             "OngoingCallsApiView": {
                 "type": "object",
