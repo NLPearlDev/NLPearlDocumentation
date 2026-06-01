@@ -3,7 +3,32 @@ title: "Hand-Off"
 sidebarTitle: "Hand-Off"
 description: "Hand the conversation off to a human agent, with an optional message from Pearl and notifications to your team."
 icon: "headset"
+iconType: "light"
 ---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/handoff-cover.svg"
+        alt="Hand-Off cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/handoff-cover.svg"
+        alt="Hand-Off cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
 The **Hand-Off** node passes the conversation from Pearl to one of your human agents. When it triggers, Pearl stops replying in the chat and the conversation waits for a human to pick it up from the NLPearl platform. You can optionally have Pearl send a closing message first, and notify your team by SMS, email, or API.
 
