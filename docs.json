@@ -15,7 +15,7 @@
     "family": "Roboto"
   },
   "banner": {
-    "content": "🚀 API 2.0 is now live! See our [API Reference](/api-reference/api_quickstart) for details.",
+    "content": "💬 Pearl Text is now live! [Create text agents](/pages/text/email_action) and message your customers directly from the platform.",
     "dismissible": true
   },
   "topbarLinks": [
@@ -48,33 +48,50 @@
             ]
           },
           {
-            "group": "Pearl",
+            "group": "General",
             "pages": [
               "pages/pearl_vibe",
               "pages/variables",
+              "pages/webhooks",
+              "pages/analytics",
+              "pages/payout"
+            ]
+          },
+          {
+            "group": "Pearl Voice",
+            "pages": [
               "pages/languages",
               {
                 "group": "Actions",
                 "icon": "bolt",
                 "pages": [
                   "pages/action",
-                  "pages/transfer_call",
-                  "pages/email_action",
                   "pages/sms_action",
+                  "pages/email_action",
+                  "pages/transfer_call",
                   "pages/api_action"
                 ]
               },
-              "pages/postcall"
+              "pages/postcall",
+              "pages/inbound",
+              "pages/outbound"
             ]
           },
           {
-            "group": "Activities",
+            "group": "Pearl Text",
             "pages": [
-              "pages/inbound",
-              "pages/outbound",
-              "pages/webhooks",
-              "pages/analytics",
-              "pages/payout"
+              {
+                "group": "Actions",
+                "icon": "bolt",
+                "pages": [
+                  "pages/text/email_action",
+                  "pages/text/handoff_action",
+                  "pages/text/api_action"
+                ]
+              },
+              "pages/text/postchat",
+              "pages/text/inbound",
+              "pages/text/outbound"
             ]
           },
           {
