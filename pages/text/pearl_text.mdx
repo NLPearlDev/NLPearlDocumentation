@@ -1,0 +1,153 @@
+---
+title: "Pearl Text"
+sidebarTitle: "Overview"
+description: "Build AI text agents that message your customers across SMS, WhatsApp, email, and chat - on inbound and outbound conversations."
+icon: "messages"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/pearl_text-cover.png"
+        alt="Pearl Text cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/pearl_text-cover.png"
+        alt="Pearl Text cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+## What is Pearl Text?
+
+Pearl Text lets you create AI text agents that handle written conversations with your customers across SMS, WhatsApp, email, and chat. Deploy them on inbound channels to respond instantly, or launch outbound messaging to reach customers proactively - with the same reasoning, actions, and post-conversation data that power Pearl Voice.
+
+Pearl Text isn't just another chatbot: it understands context, follows your business rules, connects to your tools, triggers real actions, and hands off to a human when needed.
+
+<Note>
+Pearl Text and [Pearl Voice](/pages/pearl_voice) run on the same platform, so you can connect channels end to end - a conversation can start by chat and continue by phone, or a call can trigger a text follow-up.
+</Note>
+
+---
+
+## How it works
+
+<Steps>
+  <Step title="Build your agent" icon="wand-magic-sparkles">
+    Use [PearlVibe](/pages/pearl_vibe) - the same builder as Pearl Voice - to define your agent's personality, knowledge base, conversation logic, and connected actions from a single prompt-driven interface.
+  </Step>
+  <Step title="Connect your channels" icon="comments">
+    Deploy your agent on [inbound](/pages/text/inbound) channels to answer messages instantly, or launch [outbound](/pages/text/outbound) campaigns to reach customers across SMS, WhatsApp, email, and chat.
+  </Step>
+  <Step title="Monitor and optimize" icon="chart-mixed">
+    Review [Post-Chat](/pages/text/postchat) summaries, transcripts, and extracted variables for every conversation, then iterate on your agent's behavior.
+  </Step>
+</Steps>
+
+---
+
+## Use cases
+
+Pearl Text fits a wide range of written conversations, across both inbound channels and outbound campaigns.
+
+<Tabs>
+  <Tab title="Inbound">
+    | Use case | What Pearl does |
+    |---|---|
+    | **Customer Support** | Answer questions and resolve issues instantly, across every messaging channel. |
+    | **Order & Delivery Updates** | Share order status, tracking, and delivery details on demand. |
+    | **Lead Qualification** | Qualify inbound leads, collect their details, and route them to the right team. |
+    | **Appointment Booking** | Book, confirm, and reschedule appointments directly in chat. |
+    | **FAQ & Self-Service** | Handle high-volume, repetitive questions 24/7 without tying up your team. |
+    | **Escalation to a human** | Hand sensitive or complex conversations off to a live agent when needed. |
+  </Tab>
+  <Tab title="Outbound">
+    | Use case | What Pearl does |
+    |---|---|
+    | **Re-engagement** | Revive dormant customers and recover abandoned carts over message. |
+    | **Appointment Reminders** | Send reminders and confirmations to cut no-shows. |
+    | **Notifications & Updates** | Proactively push order, shipping, or account updates. |
+    | **Lead Follow-up** | Follow up with leads and nurture them toward conversion. |
+    | **Surveys & Feedback** | Collect satisfaction scores and feedback at scale. |
+    | **Payment Reminders** | Send payment reminders with secure links. |
+  </Tab>
+</Tabs>
+
+---
+
+## Model
+
+Text agents run on a single model - **Pearl Swan** - so there's no model picker to configure. It's billed per message.
+
+<Info>
+**Pearl Swan** - our standard model for chat agents, built to handle any text-based use case with reliable reasoning and natural responses.
+</Info>
+
+Optional add-ons let your agent understand richer inputs sent in the conversation:
+
+| Add-on | Description |
+|--------|-------------|
+| **Vision** | Read and understand images customers send, such as screenshots, documents, or photos. |
+| **Audio input** | Understand voice notes and audio messages sent in the chat. |
+
+---
+
+## Get Started
+
+<CardGroup cols={2}>
+
+<Card title="Actions" icon="bolt" iconType="light" href="/pages/text/email_action">
+  Execute real-time actions mid-conversation: send emails, hand off to a human, and call your APIs.
+</Card>
+
+<Card title="Post-Chat" icon="message-check" iconType="light" href="/pages/text/postchat">
+  Access structured summaries, transcripts, and extracted variables for every conversation.
+</Card>
+
+<Card title="Inbound" icon="inbox-in" iconType="light" href="/pages/text/inbound">
+  Deploy agents on inbound channels to answer messages instantly and route conversations.
+</Card>
+
+<Card title="Outbound" icon="paper-plane" iconType="light" href="/pages/text/outbound">
+  Launch outbound messaging campaigns to reach customers proactively at scale.
+</Card>
+
+</CardGroup>
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+
+<Card title="PearlVibe" icon="wand-magic-sparkles" iconType="light" href="/pages/pearl_vibe">
+  Build and customize your agent's logic, knowledge, and actions from a single prompt.
+</Card>
+
+<Card title="Variables" icon="brackets-curly" iconType="light" href="/pages/variables">
+  Collect, store, and reuse data during conversations - from user inputs to CRM lookups.
+</Card>
+
+<Card title="API Quick Start" icon="code" iconType="light" href="/api-reference/api_quickstart">
+  Integrate NLPearl programmatically via the REST API.
+</Card>
+
+<Card title="Pearl Voice" icon="phone-volume" iconType="light" href="/pages/pearl_voice">
+  Pair your text agents with AI voice agents for connected, cross-channel conversations.
+</Card>
+
+</CardGroup>

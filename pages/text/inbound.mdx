@@ -1,0 +1,127 @@
+---
+title: Inbound
+description: 'Learn how to set up Inbound Activities using your created Pearl to handle incoming conversations effectively.'
+icon: "comments"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/inbound_text-cover.png"
+        alt="Inbound cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/inbound_text-cover.png"
+        alt="Inbound cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+## Setting Up Inbound Activities
+
+Once you have created a Pearl in NLPearl.AI, you can utilize it to set up Inbound Activities. This feature enables your Pearl to receive inbound conversations, providing a dynamic and responsive customer service experience.
+
+<Info>
+What are Inbound Activities?
+
+Inbound Activities refer to the capability of your conversational AI to handle incoming conversations. This feature allows you to engage with users immediately and effectively, using the conversational flows defined in your Pearl.
+</Info>
+---
+
+### Steps to Create an Inbound Activity
+
+<Steps>
+
+<Step title="Create a Pearl">
+
+To get started, create the Pearl that best fits your inbound use case.
+
+<CardGroup cols={2}>
+  <Card
+    title="Simple Pearl"
+    icon="subtitles"
+	iconType="light"
+    href="/pages/create_pearl"
+  >
+    Ideal for quick setups or basic use cases. Easy to configure and perfect for testing or lightweight interactions. 
+  </Card>
+  <Card
+    title="PearlVibe"
+    icon="diagram-subtask"
+	iconType="light"
+    href="/pages/pearl_vibe"
+  >
+    Designed for more complex scenarios, including multi-step logic. 
+  </Card>
+</CardGroup>
+</Step>
+
+<Step title="Connect a Channel">
+Unlike a voice activity, an inbound text activity is not tied to a phone number. Instead, it is connected to a **messaging channel**, the place where your customers actually reach out to you.
+
+Connect the channel your customers use, such as:
+
+   - **WhatsApp**
+   - **Telegram**
+   - **SMS**
+   - **Glassix**
+
+Each channel can be dedicated to your Inbound Activity and can receive conversations from anywhere at any time.
+</Step>
+<Step title="Assign the Channel to Your Pearl">
+Link the connected channel to the Pearl you want to use for handling inbound conversations. This connects your conversational flow to real-world interactions.
+</Step>
+<Step title="Configure Inbound Settings">
+Set up your inbound conversation parameters, such as:
+
+   - **Message Limit**: Define the maximum number of messages a single conversation can reach before it is automatically closed. This helps control conversation length and keep interactions focused.
+   - **Auto-close After Inactivity**: Automatically close a conversation when the user has been inactive for a defined period of time.
+   - **Inactivity Follow-up**: Automatically send a follow-up message when the user stops responding for a set amount of time, to re-engage them before the conversation is closed.
+</Step>
+<Step title="Chat Webhook">
+A chat webhook is triggered at key points during the conversation lifecycle, such as when a conversation starts and when it ends. You receive an object similar to the one returned by the [Get Calls Endpoint](/api-reference/v2/call/get-call), including details like the conversation outcome and any data collected during the conversation. This is useful for tracking performance and automation.
+</Step>
+
+</Steps>
+---
+
+<CardGroup cols={2}>
+  <Card
+    title="Agents"
+    icon="users"
+    iconType="light"
+    href="/pages/agents"
+  >
+    Understand how to manage your agents, including adding and configuring agents for your inbound and outbound activities.
+  </Card>
+  <Card
+    title="Post-Chat"
+    icon="message-check"
+    iconType="light"
+    href="/pages/text/postchat"
+  >
+    Review everything captured after a conversation, from transcript to summary.
+  </Card>
+</CardGroup>
+
+---
+
+<Info>
+### Monitoring and Adjusting Your Inbound Activities
+
+While basic monitoring of conversation logs and activity reports can be done via our API, any modifications to the activity setup or its settings need to be handled directly on the platform.
+</Info>

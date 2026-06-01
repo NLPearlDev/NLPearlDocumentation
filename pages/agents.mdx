@@ -1,63 +1,72 @@
 ---
-title: Agents
-description: 'Learn how to purchase and manage agents in NLPearl.AI to optimize your inbound and outbound call activities.'
+title: "Agents"
+sidebarTitle: "Agents"
+description: "Agents are your capacity to handle voice calls and text conversations in NLPearl. Learn how they work and how to manage them."
 icon: "users"
 iconType: "light"
 ---
 
-## Managing Agents
+In NLPearl, **agents** are your capacity to handle activity. They power both your **voice calls** and your **text conversations** - the number of agents you have determines how much you can run at the same time.
 
-In NLPearl.AI, agents are crucial to handling your inbound and outbound call activities. The number of agents you have determines the number of simultaneous calls your system can handle, whether it’s for inbound queries or outbound campaigns.
+## How agent capacity works
 
-### Understanding Agents
+An agent is a virtual unit of capacity. What it means depends on the channel:
 
-Agents in NLPearl.AI are virtual entities that represent the capacity to handle calls. Each agent can manage one call at a time, and you can allocate multiple agents to any activity to handle concurrent calls.
+<CardGroup cols={2}>
+  <Card title="Voice calls" icon="phone">
+    Each agent handles **one call at a time**. With 5 agents, you can run 5 calls simultaneously.
+  </Card>
+  <Card title="Text conversations" icon="comments">
+    Each agent adds **3 messages per minute** of capacity. With 10 agents, that's up to 30 messages per minute.
+  </Card>
+</CardGroup>
 
-### Setting Up Agents for Your Activities
+<Note>
+  Text capacity scales linearly: the message rate limit is **3 messages per minute per agent** - so 1 agent → 3 messages/minute, and 10 agents → 30 messages/minute. Your agents set both your simultaneous-call capacity on voice and your message rate on text.
+</Note>
 
-1. **Purchase Agents**: Acquire agents from the platform to increase your call handling capacity. The number of agents you need will depend on your specific use case and expected call volume.
-2. **Allocate Agents to Activities**: Assign the purchased agents to your inbound or outbound activities. For example, if you assign two agents to a campaign, it can simultaneously call two leads at a time.
-3. **Adjust Agent Numbers**: You can increase or decrease the number of agents allocated to any activity based on your needs. This flexibility helps optimize your resources and manage costs effectively.
+## Set up agents for your activities
 
-### Subscription and Agent Purchase
+<Steps>
+  <Step title="Purchase agents">
+    Add agents to grow your capacity. How many you need depends on your peak call volume and expected message rate.
+  </Step>
+  <Step title="Allocate them to activities">
+    Assign agents to an inbound or outbound activity. Allocate 2 agents to a campaign and it calls 2 leads at a time.
+  </Step>
+  <Step title="Adjust anytime">
+    Scale the number of agents on any activity up or down as your needs change, so your capacity always matches demand.
+  </Step>
+</Steps>
 
-The number of agents included in your account is based on your **subscription plan**:
+To manage your agents, open the **Agents** section on the platform, choose to add or remove agents, set the number you want, and confirm.
 
-- **Subscription Plans**: Each plan includes a predefined number of agents at no additional cost. Higher-tier plans offer more agents by default.
-- **Purchasing Additional Agents**: You can add extra simple agents for a fixed price of $100 per agent per month.
-For enterprise use and fine-tuned models, pricing can be up to 10 times higher depending on model complexity and specific needs..
-- **Immediate Billing**: When you purchase an agent, you **immediately pay $100**, regardless of when you make the purchase during your billing cycle.
-- **Automatic Renewal**: On your **subscription renewal date**, all additional agents you have purchased will be **renewed automatically**, charging you $100 per agent for the next month.
-- **Example**:
-  - If your subscription renews on **September 1st**, and you purchase an additional agent on **August 29th**, you will be charged **$100** immediately.
-  - On **September 1st**, your entire subscription, including additional agents, renews. This means you will be charged another **$100** for the agent you bought on August 29th.
-  - As a result, you have paid **$200 for two months** of that agent’s use, ensuring you retain access to it for the full duration.
+## Example
 
-### Agent Deletion Policy
+**Voice** - allocate 2 agents to an outbound campaign and it dials 2 leads at the same time. Add more agents to widen your reach.
 
-- **No Pro-Rata Refunds**: Unlike the previous system, there is no longer a pro-rata refund when an agent is deleted.
-- **Retention Until End of Paid Period**: If you choose to delete an agent, it will remain **active until the end of the period you paid for**.
-- **Example**:
-  - If you remove an agent on **September 5th**, but your last renewal was **September 1st**, the agent remains available until **September 30th**.
-  - You will not be charged for that agent again in the next billing cycle, but you will have access to it until the end of the current paid period.
+**Text** - with 10 agents, your text agent handles up to 30 messages per minute across conversations.
 
-### Managing Agents on the Platform
+## Subscription and billing
 
-To manage your agents, follow these steps on the NLPearl.AI platform:
+Every plan includes a set number of agents at no extra cost - higher tiers include more. You can add extra agents at any time to grow your capacity.
 
-<div className="agent-management-steps">
-  <h3>Steps for Agent Management:</h3>
-  <ol>
-    <li>Navigate to the "Agents" section on the platform.</li>
-    <li>Select the option to purchase or manage agents.</li>
-    <li>Specify the number of agents you wish to add or remove.</li>
-    <li>Confirm your changes to update your call handling capacity.</li>
-  </ol>
-</div>
+Standard agents are billed at a flat monthly rate. Enterprise use and fine-tuned models cost more, depending on model complexity. See [Billing](/pages/billing) for current pricing.
 
-### Example Use Case
+### When you're billed
 
-If you have an outbound campaign and allocate two agents to it, the system will simultaneously call two leads at a time. Adjusting the number of agents allows you to scale your campaign's reach dynamically.
+When you purchase an agent, you're billed for it immediately, whatever point you're at in your billing cycle. On your renewal date, every additional agent renews automatically for the next period.
 
-By structuring agent billing this way, NLPearl.AI ensures transparency, predictability, and fairness in how additional agents are charged and managed.
+<Warning>
+  Buying an agent shortly before your renewal date means two charges close together: one when you purchase, and one when everything renews.
 
+  **Example** - your subscription renews on the 1st and you add an agent on the 29th. You're billed for it right away. On the 1st, the whole subscription (including that agent) renews, so it's billed again for the new period. You've effectively paid for two periods, and you keep the agent for the full duration of each.
+</Warning>
+
+### Removing an agent
+
+There are no pro-rata refunds. If you remove an agent, it stays active until the end of the period you've already paid for.
+
+<Note>
+  **Example** - you remove an agent on the 5th, but your last renewal was on the 1st. The agent stays available until the end of that paid period (the 30th). It won't be billed again in the next cycle.
+</Note>
