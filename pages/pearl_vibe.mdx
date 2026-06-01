@@ -36,7 +36,7 @@ The Conversation Tree Editor is a powerful tool that allows you to design and vi
 
 ### What is PearlVibe?
 
-PearlVibe is an AI‑assisted flow editor for phone call agents. You build your Pearl as a decision tree made of nodes (dialogue, actions, integrations…) and transitions (what happens next depending on user intent, answers, or call outcome).
+PearlVibe is an AI‑assisted flow editor for building your agents - both **voice** (phone) and **text** agents. You build your Pearl as a decision tree made of nodes (dialogue, actions, integrations…) and transitions (what happens next depending on user intent, answers, or conversation outcome).
 
 <Info>
 You can work in two complementary ways:
@@ -146,8 +146,7 @@ Shows the current Pearl's name and lets you rename it. This is the label you'll 
 </Accordion>
 
 <Accordion title="Model Selection" icon="microchip">
-Model selection defines the intelligence, speed, and cost profile of your Pearl.
-From the model picker in the header, you can choose between three NLPearl models:
+Model selection defines the intelligence, speed, and cost profile of your Pearl. The models available depend on your agent type: **voice agents** can choose from the four models below, while **text agents** run on **Pearl Swan** (see [Text model](#text-model)).
 
 <div className="block dark:hidden">
   <Frame>
@@ -173,15 +172,27 @@ From the model picker in the header, you can choose between three NLPearl models
   </Frame>
 </div>
 
-**Available models**
+**Voice models**
 
 | Model | Quality | Speed | Cost |
 |-------|---------|-------|------|
+| **Pearl Hydra** | Highest Quality | Higher latency | +2 credits/min |
 | **Pearl Arrow** | Best Quality | Fastest | +2 credits/min |
 | **Pearl Trident** | Best Quality | Standard | Standard Rate |
 | **Pearl Oyster** | Good Quality | Standard | -2 credits/min |
 
 <Tabs>
+  <Tab title="Pearl Hydra">
+    <Info>
+    **Highest Quality · Higher latency · +2 credits/min**
+    </Info>
+    Our smartest model, built for demanding use cases that require deeper reasoning, stronger understanding, and the highest-quality responses.
+
+    Use it when you need:
+    - The deepest reasoning for complex, multi-step conversations.
+    - Maximum nuance and understanding on high-stakes or ambiguous calls.
+    - The best possible answer quality, even if it means slightly higher latency.
+  </Tab>
   <Tab title="Pearl Arrow">
     <Info>
     **Best Quality · Fastest · +2 credits/min**
@@ -230,11 +241,11 @@ When selecting a model, consider three main dimensions:
 | Dimension | Recommendation |
 |-----------|----------------|
 | **Speed** | If the caller experience must feel instant (no awkward silences, rapid back-and-forth), prefer Pearl Arrow. For standard conversational latency, Pearl Trident and Pearl Oyster are usually enough. |
-| **Reasoning / intelligence** | For complex qualification, multi-step troubleshooting, or situations where the agent needs to "think", choose Pearl Trident or Pearl Arrow. For simple flows with clear scripts and few edge cases, Pearl Oyster is more than sufficient. |
+| **Reasoning / intelligence** | For the most demanding use cases that need the deepest reasoning, choose Pearl Hydra. For complex qualification, multi-step troubleshooting, or situations where the agent needs to "think", Pearl Trident or Pearl Arrow are strong choices. For simple flows with clear scripts and few edge cases, Pearl Oyster is more than sufficient. |
 | **Cost** | Pearl Arrow delivers top experience at a higher per-minute cost (+2 credits/min vs Trident). Pearl Trident offers best quality at a standard rate. Pearl Oyster is cheaper per minute (–2 credits/min vs Trident), ideal when cost per call is the main constraint. |
 
 <Tip>
-You can use different models for different Pearls depending on their role, volume, and business impact (for example: Arrow for VIP inbound support, Trident for main support, Oyster for large reminder campaigns).
+You can use different models for different Pearls depending on their role, volume, and business impact (for example: Hydra for the most complex high-stakes calls, Arrow for VIP inbound support, Trident for main support, Oyster for large reminder campaigns).
 </Tip>
 
 ---
@@ -252,6 +263,23 @@ Your model choice directly affects:
 <Info>
 You can start with Pearl Trident as a balanced default, then use Analytics to compare performance and cost. If you need more speed or nuance, move to Pearl Arrow; if you need to optimize budget for simple flows, switch to Pearl Oyster.
 </Info>
+
+---
+
+**Text model**
+
+Text agents run on a single model - **Pearl Swan** - so there's no model picker to configure. It's billed per message rather than per minute.
+
+<Info>
+**Pearl Swan** - our standard model for chat agents, built to handle any text-based use case with reliable reasoning and natural responses.
+</Info>
+
+Optional add-ons let your text agent understand richer inputs sent in the chat:
+
+| Add-on | Description |
+|--------|-------------|
+| **Vision** | Read and understand images customers send, such as screenshots, documents, or photos. |
+| **Audio input** | Understand voice notes and audio messages sent in the conversation. |
 </Accordion>
 
 <Accordion title="Versioning, Drafts & Publishing" icon="code-branch">

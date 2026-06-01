@@ -15,7 +15,7 @@
     "family": "Roboto"
   },
   "banner": {
-    "content": "💬 Pearl Text is now live! [Create text agents](/pages/text/email_action) and message your customers directly from the platform.",
+    "content": "💬 Pearl Text is now live! [Create text agents](/pages/text/pearl_text) and message your customers directly from the platform.",
     "dismissible": true
   },
   "topbarLinks": [
@@ -60,6 +60,7 @@
           {
             "group": "Pearl Voice",
             "pages": [
+              "pages/pearl_voice",
               "pages/languages",
               {
                 "group": "Actions",
@@ -80,6 +81,7 @@
           {
             "group": "Pearl Text",
             "pages": [
+              "pages/text/pearl_text",
               {
                 "group": "Actions",
                 "icon": "bolt",
