@@ -33,12 +33,10 @@ iconType: "light"
 
 ## Setting Up Inbound Activities
 
-Once you have created a Pearl in NLPearl.AI, you can utilize it to set up Inbound Activities. This feature enables your Pearl to receive inbound conversations, providing a dynamic and responsive customer service experience.
+Inbound text activities let Pearl answer incoming conversations from your connected messaging channels. Start by asking PearlVibe to create an **inbound text Pearl**, then configure how the activity should handle messages, inactivity, transcripts, and webhooks.
 
 <Info>
-What are Inbound Activities?
-
-Inbound Activities refer to the capability of your conversational AI to handle incoming conversations. This feature allows you to engage with users immediately and effectively, using the conversational flows defined in your Pearl.
+Inbound activities are used when the end user starts the conversation. Pearl replies using the flow, knowledge, and actions defined in your Pearl.
 </Info>
 ---
 
@@ -46,54 +44,49 @@ Inbound Activities refer to the capability of your conversational AI to handle i
 
 <Steps>
 
-<Step title="Create a Pearl">
+<Step title="Create an inbound text Pearl">
 
-To get started, create the Pearl that best fits your inbound use case.
+Ask PearlVibe to create a Pearl for your inbound text use case. Describe the channel, tone, expected questions, handoff rules, and any tools Pearl should use.
 
-<CardGroup cols={2}>
-  <Card
-    title="Simple Pearl"
-    icon="subtitles"
-	iconType="light"
-    href="/pages/create_pearl"
-  >
-    Ideal for quick setups or basic use cases. Easy to configure and perfect for testing or lightweight interactions. 
-  </Card>
-  <Card
-    title="PearlVibe"
-    icon="diagram-subtask"
-	iconType="light"
-    href="/pages/pearl_vibe"
-  >
-    Designed for more complex scenarios, including multi-step logic. 
-  </Card>
-</CardGroup>
+<Card
+  title="PearlVibe"
+  icon="diagram-subtask"
+  iconType="light"
+  href="/pages/pearl_vibe"
+>
+  Build and customize your Pearl's logic, knowledge, and actions from a single prompt-driven interface.
+</Card>
 </Step>
 
-<Step title="Connect a Channel">
-Unlike a voice activity, an inbound text activity is not tied to a phone number. Instead, it is connected to a **messaging channel**, the place where your customers actually reach out to you.
+<Step title="Configure inbound settings">
+Set how Pearl should manage each incoming chat:
 
-Connect the channel your customers use, such as:
+- **Message Limit**: Set the maximum number of messages Pearl can send before automatically handing the conversation off to a human.
+- **Auto-close After Inactivity**: Set how long the chat can remain inactive before Pearl marks it as finished and triggers the post-chat summary.
+- **Inactivity Follow-up**: Send follow-up messages when the end user stops replying after Pearl's last message. You can configure up to **3** follow-ups.
+- **Transcript Options**: Choose what should be kept from the conversation: the full transcript, only non-sensitive parts, or no transcript.
+</Step>
+<Step title="Publish the Pearl">
+Publish the Pearl when its flow and inbound settings are ready. After publishing, use the Pearl overview page to connect a channel.
+</Step>
+<Step title="Connect a channel from the overview">
+From the Pearl overview page, connect the messaging channel your customers will use.
 
-   - **WhatsApp**
-   - **Telegram**
-   - **SMS**
-   - **Glassix**
+Unlike a voice activity, an inbound text activity is not tied to a phone number. It is connected to a **messaging channel**, such as:
+
+- **WhatsApp**
+- **Telegram**
+- **SMS**
+- **Glassix**
 
 Each channel can be dedicated to your Inbound Activity and can receive conversations from anywhere at any time.
 </Step>
-<Step title="Assign the Channel to Your Pearl">
-Link the connected channel to the Pearl you want to use for handling inbound conversations. This connects your conversational flow to real-world interactions.
-</Step>
-<Step title="Configure Inbound Settings">
-Set up your inbound conversation parameters, such as:
+<Step title="Configure webhooks if needed">
+Use webhooks only if external tools need event notifications, such as when a chat starts or ends.
 
-   - **Message Limit**: Define the maximum number of messages a single conversation can reach before it is automatically closed. This helps control conversation length and keep interactions focused.
-   - **Auto-close After Inactivity**: Automatically close a conversation when the user has been inactive for a defined period of time.
-   - **Inactivity Follow-up**: Automatically send a follow-up message when the user stops responding for a set amount of time, to re-engage them before the conversation is closed.
-</Step>
-<Step title="Chat Webhook">
-A chat webhook is triggered at key points during the conversation lifecycle, such as when a conversation starts and when it ends. You receive an object similar to the one returned by the [Get Calls Endpoint](/api-reference/v2/call/get-call), including details like the conversation outcome and any data collected during the conversation. This is useful for tracking performance and automation.
+<Note>
+  For actual automations, rely on Post-Chat actions tied to how the conversation ended.
+</Note>
 </Step>
 
 </Steps>
