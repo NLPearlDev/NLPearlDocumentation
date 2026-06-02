@@ -1,6 +1,6 @@
 ---
 title: "API Action"
-description: "Configure the “API” action in SimplePearl and AdvancedPearl to fetch or update data during a live conversation."
+description: "Configure API actions in PearlVibe to fetch or update data during a live conversation."
 icon: "code"
 iconType: "light"
 ---
@@ -37,26 +37,21 @@ Connecting your Pearl to external systems with **API calls** lets it pull or pus
 
 This guide covers :
 
-1. How API Actions differ in **Simple Pearl** vs **Advanced Pearl**
+1. How API Actions work in PearlVibe
 2. Every field you can configure (method, URL, headers, body, credentials)
 3. Output‑schema filtering & variable assignment
 4. How to test your configuration before going live
 
 ---
 
-## API Action Modes
-
-<CardGroup cols={2}>
-  <Card title="Simple Pearl" icon="subtitles" iconType="light">
-    Use the **When to trigger the action** field to state the exact moment or condition that fires the API call.
-  </Card>
-  <Card title="Advanced Pearl" icon="diagram-subtask" iconType="light">
-    Add an **API node** inside the conversation tree. As soon as the flow reaches that node, the request runs automatically—no trigger field needed.
-  </Card>
-</CardGroup>
+## How API Actions Work
 
 <Info>
-  **Pre‑Call API (AdvancedPearl only)**\
+  Add an **API node** inside the conversation tree. As soon as the flow reaches that node, the request runs automatically.
+</Info>
+
+<Info>
+  **Pre‑Call API**\
   You may run a request _before_ the call starts—perfect for:
 
   - **Inbound**: look up the caller by phone number (auto‑captured variable)
