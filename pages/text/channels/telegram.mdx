@@ -1,0 +1,165 @@
+---
+title: "Telegram"
+description: "Connect your Pearl Text agent to Telegram by creating a bot with BotFather and linking its token to the platform."
+icon: "telegram"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/telegramcovooo.svg"
+        alt="Telegram cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/telegramcovooo.svg"
+        alt="Telegram cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+## Telegram Channel
+
+Connect your Pearl Text agent to **Telegram** through a Telegram bot. Pearl replies using the flow, knowledge, and actions defined in your Pearl, across both [inbound](/pages/text/inbound) conversations and [outbound](/pages/text/outbound) campaigns.
+
+To connect Telegram, you first create a bot directly inside the Telegram app using **BotFather**, then paste the bot token into the platform.
+
+---
+
+### Step 1 - Create your Telegram bot
+
+<Steps>
+  <Step title="Create a Telegram account">
+    If you don't have one yet, download Telegram and create an account.
+  </Step>
+  <Step title="Find BotFather">
+    In Telegram's contact search, look for **BotFather** (the official Telegram bot for creating bots) and open the conversation.
+
+    <Frame>
+      <div className="block dark:hidden">
+        <img src="/images/light_mode/telegram_search.png" alt="Searching for BotFather in Telegram" className="rounded-[14px] w-full" />
+      </div>
+      <div className="hidden dark:block">
+        <img src="/images/dark_mode/telegram_search.png" alt="Searching for BotFather in Telegram" className="rounded-[14px] w-full" />
+      </div>
+    </Frame>
+  </Step>
+  <Step title="Start the conversation">
+    Send the `/start` command to BotFather. It replies with the list of available commands.
+
+    <Frame>
+      <div className="block dark:hidden">
+        <img src="/images/light_mode/telegram_start.png" alt="BotFather /start command" className="rounded-[14px] w-full" />
+      </div>
+      <div className="hidden dark:block">
+        <img src="/images/dark_mode/telegram_start.png" alt="BotFather /start command" className="rounded-[14px] w-full" />
+      </div>
+    </Frame>
+  </Step>
+  <Step title="Create a new bot">
+    Send the `/newbot` command. BotFather will ask you to choose a name for your bot.
+
+    <Note>
+    The name must always **end with `bot`** (for example `MySupportBot` or `my_support_bot`).
+    </Note>
+
+    <Frame>
+      <div className="block dark:hidden">
+        <img src="/images/light_mode/telegram_newbot.png" alt="BotFather /newbot command and bot name" className="rounded-[14px] w-full" />
+      </div>
+      <div className="hidden dark:block">
+        <img src="/images/dark_mode/telegram_newbot.png" alt="BotFather /newbot command and bot name" className="rounded-[14px] w-full" />
+      </div>
+    </Frame>
+  </Step>
+  <Step title="Save your token">
+    Once the bot is created, BotFather sends you a message containing the link to talk to your bot and an **access token**. Keep this token - you'll need it to connect the bot to the platform.
+
+    <Warning>
+    Treat the token like a password. Anyone with it can control your bot, so don't share it publicly.
+    </Warning>
+
+    <Frame>
+      <div className="block dark:hidden">
+        <img src="/images/light_mode/telegram_token.png" alt="BotFather bot creation confirmation and token" className="rounded-[14px] w-full" />
+      </div>
+      <div className="hidden dark:block">
+        <img src="/images/dark_mode/telegram_token.png" alt="BotFather bot creation confirmation and token" className="rounded-[14px] w-full" />
+      </div>
+    </Frame>
+  </Step>
+</Steps>
+
+---
+
+### Step 2 - Connect Telegram on the platform
+
+<Steps>
+  <Step title="Open the Text Channel settings">
+    On the platform, go to **Settings**, then open the **Text Channel** page.
+  </Step>
+  <Step title="Connect to Telegram">
+    Select **Telegram** and start a new connection.
+
+    <Frame>
+      <div className="block dark:hidden">
+        <img src="/images/light_mode/telegram_connect.png" alt="Connect Telegram from the Text Channels page" className="rounded-[14px] w-full" />
+      </div>
+      <div className="hidden dark:block">
+        <img src="/images/dark_mode/telegram_connect.png" alt="Connect Telegram from the Text Channels page" className="rounded-[14px] w-full" />
+      </div>
+    </Frame>
+  </Step>
+  <Step title="Enter the bot details">
+    - **Token**: paste the access token you received from BotFather.
+    - **Channel Name** *(optional)*: give the connection a name to identify it later.
+
+    <Frame>
+      <div className="block dark:hidden">
+        <img src="/images/light_mode/telegram_connect_modal.png" alt="Connect Telegram dialog with bot token and channel name" className="rounded-[14px] w-full" />
+      </div>
+      <div className="hidden dark:block">
+        <img src="/images/dark_mode/telegram_connect_modal.png" alt="Connect Telegram dialog with bot token and channel name" className="rounded-[14px] w-full" />
+      </div>
+    </Frame>
+  </Step>
+  <Step title="Save and test">
+    Save the connection, then message your bot on Telegram to confirm Pearl replies as expected.
+  </Step>
+  <Step title="Assign the channel to a Pearl">
+    Open the Pearl you want to use for [inbound](/pages/text/inbound) or [outbound](/pages/text/outbound) conversations, go to **Settings**, and set the connected Telegram bot as its **Text Channel**.
+
+    <Frame>
+      <div className="block dark:hidden">
+        <img src="/images/light_mode/telegram_assign_pearl.png" alt="Assign the Telegram channel to a Pearl from its settings" className="rounded-[14px] w-full" />
+      </div>
+      <div className="hidden dark:block">
+        <img src="/images/dark_mode/telegram_assign_pearl.png" alt="Assign the Telegram channel to a Pearl from its settings" className="rounded-[14px] w-full" />
+      </div>
+    </Frame>
+  </Step>
+</Steps>
+
+---
+
+<CardGroup cols={2}>
+  <Card title="Inbound" icon="inbox-in" iconType="light" href="/pages/text/inbound">
+    Deploy your agent on inbound channels to answer incoming Telegram messages instantly.
+  </Card>
+  <Card title="Outbound" icon="paper-plane" iconType="light" href="/pages/text/outbound">
+    Launch outbound Telegram campaigns to reach customers proactively.
+  </Card>
+</CardGroup>

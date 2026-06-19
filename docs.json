@@ -111,6 +111,14 @@
                   "pages/custom_voip"
                 ]
               },
+              {
+                "group": "Text Channel",
+                "icon": "comments",
+                "pages": [
+                  "pages/text/channels/sms",
+                  "pages/text/channels/telegram"
+                ]
+              },
               "pages/billing",
               "pages/security",
               "pages/blacklist"

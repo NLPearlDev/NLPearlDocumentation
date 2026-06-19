@@ -1,0 +1,110 @@
+---
+title: "SMS"
+description: "Connect your Pearl Text agent to SMS through Twilio to send and receive text messages with your customers."
+icon: "comment-sms"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/twiliosmscover.svg"
+        alt="SMS cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/twiliosmscover.svg"
+        alt="SMS cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+## SMS Channel
+
+Connect your Pearl Text agent to **SMS** to handle conversations over standard text messaging. SMS runs through **Twilio**, so the connection works exactly like the [Twilio Integration](/pages/twilio_integration) used for voice phone numbers - you link your Twilio account once, then use your numbers across NLPearl.
+
+<Info>
+SMS works for both [inbound](/pages/text/inbound) conversations, where the customer messages you first, and [outbound](/pages/text/outbound) campaigns, where Pearl reaches out proactively.
+</Info>
+
+---
+
+### Step 1 - Connect your Twilio account
+
+Connecting SMS uses the same flow as importing voice phone numbers. Follow the [Twilio Integration](/pages/twilio_integration) guide to link your Twilio account with NLPearl, then come back here to buy a number dedicated to SMS.
+
+<Card title="Twilio Integration" icon="object-intersect" iconType="light" href="/pages/twilio_integration">
+  Link your Twilio account with NLPearl to use your Twilio numbers on the platform.
+</Card>
+
+---
+
+### Step 2 - Buy a phone number for SMS
+
+The only difference with SMS is that you buy a number specifically enabled for messaging. You do this directly in the [Twilio Console](https://www.twilio.com/console), in three steps.
+
+<Steps>
+  <Step title="Open Numbers & senders">
+    In the Twilio Console, open the **Products & Services** menu and select **Numbers & senders**.
+
+    <Frame>
+      <div className="block dark:hidden">
+        <img src="/images/light_mode/sms_twilio_numbers_menu.png" alt="Open Numbers & senders in the Twilio Console" className="rounded-[14px] w-full" />
+      </div>
+      <div className="hidden dark:block">
+        <img src="/images/dark_mode/sms_twilio_numbers_menu.png" alt="Open Numbers & senders in the Twilio Console" className="rounded-[14px] w-full" />
+      </div>
+    </Frame>
+  </Step>
+  <Step title="Set up a new phone number">
+    Open the **Phone Numbers** tab and click **Set up a new phone number** on the top right to start the purchase flow.
+
+    <Frame>
+      <div className="block dark:hidden">
+        <img src="/images/light_mode/sms_twilio_setup_number.png" alt="Set up a new phone number from the Phone Numbers tab" className="rounded-[14px] w-full" />
+      </div>
+      <div className="hidden dark:block">
+        <img src="/images/dark_mode/sms_twilio_setup_number.png" alt="Set up a new phone number from the Phone Numbers tab" className="rounded-[14px] w-full" />
+      </div>
+    </Frame>
+  </Step>
+  <Step title="Select an SMS-enabled number">
+    Choose the **destination country** where your customers are, then under **capabilities** make sure **SMS** is checked. Search for a number, pick one, and complete the purchase.
+
+    <Frame>
+      <div className="block dark:hidden">
+        <img src="/images/light_mode/sms_twilio_select_sms.png" alt="Select a phone number with SMS capability enabled" className="rounded-[14px] w-full" />
+      </div>
+      <div className="hidden dark:block">
+        <img src="/images/dark_mode/sms_twilio_select_sms.png" alt="Select a phone number with SMS capability enabled" className="rounded-[14px] w-full" />
+      </div>
+    </Frame>
+  </Step>
+</Steps>
+
+<Note>
+Once purchased, the SMS number appears in Twilio. Import it into NLPearl from the [Twilio Integration](/pages/twilio_integration) screen, just like any other Twilio number.
+</Note>
+
+---
+
+<CardGroup cols={2}>
+  <Card title="Inbound" icon="inbox-in" iconType="light" href="/pages/text/inbound">
+    Deploy your agent on inbound channels to answer incoming SMS instantly.
+  </Card>
+  <Card title="Outbound" icon="paper-plane" iconType="light" href="/pages/text/outbound">
+    Launch outbound SMS campaigns to reach customers proactively.
+  </Card>
+</CardGroup>
