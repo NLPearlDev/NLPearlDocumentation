@@ -75,7 +75,17 @@
               },
               "pages/postcall",
               "pages/inbound",
-              "pages/outbound"
+              "pages/outbound",
+              {
+                "group": "Phone Numbers",
+                "icon": "mobile",
+                "pages": [
+                  "pages/phone_overview",
+                  "pages/nlpearl_phones",
+                  "pages/twilio_integration",
+                  "pages/custom_voip"
+                ]
+              }
             ]
           },
           {
@@ -93,7 +103,15 @@
               },
               "pages/text/postchat",
               "pages/text/inbound",
-              "pages/text/outbound"
+              "pages/text/outbound",
+              {
+                "group": "Text Channel",
+                "icon": "comments",
+                "pages": [
+                  "pages/text/channels/sms",
+                  "pages/text/channels/telegram"
+                ]
+              }
             ]
           },
           {
@@ -101,16 +119,6 @@
             "pages": [
               "pages/agents",
               "pages/users_workspaces",
-              {
-                "group": "Phone Numbers",
-                "icon": "mobile",
-                "pages": [
-                  "pages/phone_overview",
-                  "pages/nlpearl_phones",
-                  "pages/twilio_integration",
-                  "pages/custom_voip"
-                ]
-              },
               "pages/billing",
               "pages/security",
               "pages/blacklist"
