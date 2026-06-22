@@ -1988,6 +1988,98 @@
                 }
             }
         },
+        "/v2/Pearl/{pearlId}/Calls/Bulk": {
+            "post": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Get Calls Bulk",
+                "description": "Retrieves calls within a date range like Get Calls, but lets the caller opt into additional fields (transcript, collected info, summary, recording, sentiment, credits, ...) via the Fields property. Only the requested fields are returned.",
+                "parameters": [
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CallsBulkSearchApi"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CallsBulkSearchApi"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CallsBulkSearchApi"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Calls within the specified date range, including the requested fields.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CallBulkApiViewTableSearchResult"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CallBulkApiViewTableSearchResult"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CallBulkApiViewTableSearchResult"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v2/Pearl/{pearlId}/OngoingCalls": {
             "get": {
                 "tags": [
@@ -2486,6 +2578,78 @@
                     }
                 }
             }
+        },
+        "/v2/Recording/{clientId}/{pearlId}/{callId}": {
+            "get": {
+                "tags": [
+                    "Recording"
+                ],
+                "summary": "Get Call Recording",
+                "description": "Retrieves the audio recording for a specific call. If the client has public recordings enabled, the endpoint can be accessed anonymously; otherwise, a valid Authorization header matching the client is required. Recordings hosted on Twilio are returned as a permanent redirect, while recordings stored internally are converted from WAV to Opus (audio/ogg) and streamed back with range processing enabled for browser seeking.",
+                "parameters": [
+                    {
+                        "name": "clientId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "callId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The audio recording in Opus format (audio/ogg).",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "One or more provided IDs are not valid ObjectIds."
+                    },
+                    "401": {
+                        "description": "The client does not allow public recordings and the request is not properly authenticated for the given client."
+                    },
+                    "404": {
+                        "description": "No recording was found for the specified call."
+                    },
+                    "500": {
+                        "description": "Failed to process the recording (e.g., conversion error)."
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -2648,7 +2812,7 @@
                                 "$ref": "#/components/schemas/eChatMessageRoleView"
                             }
                         ],
-                        "description": "`2 - Pearl`\n\n`3 - Client`\n\n"
+                        "description": "`2 - Pearl`\n\n`3 - Client`\n\n`4 - PlatformUser`\n\n"
                     },
                     "content": {
                         "type": "string",
@@ -2973,7 +3137,7 @@
                                 "$ref": "#/components/schemas/eCallStatusView"
                             }
                         ],
-                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n"
+                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n`10 - OnGoingText`\n\n"
                     },
                     "from": {
                         "type": "string",
@@ -3055,7 +3219,164 @@
                     },
                     "smsCreditDebited": {
                         "type": "integer",
+                        "description": "The total amount of credits debited for SMS usage during this conversation.",
                         "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CallBulkApiView": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The unique identifier of the call.",
+                        "nullable": true
+                    },
+                    "pearlId": {
+                        "type": "string",
+                        "description": "The unique identifier of the Pearl associated with the call.",
+                        "nullable": true
+                    },
+                    "relatedId": {
+                        "type": "string",
+                        "description": "The unique identifier of the related inbound or outbound entity.",
+                        "nullable": true
+                    },
+                    "startTime": {
+                        "type": "string",
+                        "description": "The date and time when the call processing started.",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "conversationStatus": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eConversationStatusView"
+                            }
+                        ],
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
+                        "nullable": true
+                    },
+                    "status": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eCallStatusView"
+                            }
+                        ],
+                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n`10 - OnGoingText`\n\n",
+                        "nullable": true
+                    },
+                    "from": {
+                        "type": "string",
+                        "description": "The phone number from which the call was made.",
+                        "nullable": true
+                    },
+                    "to": {
+                        "type": "string",
+                        "description": "The phone number to which the call was made.",
+                        "nullable": true
+                    },
+                    "duration": {
+                        "type": "integer",
+                        "description": "The duration of the call in seconds.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The tags or labels triggered during the conversation.",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name associated with the call, if available.",
+                        "nullable": true
+                    },
+                    "summary": {
+                        "type": "string",
+                        "description": "A summary of the conversation.",
+                        "nullable": true
+                    },
+                    "recording": {
+                        "type": "string",
+                        "description": "The URL of the recording of the call, if available.",
+                        "nullable": true
+                    },
+                    "transcript": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AgentChatMessageApiView"
+                        },
+                        "description": "The transcript of the conversation, represented as a list of chat messages.",
+                        "nullable": true
+                    },
+                    "collectedInfo": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CollectedInfoView"
+                        },
+                        "description": "A list containing information collected during the call.",
+                        "nullable": true
+                    },
+                    "overallSentiment": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eOverallSentiment"
+                            }
+                        ],
+                        "description": "Represents the overall emotional tone detected from the client during the conversation.\n\n`1 - Negative`\n\n`2 - SlightlyNegative`\n\n`3 - Neutral`\n\n`4 - SlightlyPositive`\n\n`5 - Positive`\n\n",
+                        "nullable": true
+                    },
+                    "isCallTransferred": {
+                        "type": "boolean",
+                        "description": "Indicates whether the call was transferred to a human agent or another endpoint.",
+                        "nullable": true
+                    },
+                    "queueDuration": {
+                        "type": "integer",
+                        "description": "The time (in seconds) the user spent in the queue before being connected or transferred to an agent (inbound only).",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "creditDebited": {
+                        "type": "integer",
+                        "description": "The total amount of credits debited for the entire conversation.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "smsCreditDebited": {
+                        "type": "integer",
+                        "description": "The total amount of SMS credits debited for the entire conversation.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "leadId": {
+                        "type": "string",
+                        "description": "If the call is related to a lead, this is the unique identifier of that lead. Otherwise, this value is null.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CallBulkApiViewTableSearchResult": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "type": "integer",
+                        "description": "The total number of items matching the search criteria.",
+                        "format": "int64"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CallBulkApiView"
+                        },
+                        "description": "The list of results for the current page, based on the search criteria.",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -3119,22 +3440,27 @@
                 "properties": {
                     "takeMessageCount": {
                         "type": "integer",
+                        "description": "The number of calls where a message was taken.",
                         "format": "int32"
                     },
                     "smsSentCount": {
                         "type": "integer",
+                        "description": "The number of calls where an SMS was sent.",
                         "format": "int32"
                     },
                     "callTransferredCount": {
                         "type": "integer",
+                        "description": "The number of calls that were transferred.",
                         "format": "int32"
                     },
                     "calendarBookedCount": {
                         "type": "integer",
+                        "description": "The number of calls where a calendar appointment was booked.",
                         "format": "int32"
                     },
                     "emailSentCount": {
                         "type": "integer",
+                        "description": "The number of calls where an email was sent.",
                         "format": "int32"
                     }
                 },
@@ -3175,18 +3501,22 @@
                 "properties": {
                     "id": {
                         "type": "string",
+                        "description": "The unique identifier of the label.",
                         "nullable": true
                     },
                     "name": {
                         "type": "string",
+                        "description": "The display name of the label.",
                         "nullable": true
                     },
                     "color": {
                         "type": "string",
+                        "description": "The color associated with the label.",
                         "nullable": true
                     },
                     "count": {
                         "type": "integer",
+                        "description": "The number of calls tagged with this label during the selected period.",
                         "format": "int32"
                     }
                 },
@@ -3220,7 +3550,7 @@
                                 "$ref": "#/components/schemas/eCallStatusView"
                             }
                         ],
-                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n"
+                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n`10 - OnGoingText`\n\n"
                     },
                     "from": {
                         "type": "string",
@@ -3267,16 +3597,109 @@
                 },
                 "additionalProperties": false
             },
+            "CallRetentionPurge": {
+                "type": "object",
+                "properties": {
+                    "transcript": {
+                        "type": "boolean",
+                        "description": "When true, removes the call transcript."
+                    },
+                    "recording": {
+                        "type": "boolean",
+                        "description": "When true, removes the call recording (including the stored audio file)."
+                    },
+                    "summary": {
+                        "type": "boolean",
+                        "description": "When true, removes the call summary."
+                    },
+                    "variables": {
+                        "type": "boolean",
+                        "description": "When true, removes the information collected during the call (variables)."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Purge selection. When this object is provided, the call is kept and only the parts flagged\r\n`true` are removed (parts left `false` are kept). When it is omitted, the call is\r\nfully deleted: every part is removed and the call is marked as deleted."
+            },
             "CallsAverageTimeLine": {
                 "type": "object",
                 "properties": {
                     "date": {
                         "type": "string",
+                        "description": "The date this timeline entry corresponds to.",
                         "format": "date-time"
                     },
                     "averageCallDuration": {
                         "type": "number",
+                        "description": "The average call duration on this date, in seconds.",
                         "format": "double"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CallsBulkSearchApi": {
+                "required": [
+                    "fromDate",
+                    "toDate"
+                ],
+                "type": "object",
+                "properties": {
+                    "skip": {
+                        "type": "integer",
+                        "description": "Number of entries to skip for pagination.",
+                        "format": "int32"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Limit on the number of entries to return.",
+                        "format": "int32"
+                    },
+                    "sortProp": {
+                        "type": "string",
+                        "description": "Property name to sort by.",
+                        "nullable": true
+                    },
+                    "isAscending": {
+                        "type": "boolean",
+                        "description": "Whether the sort order is ascending."
+                    },
+                    "fromDate": {
+                        "type": "string",
+                        "description": "The start date for filtering the search results.",
+                        "format": "date-time"
+                    },
+                    "toDate": {
+                        "type": "string",
+                        "description": "The end date for filtering the search results.",
+                        "format": "date-time"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of tags to filter by.",
+                        "nullable": true
+                    },
+                    "statuses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/eLeadStatusView"
+                        },
+                        "description": "List of Status to filter by.\n\n",
+                        "nullable": true
+                    },
+                    "searchInput": {
+                        "type": "string",
+                        "description": "Text to filter by.",
+                        "nullable": true
+                    },
+                    "fields": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Optional list selecting which additional fields are included in each returned call. Only the requested fields are populated; all others are omitted. Allowed values: Tags, Name, Summary, Recording, Transcript, CollectedInfo, OverallSentiment, IsCallTransferred, QueueDuration, CreditDebited, SmsCreditDebited, LeadId.",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -3286,6 +3709,7 @@
                 "properties": {
                     "hourOfDay": {
                         "type": "integer",
+                        "description": "The hour of the day (0-23) the calls were placed.",
                         "format": "int32"
                     },
                     "dayOfWeek": {
@@ -3298,6 +3722,7 @@
                     },
                     "count": {
                         "type": "integer",
+                        "description": "The number of calls placed during this hour-and-day slot.",
                         "format": "int32"
                     }
                 },
@@ -3308,14 +3733,17 @@
                 "properties": {
                     "date": {
                         "type": "string",
+                        "description": "The date this timeline entry corresponds to.",
                         "format": "date-time"
                     },
                     "totalPrice": {
                         "type": "number",
+                        "description": "The total cost of all calls on this date.",
                         "format": "double"
                     },
                     "averageCostPerCall": {
                         "type": "number",
+                        "description": "The average cost per call on this date.",
                         "format": "double"
                     }
                 },
@@ -3326,10 +3754,12 @@
                 "properties": {
                     "date": {
                         "type": "string",
+                        "description": "The date this timeline entry corresponds to.",
                         "format": "date-time"
                     },
                     "pickupRatePercentage": {
                         "type": "number",
+                        "description": "The percentage of calls that were answered on this date (outbound only).",
                         "format": "double"
                     }
                 },
@@ -3340,22 +3770,27 @@
                 "properties": {
                     "negative": {
                         "type": "integer",
+                        "description": "The number of calls with a negative sentiment.",
                         "format": "int32"
                     },
                     "slightlyNegative": {
                         "type": "integer",
+                        "description": "The number of calls with a slightly negative sentiment.",
                         "format": "int32"
                     },
                     "neutral": {
                         "type": "integer",
+                        "description": "The number of calls with a neutral sentiment.",
                         "format": "int32"
                     },
                     "slightlyPositive": {
                         "type": "integer",
+                        "description": "The number of calls with a slightly positive sentiment.",
                         "format": "int32"
                     },
                     "positive": {
                         "type": "integer",
+                        "description": "The number of calls with a positive sentiment.",
                         "format": "int32"
                     }
                 },
@@ -3367,50 +3802,62 @@
                 "properties": {
                     "totalCalls": {
                         "type": "integer",
+                        "description": "The total number of calls placed during the selected period.",
                         "format": "int32"
                     },
                     "totalLeads": {
                         "type": "integer",
+                        "description": "The total number of distinct leads contacted during the selected period.",
                         "format": "int32"
                     },
                     "needRetry": {
                         "type": "integer",
+                        "description": "The number of calls that ended needing a retry attempt.",
                         "format": "int32"
                     },
                     "wrongCountryCode": {
                         "type": "integer",
+                        "description": "The number of calls that failed because of an incorrect country code.",
                         "format": "int32"
                     },
                     "needFollowUp": {
                         "type": "integer",
+                        "description": "The number of calls that ended needing a follow-up contact.",
                         "format": "int32"
                     },
                     "voiceMailLeft": {
                         "type": "integer",
+                        "description": "The number of calls where a voicemail was left.",
                         "format": "int32"
                     },
                     "successful": {
                         "type": "integer",
+                        "description": "The number of calls with a successful outcome.",
                         "format": "int32"
                     },
                     "unsuccessful": {
                         "type": "integer",
+                        "description": "The number of calls with an unsuccessful outcome.",
                         "format": "int32"
                     },
                     "wrongNumber": {
                         "type": "integer",
+                        "description": "The number of calls dialed to an incorrect or invalid phone number.",
                         "format": "int32"
                     },
                     "completed": {
                         "type": "integer",
+                        "description": "The number of calls marked as completed.",
                         "format": "int32"
                     },
                     "unreachable": {
                         "type": "integer",
+                        "description": "The number of calls to an unreachable phone number.",
                         "format": "int32"
                     },
                     "error": {
                         "type": "integer",
+                        "description": "The number of calls that encountered a system or processing error.",
                         "format": "int32"
                     }
                 },
@@ -3422,54 +3869,67 @@
                 "properties": {
                     "totalCalls": {
                         "type": "integer",
+                        "description": "The total number of calls placed during the selected period.",
                         "format": "int32"
                     },
                     "totalLeads": {
                         "type": "integer",
+                        "description": "The total number of distinct leads contacted during the selected period.",
                         "format": "int32"
                     },
                     "needRetry": {
                         "type": "integer",
+                        "description": "The number of calls that ended needing a retry attempt.",
                         "format": "int32"
                     },
                     "wrongCountryCode": {
                         "type": "integer",
+                        "description": "The number of calls that failed because of an incorrect country code.",
                         "format": "int32"
                     },
                     "needFollowUp": {
                         "type": "integer",
+                        "description": "The number of calls that ended needing a follow-up contact.",
                         "format": "int32"
                     },
                     "voiceMailLeft": {
                         "type": "integer",
+                        "description": "The number of calls where a voicemail was left.",
                         "format": "int32"
                     },
                     "successful": {
                         "type": "integer",
+                        "description": "The number of calls with a successful outcome.",
                         "format": "int32"
                     },
                     "unsuccessful": {
                         "type": "integer",
+                        "description": "The number of calls with an unsuccessful outcome.",
                         "format": "int32"
                     },
                     "wrongNumber": {
                         "type": "integer",
+                        "description": "The number of calls dialed to an incorrect or invalid phone number.",
                         "format": "int32"
                     },
                     "completed": {
                         "type": "integer",
+                        "description": "The number of calls marked as completed.",
                         "format": "int32"
                     },
                     "unreachable": {
                         "type": "integer",
+                        "description": "The number of calls to an unreachable phone number.",
                         "format": "int32"
                     },
                     "error": {
                         "type": "integer",
+                        "description": "The number of calls that encountered a system or processing error.",
                         "format": "int32"
                     },
                     "date": {
                         "type": "string",
+                        "description": "The date this timeline entry corresponds to.",
                         "format": "date-time"
                     }
                 },
@@ -3481,10 +3941,12 @@
                 "properties": {
                     "date": {
                         "type": "string",
+                        "description": "The date this timeline entry corresponds to.",
                         "format": "date-time"
                     },
                     "successRatePercentage": {
                         "type": "number",
+                        "description": "The percentage of calls that were successful on this date.",
                         "format": "double"
                     }
                 },
@@ -3791,7 +4253,16 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "The list of unique call IDs to delete.",
+                        "description": "The list of unique identifiers of the calls to delete.",
+                        "nullable": true
+                    },
+                    "purgeOption": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CallRetentionPurge"
+                            }
+                        ],
+                        "description": "Optional. Determines how much of each call is removed. When provided, the calls are kept and only the parts flagged true are stripped (transcript, recording, summary, variables). When omitted, each call is fully deleted: every part is purged, the recording is removed, and the call is marked as deleted.",
                         "nullable": true
                     }
                 },
@@ -4072,7 +4543,7 @@
                                 "$ref": "#/components/schemas/eCallStatusView"
                             }
                         ],
-                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n"
+                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n`10 - OnGoingText`\n\n"
                     },
                     "from": {
                         "type": "string",
@@ -4371,7 +4842,7 @@
                                 "$ref": "#/components/schemas/eRecordingTrack"
                             }
                         ],
-                        "description": "Call recording track selection.\n\n- Both: Records both sides of the call (agent and lead/customer).\n- Outbound: Records only the agent side.\n- Inbound: Records only the lead/customer side.\n- None: Disables call recording.\n\n`1 - Outbound`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n"
+                        "description": "Call recording track selection.\n\n- Both: Records both sides of the call (agent and lead/customer).\n- Outbound: Records only the agent side.\n- Inbound: Records only the lead/customer side.\n- None: Disables call recording.\n\n`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n"
                     },
                     "isStopRecordingAfterTransferCall": {
                         "type": "boolean",
@@ -4480,7 +4951,7 @@
                                 "$ref": "#/components/schemas/eBrainModelType"
                             }
                         ],
-                        "description": "Agent model type.\n\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n",
+                        "description": "Agent model type.\n\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
                         "nullable": true
                     },
                     "companyName": {
@@ -4767,6 +5238,7 @@
                 "properties": {
                     "phoneNumber": {
                         "type": "string",
+                        "description": "The phone number of the customer whose conversation memory should be reset.",
                         "nullable": true
                     }
                 },
@@ -5020,7 +5492,7 @@
             },
             "eBrainModelType": {
                 "type": "integer",
-                "description": "Agent model type.\n\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n",
+                "description": "Agent model type.\n\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
                 "format": "int32"
             },
             "eCallAuthorizationStatus": {
@@ -5030,12 +5502,12 @@
             },
             "eCallStatusView": {
                 "type": "integer",
-                "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n",
+                "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n`10 - OnGoingText`\n\n",
                 "format": "int32"
             },
             "eChatMessageRoleView": {
                 "type": "integer",
-                "description": "`2 - Pearl`\n\n`3 - Client`\n\n",
+                "description": "`2 - Pearl`\n\n`3 - Client`\n\n`4 - PlatformUser`\n\n",
                 "format": "int32"
             },
             "eConversationStatusView": {
@@ -5090,7 +5562,7 @@
             },
             "eRecordingTrack": {
                 "type": "integer",
-                "description": "Call recording track selection.\n\n- Both: Records both sides of the call (agent and lead/customer).\n- Outbound: Records only the agent side.\n- Inbound: Records only the lead/customer side.\n- None: Disables call recording.\n\n`1 - Outbound`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n",
+                "description": "Call recording track selection.\n\n- Both: Records both sides of the call (agent and lead/customer).\n- Outbound: Records only the agent side.\n- Inbound: Records only the lead/customer side.\n- None: Disables call recording.\n\n`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n",
                 "format": "int32"
             },
             "eStateDataType": {
@@ -5120,6 +5592,12 @@
     "security": [
         {
             "bearer_auth": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "Pearl",
+            "description": "Manage your Pearls — the AI agents that handle your inbound and outbound calls. Create and configure Pearls, retrieve their details and settings, run or pause them, list and bulk-export their calls, monitor calls in progress, get analytics, and reset a customer's conversation memory."
         }
     ]
 }
