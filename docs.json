@@ -131,6 +131,15 @@
                 ]
               },
               {
+                "group": "Phone Number",
+                "expanded": true,
+                "pages": [
+                  "api-reference/v2/phoneNumber/create-custom-voip",
+                  "api-reference/v2/phoneNumber/update-custom-voip",
+                  "api-reference/v2/phoneNumber/delete-custom-voip"
+                ]
+              },
+              {
                 "group": "Call",
                             "expanded": true, 
                 "pages": [

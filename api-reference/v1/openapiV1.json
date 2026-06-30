@@ -2866,6 +2866,10 @@
                         "description": "The number of calls to an unreachable phone number.",
                         "format": "int32"
                     },
+                    "answeredCalls": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
                     "error": {
                         "type": "integer",
                         "description": "The number of calls that encountered a system or processing error.",
@@ -2931,6 +2935,10 @@
                     "unreachable": {
                         "type": "integer",
                         "description": "The number of calls to an unreachable phone number.",
+                        "format": "int32"
+                    },
+                    "answeredCalls": {
+                        "type": "integer",
                         "format": "int32"
                     },
                     "error": {

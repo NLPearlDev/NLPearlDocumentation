@@ -2579,6 +2579,245 @@
                 }
             }
         },
+        "/v2/PhoneNumber/CustomVoip": {
+            "post": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "Create Custom VoIP Number",
+                "description": "Creates a custom VoIP phone number and, in the same call, optionally configures its inbound (sipConfig) and/or outbound (sipTrunkConfig). When an inbound configuration is provided, the generated SIP domain is returned in sipConfig.domain.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The created custom VoIP phone number, including the SIP domain when inbound is configured.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/PhoneNumber/CustomVoip/{phoneNumberId}": {
+            "put": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "Update Custom VoIP Number",
+                "description": "Updates a custom VoIP phone number and its inbound (sipConfig) and/or outbound (sipTrunkConfig) configuration in a single call (full replacement). A provided configuration is created or updated; a configuration left null is removed and the direction is recomputed.",
+                "parameters": [
+                    {
+                        "name": "phoneNumberId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated custom VoIP phone number, including the SIP domain when inbound is configured.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "Delete Custom VoIP Number",
+                "description": "Deletes a custom VoIP phone number and releases its SIP resources.",
+                "parameters": [
+                    {
+                        "name": "phoneNumberId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a boolean indicating if the deletion was successful.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v2/Recording/{clientId}/{pearlId}/{callId}": {
             "get": {
                 "tags": [
@@ -3855,6 +4094,10 @@
                         "description": "The number of calls to an unreachable phone number.",
                         "format": "int32"
                     },
+                    "answeredCalls": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
                     "error": {
                         "type": "integer",
                         "description": "The number of calls that encountered a system or processing error.",
@@ -3920,6 +4163,10 @@
                     "unreachable": {
                         "type": "integer",
                         "description": "The number of calls to an unreachable phone number.",
+                        "format": "int32"
+                    },
+                    "answeredCalls": {
+                        "type": "integer",
                         "format": "int32"
                     },
                     "error": {
@@ -4061,9 +4308,36 @@
                             }
                         ],
                         "description": "Phone number direction (supported call capabilities).\n\n- InboundOutbound: Supports both inbound and outbound calls.\n- Inbound: Supports inbound calls only.\n- Outbound: Supports outbound calls only.\n- NotSet: Direction is not set.\n\n`1 - InboundOutbound`\n\n`2 - Inbound`\n\n`3 - Outbound`\n\n`10 - NotSet`\n\n"
+                    },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ePhoneNumberTypeApi"
+                            }
+                        ],
+                        "description": "Indicates how the phone number is provisioned and connected to NLPearl.\n\n- NLPearlDefault: a shared default number provided by NLPearl.\n- NLPearl: a number purchased and managed for you by NLPearl.\n- Twilio: a number from your own Twilio account that you connected.\n- CustomVoip: a custom VoIP number you connect over SIP.\n- Undefined: the type could not be determined.\n\n`1 - NLPearlDefault`\n\n`2 - NLPearl`\n\n`3 - Twilio`\n\n`4 - CustomVoip`\n\n`99 - Undefined`\n\n"
+                    },
+                    "sipConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPConfigApiView"
+                            }
+                        ],
+                        "description": "The inbound SIP configuration. Present only for custom VoIP numbers that have inbound configured; passwords are never returned.",
+                        "nullable": true
+                    },
+                    "sipTrunkConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPTrunkConfigApiView"
+                            }
+                        ],
+                        "description": "The outbound SIP trunk configuration. Present only for custom VoIP numbers that have outbound configured; passwords are never returned.",
+                        "nullable": true
                     }
                 },
-                "additionalProperties": false
+                "additionalProperties": false,
+                "description": "A phone number of the account as exposed by the API. For custom VoIP numbers it also carries the\r\nconfigured inbound and/or outbound SIP setup (with passwords masked)."
             },
             "CollectedInfoView": {
                 "type": "object",
@@ -4084,6 +4358,39 @@
                     }
                 },
                 "additionalProperties": false
+            },
+            "CustomVoipNumberRequestApi": {
+                "required": [
+                    "number"
+                ],
+                "type": "object",
+                "properties": {
+                    "number": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The phone number in E.164 format."
+                    },
+                    "sipConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPConfigApi"
+                            }
+                        ],
+                        "description": "Optional inbound SIP configuration. Provide it to receive calls on this number. On update, omitting it (null) removes the existing inbound configuration.",
+                        "nullable": true
+                    },
+                    "sipTrunkConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPTrunkConfigApi"
+                            }
+                        ],
+                        "description": "Optional outbound SIP trunk configuration. Provide it to place calls from this number. On update, omitting it (null) removes the existing outbound configuration.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
             },
             "DataSettingsApi": {
                 "type": "object",
@@ -5244,6 +5551,135 @@
                 },
                 "additionalProperties": false
             },
+            "SIPConfigApi": {
+                "required": [
+                    "authMethod"
+                ],
+                "type": "object",
+                "properties": {
+                    "authMethod": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SipAuthMethodApi"
+                            }
+                        ],
+                        "description": "How incoming SIP calls are authenticated (username/password and/or IP allowlist). At least one method is required."
+                    },
+                    "isTLS": {
+                        "type": "boolean",
+                        "description": "Whether inbound SIP traffic uses TLS."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound SIP configuration of a custom VoIP number: how incoming calls are authenticated and secured.\r\nThe SIP domain is generated by NLPearl and is not provided by the client."
+            },
+            "SIPConfigApiView": {
+                "type": "object",
+                "properties": {
+                    "domain": {
+                        "type": "string",
+                        "description": "The SIP domain to which inbound traffic for this number must be sent (e.g. `{id}-nlpearl-ai.sip.twilio.com`).",
+                        "nullable": true
+                    },
+                    "isTLS": {
+                        "type": "boolean",
+                        "description": "Whether inbound SIP traffic uses TLS."
+                    },
+                    "authMethod": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SipAuthMethodApiView"
+                            }
+                        ],
+                        "description": "How incoming calls are authenticated (username and/or IP allowlist). Passwords are never returned.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound SIP configuration as returned by the API for a custom VoIP number."
+            },
+            "SIPTrunkConfigApi": {
+                "required": [
+                    "from",
+                    "sipTrunk"
+                ],
+                "type": "object",
+                "properties": {
+                    "sipTrunk": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The host of your SIP trunk (IP address or domain) where outbound calls are sent."
+                    },
+                    "edge": {
+                        "type": "string",
+                        "description": "Optional edge/region of the SIP trunk.",
+                        "nullable": true
+                    },
+                    "authMethod": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SipTrunkAuthMethodApi"
+                            }
+                        ],
+                        "description": "Optional authentication for the outbound trunk (credentials and/or custom SIP headers).",
+                        "nullable": true
+                    },
+                    "isTLS": {
+                        "type": "boolean",
+                        "description": "Whether outbound SIP traffic uses TLS."
+                    },
+                    "from": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The user part of the originating SIP URI (the caller identity presented on outbound calls)."
+                    },
+                    "isSipRefer": {
+                        "type": "boolean",
+                        "description": "Whether call transfers are performed using SIP REFER."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound SIP trunk configuration of a custom VoIP number: where and how outgoing calls are placed\r\nthrough your own SIP trunk."
+            },
+            "SIPTrunkConfigApiView": {
+                "type": "object",
+                "properties": {
+                    "sipTrunk": {
+                        "type": "string",
+                        "description": "The host of your SIP trunk (IP address or domain) where outbound calls are sent.",
+                        "nullable": true
+                    },
+                    "edge": {
+                        "type": "string",
+                        "description": "The edge/region of the SIP trunk, if set.",
+                        "nullable": true
+                    },
+                    "isTLS": {
+                        "type": "boolean",
+                        "description": "Whether outbound SIP traffic uses TLS."
+                    },
+                    "from": {
+                        "type": "string",
+                        "description": "The user part of the originating SIP URI (the caller identity presented on outbound calls).",
+                        "nullable": true
+                    },
+                    "isSipRefer": {
+                        "type": "boolean",
+                        "description": "Whether call transfers are performed using SIP REFER."
+                    },
+                    "authMethod": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SipTrunkAuthMethodApiView"
+                            }
+                        ],
+                        "description": "The outbound trunk authentication (username and/or custom headers). Passwords are never returned.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound SIP trunk configuration as returned by the API for a custom VoIP number."
+            },
             "SMSTemplateApi": {
                 "type": "object",
                 "properties": {
@@ -5273,6 +5709,94 @@
                 },
                 "additionalProperties": false,
                 "description": "Defines the request structure for setting the active status of an entity."
+            },
+            "SipAuthMethodApi": {
+                "type": "object",
+                "properties": {
+                    "userNamePassword": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UserNamePasswordApi"
+                            }
+                        ],
+                        "description": "SIP credentials accepted for inbound calls.",
+                        "nullable": true
+                    },
+                    "ips": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Allowlist of source IP addresses authorized to send inbound calls.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound SIP authentication: by username/password and/or by an allowlist of source IP addresses.\r\nAt least one method must be provided."
+            },
+            "SipAuthMethodApiView": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "The SIP username accepted for inbound calls.",
+                        "nullable": true
+                    },
+                    "ips": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Allowlist of source IP addresses authorized to send inbound calls.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound SIP authentication as returned by the API. Passwords are never included."
+            },
+            "SipTrunkAuthMethodApi": {
+                "type": "object",
+                "properties": {
+                    "userNamePassword": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UserNamePasswordApi"
+                            }
+                        ],
+                        "description": "SIP credentials sent when placing outbound calls.",
+                        "nullable": true
+                    },
+                    "headers": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Custom SIP headers added to the outbound INVITE.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound SIP trunk authentication: optional credentials and/or custom SIP headers."
+            },
+            "SipTrunkAuthMethodApiView": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "The SIP username used for outbound calls.",
+                        "nullable": true
+                    },
+                    "headers": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Custom SIP headers added to the outbound INVITE.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound SIP trunk authentication as returned by the API. Passwords are never included."
             },
             "SmtpSettings": {
                 "type": "object",
@@ -5399,6 +5923,27 @@
                     }
                 },
                 "additionalProperties": false
+            },
+            "UserNamePasswordApi": {
+                "required": [
+                    "password",
+                    "username"
+                ],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The SIP username."
+                    },
+                    "password": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The SIP password. Write-only: it is accepted on input but never returned in responses."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "A SIP username and password pair. The password is write-only and is never returned in responses."
             },
             "ValidationProblemDetails": {
                 "type": "object",
@@ -5550,6 +6095,11 @@
                 "description": "Phone number direction (supported call capabilities).\n\n- InboundOutbound: Supports both inbound and outbound calls.\n- Inbound: Supports inbound calls only.\n- Outbound: Supports outbound calls only.\n- NotSet: Direction is not set.\n\n`1 - InboundOutbound`\n\n`2 - Inbound`\n\n`3 - Outbound`\n\n`10 - NotSet`\n\n",
                 "format": "int32"
             },
+            "ePhoneNumberTypeApi": {
+                "type": "integer",
+                "description": "Indicates how the phone number is provisioned and connected to NLPearl.\n\n- NLPearlDefault: a shared default number provided by NLPearl.\n- NLPearl: a number purchased and managed for you by NLPearl.\n- Twilio: a number from your own Twilio account that you connected.\n- CustomVoip: a custom VoIP number you connect over SIP.\n- Undefined: the type could not be determined.\n\n`1 - NLPearlDefault`\n\n`2 - NLPearl`\n\n`3 - Twilio`\n\n`4 - CustomVoip`\n\n`99 - Undefined`\n\n",
+                "format": "int32"
+            },
             "ePredefinedCallLabelColors": {
                 "type": "integer",
                 "description": "`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`8 - gradient1`\n\n`9 - gradient2`\n\n",
@@ -5597,7 +6147,7 @@
     "tags": [
         {
             "name": "Pearl",
-            "description": "Manage your Pearls — the AI agents that handle your inbound and outbound calls. Create and configure Pearls, retrieve their details and settings, run or pause them, list and bulk-export their calls, monitor calls in progress, get analytics, and reset a customer's conversation memory."
+            "description": "Manage your Pearls, the AI agents that handle your inbound and outbound calls. Create and configure Pearls, retrieve their details and settings, run or pause them, list and bulk-export their calls, monitor calls in progress, get analytics, and reset a customer's conversation memory."
         }
     ]
 }
