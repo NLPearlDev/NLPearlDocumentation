@@ -144,6 +144,7 @@
                             "expanded": true, 
                 "pages": [
                   "api-reference/v2/call/get-call",
+                  "api-reference/v2/call/get-recording",
                   "api-reference/v2/call/delete-call"
                 ]
               },
