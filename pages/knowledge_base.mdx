@@ -75,7 +75,7 @@ This is where you teach Pearl what it needs to know to respond with relevance an
 
 <Note>
 You can either write this content manually or upload a reference file.  
-Multiple documents can be added if needed — supported formats: `.doc`, `.docx`, `.txt`.
+Multiple documents can be added if needed. Supported formats: `.doc`, `.docx`, `.txt`, `.pdf`.
 </Note>
 
 Whether you're describing how your subscription plans work, listing available services, or clarifying your business hours, this section allows Pearl to access structured information that supports more precise answers.
@@ -133,7 +133,7 @@ Let's say a guest checks into a hotel. Pearl can:
 
 Need a fresh start? Pearl's memory can be reset via API.
 
-This is especially important in contexts like hospitality, where once a guest checks out, Pearl clears the slate — ensuring the next visitor starts with a clean experience.
+This is especially important in contexts like hospitality, where once a guest checks out, Pearl clears the slate, ensuring the next visitor starts with a clean experience.
 </Info>
 
 <div className="block dark:hidden">
@@ -181,7 +181,7 @@ Here's how you'd define it:
 - **Pronunciations:** fluh-foh-bun, floof-oh-bun, fluff-bunb  
 *(Separate each pronunciation with a comma)*
 
-This helps Pearl match even creatively named terms to real user input — no matter how it's pronounced.
+This helps Pearl match even creatively named terms to real user input, no matter how it's pronounced.
 </Card>
 
 <div className="block dark:hidden">
@@ -207,5 +207,74 @@ This helps Pearl match even creatively named terms to real user input — no mat
     </div>
   </Frame>
 </div>
+<br/>
+
+---
+
+**Speech Output Pronunciations**
+
+Speech Output Pronunciations let you fine-tune how Pearl *pronounces* specific words or short phrases out loud. You provide the text as it appears (**Pearl says**) and a simple phonetic respelling of how it should actually sound (**Caller hears**).
+
+**What it does**
+
+Whenever Pearl is about to speak a word or phrase listed in **Pearl says**, it pronounces it using the **Caller hears** respelling instead. It changes the **audio only**: your scripts, variables, and node text stay exactly as you wrote them.
+
+**When to use it**
+
+Reach for it whenever text-to-speech mispronounces something important, such as:
+
+- **Brand and product names**: `Nike` → `ny-kee`
+- **Acronyms** you want spelled out: `NLPearl` → `N-L-Pearl`
+- **Industry terms**: `SQL` → `sequel`
+- **Abbreviations** you want expanded: `Dr.` → `Doctor`
+- **Foreign or uncommon words** that need a specific phonetic reading
+
+**How to configure**
+
+<Steps>
+  <Step title="Open the Knowledge Base">
+    In the Flow Editor, open the **Knowledge Base** and scroll to **Speech Output Pronunciations**.
+  </Step>
+  <Step title="Add a row">
+    In the empty row at the bottom, type the text in **Pearl says**, then the phonetic respelling in **Caller hears**.
+  </Step>
+  <Step title="Refine the respelling">
+    Use plain, readable syllables separated by hyphens (e.g. `ny-kee`, `kwa-san`). No special phonetic alphabet is required, just write it the way it should sound.
+  </Step>
+  <Step title="Remove an entry">
+    Use the trash icon on a row to delete it.
+  </Step>
+</Steps>
+
+<Info>
+Write **Caller hears** the way it should be *spoken*, not spelled, e.g. `2024` → `twenty twenty-four`, or `NLPearl` → `N L Pearl`. Keep it simple and phonetic.
+</Info>
+
+<Warning>
+**Each row must have both fields filled**: a **Pearl says** value *and* a **Caller hears** value. Otherwise the row is flagged as incomplete. Empty rows are ignored and dropped when you save.
+</Warning>
+
+<Note>
+**Limits:** up to **25** entries, and each field is capped at **50 characters**.
+</Note>
+
+**Examples**
+
+| Pearl says | Caller hears | Why |
+| --- | --- | --- |
+| Nike | ny-kee | Brand name |
+| NLPearl | N-L-Pearl | Spell out the name |
+| SQL | sequel | Preferred pronunciation |
+| Dr. | Doctor | Expand the abbreviation |
+| 2024 | twenty twenty-four | Read the year naturally |
+
+**Speech Output Pronunciations vs. Speech Recognition Keywords**
+
+These two Knowledge Base tools are complementary, so don't mix them up:
+
+<Note>
+- **Speech Output Pronunciations** control how Pearl **speaks** (text-to-speech / output). Fields: **Pearl says** → **Caller hears**.
+- **Speech Recognition Keywords** help Pearl **understand** what the caller says (speech-to-text / input). Fields: a **keyword** plus one or more **pronunciations** it might be heard as.
+</Note>
 <br/>
 </Card>

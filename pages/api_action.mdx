@@ -51,13 +51,13 @@ This guide covers :
     Use the **When to trigger the action** field to state the exact moment or condition that fires the API call.
   </Card>
   <Card title="Advanced Pearl" icon="diagram-subtask" iconType="light">
-    Add an **API node** inside the conversation tree. As soon as the flow reaches that node, the request runs automatically—no trigger field needed.
+    Add an **API node** inside the conversation tree. As soon as the flow reaches that node, the request runs automatically, no trigger field needed.
   </Card>
 </CardGroup>
 
 <Info>
   **Pre‑Call API (AdvancedPearl only)**\
-  You may run a request _before_ the call starts—perfect for:
+  You may run a request _before_ the call starts, perfect for:
 
   - **Inbound**: look up the caller by phone number (auto‑captured variable)
   - **Outbound**: preload variables already stored on the lead\
@@ -101,7 +101,7 @@ This guide covers :
   </Step>
   <Step title="URL">
     Type the API endpoint URL.\
-    Click **\+** to insert a variable into the URL — you can use both **Pre-Call variables** (collected before the call starts) and **In-Call variables** (collected during the conversation).
+    Click **\+** to insert a variable into the URL. You can use both **Pre-Call variables** (collected before the call starts) and **In-Call variables** (collected during the conversation).
 
     <div className="block dark:hidden">
     <Frame>
@@ -270,7 +270,7 @@ You can map variables to **nested keys** so your payload remains well organised 
   - Use **square brackets** for array indices  (`order.items[0].productId`)
 
   <Info>
-    You can pair nested paths with any variable type—Text, Number, Boolean, etc.
+    You can pair nested paths with any variable type: Text, Number, Boolean, etc.
   </Info>
   <Card>
     ### Example
@@ -379,7 +379,7 @@ This allows the platform to securely fetch an access token and automatically ins
   - Avoid hardcoding tokens manually in every API action
   - Automatically refresh tokens based on TTL (time‑to‑live)
   - Centralized management if multiple API actions reuse the same token
-  - No need to manually parse token responses — the platform extracts it for you
+  - No need to manually parse token responses, as the platform extracts it for you
 </Tip>
 
 ---
@@ -543,7 +543,7 @@ This allows the platform to securely fetch an access token and automatically ins
 
 When using API actions, it’s crucial to control what part of the response is passed back into the conversation. That’s where the **Output Schema** comes in: it lets you filter the API response so only specific data is kept.
 
-Without filtering, the entire JSON is returned — including irrelevant or unnecessary data. This can reduce the precision of the conversation, because the AI receives too much unrelated information.
+Without filtering, the entire JSON is returned, including irrelevant or unnecessary data. This can reduce the precision of the conversation, because the AI receives too much unrelated information.
 
 Even if your API response is well under **10 000 characters**, we strongly recommend setting an Output Schema to focus the conversation on relevant data.
 

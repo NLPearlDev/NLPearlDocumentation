@@ -4,7 +4,7 @@ icon: "diagram-subtask"
 iconType: "light"
 ---
 
-The Conversation Tree Editor is a powerful tool that allows you to design and visualize conversation flows in a user-friendly, visual interface. Whether you're creating customer surveys, support dialogues, or interactive voice responses, this editor helps you craft natural and personalized conversations.
+PearlVibe is a powerful AI-assisted flow editor that allows you to design and visualize conversation flows in a user-friendly, visual interface. Whether you're creating customer surveys, support dialogues, or interactive voice responses, PearlVibe helps you craft natural and personalized conversations.
 
 <div className="block dark:hidden">
   <Frame>
@@ -885,15 +885,15 @@ Pearl Vibe supports several node types:
 
 Your Pearl flow is built around three categories of nodes, each designed for a specific moment in the call lifecycle. Knowing the difference is essential to avoid misusing an action or expecting behavior that can't happen at that stage.
 
-**1. Pre-Call Nodes — Before the call starts**
+**1. Pre-Call Nodes: Before the call starts**
 
 These nodes run prior to dialing or answering. They're ideal for preparing context: fetching customer data, checking availability, validating an ID, loading account information. They cannot interact with the caller and cannot create or import leads.
 
-**2. In-Call Nodes — During the conversation**
+**2. In-Call Nodes: During the conversation**
 
-These nodes control everything that happens while the caller and the agent are connected. Dialogue, decision logic, sending SMS/emails, API calls, CRM updates — all real-time actions happen here. This is the core of your conversational flow.
+These nodes control everything that happens while the caller and the agent are connected. Dialogue, decision logic, sending SMS/emails, API calls, and CRM updates all happen here in real time. This is the core of your conversational flow.
 
-**3. Post-Call Nodes — After the call ends**
+**3. Post-Call Nodes: After the call ends**
 
 Once the call is finished, these nodes handle asynchronous tasks: writing CRM logs, creating leads, triggering webhooks, updating databases, or launching follow-up workflows. They cannot affect what happened during the call, only what happens after.
 </Info>
@@ -1028,7 +1028,7 @@ Integration nodes encapsulate tasks such as:
 |---------|-------------|
 | **Secure Credentials** | The Integration Manager stores credentials securely (API keys, tokens, IDs…). |
 | **Available as Node** | Once connected, each service becomes available as a node in the flow. |
-| **Simple Configuration** | The node exposes only the required parameters—no API documentation or coding needed. |
+| **Simple Configuration** | The node exposes only the required parameters, no API documentation or coding needed. |
 | **Data Mapping** | Returned data can be mapped to variables and used later in the conversation. |
 
 **Available Integrations**

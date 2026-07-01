@@ -52,7 +52,7 @@ Variables are essential placeholders that store and manipulate data during a con
 
 ## Variable Manager Overview
 
-Variables can be managed using the **Variable Manager**, which is accessible in both **Simple Mode** and **Advanced Mode (Tree Editor)**.
+Variables can be managed using the **Variable Manager**, which is accessible in the **Flow Editor**.
 
 <div className="block dark:hidden">
   <Frame>
@@ -97,15 +97,15 @@ Post-call variables are **not accessible via the Variable Manager**, as they **c
 
 #### Accessing the Variable Manager
 
-You can access the Variable Manager in **two quick ways** depending on your editor mode:
+You can access the Variable Manager in **two quick ways**:
 
 <Steps>
 <Step title="From the Header">
 
 You can access the **Variable Manager** directly from:
 
-- The **top navigation bar**, available in both **Simple** and **Advanced Mode**.
-- The **bottom-right corner** of the **Tree Editor**, exclusive to **Advanced Mode** — alongside zoom and instruction buttons.
+- The **top navigation bar** of the **Flow Editor**.
+- The **bottom-right corner** of the **Flow Editor**, alongside zoom and instruction buttons.
 
 <div className="flex gap-6">
   <div className="w-1/2">
@@ -164,14 +164,14 @@ You can access the **Variable Manager** directly from:
 
 <Step title="From a Text Field">
 
-You can also access the **Variable Manager** from a text field — in both **Simple** and **Advanced Mode** — whenever the `+` icon is available.
+You can also access the **Variable Manager** from a text field whenever the `+` icon is available.
 
 <Note>
 Only fields that support variables will display the **“+”** icon.  
 For example, some duration or static option fields won’t offer variable insertion.
 </Note>
 
-- Go to the **Flow Configuration** page (Simple Mode), or open a **Node** (Advanced Mode).
+- Open a **Node** in the **Flow Editor**.
 - Click the **“+” icon** inside the supported text input field.
 - At the bottom of the dropdown, click **“Variable Manager”**.
 
@@ -236,7 +236,7 @@ Variables help you store and reuse dynamic information throughout your flows. He
 
 <Steps>
 <Step title="Open the Variable Manager">
-Click the **“+”** icon in a text field or use the **Variable Manager** button (in the header or tree editor).
+Click the **“+”** icon in a text field or use the **Variable Manager** button (in the header or Flow Editor).
 </Step>
 
 <Step title="Select the Variable Category">
@@ -279,7 +279,7 @@ Post-call variables are predefined by our team and cannot be created manually. T
 |-------|-------------|
 | **Type** | Select the data type: `Text`, `Whole Number`, `Decimal`, `Boolean`, or `Date & Time`. |
 | **Display Name** | Use a clear, descriptive label (e.g. `Customer Name`). |
-| **ID** | Auto-generated from the Display Name — you can edit it. |
+| **ID** | Auto-generated from the Display Name, but you can edit it. |
 | **Description** _(optional)_ | Explain the purpose or usage of this variable. |
 | **Allow Multiple Entries** | Toggle this if the variable needs to hold multiple values (e.g. list of dates). |
 
@@ -352,7 +352,7 @@ It will now be available anywhere in your flow where variables are supported.
 <Step title="Use your variables wherever applicable">
 
 <Info>
-Some fields — like the **Opening Sentence** — do not support the use of **in-call variables**.
+Some fields, like the **Opening Sentence**, do not support the use of **in-call variables**.
 
 When testing your flows via **Test Calls**, note that **Pre-call variables are required**, while **In-call variables are optional**.  
 
@@ -491,8 +491,7 @@ Deleting a variable will remove it from all flows where it's used. Proceed with 
   Collecting User Input into Variables
 </span>
 
-- **In Simple Mode**: Simply add a variable to the question step; this will automatically store the user's response into that variable.
-- **In Advanced Mode**: In the node's configuration, locate the **"Store In Variable"** field.
+To collect user input into a variable, open the node's configuration in the **Flow Editor** and locate the **"Store In Variable"** field.
 
 ---
 
@@ -587,7 +586,7 @@ Deleting a variable will remove it from all flows where it's used. Proceed with 
 3. Customize the content to provide a clear summary of each completed call.
 
 <Card title="Example Email Notification to Client">
-**Subject**: New call from `customerName` — Summary for `companyName` <br/><br/>
+**Subject**: New call from `customerName` - Summary for `companyName` <br/><br/>
 **Message Content**: "Hello `companyName`, You have received a new call from `customerName`. Here are some details:
 - Call Duration: `callDuration`
 - Summary: `callSummary`"
@@ -919,10 +918,6 @@ Best Practices for Using Variables
 ## Frequently Asked Questions (FAQ)
 
 <AccordionGroup>
-  <Accordion title="Can I use variables in both Simple and Advanced modes?">
-    Yes, variables function similarly in both modes and can be managed accordingly.
-  </Accordion>
-
     <Accordion title="How do I handle empty variables?">
     Implement checks using conditional logic or assign default values to handle empty variables gracefully.
   </Accordion>

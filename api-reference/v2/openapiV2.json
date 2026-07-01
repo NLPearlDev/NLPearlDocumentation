@@ -5597,7 +5597,7 @@
     "tags": [
         {
             "name": "Pearl",
-            "description": "Manage your Pearls — the AI agents that handle your inbound and outbound calls. Create and configure Pearls, retrieve their details and settings, run or pause them, list and bulk-export their calls, monitor calls in progress, get analytics, and reset a customer's conversation memory."
+            "description": "Manage your Pearls, the AI agents that handle your inbound and outbound calls. Create and configure Pearls, retrieve their details and settings, run or pause them, list and bulk-export their calls, monitor calls in progress, get analytics, and reset a customer's conversation memory."
         }
     ]
 }

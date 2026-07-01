@@ -31,23 +31,48 @@ iconType: "light"
   </Frame>
 </div>
 
-One of the powerful actions available during a call in NLPearl.AI is the **Transfer Call** feature. This allows your Pearl to transfer a call from itself directly to any phone number you specify.
+The **Transfer Call** node hands the live call off to another phone number, so your Pearl can bring a human or another line into the conversation.
+
+**What it does**: Transfers the live call to another phone number.
+
+**When to use**: Escalate to a human, route to a manager, or forward to another department.
+
+<Info>
+A Transfer Call node can be triggered in **two ways**:
+
+- **Reached through a transition**: like any other node, when a previous node routes to it. It fires as soon as the flow reaches it, and the **When to trigger** field is hidden (it isn't needed).
+- **As a floating node**: with **no** incoming transition. Then **When to trigger** becomes required, and Pearl can jump to the transfer from **anywhere** in the conversation whenever that condition is met.
+
+You can use both patterns in one flow: place scripted transfers inline via transitions, and keep a floating transfer for exceptions like "the customer asks for a manager."
+</Info>
 
 
 ---
 
-### How to Configure Transfer Call
-
-To set up a Transfer Call action, while you are creating a Pearl, you need to provide two key pieces of information:
+### How to Configure
 
 <Steps>
   <Step title="Phone Number">
-    This is the phone number to which you want the call to be transferred. Ensure that the phone number is accurate and can accept calls from your activity's assigned phone number.
+    Destination in international format (e.g., `+12025551234`) or a variable.
   </Step>
-  <Step title="When to Trigger">
-    This field specifies the conditions under which Pearl should transfer the call. For example, you might set it to "when the customer asks to speak to a manager" or "when the prospect is ready to make a payment."
+  <Step title="Say (optional)">
+    A line Pearl says right before transferring.
+  </Step>
+  <Step title="When to trigger (floating nodes only)">
+    Describe when Pearl should trigger the transfer, e.g. *"If the client needs a manager or has an emergency."* This field only appears when the node has no incoming transition.
+  </Step>
+  <Step title="Warm Transfer (optional)">
+    Pearl introduces the call to the recipient first. Choose **Whisper** (only the recipient hears the intro) or **3‑way** (both parties hear it), then write the intro message.
   </Step>
 </Steps>
+
+<Warning>
+**Pearl Voice only.** Pearl Text uses the [**Hand‑Off**](/pages/text/handoff_action) node to route conversations to a human.
+</Warning>
+
+<Note>
+Transfer Call is **terminal**: the call leaves Pearl, so the node has no outgoing transitions. Validation flags *"Missing Phone Number"*, and *"Missing Trigger Description"* when the node is floating.
+</Note>
 
 <Card icon="circle-info" iconType="light">
 ### Important Considerations
@@ -56,17 +81,5 @@ To set up a Transfer Call action, while you are creating a Pearl, you need to pr
 If the phone number you choose for the transfer call does not match the country code of the activity's assigned phone number, the Pearl cannot be linked to that activity. 
 Ensure that the phone numbers are compatible to be able to assign it to your Inbound/Outbound Activity.
 </Card>
-
----
-
-### Example Usage
-
-<ParamField path="+1234567890" type="Phone Number">
-  `When to Take Action` "When the customer asks to speak to a manager"
-</ParamField>
-
-<ParamField path="+1987654321" type="Phone Number">
-  `When to Take Action` "When the prospect is ready to make a payment"
-</ParamField>
 
 
