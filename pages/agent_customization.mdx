@@ -1,0 +1,197 @@
+---
+title: "Agent Customization"
+icon: "user-gear"
+---
+
+In this step, you can customize your voice agent's identity and behavior by setting its **name**, **language**, **voice**, **personality**, and **timezone**.
+
+<Card>
+
+**Agent Names, Languages & Voices**
+
+To define your agent's identity:
+
+- **<span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span> Agent Name** – Give your agent a name (e.g., *Joa*, *Victoria*). This name helps humanize the interaction and reflect your brand identity.
+- **<span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span> Language** – Select the default language your agent will speak. This ensures accurate pronunciation and localized expressions.
+- **<span style={{ color: '#f87171', fontWeight: 600 }}>(3)</span> Voice** – Choose the voice that will represent your agent. You can preview voices and select the one that fits your tone.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/simplepearl_voicechoose.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/simplepearl_voicechoose.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+**Multilingual Agent Configuration:**
+
+You can set up your Pearl to support multiple languages by creating several agent configurations, each with a specific **name**, **language**, and **voice**.
+
+- To add a new language configuration, click on the **"+"** button <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span>. This allows you to define additional agents who can handle conversations in other languages.
+- Each configuration should include a **name** (used during calls), a **language**, and a corresponding **voice**.
+
+When a caller requests to switch to another language during the conversation, Pearl will automatically reroute the call to the agent associated with that language, ensuring a smooth and localized experience.
+
+- The **first agent** you create is automatically marked as the **Default Agent** <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span>. This agent will always initiate the conversation when a call begins, unless another language is requested by the caller.
+
+<Note>
+You can define as many language configurations as needed, perfect for global audiences or multilingual teams.
+</Note>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/simplepearl_defaultagent.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/simplepearl_defaultagent.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Info>
+Explore [Voice and Language](/pages/languages) to view all the language options available.
+</Info>
+
+---
+
+**Personality**
+
+Your AI agent can take on a wide range of personalities, from natural and professional to wild, fictional, or downright iconic.
+
+| Personality Name             | Description (vibe / reference)                            |
+|-----------------------------|------------------------------------------------------------|
+| Natural                     | Neutral and balanced, default tone.                      |
+| Friendly Consultant         | Warm, helpful, and a touch conversational.                |
+| Aggressive Closer           | Direct, assertive, always aiming for a "yes."             |
+| Donald Trump                | Bold, confident, and controversial.                       |
+| Joe Biden                   | Soft-spoken, empathetic, with a hint of grandpa energy.   |
+| Wolf of Wall Street         | Energetic, persuasive, and money-focused.                 |
+| Elon Musk                   | Visionary, quirky, and matter-of-fact.                    |
+| Kevin Hart                  | Fast-talking and hilarious.                              |
+| The Rock                    | Charismatic and full of hype.                            |
+| Jar Jar Binks               | Clumsy comic relief with a chaotic syntax.               |
+| Yoda                        | Wise, reversed sentence order, it has.                   |
+| Tommy Shelby               | Cold, calculated, Peaky Blinders style.                  |
+| Saul Goodman                | Slick, legal hustler energy.                             |
+| Heisenberg (Walter White)   | Dark, serious, calculated: "I am the danger."           |
+| Jesse Pinkman               | Street-smart, informal, frequent "yo."                   |
+| Optimus Prime               | Heroic, formal, and noble.                              |
+| Megatron                   | Villainous and authoritarian.                           |
+| Son Goku                    | Cheerful and battle-ready.                               |
+| Daenerys Targaryen          | Regal, determined, breaker of chains.                    |
+| Hermione Granger            | Book-smart, precise, articulate.                         |
+| Mulan                       | Brave, focused, honorable.                               |
+| Lady Gaga                   | Glamorous and creatively intense.                        |
+| Tony Stark (Iron Man)       | Witty, tech-savvy, and full of sarcasm.                  |
+| Elsa (Frozen)               | Calm, regal, with an icy edge.                           |
+| Michael Scott (The Office)  | Awkward, unpredictable, tries to be funny.               |
+| Moana                       | Adventurous, optimistic, and kind.                       |
+| Frida Kahlo                 | Artistic, deep, and passionate.                          |
+| Jack Sparrow                | Eccentric and unpredictable.                            |
+| Indiana Jones               | Adventurous and confident.                              |
+| Beyoncé                     | Empowered, elegant, and commanding.                      |
+| Sherlock Holmes             | Analytical, detached, brilliant.                        |
+| Tiana (The Princess & Frog) | Driven, grounded, and focused.                          |
+| Charlie Chaplin             | Silent-era charm with expressive tone.                   |
+| Katniss Everdeen            | Stoic, focused, and fiercely independent.               |
+| Groot                       | Repetitive but expressive ("I am Groot").                |
+| Deadpool                    | Chaotic, irreverent, 4th-wall-breaking.                 |
+| The Joker                   | Unhinged, theatrical, and darkly funny.                 |
+| Loki                        | Mischievous, cunning, and charismatic.                  |
+| Bugs Bunny                  | Witty, cheeky, and playful.                             |
+| Pee-wee Herman              | Eccentric and unpredictable.                            |
+| Dr. Evil                   | Satirical villain, comically ambitious.                 |
+| Borat Sagdiyev              | Naive, awkward, hilariously inappropriate.              |
+| Albert Einstein             | Brilliant, theoretical, with quirky logic.              |
+| Dorothy Gale                | Innocent, curious, with wonder in her tone.             |
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/simplepearl_personnality.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/simplepearl_personnality.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Note>
+Choose wisely. Your agent's personality will shape how it sounds and behaves in every interaction.
+</Note>
+
+---
+
+**Timezone**
+
+Define the timezone of the agent. This influences time-related actions, such as booking meetings.
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/simplepearl_timezone.jpg"
+        alt="Send Email action interface on light mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/simplepearl_timezone.jpg"
+        alt="Send Email action interface on dark mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+</Card>

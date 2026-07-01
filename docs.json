@@ -51,9 +51,22 @@
             "group": "General",
             "pages": [
               "pages/pearl_vibe",
+              {
+                "group": "Flow Editor",
+                "icon": "diagram-project",
+                "pages": [
+                  "pages/dialogue",
+                  "pages/knowledge_base_node",
+                  "pages/email_action",
+                  "pages/api_action",
+                  "pages/sms_action",
+                  "pages/transfer_call",
+                  "pages/recording",
+                  "pages/text/handoff_action"
+                ]
+              },
               "pages/variables",
               "pages/webhooks",
-              "pages/analytics",
               "pages/payout"
             ]
           },
@@ -61,21 +74,6 @@
             "group": "Pearl Voice",
             "pages": [
               "pages/pearl_voice",
-              "pages/languages",
-              {
-                "group": "Actions",
-                "icon": "bolt",
-                "pages": [
-                  "pages/action",
-                  "pages/sms_action",
-                  "pages/email_action",
-                  "pages/transfer_call",
-                  "pages/api_action"
-                ]
-              },
-              "pages/postcall",
-              "pages/inbound",
-              "pages/outbound",
               {
                 "group": "Phone Numbers",
                 "icon": "mobile",
@@ -85,6 +83,32 @@
                   "pages/twilio_integration",
                   "pages/custom_voip"
                 ]
+              },
+              "pages/languages",
+              {
+                "group": "Pearl Settings",
+                "icon": "sliders",
+                "pages": [
+                  "pages/agent_customization",
+                  "pages/knowledge_base",
+                  "pages/pearl_analytics"
+                ]
+              },
+              {
+                "group": "Campaign Settings",
+                "icon": "rocket",
+                "pages": [
+                  "pages/inbound",
+                  "pages/outbound"
+                ]
+              },
+              {
+                "group": "Post Call & Analytics",
+                "icon": "chart-simple",
+                "pages": [
+                  "pages/postcall",
+                  "pages/analytics"
+                ]
               }
             ]
           },
@@ -93,17 +117,23 @@
             "pages": [
               "pages/text/pearl_text",
               {
-                "group": "Actions",
-                "icon": "bolt",
+                "group": "Pearl Settings",
+                "icon": "sliders",
                 "pages": [
-                  "pages/text/email_action",
-                  "pages/text/handoff_action",
-                  "pages/text/api_action"
+                  "pages/text/agent_customization",
+                  "pages/text/knowledge_base",
+                  "pages/text/pearl_analytics"
+                ]
+              },
+              {
+                "group": "Campaign Settings",
+                "icon": "rocket",
+                "pages": [
+                  "pages/text/inbound",
+                  "pages/text/outbound"
                 ]
               },
               "pages/text/postchat",
-              "pages/text/inbound",
-              "pages/text/outbound",
               {
                 "group": "Text Channel",
                 "icon": "comments",
