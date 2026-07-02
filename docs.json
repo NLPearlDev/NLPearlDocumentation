@@ -86,20 +86,20 @@
               },
               "pages/languages",
               {
-                "group": "Pearl Settings",
+                "group": "Pearl Configurations",
                 "icon": "sliders",
                 "pages": [
                   "pages/agent_customization",
                   "pages/knowledge_base",
-                  "pages/pearl_analytics"
-                ]
-              },
-              {
-                "group": "Campaign Settings",
-                "icon": "rocket",
-                "pages": [
-                  "pages/inbound",
-                  "pages/outbound"
+                  "pages/pearl_analytics",
+                  {
+                    "group": "Campaign Settings",
+                    "icon": "rocket",
+                    "pages": [
+                      "pages/inbound",
+                      "pages/outbound"
+                    ]
+                  }
                 ]
               },
               {
@@ -117,20 +117,20 @@
             "pages": [
               "pages/text/pearl_text",
               {
-                "group": "Pearl Settings",
+                "group": "Pearl Configurations",
                 "icon": "sliders",
                 "pages": [
                   "pages/text/agent_customization",
                   "pages/text/knowledge_base",
-                  "pages/text/pearl_analytics"
-                ]
-              },
-              {
-                "group": "Campaign Settings",
-                "icon": "rocket",
-                "pages": [
-                  "pages/text/inbound",
-                  "pages/text/outbound"
+                  "pages/text/pearl_analytics",
+                  {
+                    "group": "Campaign Settings",
+                    "icon": "rocket",
+                    "pages": [
+                      "pages/text/inbound",
+                      "pages/text/outbound"
+                    ]
+                  }
                 ]
               },
               "pages/text/postchat",
@@ -211,7 +211,7 @@
                 ]
               },
               {
-                "group": "Pearl Settings",
+                "group": "Pearl Configurations",
                 "expanded": true, 
                 "pages": [
                   "api-reference/v2/pearlFlow/get-pearl-flow",
