@@ -1,6 +1,5 @@
 ---
 title: Transfer Call Node
-description: 'Learn how to use the Transfer Call action in NLPearl.AI to seamlessly redirect calls during a conversation.'
 icon: "phone-volume"
 iconType: "light"
 ---
@@ -49,22 +48,65 @@ You can use both patterns in one flow: place scripted transfers inline via trans
 
 ---
 
-### How to Configure
+## How to Configure
+
+<Frame>
+  <img
+    src="/images/dark_mode/transfercallnode.png"
+    alt="Transfer Call node configuration with phone number, Say, and Warm Transfer"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <Steps>
   <Step title="Phone Number">
     Destination in international format (e.g., `+12025551234`) or a variable.
   </Step>
   <Step title="Say (optional)">
-    A line Pearl says right before transferring.
+    A line Pearl says to the **caller** right before transferring (e.g. *"I'm connecting you to a specialist now."*).
   </Step>
   <Step title="When to trigger (floating nodes only)">
     Describe when Pearl should trigger the transfer, e.g. *"If the client needs a manager or has an emergency."* This field only appears when the node has no incoming transition.
   </Step>
   <Step title="Warm Transfer (optional)">
-    Pearl introduces the call to the recipient first. Choose **Whisper** (only the recipient hears the intro) or **3‑way** (both parties hear it), then write the intro message.
+    Introduce the call to the recipient before Pearl drops off. See [Transfer types](#transfer-types) below.
   </Step>
 </Steps>
+
+---
+
+## Transfer types
+
+A Transfer Call can happen in two ways, controlled by the **Warm Transfer** toggle.
+
+**Direct transfer (Warm Transfer off).** Pearl connects the caller straight to the destination number without speaking to the recipient first. The recipient picks up with no context. This is the default.
+
+**Warm transfer (Warm Transfer on).** Before dropping off, Pearl introduces the call to the recipient with an intro message, then leaves the two parties connected. Choose how the intro is delivered:
+
+| Mode | Who hears the intro | Caller during intro | Use it to |
+| --- | --- | --- | --- |
+| **Whisper** (default) | Recipient only | On hold, doesn't hear it | Privately brief the recipient (e.g. sensitive context) |
+| **3-way** | Both caller and recipient | Present, hears it | Give an open, seamless handover |
+
+<Frame>
+  <img
+    src="/images/dark_mode/warmtransfer.png"
+    alt="Warm Transfer module with Whisper / 3-way toggle and intro message"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Info>
+  **Two different messages, don't confuse them:**
+
+  - **Say (optional)**: what Pearl says to the **caller** right before transferring.
+  - **Warm Transfer message**: what Pearl says to the **recipient** (and, in 3-way, also to the caller) to introduce the call. Required when Warm Transfer is on. Pearl says this, then drops off.
+</Info>
+
+**Example intros**
+
+- Whisper: `Hi, I'm on the line with {firstName} regarding {reason}. I'll transfer the call to you now.`
+- 3-way: `Hi, I'm on the line with {firstName} calling about {reason}. I'll leave you both to it. Thanks!`
 
 <Warning>
 **Pearl Voice only.** Pearl Text uses the [**Hand‑Off**](/pages/text/handoff_action) node to route conversations to a human.

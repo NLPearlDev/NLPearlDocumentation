@@ -58,7 +58,7 @@ Variables can be managed using the **Variable Manager**, which is accessible in 
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager.jpg"
+        src="/images/dark_mode/variables_manager.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -70,7 +70,7 @@ Variables can be managed using the **Variable Manager**, which is accessible in 
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager.jpg"
+        src="/images/dark_mode/variables_manager.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -90,7 +90,7 @@ The Variable Manager allows you to create, edit, and organize variables used in 
 
 <Warning>
 **Note about Post-call Variables**  
-Post-call variables are **not accessible via the Variable Manager**, as they **cannot be created or modified by users**. These variables are **pre-defined by our team** and become available only **within End Call Notifications**. They’re designed to let your agents send structured data (like summaries or recordings) to external systems **after the call ends**.
+Post-call variables are **not accessible via the Variable Manager**, as they **cannot be created or modified by users**. These variables are **pre-defined by our team** and become available only **within Post-Call Actions**. They’re designed to let your agents send structured data (like summaries or recordings) to external systems **after the call ends**.
 </Warning>
 
 ---
@@ -102,61 +102,30 @@ You can access the Variable Manager in **two quick ways**:
 <Steps>
 <Step title="From the Header">
 
-You can access the **Variable Manager** directly from:
+You can access the **Variable Manager** directly from the **top navigation bar** of the **Flow Editor**.
 
-- The **top navigation bar** of the **Flow Editor**.
-- The **bottom-right corner** of the **Flow Editor**, alongside zoom and instruction buttons.
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/variables_simple-emplacement.png"
+        alt="Variable Manager location – Light Mode"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-<div className="flex gap-6">
-  <div className="w-1/2">
-    <div className="block dark:hidden">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/light_mode/variables_simple-emplacement.jpg"
-            alt="Frame 1 – Light Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/variables_simple-emplacement.png"
+        alt="Variable Manager location – Dark Mode"
+        className="rounded-[14px]"
+      />
     </div>
-    <div className="hidden dark:block">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/dark_mode/variables_simple-emplacement.jpg"
-            alt="Frame 1 – Dark Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
-    </div>
-  </div>
-
-  <div className="w-1/2">
-    <div className="block dark:hidden">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/light_mode/variables_simple-emplacement3.jpg"
-            alt="Frame 2 – Light Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
-    </div>
-    <div className="hidden dark:block">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/dark_mode/variables_simple-emplacement3.jpg"
-            alt="Frame 2 – Dark Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
-    </div>
-  </div>
+  </Frame>
 </div>
 
 <br />
@@ -175,56 +144,28 @@ For example, some duration or static option fields won’t offer variable insert
 - Click the **“+” icon** inside the supported text input field.
 - At the bottom of the dropdown, click **“Variable Manager”**.
 
-<div className="flex gap-6">
-  <div className="w-1/2">
-    <div className="block dark:hidden">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/light_mode/variables_simple-emplacement2.jpg"
-            alt="Frame 1 – Light Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/variables_simple-emplacement2.png"
+        alt="Accessing the Variable Manager from a text field – Light Mode"
+        className="rounded-[14px]"
+      />
     </div>
-    <div className="hidden dark:block">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/dark_mode/variables_simple-emplacement2.jpg"
-            alt="Frame 1 – Dark Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
-    </div>
-  </div>
+  </Frame>
+</div>
 
-  <div className="w-1/2">
-    <div className="block dark:hidden">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/light_mode/variables_simple-emplacement4.jpg"
-            alt="Frame 2 – Light Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/variables_simple-emplacement2.png"
+        alt="Accessing the Variable Manager from a text field – Dark Mode"
+        className="rounded-[14px]"
+      />
     </div>
-    <div className="hidden dark:block">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/dark_mode/variables_simple-emplacement4.jpg"
-            alt="Frame 2 – Dark Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
-    </div>
-  </div>
+  </Frame>
 </div>
 </Step>
 </Steps>
@@ -244,14 +185,18 @@ Click the **“+”** icon in a text field or use the **Variable Manager** butto
 - **Collected In-call** (captured during the conversation)
 
 <Warning>
-Post-call variables are predefined by our team and cannot be created manually. They are only available inside End Call Notifications.
+Post-call variables are predefined by our team and cannot be created manually. They are only available inside **Post-Call Actions**.
 </Warning>
+
+<Note>
+Some variables are **system-defined and read-only** (shown at the top of the list), you can use them but not edit or delete them. Examples: **Pre-call** — agent name, first name, last name, phone number, email address, call id; **Post-call** — summary, transcript, recording, duration, call time.
+</Note>
 
 <div className="block dark:hidden">
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-create.jpg"
+        src="/images/dark_mode/variables_manager-create.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -263,7 +208,7 @@ Post-call variables are predefined by our team and cannot be created manually. T
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-create.jpg"
+        src="/images/dark_mode/variables_manager-create.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -275,20 +220,36 @@ Post-call variables are predefined by our team and cannot be created manually. T
 
 <Step title="Fill in the Variable Details">
 
-| Field | Description |
-|-------|-------------|
-| **Type** | Select the data type: `Text`, `Whole Number`, `Decimal`, `Boolean`, or `Date & Time`. |
-| **Display Name** | Use a clear, descriptive label (e.g. `Customer Name`). |
-| **ID** | Auto-generated from the Display Name, but you can edit it. |
-| **Description** _(optional)_ | Explain the purpose or usage of this variable. |
-| **Allow Multiple Entries** | Toggle this if the variable needs to hold multiple values (e.g. list of dates). |
+| Field | Description | Rules |
+|-------|-------------|-------|
+| **Type** | The variable's data type (see the **Variable Types** table below). | Required |
+| **Display Name** | Human-readable label shown in the UI and used by Pearl (e.g. `Customer Name`). | Required · max 40 chars · letters, numbers, spaces |
+| **ID** | Unique system key used to reference the variable in flows, CSV imports, and API payloads. Auto-generated from the Display Name, editable. | Required · unique · max 40 chars · letters, numbers, `_`, `-` · no spaces |
+| **Description** _(optional)_ | Explain the purpose or usage of this variable (helps Pearl use it correctly). | Optional · max 300 chars |
+| **Allow Multiple Entries** | Store a list of values of the chosen type (e.g. several dates). | Optional |
+
+<Tip>
+**Display Name vs ID** — the **Display Name** is what you read and what Pearl says; the **ID** is the key the system uses everywhere else. When importing leads via CSV or the API, the column header / `callData` key must match the variable's **ID**, not its Display Name.
+</Tip>
+
+**Variable Types**
+
+| Type | Example |
+| --- | --- |
+| **Text** | a name, a plan |
+| **Whole Number** | age, quantity |
+| **Decimal Number** | an amount, a rate |
+| **Boolean** | true / false |
+| **Date** | a birth date |
+| **Time** | an appointment time |
+| **Date & Time** | a meeting slot |
 
 <div className="block dark:hidden">
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-create2.jpg"
-        alt="Send Email action interface on light mode"
+        src="/images/dark_mode/variables_manager-create2.png"
+        alt="Variable details form – Light Mode"
         className="rounded-[14px]"
       />
     </div>
@@ -299,8 +260,8 @@ Post-call variables are predefined by our team and cannot be created manually. T
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-create2.jpg"
-        alt="Send Email action interface on dark mode"
+        src="/images/dark_mode/variables_manager-create2.png"
+        alt="Variable details form – Dark Mode"
         className="rounded-[14px]"
       />
     </div>
@@ -320,7 +281,7 @@ Use this section to limit inputs to specific options.
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-create3.jpg"
+        src="/images/dark_mode/variables_manager-create3.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -332,7 +293,7 @@ Use this section to limit inputs to specific options.
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-create3.jpg"
+        src="/images/dark_mode/variables_manager-create3.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -366,7 +327,7 @@ If you’ve created variables in the Variable Manager but haven’t used them an
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-add.jpg"
+        src="/images/dark_mode/variables_simple-emplacement4.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -378,7 +339,7 @@ If you’ve created variables in the Variable Manager but haven’t used them an
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-add.jpg"
+        src="/images/dark_mode/variables_simple-emplacement4.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -400,7 +361,7 @@ If you’ve created variables in the Variable Manager but haven’t used them an
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-search.jpg"
+        src="/images/dark_mode/variables_manager-search.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -412,7 +373,7 @@ If you’ve created variables in the Variable Manager but haven’t used them an
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-search.jpg"
+        src="/images/dark_mode/variables_manager-search.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -429,7 +390,7 @@ If you’ve created variables in the Variable Manager but haven’t used them an
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-edit.jpg"
+        src="/images/dark_mode/variables_manager-edit.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -441,7 +402,7 @@ If you’ve created variables in the Variable Manager but haven’t used them an
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-edit.jpg"
+        src="/images/dark_mode/variables_manager-edit.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -462,7 +423,7 @@ Deleting a variable will remove it from all flows where it's used. Proceed with 
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-delete.jpg"
+        src="/images/dark_mode/variables_manager-delete.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -474,7 +435,7 @@ Deleting a variable will remove it from all flows where it's used. Proceed with 
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-delete.jpg"
+        src="/images/dark_mode/variables_manager-delete.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -514,7 +475,7 @@ To collect user input into a variable, open the node's configuration in the **Fl
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-script.jpg"
+        src="/images/dark_mode/variables_manager-script.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -526,7 +487,7 @@ To collect user input into a variable, open the node's configuration in the **Fl
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-script.jpg"
+        src="/images/dark_mode/variables_manager-script.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -555,7 +516,7 @@ To collect user input into a variable, open the node's configuration in the **Fl
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-smssend.jpg"
+        src="/images/dark_mode/variables_manager-smssend.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -567,7 +528,7 @@ To collect user input into a variable, open the node's configuration in the **Fl
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-smssend.jpg"
+        src="/images/dark_mode/variables_manager-smssend.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -578,10 +539,10 @@ To collect user input into a variable, open the node's configuration in the **Fl
 ---
 
 <span style={{ fontSize: '18px', fontWeight: 600, color: 'white' }}>
-  Using Variables in EndCall Notifications
+  Using Variables in Post-Call Actions
 </span>
 
-1. Add an EndCall Notification to your flow (`Email`, `Slack`, `API`).
+1. Add a Post-Call Action to your flow (`SMS`, `Email`, `API`).
 2. Write the Notification Message, using the “+” icon to insert dynamic variables
 3. Customize the content to provide a clear summary of each completed call.
 
@@ -598,7 +559,7 @@ To collect user input into a variable, open the node's configuration in the **Fl
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-notification.jpg"
+        src="/images/dark_mode/variables_manager-notification.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -610,7 +571,7 @@ To collect user input into a variable, open the node's configuration in the **Fl
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-notification.jpg"
+        src="/images/dark_mode/variables_manager-notification.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -646,56 +607,28 @@ To collect user input into a variable, open the node's configuration in the **Fl
 
 <br/>
 
-<div className="flex gap-6">
-  <div className="w-1/2">
-    <div className="block dark:hidden">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/light_mode/variables_tree-1.jpg"
-            alt="Frame 1 – Light Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/variables_tree-1.png"
+        alt="Conditional branching – Light Mode"
+        className="rounded-[14px]"
+      />
     </div>
-    <div className="hidden dark:block">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/dark_mode/variables_tree-1.jpg"
-            alt="Frame 1 – Dark Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
-    </div>
-  </div>
+  </Frame>
+</div>
 
-  <div className="w-1/2">
-    <div className="block dark:hidden">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/light_mode/variables_tree-2.jpg"
-            alt="Frame 2 – Light Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/variables_tree-1.png"
+        alt="Conditional branching – Dark Mode"
+        className="rounded-[14px]"
+      />
     </div>
-    <div className="hidden dark:block">
-      <Frame>
-        <div className="p-0 pb-0">
-          <img
-            src="/images/dark_mode/variables_tree-2.jpg"
-            alt="Frame 2 – Dark Mode"
-            className="rounded-[14px] w-full block"
-          />
-        </div>
-      </Frame>
-    </div>
-  </div>
+  </Frame>
 </div>
 
 ---
@@ -717,7 +650,7 @@ This CSV contains predefined columns where you can add your custom variables.
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-download.jpg"
+        src="/images/dark_mode/variables_manager-download.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -729,7 +662,7 @@ This CSV contains predefined columns where you can add your custom variables.
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-download.jpg"
+        src="/images/dark_mode/variables_manager-download.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
@@ -749,7 +682,7 @@ Once completed, **upload the CSV back into the platform**.
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/variables_manager-addlead.jpg"
+        src="/images/dark_mode/variables_manager-addlead.png"
         alt="Send Email action interface on light mode"
         className="rounded-[14px]"
       />
@@ -761,7 +694,7 @@ Once completed, **upload the CSV back into the platform**.
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/variables_manager-addlead.jpg"
+        src="/images/dark_mode/variables_manager-addlead.png"
         alt="Send Email action interface on dark mode"
         className="rounded-[14px]"
       />
