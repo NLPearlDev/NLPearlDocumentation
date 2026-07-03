@@ -56,6 +56,10 @@ When configuring a Pearl, you can set up webhooks to receive real-time notificat
 The **Call Webhook** payload is identical whether it originates from an Inbound or Outbound Pearl. The **Lead Webhook** is exclusive to Outbound campaigns, as leads are a concept specific to outbound call management.
 </Info>
 
+<Tip>
+Use webhooks only when an **external tool needs event notifications**. For actual automations tied to how a call ended, rely on **[Post-Call Actions](/pages/postcall)** instead.
+</Tip>
+
 ---
 
 ## Webhook Types
@@ -550,7 +554,7 @@ Scroll to the **Webhooks** section in the configuration form.
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/webhooks_image2.jpg"
+        src="/images/dark_mode/webhookdoc.png"
         alt="Webhook settings on light mode"
         className="rounded-[14px]"
       />
@@ -562,7 +566,7 @@ Scroll to the **Webhooks** section in the configuration form.
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/webhooks_image2.jpg"
+        src="/images/dark_mode/webhookdoc.png"
         alt="Webhook settings on dark mode"
         className="rounded-[14px]"
       />
@@ -571,12 +575,30 @@ Scroll to the **Webhooks** section in the configuration form.
 </div>
 </Step>
 
-<Step title="Enter Your Webhook URLs">
-Provide the endpoint URLs for the webhooks you want to receive:
-- **Call Webhook** - available for Inbound and Outbound Pearls.
-- **Lead Webhook** - available for Outbound Pearls only.
+<Step title="Turn Webhooks On">
+Toggle the **Webhooks** setting to **On**. Webhooks are off by default, and the URL fields only appear once it's enabled.
+</Step>
 
-Your server must respond with an HTTP `200 OK` to acknowledge receipt.
+<Step title="Enter Your Webhook URLs">
+Provide the endpoint URLs for the webhooks you want to receive. Your server must respond with an HTTP `200 OK` to acknowledge receipt.
+
+<Info>
+- **Call Webhook** - available for **Inbound** and **Outbound** Pearls.
+- **Lead Webhook** - available for **Outbound** Pearls only.
+</Info>
+</Step>
+
+<Step title="Authenticate Your Webhooks (Optional)">
+For each webhook (Call and Lead), you can attach a **Credential** so NLPearl.AI authenticates its requests to your endpoint:
+
+1. Enable the **Credentials** toggle under the webhook URL.
+2. Select an existing **Token**, or create one with **Add New** (use **Edit** to update an existing one).
+
+The selected credential is sent with every webhook delivery, letting your server verify the request genuinely originates from NLPearl.AI. Available for both Inbound (Call Webhook) and Outbound (Call + Lead Webhook) Pearls.
+
+<Tip>
+Credentials work the same way as in the [API Node](/pages/api_action#credentials-authentication). A token created here can be reused across your webhooks.
+</Tip>
 </Step>
 </Steps>
 
