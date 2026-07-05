@@ -41,10 +41,6 @@ Once you have created a Pearl, you can enable it to receive inbound calls. Inbou
 Inbound calls let your Pearl handle incoming calls, engaging with callers immediately and effectively using the conversational flow you defined.
 </Info>
 
-<Note>
-The settings below apply to **voice** Pearls. A Text Pearl has a different set of inbound options.
-</Note>
-
 ---
 
 ## Attach a Phone Number
@@ -179,7 +175,15 @@ Once you have a number, attach it to your Pearl: open the Pearl's **Settings** p
 
 ---
 
-## Recording Options
+## Inbound Settings
+
+Configure how your Pearl answers incoming calls from the **Inbound Settings** tab of your Pearl, in the [PearlVibe](/pages/pearl_vibe) flow editor.
+
+<Warning>
+These settings apply to **voice** Pearls only. A Text Pearl has a different set of inbound options.
+</Warning>
+
+### Recording Options
 
 Record the conversation (on/off). When enabled, the call audio is saved and available afterwards from your **call logs** for quality reviews, training, and analytics. When disabled, no audio is captured or stored.
 
@@ -197,7 +201,7 @@ Call recording laws vary by region and often require informing or getting consen
 
 ---
 
-## Recording After Transfer Call
+### Recording After Transfer Call
 
 If enabled, the call keeps recording after Pearl transfers it and leaves the line, so you capture the full conversation with the human agent. Turn it off if you don't want to record the person or third party the call is transferred to.
 
@@ -215,7 +219,7 @@ This option only appears when **Recording Options** is enabled. See the [Transfe
 
 ---
 
-## Transcript Options
+### Transcript Options
 
 Choose what is kept from the call transcript. Transcripts appear in your call logs alongside the recording.
 
@@ -239,7 +243,7 @@ With **Sensitive Info Removed**, if a customer says *"My credit card number is 1
 
 ---
 
-## Hold Message
+### Hold Message
 
 Played to callers when they are put on hold, typically when all agents are busy and the caller enters the holding line. English only, max **300 characters**.
 
@@ -261,7 +265,7 @@ If your Pearl experiences high call volumes, callers are not turned away. They e
 
 ---
 
-## Estimated Wait Time
+### Estimated Wait Time
 
 When enabled (on/off), callers on hold hear their position in the queue and an estimated wait time, along with your hold message. Setting expectations this way helps reduce hang-ups during busy periods.
 
@@ -275,7 +279,7 @@ When enabled (on/off), callers on hold hear their position in the queue and an e
 
 ---
 
-## Hold Sound
+### Hold Sound
 
 The music that loops while callers wait in the holding line. Select one of the built-in tracks or upload your own `.mp3` (up to **3 minutes**). Use the preview button to listen before saving.
 
@@ -289,7 +293,7 @@ The music that loops while callers wait in the holding line. Select one of the b
 
 ---
 
-## Call Ambience
+### Call Ambience
 
 A subtle background environment (office, call center, outdoor…) played **during the live conversation** to make the call sound more natural and human. Defaults to **None**.
 
@@ -309,7 +313,7 @@ Don't confuse this with **Hold Sound**: Call Ambience plays quietly behind Pearl
 
 ---
 
-## Webhooks
+### Webhooks
 
 Send call lifecycle events to an external endpoint.
 
@@ -337,6 +341,55 @@ Use Webhooks only if external tools need event notifications. For actual automat
 >
   Learn how to configure webhooks, authenticate requests, and handle the events NLPearl sends.
 </Card>
+
+---
+
+## Project-Level Settings
+
+A few settings live at the **Project** level rather than in the Inbound Settings screen. Open them from the settings popover on your Pearl.
+
+<Frame>
+  <img
+    src="/images/dark_mode/outbound-projectsettingspanel.png"
+    alt="Project settings: agents and data retention"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+### Agents
+
+Sets how many **simultaneous agents** handle this Pearl's incoming calls, i.e. how many calls can be answered at the same time, capped by your account's agent quota. A higher number lets your Pearl take more concurrent callers before the rest enter the holding line.
+
+<Frame>
+  <img
+    src="/images/dark_mode/outbound-agentschangenumber.png"
+    alt="Agents setting in the Pearl settings panel"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Card
+  title="Agents"
+  icon="users"
+  iconType="light"
+  href="/pages/agents"
+>
+  Learn how to manage the agents assigned to your inbound and outbound activities.
+</Card>
+
+---
+
+### Call Retention
+
+Applies to **all calls**. Set how long calls are kept (a number of days, or leave empty to keep them indefinitely), then choose what is removed when they expire: delete all call data, or granularly the **Recording**, **Transcript**, **Summary**, or collected **Variables**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/outbound-callretentionsettings.png"
+    alt="Call Retention settings"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 ---
 
