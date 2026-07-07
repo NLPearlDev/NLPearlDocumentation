@@ -1,0 +1,516 @@
+---
+title: Building a Pearl Flow
+description: 'How to build a Pearl as a graph of nodes and transitions through the API, for both Phone and Text.'
+icon: "diagram-project"
+iconType: "light"
+---
+
+A **Pearl** can be driven in one of two ways:
+
+- A **Simple Pearl**: a single opening sentence plus a flow script. Created with [Create Pearl](/api-reference/v2/pearlFlow/add-pearl-flow).
+- A **Pearl** (the focus of this guide): a **graph of nodes** connected by **transitions**, giving you full control over the conversation, branching, integrations, and post-call automation.
+
+This page explains the node logic: how nodes connect, how the entry point and IDs work, how transitions branch, and what differs between the **Phone** and **Text** channels.
+
+<Note>
+Endpoints for node-graph Pearls:
+
+- **Phone**: [Create Phone Pearl](/api-reference/v2/pearlFlow/add-phone-pearl), [Update Phone Pearl](/api-reference/v2/pearlFlow/update-phone-pearl)
+- **Text**: [Create Text Pearl](/api-reference/v2/pearlFlow/add-text-pearl), [Update Text Pearl](/api-reference/v2/pearlFlow/update-text-pearl)
+- **Read back**: [Get Pearl Settings](/api-reference/v2/pearlFlow/get-pearl-flow)
+</Note>
+
+---
+
+## The mental model
+
+A Pearl flow is a **directed graph**:
+
+- Each **node** does one thing (say something, call an API, send an email, transfer, end the call, ...).
+- Each **transition** is a labeled edge from one node to another. The label is a plain-language **condition** that decides when that edge is taken.
+- The conversation starts at a single **entry point** and every path eventually reaches the one **EndCall** node.
+
+You send the whole graph in the `pearl.nodes` array. You do not draw the graph visually, you describe it: every node lists its outgoing transitions, and each transition names the `toNodeId` it leads to. The nodes reference each other by ID, so the order inside the array does not matter.
+
+<Note>
+The words "call" and "EndCall" are kept for both channels. On a Text Pearl they simply mean the conversation and the end-of-conversation node.
+</Note>
+
+---
+
+## Node types
+
+Every node has a `nodeType` (an integer). This is the single most important field: it decides what the node does and which settings object it must carry.
+
+| `nodeType` | Name | Channel | Carries |
+| --- | --- | --- | --- |
+| `2` | OpeningSentence | Both | `script` (+ optional `instructions`) |
+| `3` | PreCallAPI | Both | `apiSettings` |
+| `10` | Dialogue | Both | `script` (+ optional `instructions`) |
+| `31` | HandoffChatToHuman | **Text only** | `handOffAction` (+ optional `script`) |
+| `40` | API | Both | `apiSettings` |
+| `50` | SMS | **Phone only** (as a node) | `smsSettings` |
+| `51` | Email | Both | `emailSettings` |
+| `60` | TransferCall | **Phone only** | `transferCallSettings` |
+| `65` | StartCallRecording | **Phone only** | nothing (its presence is the whole configuration) |
+| `80` | SearchKnowledgeBase | Both | searches the knowledge base, branches on the result |
+| `100` | EndCall | Both | transitions to post-call containers only |
+| `200` | PostCallActions | Both | `postCallActions` (a container of actions) |
+
+<Note>
+Sending a node type that is not allowed for the channel is rejected. For example an SMS node (`50`) or a TransferCall node (`60`) in a Text Pearl, or a HandoffChatToHuman node (`31`) in a Phone Pearl.
+</Note>
+
+---
+
+## Anatomy of a node
+
+```json
+{
+  "nodeId": "triage",
+  "name": "Triage the caller",
+  "nodeType": 10,
+  "script": "Are you calling to book a new appointment or to reschedule an existing one?",
+  "instructions": "Stay friendly. If the caller is unsure, briefly explain both options.",
+  "transitions": [
+    { "name": "Wants to book", "toNodeId": "booking" },
+    { "name": "Wants to reschedule", "toNodeId": "reschedule" }
+  ]
+}
+```
+
+| Field | Meaning |
+| --- | --- |
+| `nodeId` | **You choose it.** A unique ID for the node within the flow. Transitions reference it. |
+| `name` | A human-readable label for the node (shown in the editor). |
+| `nodeType` | What the node does (see the table above). |
+| `transitions` | The outgoing edges. Each has a `name` (the condition) and a `toNodeId` (the target). |
+| `script` | `🧩 May support variables` The text for OpeningSentence and Dialogue nodes. |
+| `instructions` | `🧩 May support variables` Optional guidance on tone, exceptions, and how closely to follow the script. |
+| `apiSettings` / `smsSettings` / `emailSettings` / `transferCallSettings` | The settings object matching the node type. |
+| `handOffAction` / `postCallActions` | Nested lists of action nodes (see below). |
+
+<Note>
+Only fields marked `🧩 May support variables` accept the `{variableId}` syntax. See [Flow Variables](/api-reference/flow_variables) for the full variable system.
+</Note>
+
+---
+
+## Node IDs and transitions
+
+This is the part people get wrong most often, so read it carefully. There are **two kinds of IDs**, and they behave differently.
+
+### Node IDs: you provide them
+
+- **You choose `nodeId`, and it is required.** It is how the graph wires itself together: a transition points at a node through `toNodeId`, which must equal that node's `nodeId`.
+- Node IDs must be **unique** within the flow and are capped at **20 characters**.
+- Pick short, stable, meaningful IDs (`opening`, `triage`, `booking`, `endCall`). You will reuse them across every transition that leads to the node.
+- If you omit a `nodeId`, the request is rejected. There is no auto-generation for nodes: the graph cannot connect nodes it cannot name.
+
+### Transition IDs: you do NOT provide them
+
+A transition only needs two things from you:
+
+| Field | Meaning |
+| --- | --- |
+| `name` | `🧩 May support variables` The condition, written in plain language ("Caller is a VIP", "Wants to reschedule", "Always"). Must be unique within the node. |
+| `toNodeId` | The `nodeId` this transition leads to. |
+
+You never send a transition ID. The platform **generates it from the transition `name`** in camelCase ("is successful" becomes `isSuccessful`), adding a numeric suffix on collisions (`isSuccessful1`, `isSuccessful2`). This is why the transition `name` must be unique inside a node.
+
+<Warning>
+Write transition names as readable **conditions**, not code. Use "Age greater than 60", not `{customerAge} > 60`.
+</Warning>
+
+**A single transition:**
+
+```json
+{ "name": "Wants to reschedule", "toNodeId": "reschedule" }
+```
+
+---
+
+## The opening
+
+Every flow needs an entry point. In most flows that is a single **OpeningSentence** node (`nodeType: 2`).
+
+```json
+{
+  "nodeId": "opening",
+  "name": "Greeting",
+  "nodeType": 2,
+  "script": "Hi {firstName}, this is {agentName} from Bright Dental. How can I help you today?",
+  "transitions": [
+    { "name": "Caller states their reason", "toNodeId": "triage" }
+  ]
+}
+```
+
+<Note>
+**The opening script is spoken as written.** Whatever you put in an OpeningSentence node's `script` is what the agent says to open the conversation, close to verbatim. This is different from a **Dialogue** node, where the `script` is a guide that the agent adapts in real time to what the customer says.
+</Note>
+
+### The entry point is derived, not sent
+
+You do **not** tell the API which node is first. The entry point is resolved automatically:
+
+- If the flow contains a **PreCallAPI** node, that node is the entry point.
+- Otherwise, the single **OpeningSentence** node is the entry point.
+
+Because of this, the opening rules are strict:
+
+- **Without a PreCallAPI**: exactly **one** OpeningSentence node.
+- **With a PreCallAPI**: **one or two** OpeningSentence nodes (see the next section).
+
+---
+
+## Pre-call API
+
+A **PreCallAPI** node (`nodeType: 3`) runs an API call **before** the conversation starts, typically to look the customer up so the opening can be personalized. A flow may contain **at most one** PreCallAPI node.
+
+Its transitions are special: each one must set `apiResult`, and each one must lead to an **OpeningSentence** node.
+
+| `apiResult` | Meaning | Generated transition ID |
+| --- | --- | --- |
+| `1` | Success (the API call succeeded) | `sapisuccess` |
+| `2` | Failure (the call failed or returned nothing) | `sapinotsuccess` |
+
+<Note>
+`apiResult` is only valid on the transitions of a PreCallAPI node, and it is required there. It must not appear on any other node's transitions.
+</Note>
+
+**One opening (continue on both outcomes):** the Success transition leads to the opening. A Failure transition, if present, must point at that same opening.
+
+**Two openings (branch on the outcome):** the Success transition leads to the "known customer" opening, the Failure transition to the "unknown customer" opening. They must point at two different OpeningSentence nodes.
+
+```json
+{
+  "nodeId": "lookup",
+  "name": "Customer lookup",
+  "nodeType": 3,
+  "apiSettings": {
+    "name": "Find customer",
+    "method": 1,
+    "endpointUrl": "https://crm.example.com/customers?phone={phoneNumber}",
+    "description": "Looks up the caller by phone number before greeting.",
+    "outputBody": [
+      { "key": "firstName", "variableId": "firstName" }
+    ]
+  },
+  "transitions": [
+    { "name": "Customer found", "toNodeId": "openingKnown", "apiResult": 1 },
+    { "name": "Customer not found", "toNodeId": "openingUnknown", "apiResult": 2 }
+  ]
+}
+```
+
+Here `method: 1` is a GET (see the method codes under [Action nodes](#action-nodes)). `outputBody` maps a field of the API response onto a flow variable so the opening can use `{firstName}`.
+
+---
+
+## Connecting nodes into a sequence
+
+A flow is only valid when it is fully connected. The rules:
+
+- **Exactly one EndCall node** (`nodeType: 100`), and **every path must be able to reach it**.
+- **Every non-entry node needs at least one incoming transition.** A node nobody points to is unreachable and rejected. (The one exception is a floating TransferCall node, see below.)
+- Transitions may only point at node IDs that exist in the flow.
+
+A simple linear chain looks like this (order in the array does not matter, the `toNodeId` links do the wiring):
+
+```json
+"nodes": [
+  {
+    "nodeId": "opening",
+    "name": "Greeting",
+    "nodeType": 2,
+    "script": "Hi {firstName}, how can I help?",
+    "transitions": [ { "name": "Continue", "toNodeId": "triage" } ]
+  },
+  {
+    "nodeId": "triage",
+    "name": "Triage",
+    "nodeType": 10,
+    "script": "Do you want to book or reschedule?",
+    "transitions": [
+      { "name": "Wants to book", "toNodeId": "booking" },
+      { "name": "Wants to reschedule", "toNodeId": "endCall" }
+    ]
+  },
+  {
+    "nodeId": "booking",
+    "name": "Take the booking",
+    "nodeType": 10,
+    "script": "Great, what day works best for you?",
+    "transitions": [ { "name": "Continue", "toNodeId": "endCall" } ]
+  },
+  {
+    "nodeId": "endCall",
+    "name": "End",
+    "nodeType": 100,
+    "transitions": []
+  }
+]
+```
+
+<Tip>
+Give the EndCall node a stable ID like `endCall` and point every terminal branch at it. It keeps the graph easy to reason about, and every action node (transfer, SMS, email) should ultimately continue to it.
+</Tip>
+
+---
+
+## Action nodes
+
+Action nodes do work instead of talking. Each carries the settings object that matches its `nodeType`.
+
+| Node | `nodeType` | Settings object | Notes |
+| --- | --- | --- | --- |
+| API | `40` | `apiSettings` | Calls an HTTP endpoint mid-conversation. |
+| SMS | `50` | `smsSettings` | Phone only as a standalone node. |
+| Email | `51` | `emailSettings` | Sends an email. |
+| TransferCall | `60` | `transferCallSettings` | Phone only. Hands the call to a phone number. |
+| StartCallRecording | `65` | none | Phone only. Its presence starts recording from that point. |
+
+`apiSettings` (`method` codes: `1` GET, `2` POST, `3` PUT, `4` DELETE, `5` PATCH):
+
+```json
+{
+  "nodeId": "checkAvail",
+  "name": "Check availability",
+  "nodeType": 40,
+  "apiSettings": {
+    "name": "Availability",
+    "method": 1,
+    "endpointUrl": "https://booking.example.com/slots?day={preferredDay}",
+    "description": "Returns open appointment slots for the requested day.",
+    "outputBody": [ { "key": "slots", "variableId": "availableSlots" } ]
+  },
+  "transitions": [
+    { "name": "Slots available", "toNodeId": "confirm" },
+    { "name": "No slots", "toNodeId": "offerCallback" }
+  ]
+}
+```
+
+<Note>
+Action node settings on a node graph carry **no trigger description**: the transitions decide when an action runs, so there is nothing to describe. (The one exception is a *floating* TransferCall, see below.) For the full API body, headers, credentials, and output-schema options, see the [API node](/pages/api_action) guide and [Flow Variables](/api-reference/flow_variables).
+</Note>
+
+### TransferCall: wired vs floating (Phone)
+
+A TransferCall node behaves differently depending on how it is reached, and this changes whether `triggerDescription` is required:
+
+| The transfer node is... | `triggerDescription` | Behavior |
+| --- | --- | --- |
+| **Wired** (another node has a transition into it) | **Not allowed** | The flow decides when the transfer happens. |
+| **Floating** (no incoming transition) | **Required** | The agent fires the transfer on its own, based on the description, from anywhere in the call. |
+
+```json
+{
+  "nodeId": "toBilling",
+  "name": "Transfer to billing",
+  "nodeType": 60,
+  "transferCallSettings": {
+    "transferCallPhoneNumber": "+12125551234"
+  },
+  "transitions": [ { "name": "Continue", "toNodeId": "endCall" } ]
+}
+```
+
+---
+
+## Post-call actions
+
+Post-call actions run **after** the conversation ends. They are fire-and-forget: the platform sends them and moves on, so they never have transitions and their result is not captured.
+
+The structure has two parts:
+
+1. A **PostCallActions container** node (`nodeType: 200`) whose `postCallActions` array holds the actual action nodes (API `40`, Email `51`, and on Phone also SMS `50`). These inner nodes have **no transitions**.
+2. The **EndCall** node's transitions, which point at those containers. **This is the only place EndCall may transition to.** Each transition `name` is the **condition** under which that container fires.
+
+When the call ends, the platform evaluates all of EndCall's transitions at once. Each condition that is true triggers its container, and multiple containers can fire in parallel (logical OR). Use a transition named "Always" for a container that should run on every call.
+
+```json
+"nodes": [
+  {
+    "nodeId": "endCall",
+    "name": "End",
+    "nodeType": 100,
+    "transitions": [
+      { "name": "Appointment booked", "toNodeId": "postBooked" },
+      { "name": "Always", "toNodeId": "postLog" }
+    ]
+  },
+  {
+    "nodeId": "postBooked",
+    "name": "Booking actions",
+    "nodeType": 200,
+    "postCallActions": [
+      {
+        "nodeId": "crmLog",
+        "name": "Update CRM",
+        "nodeType": 40,
+        "apiSettings": {
+          "name": "Log booking",
+          "method": 2,
+          "endpointUrl": "https://crm.example.com/bookings",
+          "description": "Records the booking after the call.",
+          "body": [
+            { "key": "phone", "variableId": "phoneNumber" },
+            { "key": "summary", "variableId": "post_call_summary" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "nodeId": "postLog",
+    "name": "Always-on recap",
+    "nodeType": 200,
+    "postCallActions": [
+      {
+        "nodeId": "emailRecap",
+        "name": "Email recap",
+        "nodeType": 51,
+        "emailSettings": {
+          "to": ["ops@example.com"],
+          "subject": "Call recap for {firstName}",
+          "body": "Summary: {post_call_summary}"
+        }
+      }
+    ]
+  }
+]
+```
+
+<Note>
+Post-call actions are the only place where **post-call variables** (`post_call_summary`, `post_call_transcript`, `post_call_recording`, ...) are available. See [Flow Variables](/api-reference/flow_variables).
+</Note>
+
+---
+
+## Phone vs Text
+
+The node logic above is identical for both channels. The differences are the node types allowed, the model, and a few channel fields.
+
+| | Phone Pearl | Text Pearl |
+| --- | --- | --- |
+| Endpoint | [Create Phone Pearl](/api-reference/v2/pearlFlow/add-phone-pearl) | [Create Text Pearl](/api-reference/v2/pearlFlow/add-text-pearl) |
+| Model (`modelType`) | `1` Trident, `2` Oyster, `3` Arrow, `4` Hydra (defaults to Arrow) | `11` Swan only |
+| Agent identity | `agents` (voice agents, one per language) + `speechRecognitionKeywords` | `agentName` (single text agent, all languages natively) |
+| Human escalation | TransferCall node (`60`) to a phone number | HandoffChatToHuman node (`31`) |
+| Phone-only nodes | SMS (`50`), TransferCall (`60`), StartCallRecording (`65`) | not available |
+| Text-only nodes | not available | HandoffChatToHuman (`31`) |
+| SMS | a standalone SMS node (`50`) | **only inside a Hand-Off** (as a sub-action), never as a standalone node or post-call action |
+| Channel binding | phone number is assigned on the platform | `textChannelId` on the inbound/outbound settings (from [Get Text Channels](/api-reference/v2/pearlSettings/get-text-channels)) |
+
+### The Hand-Off node (Text)
+
+The Text equivalent of a transfer. It hands the conversation to a human and can fire inline notifications through its `handOffAction` array. Those sub-actions may be SMS (`50`), Email (`51`), or API (`40`), have **no transitions** of their own, and the Hand-Off node itself transitions to EndCall.
+
+```json
+{
+  "nodeId": "handoff",
+  "name": "Escalate to a human",
+  "nodeType": 31,
+  "script": "Connecting you with a teammate now, one moment.",
+  "transitions": [ { "name": "Continue", "toNodeId": "endCall" } ],
+  "handOffAction": [
+    {
+      "nodeId": "notifyTeam",
+      "name": "Email the team",
+      "nodeType": 51,
+      "emailSettings": {
+        "to": ["support@example.com"],
+        "subject": "Human requested in chat",
+        "body": "Customer {firstName} asked for a human."
+      }
+    }
+  ]
+}
+```
+
+<Note>
+`script` on a Hand-Off is the last line the agent sends before it stops replying. Leave it empty for a silent hand-off.
+</Note>
+
+See the [Hand-Off node](/pages/text/handoff_action) guide for the full behavior.
+
+---
+
+## Creating vs updating
+
+### Create
+
+Send the whole thing at once. The request wrapper is the same shape for both channels (only the settings variant differs):
+
+```json
+{
+  "name": "Bright Dental Reception",
+  "pearl": {
+    "companyName": "Bright Dental",
+    "agentPersonality": "Warm and professional",
+    "modelType": 3,
+    "agents": [ /* voice agents (Phone), or use agentName for Text */ ],
+    "nodes": [ /* the full node graph */ ]
+  },
+  "variables": [ /* your flow variables, see Flow Variables */ ],
+  "inbound": { /* OR "outbound": provide exactly one */ }
+}
+```
+
+- Provide **exactly one** channel: `inbound` **or** `outbound`, never both.
+- For a Text Pearl, put the `textChannelId` on the `inbound`/`outbound` settings.
+- `variables` defines the flow variables; keep it minimal and only include what you reference. See [Flow Variables](/api-reference/flow_variables).
+
+### Update: `pearl` is a full replace, settings are a patch
+
+The update endpoints ([Update Phone Pearl](/api-reference/v2/pearlFlow/update-phone-pearl), [Update Text Pearl](/api-reference/v2/pearlFlow/update-text-pearl)) treat each part of the request differently:
+
+| Part of the request | Behavior on update |
+| --- | --- |
+| `pearl` | **Full replacement.** If you send `pearl`, you send the **complete node graph**, it replaces the existing one entirely. Omit `pearl` to leave the flow untouched. |
+| `inbound` / `outbound` | **Partial patch.** Only the fields you include are changed; every field you omit keeps its current value. |
+| `name`, `variables` | Applied when provided. |
+
+<Warning>
+There is no partial edit of a single node. To change one node you resend the entire `pearl.nodes` graph. Fetch the current graph first with [Get Pearl Settings](/api-reference/v2/pearlFlow/get-pearl-flow), modify it, and send it back.
+</Warning>
+
+<Note>
+The channel patch works field by field: sending `{ "inbound": { "waitingSentence": "..." } }` changes only the waiting sentence and preserves everything else. This is why `inbound`/`outbound` behave as a patch while `pearl` does not.
+</Note>
+
+---
+
+## Validation checklist
+
+Before you send a flow, confirm:
+
+- [ ] Exactly **one EndCall** node, and every node can reach it.
+- [ ] Exactly **one OpeningSentence** (or, with a PreCallAPI, one or two).
+- [ ] **At most one PreCallAPI**; its transitions all set `apiResult` and lead to OpeningSentence nodes.
+- [ ] Every `nodeId` is **unique** and every `toNodeId` points at an existing node.
+- [ ] Every non-entry node has an **incoming transition** (except a floating TransferCall).
+- [ ] Each node carries the **settings object for its `nodeType`**, and no forbidden node type for the channel.
+- [ ] `apiResult` only on PreCallAPI transitions; post-call and hand-off sub-actions have **no transitions**.
+- [ ] Transition names are **unique within their node** and written as plain-language conditions.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Flow Variables" icon="square-root-variable" iconType="light" href="/api-reference/flow_variables">
+    The `{variableId}` syntax, variable groups, and built-in variables.
+  </Card>
+  <Card title="API Node" icon="code" iconType="light" href="/pages/api_action">
+    Request body, headers, credentials, and response output schema.
+  </Card>
+  <Card title="Get Pearl Settings" icon="gear" iconType="light" href="/api-reference/v2/pearlFlow/get-pearl-flow">
+    Read the current flow back before updating it.
+  </Card>
+  <Card title="Hand-Off Node" icon="headset" iconType="light" href="/pages/text/handoff_action">
+    Escalate a Text conversation to a human.
+  </Card>
+</CardGroup>

@@ -166,7 +166,8 @@
               "api-reference/api_quickstart",
               "api-reference/python_wrapper",
               "api-reference/authorization",
-              "api-reference/flow_variables"
+              "api-reference/flow_variables",
+              "api-reference/building_a_flow"
             ]
           },
           {
