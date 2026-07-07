@@ -6,54 +6,160 @@ icon: "users"
 iconType: "light"
 ---
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/covagents.svg"
+        alt="Agents cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/covagents.svg"
+        alt="Agents cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
 In NLPearl, **agents** are your capacity to handle activity. They power both your **voice calls** and your **text conversations** - the number of agents you have determines how much you can run at the same time.
 
 ## How agent capacity works
 
-An agent is a virtual unit of capacity. What it means depends on the channel:
+<Warning>
+  An agent is a **virtual unit of capacity — not a person and not a specific Pearl.** Think of it as one "lane" of throughput that your whole workspace shares.
+</Warning>
+
+The more agents you own, the more activity you can run in parallel. What a single agent unlocks depends on the channel:
 
 <CardGroup cols={2}>
-  <Card title="Voice calls" icon="phone">
-    Each agent handles **one call at a time**. With 5 agents, you can run 5 calls simultaneously.
+  <Card title="Voice calls" icon="phone" iconType="light">
+    Each agent handles **one call at a time**. With 5 agents, you can run **5 calls simultaneously** — a 6th call waits until one frees up.
   </Card>
-  <Card title="Text conversations" icon="comments">
-    Each agent adds **3 messages per minute** of capacity. With 10 agents, that's up to 30 messages per minute.
+  <Card title="Text conversations" icon="comments" iconType="light">
+    Each agent adds **3 messages per minute** of throughput. With 10 agents, that's up to **30 messages per minute**, spread across all your open chats.
   </Card>
 </CardGroup>
 
+<Info>
+  **The key difference:** on **voice**, an agent limits how many calls run *at the same time* (concurrency). On **text**, an agent doesn't cap the number of open conversations — it sets how fast Pearl can reply *across all of them* (a message rate). Capacity scales linearly: 1 agent → 3 messages/minute, 10 agents → 30 messages/minute.
+</Info>
+
 <Note>
-  Text capacity scales linearly: the message rate limit is **3 messages per minute per agent** - so 1 agent → 3 messages/minute, and 10 agents → 30 messages/minute. Your agents set both your simultaneous-call capacity on voice and your message rate on text.
+  Agents are shared at the **workspace** level. You buy them once, then allocate them to each inbound or outbound activity from the Pearl overview — so a busy campaign can use more lanes while a quieter one uses fewer.
 </Note>
 
 ## Set up agents for your activities
 
-<Note>
-  Agent allocation is configured from the Pearl overview after the Pearl has been published.
-</Note>
+Agents are managed at the **workspace** level from your Settings, then allocated to each Pearl from its overview page once published.
 
 <Steps>
+  <Step title="Open the Agent(s) settings">
+    Click your **profile card** at the bottom-left of the sidebar, open **Settings**, then select the **Agent(s)** tab. This is where you purchase, review, and remove the agents in your workspace.
+
+    <Frame>
+      <img
+        src="/images/dark_mode/agentssettingd.png"
+        alt="Agent(s) tab in workspace Settings"
+        className="rounded-[14px]"
+      />
+    </Frame>
+  </Step>
+
   <Step title="Purchase agents">
-    Add agents from **Settings > Agents** to grow your workspace capacity. How many you need depends on your peak call volume and expected message rate.
+    Use the **Purchase New Agent(s)** bar at the top: set the quantity, review the monthly price, and click **Purchase Agent(s)**. You're billed immediately (see [Subscription and billing](#subscription-and-billing)).
+
+    <Info>
+      Adding concurrent agents requires an **active paid subscription**. Extra agents can only be purchased on a paid plan.
+    </Info>
+
+    <Frame>
+      <img
+        src="/images/dark_mode/agentssettingd1.png"
+        alt="Purchase New Agent(s) bar in the Agent(s) settings"
+        className="rounded-[14px]"
+      />
+    </Frame>
   </Step>
-  <Step title="Allocate them from the overview">
-    After publishing your Pearl, open the **Settings** section from its overview page and assign agents to an inbound or outbound activity. Allocate 2 agents to a campaign and it calls 2 leads at a time.
+
+  <Step title="Review your agents">
+    The list shows every agent in your workspace, with its creation date.
+
+    <Frame>
+      <img
+        src="/images/dark_mode/agentssetting2.png"
+        alt="List of agents in the workspace"
+        className="rounded-[14px]"
+      />
+    </Frame>
+
+    Agents that come with your subscription are flagged with an **Included in your plan** badge — these are free and can't be removed.
+
+    <Frame>
+      <img
+        src="/images/dark_mode/agentssetting3.png"
+        alt="Included in your plan badge on a plan agent"
+        className="rounded-[14px]"
+      />
+    </Frame>
   </Step>
-  <Step title="Adjust anytime">
-    Return to the Pearl overview to scale the number of agents on any activity up or down as your needs change.
+
+  <Step title="Remove an agent">
+    To remove an extra agent, click the red **trash** icon next to it.
+
+    <Frame>
+      <img
+        src="/images/dark_mode/agentssetting4.png"
+        alt="Remove an agent with the trash icon"
+        className="rounded-[14px]"
+      />
+    </Frame>
+
+    <Note>
+      There are no pro-rata refunds — the agent stays active until the end of the period you've already paid for.
+
+      **Example:** you remove an agent on the 5th, but your last renewal was on the 1st. The agent stays available until the end of that paid period (the 30th), and won't be billed again in the next cycle.
+    </Note>
+  </Step>
+
+  <Step title="Allocate agents to a Pearl">
+    After publishing your Pearl, open its overview page, open the **Settings** popover, and set the number of **Agent(s)** for that activity. Allocate 2 agents to a campaign and it handles 2 leads at a time. You can scale this up or down anytime.
+
+    <Frame>
+      <img
+        src="/images/dark_mode/agentssetting5.png"
+        alt="Allocate agents to a Pearl from its overview Settings"
+        className="rounded-[14px]"
+      />
+    </Frame>
   </Step>
 </Steps>
 
-To add or remove agents from your workspace, open **Settings > Agents**, set the number you want, and confirm. To assign those agents to an activity, open the published Pearl's overview page.
-
 ## Example
 
-**Voice** - allocate 2 agents to an outbound campaign and it dials 2 leads at the same time. Add more agents to widen your reach.
+<Card icon="lightbulb" iconType="light">
+  The same number of agents translates differently on voice and text. Here's how a given allocation plays out:
 
-**Text** - with 10 agents, your text agent handles up to 30 messages per minute across conversations.
+  | Agents | Voice (simultaneous calls) | Text (messages / minute) |
+  |:------:|:--------------------------:|:------------------------:|
+  | **2**  | 2 calls at the same time   | 6 messages / minute      |
+  | **5**  | 5 calls at the same time   | 15 messages / minute     |
+  | **10** | 10 calls at the same time  | 30 messages / minute     |
+
+  For example, allocate **2 agents** to an outbound voice campaign and it dials **2 leads at the same time**; the same 2 agents on a text Pearl let it reply at up to **6 messages per minute** across all open chats.
+</Card>
 
 ## Subscription and billing
 
-Every plan includes a set number of agents at no extra cost - higher tiers include more. You can add extra agents at any time to grow your capacity.
+Every plan includes a set number of agents at no extra cost - higher tiers include more. On an **active paid subscription**, you can add extra concurrent agents at any time to grow your capacity.
 
 Standard agents are billed at a flat monthly rate. Enterprise use and fine-tuned models cost more, depending on model complexity. See [Billing](/pages/billing) for current pricing.
 
@@ -66,11 +172,3 @@ When you purchase an agent, you're billed for it immediately, whatever point you
 
   **Example** - your subscription renews on the 1st and you add an agent on the 29th. You're billed for it right away. On the 1st, the whole subscription (including that agent) renews, so it's billed again for the new period. You've effectively paid for two periods, and you keep the agent for the full duration of each.
 </Warning>
-
-### Removing an agent
-
-There are no pro-rata refunds. If you remove an agent, it stays active until the end of the period you've already paid for.
-
-<Note>
-  **Example** - you remove an agent on the 5th, but your last renewal was on the 1st. The agent stays available until the end of that paid period (the 30th). It won't be billed again in the next cycle.
-</Note>
