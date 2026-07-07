@@ -1,0 +1,203 @@
+---
+title: "Knowledge Base"
+icon: "book"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/knowledgebasecover.svg"
+        alt="Knowledge Base cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/knowledgebasecover.svg"
+        alt="Knowledge Base cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+Before your Pearl can answer questions accurately, it needs context. This step helps define the essential background information your agent will rely on during conversations.
+
+---
+
+## Company Name
+
+Give your Pearl the name of the company it represents. This name may be used when Pearl introduces itself or provides company-related information.
+
+<Frame>
+  <img
+    src="/images/dark_mode/knowledgebasescreen.png"
+    alt="Company Name field in the Knowledge Base"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+## Company Description
+
+Add a brief company description including your industry, mission, or key services. This allows Pearl to answer questions with more contextual relevance.
+
+<Frame>
+  <img
+    src="/images/dark_mode/knowledgebasescreen-5.png"
+    alt="Company Description field in the Knowledge Base"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+## Pearl Knowledge Base
+
+This is where you teach Pearl what it needs to know to respond with relevance and accuracy. Add detailed information about your services, pricing, opening hours, locations, and any key operational data.
+
+<Frame>
+  <img
+    src="/images/dark_mode/knowledgebasescreen-1.png"
+    alt="Pearl Knowledge Base field with file upload"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Note>
+**Background knowledge, not a script.** The Knowledge Base is passive reference data: Pearl consults it **only when needed** to answer accurately. It doesn't dictate the conversation flow, that's handled by the Flow Editor.
+</Note>
+
+<Note>
+Both options live in the same area and can be combined: type your information directly in the **text field** and/or **upload reference files**. Multiple documents can be added if needed. Supported formats: `.docx`, `.txt`, `.pdf`.
+</Note>
+
+Whether you're describing how your subscription plans work, listing available services, or clarifying your business hours, this section allows Pearl to access structured information that supports more precise answers.
+
+<Info>
+This is the same knowledge that powers the [Knowledge Base node](/pages/knowledge_base_node) in the Flow Editor. What you add here is what your Pearl draws on during conversations.
+</Info>
+
+---
+
+## Memory
+
+When enabled, Pearl remembers the user or lead, allowing it to seamlessly continue conversations from where they left off.
+
+<Frame>
+  <img
+    src="/images/dark_mode/knowledgebasescreen-2.png"
+    alt="Memory On/Off toggle in the Knowledge Base"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Tip>
+This feature is particularly useful for:
+- Multi-step processes  
+- Follow-ups  
+- Any scenario where continuity matters
+</Tip>
+
+<Card>
+### Example use case: Hospitality
+
+Let's say a guest checks into a hotel. Pearl can:
+- Remember their room number  
+- Greet them by name  
+- Recall their preferences (like "extra towels" or "no wake-up call")  
+- Offer a smooth, personalized experience every time they call
+</Card>
+
+<Info>
+**Resetting Memory**
+
+Need a fresh start? Pearl's memory can be reset via API.
+
+This is especially important in contexts like hospitality, where once a guest checks out, Pearl clears the slate, ensuring the next visitor starts with a clean experience.
+</Info>
+
+---
+
+## Speech Recognition Keywords
+
+Some words are just… not in the dictionary. Whether you're using brand-specific terms, creative product names, or industry jargon, teaching Pearl how to recognize them makes all the difference.
+
+<Frame>
+  <img
+    src="/images/dark_mode/knowledgebasescreen-3.png"
+    alt="Speech Recognition Keywords table"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+Use this feature to define:
+- **Keywords**: The unique word or name you want Pearl to catch
+- **Pronunciations**: Variations of how users might say it (spoken form)
+
+<Card>
+### Example
+
+Let's say your bakery sells a pastry called `FluffoBun`.
+
+Here's how you'd define it:
+- **Keyword:** FluffoBun  
+- **Pronunciations:** fluh-foh-bun, floof-oh-bun, fluff-bunb  
+*(Separate each pronunciation with a comma)*
+
+This helps Pearl match even creatively named terms to real user input, no matter how it's pronounced.
+</Card>
+
+---
+
+## Speech Output Pronunciations
+
+Speech Output Pronunciations let you fine-tune how Pearl *pronounces* specific words or short phrases out loud. You provide the text as it appears (**Pearl says**) and a simple phonetic respelling of how it should actually sound (**Caller hears**).
+
+<Frame>
+  <img
+    src="/images/dark_mode/knowledgebasescreen-4.png"
+    alt="Speech Output Pronunciations table"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+Whenever Pearl is about to speak a word or phrase listed in **Pearl says**, it uses the **Caller hears** respelling instead. It changes the **audio only**: your scripts, variables, and node text stay exactly as you wrote them.
+
+Reach for it whenever text-to-speech mispronounces something important, such as:
+
+| Use case | Example |
+| --- | --- |
+| **Brand and product names** | `Nike` → `ny-kee` |
+| **Acronyms** you want spelled out | `NLPearl` → `N-L-Pearl` |
+| **Industry terms** | `SQL` → `sequel` |
+| **Abbreviations** you want expanded | `Dr.` → `Doctor` |
+| **Foreign or uncommon words** | Words that need a specific phonetic reading |
+
+To add one, fill the empty row at the bottom: type the text in **Pearl says**, then a plain phonetic respelling in **Caller hears** (readable syllables separated by hyphens, e.g. `ny-kee`). Use the trash icon on a row to delete it.
+
+<Info>
+Write **Caller hears** the way it should be *spoken*, not spelled, e.g. `2024` → `twenty twenty-four`, or `NLPearl` → `N L Pearl`. Keep it simple and phonetic.
+</Info>
+
+<Warning>
+**Each row must have both fields filled**: a **Pearl says** value *and* a **Caller hears** value. Otherwise the row is flagged as incomplete. Empty rows are ignored and dropped when you save.
+</Warning>
+
+<Note>
+**Limits:** up to **25** entries, and each field is capped at **50 characters**.
+</Note>
+
+<Note>
+**Speech Output Pronunciations vs. Speech Recognition Keywords** — don't mix them up:
+- **Speech Output Pronunciations** control how Pearl **speaks** (text-to-speech / output). Fields: **Pearl says** → **Caller hears**.
+- **Speech Recognition Keywords** help Pearl **understand** what the caller says (speech-to-text / input). Fields: a **keyword** plus one or more **pronunciations** it might be heard as.
+</Note>

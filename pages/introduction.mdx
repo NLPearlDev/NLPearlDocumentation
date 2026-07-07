@@ -1,26 +1,54 @@
 ---
 title: "Welcome to NLPearl"
 sidebarTitle: "Welcome to NLPearl"
-description: "Build and deploy AI agents, including advanced AI voice agents that handle real phone conversations in 20+ languages - all by simply chatting with AI."
+description: "Build and deploy AI agents - voice agents that handle real phone conversations in 20+ languages, and text agents across SMS, WhatsApp, email, and chat - all by simply chatting with AI."
 icon: "house"
+iconType: "light"
 ---
 
-<iframe
-  src="https://www.youtube.com/embed/tTYdxBLxpZ0"
-  title="NLPearl - AI Voice Agents"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-  style={{ width: '100%', aspectRatio: '16/9', borderRadius: '0.5rem' }}
-></iframe>
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/covcovdocumentation.svg"
+        alt="NLPearl documentation cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/covcovdocumentation.svg"
+        alt="NLPearl documentation cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
 ## What is NLPearl?
 
-NLPearl is an AI agent platform that enables you to create, deploy, and manage AI agents, including AI voice agents, capable of handling real phone conversations, inbound and outbound, at scale.
+NLPearl is an AI agent platform that lets you create, deploy, and manage AI agents that hold real conversations with your customers - inbound and outbound, at scale.
 
-Built on a proprietary speech-to-speech architecture, Pearl delivers natural, low-latency, full-duplex voice interactions in 20+ languages.
+Our flagship **AI voice agents** handle real phone conversations, built on a proprietary speech-to-speech architecture that delivers natural, low-latency, full-duplex voice in 20+ languages. With **Pearl Text**, you can also deploy AI text agents across SMS, WhatsApp, email, and chat - and connect both for continuous, cross-channel customer experiences.
 
-PearlVibe - your AI agent engineer, builds your agents, configures their logic, and connects them to your tools automatically.
+PearlVibe - your AI agent engineer - builds your agents, configures their logic, and connects them to your tools automatically.
+
+<CardGroup cols={2}>
+
+<Card title="Pearl Voice" icon="phone-volume" href="/pages/pearl_voice">
+  AI voice agents that handle real phone conversations - inbound and outbound - in 20+ languages.
+</Card>
+
+<Card title="Pearl Text" icon="messages" href="/pages/text/pearl_text">
+  AI text agents that message your customers across SMS, WhatsApp, email, and chat.
+</Card>
+
+</CardGroup>
 
 ---
 
@@ -70,11 +98,11 @@ PearlVibe - your AI agent engineer, builds your agents, configures their logic, 
   <Step title="Build your agent">
     Use PearlVibe to define your agent type, personality, knowledge base, conversation logic, and connected actions - while seamlessly integrating your tools - all through a prompt-driven interface.
   </Step>
-  <Step title="Deploy on a phone line">
-    Assign a phone number or connect your own SIP-compatible VoIP provider to launch inbound lines or outbound campaigns. Your agent starts handling real calls immediately.
+  <Step title="Deploy on your channels">
+    For voice, assign a phone number or connect your own SIP-compatible VoIP provider. For text, connect your messaging channels (SMS, WhatsApp, email, chat). Then launch inbound lines or outbound campaigns - your agent starts handling real conversations immediately.
   </Step>
   <Step title="Monitor and optimize">
-    Track performance with real-time analytics, review post-call transcripts and summaries, and iterate on your agent's behavior.
+    Track performance with real-time analytics, review post-call and post-chat transcripts and summaries, and iterate on your agent's behavior.
   </Step>
 </Steps>
 
@@ -84,7 +112,7 @@ PearlVibe - your AI agent engineer, builds your agents, configures their logic, 
 
 ### Build Your Agent
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
 
 <Card title="PearlVibe" icon="wand-magic-sparkles" href="/pages/pearl_vibe">
   Design your agent's type, personality, knowledge, conversation flow, and actions, while seamlessly integrating your tools - all from a single prompt-driven interface.
@@ -94,26 +122,18 @@ PearlVibe - your AI agent engineer, builds your agents, configures their logic, 
   Collect, store, and manipulate data during conversations - from user inputs to CRM lookups.
 </Card>
 
-<Card title="Actions" icon="bolt" href="/pages/action">
-  Execute real-time actions mid-call: API requests, call transfers, emails, and SMS.
-</Card>
-
 </CardGroup>
 
 ### Deploy & Connect
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
 
-<Card title="Inbound & Outbound" icon="phone" href="/pages/inbound">
-  Deploy agents on inbound lines for support or launch outbound campaigns to reach leads proactively.
+<Card title="Inbound" icon="phone-arrow-down-left" href="/pages/inbound">
+  Deploy agents on inbound lines to answer calls, resolve questions, and route to the right team.
 </Card>
 
-<Card title="Webhooks" icon="webhook" href="/pages/webhooks">
-  Push call events and data to your systems in real time.
-</Card>
-
-<Card title="Voices & Languages" icon="globe" href="/pages/languages">
-  Choose from 20+ languages and a wide selection of natural-sounding voices.
+<Card title="Outbound" icon="phone-arrow-up-right" href="/pages/outbound">
+  Launch outbound campaigns to reach leads, qualify prospects, and follow up at scale.
 </Card>
 
 </CardGroup>

@@ -1,0 +1,140 @@
+---
+title: Outbound
+description: 'Learn how to set up and manage Outbound Campaigns using NLPearl.AI to handle outbound conversations effectively.'
+icon: "paper-plane"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/outbound_text-cover.svg"
+        alt="Outbound cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/outbound_text-cover.svg"
+        alt="Outbound cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+## Setting Up Outbound Campaigns
+
+Outbound text campaigns let Pearl start conversations with a list of leads through your connected messaging channels. Start by asking PearlVibe to create an **outbound text Pearl**, then configure how the campaign should handle scheduling, messages, inactivity, transcripts, webhooks, and leads.
+
+<Info>
+### What are Outbound Campaigns?
+Outbound campaigns are used when Pearl starts the conversation. Each conversation follows the flow, knowledge, and actions defined in your Pearl.
+</Info>
+
+---
+
+### Steps to Create an Outbound Campaign
+
+<Steps>
+<Step title="Create an outbound text Pearl">
+
+Ask PearlVibe to create a Pearl for your outbound text use case. Describe your audience, goal, tone, qualification logic, handoff rules, and any tools Pearl should use.
+
+<Card
+  title="PearlVibe"
+  icon="diagram-subtask"
+  iconType="light"
+  href="/pages/pearl_vibe"
+>
+  Build and customize your Pearl's logic, knowledge, and actions from a single prompt-driven interface.
+</Card>
+</Step>
+
+<Step title="Configure outbound settings">
+Set how Pearl should manage each outbound chat:
+
+- **Name**: Give the campaign a clear name so it is easy to identify.
+- **Pearl**: Choose the Pearl that defines the conversation flow for this campaign.
+- **Timezone**: Set the local timezone used for campaign scheduling.
+- **Budget**: Define an optional budget. Once the budget is reached, Pearl stops starting new conversations.
+- **Schedule Conversations**: Choose when Pearl should start outbound conversations.
+- **Message Limit**: Set the maximum number of messages Pearl can send before automatically handing the conversation off to a human.
+- **Auto-close After Inactivity**: Set how long the chat can remain inactive before Pearl marks it as finished and triggers the post-chat summary.
+- **Inactivity Follow-up**: Send follow-up messages when the end user stops replying after Pearl's last message. You can configure up to **3** follow-ups.
+- **Transcript Options**: Choose what should be kept from the conversation: the full transcript, only non-sensitive parts, or no transcript.
+</Step>
+
+<Step title="Publish the Pearl">
+Publish the Pearl when its flow and outbound settings are ready. After publishing, use the Pearl overview page to connect channels and manage leads.
+</Step>
+
+<Step title="Connect a channel from the overview">
+From the Pearl overview page, connect the messaging channel your campaign will use.
+
+Unlike a voice campaign, an outbound text campaign is not tied to a phone number. It is connected to a **messaging channel**, such as:
+
+- **WhatsApp**
+- **Telegram**
+- **SMS**
+- **Glassix**
+</Step>
+
+<Step title="Add leads from the overview">
+
+Easily add the leads you want to contact directly from the platform. You can enter lead details such as name, contact identifier (e.g. phone number or messaging handle), and any other relevant information.
+
+From the Pearl overview page, go to the **Leads** tab, then click **Add Lead**.
+
+Choose how you want to add your leads:
+
+- **Manual entry**: Add leads one by one from the platform. Use this for small lists or quick tests.
+- **File upload**: Upload leads in bulk with a CSV file. Download the template, fill in the lead data, then upload it back to the platform.
+- **API**: Add leads programmatically with the [Add Lead endpoint](/api-reference/v2/outbound/add-lead) when leads come from a CRM, form, or custom backend.
+
+<Note>
+When you download the template, the file will only contain column names for the variables *actually used* in your flow. If you create a variable but don’t use it, it won’t appear in the file.  
+
+If you manually add new columns that aren’t linked to your Pearl, they won’t be recognized when re-uploading the file.
+</Note>
+
+</Step>
+
+<Step title="Configure webhooks if needed">
+Use webhooks only if external tools need event notifications, such as when a chat starts, ends, or when a lead status changes.
+
+<Note>
+  For actual automations, rely on Post-Chat actions tied to how the conversation ended.
+</Note>
+</Step>
+
+</Steps>
+
+---
+
+<CardGroup cols={2}>
+  <Card
+    title="Agents"
+    icon="users"
+    iconType="light"
+    href="/pages/agents"
+  >
+    Understand how to manage your agents, including adding and configuring agents for your inbound and outbound activities.
+  </Card>
+  <Card
+    title="Post-Chat"
+    icon="message-check"
+    iconType="light"
+    href="/pages/text/postchat"
+  >
+    Review everything captured after a conversation, from transcript to summary.
+  </Card>
+</CardGroup>

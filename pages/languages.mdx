@@ -9,7 +9,7 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/language_cover.svg"
+        src="/images/dark_mode/languageandvoice2.svg"
         alt="Voices and Languages cover"
         className="rounded-[14px]"
       />
@@ -21,7 +21,7 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/language_cover.svg"
+        src="/images/dark_mode/languageandvoice2.svg"
         alt="Voices and Languages cover"
         className="rounded-[14px]"
       />
@@ -40,174 +40,57 @@ When creating or editing your Pearl, you can set up multiple agents with differe
 #### How to Add Multiple Languages and Voices
 
 <Steps>
-  <Step title="Agent Names, Languages & Voices Section">
-      This section combines the configuration of your agent's name, language, and voice.
+  <Step title="Open the Agent Names, Languages & Voices section">
+In **Pearl Settings**, find the **Agent Names, Languages & Voices** section. Each row is one agent, with its name, language, voice, and accent. This is where you add, configure, and order your agents.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/language_section.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/language_section.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/voicelanguagescreen.png"
+    alt="Agent Names, Languages & Voices section in Pearl Settings"
+    className="rounded-[14px]"
+  />
+</Frame>
 
   </Step>
-  <Step title="Add a New Language">
-       - Click on the **"+"** button to add a new agent configuration.
 
-       <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/language_plus.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+  <Step title="Add an agent">
+Fill in the empty row at the bottom of the table to add a new agent:
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/language_plus.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+- **Name**: the name the agent uses during conversations in that language.
+- **Language**: pick a language from the supported list.
+- **Voice**: pick a voice for that language.
 
-
-   - For each agent configuration, you can set:
-     - **Agent Name**: The name that the agent will use during conversations in that language.
-     - **Language**: Select the desired language from the supported list.
-     - **Voice**: Choose a voice corresponding to the selected language. Voices come with labels indicating the accent (e.g., "en-US" for American English).
-
-    <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/language_multi.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/language_multi.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Note>
+Each language can be assigned to **only one agent**. A language that's already in use won't be selectable for another agent.
+</Note>
 
   </Step>
-    <Step title="Default Language">
-    - The first agent configuration you add is set as the **default**.
-    - This is the language your Pearl will use to start the conversation.
 
-    <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/language_default.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+  <Step title="Choose a voice and accent">
+Open the **Voice** dropdown to browse the available voices. Use the **search** box to filter, and check the **accent label** next to each voice (e.g. `en-US`, `en-UK`) to match your target audience. Click the **play button** next to a voice to hear a sample before selecting it.
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/language_default.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<br />
-
-    <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/language_opening-sentence.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/language_opening-sentence.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
+<Frame>
+  <img
+    src="/images/dark_mode/accents.png"
+    alt="Voice dropdown with search, accent labels and preview"
+    className="rounded-[14px]"
+  />
+</Frame>
 
   </Step>
-  <Step title="Accents">
-    Use the accent labels to select the voice that best suits your target audience.
 
-    <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/language_accents.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+  <Step title="Set the default (opening) language">
+The agent marked **Default** is the one your Pearl uses to open the conversation. The first agent you add becomes the default automatically.
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/language_accents.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+To change it, hover over the agent you want and click the **Set as default** (↑) button. Use the **delete** icon to remove an agent.
+
+<Frame>
+  <img
+    src="/images/dark_mode/putasdefault.png"
+    alt="Set an agent as the default opening language"
+    className="rounded-[14px]"
+  />
+</Frame>
 
   </Step>
 </Steps>

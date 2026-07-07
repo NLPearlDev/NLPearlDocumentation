@@ -37,7 +37,12 @@ a.nav-tabs-item[href*="api-reference"] {
   font-weight: 600 !important;
 }
 
+a.nav-tabs-item[href*="api-reference"]:hover,
 a.nav-tabs-item[href*="api-reference"][class*="text-shadow"] {
+  color: #2DBE73 !important;
+}
+
+.dark a.nav-tabs-item[href*="api-reference"][class*="text-shadow"] {
   color: #FFFFFF !important;
 }
 

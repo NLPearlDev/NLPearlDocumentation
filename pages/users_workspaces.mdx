@@ -1,0 +1,252 @@
+---
+title: "Users & Workspaces"
+sidebarTitle: "Users & Workspaces"
+description: "Invite users, assign roles, manage permissions, and switch between workspaces."
+icon: "users-gear"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/users_workspaces_cover.svg"
+        alt="Users & Workspaces cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/users_workspaces_cover.svg"
+        alt="Users & Workspaces cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+Use **Users & Workspaces** settings to control who can access your workspace, what each person is allowed to manage, and which workspace you are currently working in.
+
+<CardGroup cols={2}>
+  <Card title="Users" icon="user-plus">
+    Invite team members and assign them the right access level.
+  </Card>
+  <Card title="Roles" icon="shield-check">
+    Create reusable permission sets for different responsibilities.
+  </Card>
+  <Card title="Workspaces" icon="building">
+    Switch between workspaces or create a new one.
+  </Card>
+  <Card title="Access control" icon="lock">
+    Limit access to Pearls, billing, phone numbers, API keys, users, and audit logs.
+  </Card>
+</CardGroup>
+
+---
+
+# Users & Roles
+
+Control who can access the current workspace and what each person is allowed to do.
+
+## Managing Users
+
+The **Users** page lets workspace owners and admins invite new members, review existing users, and update their access level.
+
+<Frame>
+  <img
+    src="/images/dark_mode/usersmanagement.png"
+    alt="Users management page"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Steps>
+  <Step title="Open Users">
+    Go to **Workspace > Users**.
+  </Step>
+  <Step title="Invite a user">
+    Click **Invite User**, enter one or more email addresses, then choose the role to assign.
+
+    <Frame>
+      <img
+        src="/images/dark_mode/inviteuser.png"
+        alt="Invite user dialog"
+        className="rounded-[14px]"
+      />
+    </Frame>
+  </Step>
+  <Step title="Review access">
+    Confirm that each user has the correct role, such as **Owner**, **Admin**, or a custom role created for your team.
+  </Step>
+</Steps>
+
+<Note>
+  Give users the minimum access they need for their work. You can always update their role later as responsibilities change.
+</Note>
+
+---
+
+## Managing Roles
+
+Roles define what users are allowed to do in a workspace. You can use roles to separate responsibilities between admins, operators, support teams, billing teams, and other internal workflows.
+
+To manage roles, go to **Workspace > Users**, then open the **Roles** tab.
+
+<Frame>
+  <img
+    src="/images/dark_mode/addrole.png"
+    alt="Add role on the Roles tab"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Steps>
+  <Step title="Create a role">
+    Click **Create Role** and enter a clear role name.
+  </Step>
+  <Step title="Select permissions">
+    Choose which actions the role should allow.
+
+    <Frame>
+      <img
+        src="/images/dark_mode/permissionsroles.png"
+        alt="Role permissions selection"
+        className="rounded-[14px]"
+      />
+    </Frame>
+  </Step>
+  <Step title="Save the role">
+    Click **Save Role** to make the role available when inviting or updating users.
+  </Step>
+</Steps>
+
+Common permissions include:
+
+| Area | What it allows |
+|------|----------------|
+| **Pearls** | Create and edit Pearls, including access to PearlVibe. |
+| **Activities** | Moderate activity status. |
+| **Analytics** | View analytics. |
+| **Leads** | View and moderate leads. |
+| **Calls** | View calls and post-call information. |
+| **Resources** | Manage phone numbers, agents, API keys, and users. |
+| **Advanced settings** | Manage security and sessions. |
+| **Audit log** | View the audit log. |
+| **Billing** | Manage account billing. |
+
+<Tip>
+  Create role names that match real responsibilities, such as `Support`, `Operations`, `Billing`, or `Admin`.
+</Tip>
+
+---
+
+# Workspaces
+
+A **workspace** is an isolated environment with its own Pearls, activities, settings, billing, users, and logs. Use workspaces to separate teams, customers, or projects. Everything above (users and roles) is scoped to the workspace you are currently in.
+
+In the settings menu, the options are split into two groups:
+
+- **User** settings (such as **Profile** and **Security**) are personal to your account and follow you across every workspace.
+- **Workspace** settings (everything listed under the **Workspace** section, like General Settings, Phone Numbers, Text Channels, Agents, Subscriptions & Payments, Users, API Keys, and more) apply **only to the workspace you are currently in**.
+
+<Note>
+  When you switch workspaces, all the **Workspace** settings change to reflect the selected workspace. Your **User** settings stay the same.
+</Note>
+
+---
+
+## General Settings
+
+The **General Settings** page manages your workspace identity, notifications, and security preferences.
+
+<Frame>
+  <img
+    src="/images/dark_mode/generalsettingsworkspace.png"
+    alt="Workspace general settings"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+| Setting | Description |
+|---------|-------------|
+| **Workspace Name** | The name visible to all members of the workspace. |
+| **Billing Email** | Email used for invoices, receipts, and payment-related notifications. |
+| **Notifications Email** | Email where important alerts and workspace notifications are sent. |
+| **Newsletter** | Opt in to receive product news, feature updates, and occasional announcements. |
+| **Session Timeout** | How long a session on the platform stays active before expiring due to inactivity (in minutes). |
+| **Public Recordings** | When enabled, call recordings are accessible publicly via a shared link. |
+| **Delete Workspace** | Permanently delete the workspace and all associated data. |
+
+<Warning>
+  Deleting a workspace is permanent and cannot be undone. All associated data is removed.
+</Warning>
+
+---
+
+## Creating a New Workspace
+
+You can create a separate workspace when you need to isolate teams, customers, projects, or billing.
+
+<Frame>
+  <img
+    src="/images/dark_mode/createworkspace.png"
+    alt="Create a new workspace"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Steps>
+  <Step title="Open the workspace menu">
+    Click the current workspace name in the sidebar.
+  </Step>
+  <Step title="Create the workspace">
+    Click **Create New Workspace**, enter a workspace name, then click **Create**.
+  </Step>
+</Steps>
+
+<Warning>
+  A new workspace has its own subscription and is billed separately.
+</Warning>
+
+---
+
+## Switching Workspaces
+
+If your account belongs to multiple workspaces, use the workspace switcher to move between them. The selected workspace controls which Pearls, activities, settings, billing, users, and logs you are viewing.
+
+<Frame>
+  <img
+    src="/images/dark_mode/switchworkspace.png"
+    alt="Switch between workspaces"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Steps>
+  <Step title="Open the workspace menu">
+    Click the workspace name in the platform sidebar.
+  </Step>
+  <Step title="Choose a workspace">
+    Select the workspace you want to manage from the list.
+  </Step>
+</Steps>
+
+---
+
+## Related Settings
+
+<CardGroup cols={2}>
+  <Card title="Account Security Settings" icon="lock" href="/pages/security">
+    Configure session timeout, audit logs, 2FA, and enterprise SSO.
+  </Card>
+  <Card title="Billing" icon="wallet" href="/pages/billing">
+    Manage subscriptions, payment methods, invoices, and auto-recharge.
+  </Card>
+</CardGroup>

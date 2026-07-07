@@ -15,7 +15,7 @@
     "family": "Roboto"
   },
   "banner": {
-    "content": "🚀 API 2.0 is now live! See our [API Reference](/api-reference/api_quickstart) for details.",
+    "content": "💬 Pearl Text is now live! [Create text agents](/pages/text/pearl_text) and message your customers directly from the platform.",
     "dismissible": true
   },
   "topbarLinks": [
@@ -48,39 +48,32 @@
             ]
           },
           {
-            "group": "Pearl",
+            "group": "General",
             "pages": [
               "pages/pearl_vibe",
-              "pages/variables",
-              "pages/languages",
               {
-                "group": "Actions",
-                "icon": "bolt",
+                "group": "Flow Editor",
+                "icon": "diagram-project",
                 "pages": [
-                  "pages/action",
-                  "pages/transfer_call",
+                  "pages/dialogue",
+                  "pages/knowledge_base_node",
                   "pages/email_action",
+                  "pages/api_action",
                   "pages/sms_action",
-                  "pages/api_action"
+                  "pages/transfer_call",
+                  "pages/recording",
+                  "pages/text/handoff_action"
                 ]
               },
-              "pages/postcall"
-            ]
-          },
-          {
-            "group": "Activities",
-            "pages": [
-              "pages/inbound",
-              "pages/outbound",
+              "pages/variables",
               "pages/webhooks",
-              "pages/analytics",
               "pages/payout"
             ]
           },
           {
-            "group": "Settings",
+            "group": "Pearl Voice",
             "pages": [
-              "pages/agents",
+              "pages/pearl_voice",
               {
                 "group": "Phone Numbers",
                 "icon": "mobile",
@@ -91,6 +84,71 @@
                   "pages/custom_voip"
                 ]
               },
+              "pages/languages",
+              {
+                "group": "Pearl Configurations",
+                "icon": "sliders",
+                "pages": [
+                  "pages/agent_customization",
+                  "pages/knowledge_base",
+                  "pages/pearl_analytics",
+                  {
+                    "group": "Campaign Settings",
+                    "icon": "rocket",
+                    "pages": [
+                      "pages/inbound",
+                      "pages/outbound"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Post Call & Analytics",
+                "icon": "chart-simple",
+                "pages": [
+                  "pages/postcall",
+                  "pages/analytics"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Pearl Text",
+            "pages": [
+              "pages/text/pearl_text",
+              {
+                "group": "Pearl Configurations",
+                "icon": "sliders",
+                "pages": [
+                  "pages/text/agent_customization",
+                  "pages/text/knowledge_base",
+                  "pages/text/pearl_analytics",
+                  {
+                    "group": "Campaign Settings",
+                    "icon": "rocket",
+                    "pages": [
+                      "pages/text/inbound",
+                      "pages/text/outbound"
+                    ]
+                  }
+                ]
+              },
+              "pages/text/postchat",
+              {
+                "group": "Text Channel",
+                "icon": "comments",
+                "pages": [
+                  "pages/text/channels/sms",
+                  "pages/text/channels/telegram"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Settings",
+            "pages": [
+              "pages/agents",
+              "pages/users_workspaces",
               "pages/billing",
               "pages/security",
               "pages/blacklist"
@@ -164,7 +222,7 @@
                 ]
               },
               {
-                "group": "Pearl Settings",
+                "group": "Pearl Configurations",
                 "expanded": true, 
                 "pages": [
                   "api-reference/v2/pearlFlow/get-pearl-flow",

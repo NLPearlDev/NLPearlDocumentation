@@ -5,35 +5,136 @@ icon: "wallet"
 iconType: "light"
 ---
 
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/settingscover.png"
+        alt="Billing cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/settingscover.png"
+        alt="Billing cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
 ## Billing Management
 
-On the NLPearl.AI platform, you can easily manage your billing settings through the Billing page. This section allows you to choose or change your subscription plan, enter and manage credit card information, view your invoices, and set up auto-recharge options.
+The **Billing** page is your central place to manage everything related to payments on NLPearl.AI. From here you can choose or change your subscription plan, manage your payment methods, view and download invoices, and configure auto-recharge to keep your activities running without interruption.
 
-### Subscription Management
+<Info>
+Billing changes are managed directly on the platform. Make sure you have the right permissions on your workspace to update subscriptions or payment methods.
+</Info>
 
-From the Billing page, you can select a subscription plan that best fits your needs or change your current subscription:
+---
 
-- **Upgrading Subscription**: Upgrading your subscription will take effect immediately, providing you with additional features and resources right away.
-- **Downgrading Subscription**: If you choose to downgrade your subscription, the changes will take effect at the end of your current subscription period, on the anniversary date of your current plan.
+## Subscription Management
 
-### Payment Methods
+From the Billing page, you can select the subscription plan that best fits your needs, or change your current one at any time.
 
-You can enter and manage your credit card details directly from the Billing page. This ensures that your payments are processed smoothly and your subscription remains active.
+<CardGroup cols={2}>
+  <Card title="Upgrading" icon="arrow-up" iconType="light">
+    Upgrades take effect **immediately**, giving you access to additional features and resources right away.
+  </Card>
+  <Card title="Downgrading" icon="arrow-down" iconType="light">
+    Downgrades take effect at the **end of your current billing period**, on the anniversary date of your current plan.
+  </Card>
+</CardGroup>
 
-### Invoices
+---
 
-Access all your invoices from the Billing page. This allows you to keep track of your billing history and download invoices for your records.
+## Payment Methods
 
-### Auto-Recharge Settings
+Enter and manage your credit card details directly from the Billing page. Keeping a valid payment method on file ensures your payments are processed smoothly and your subscription stays active.
 
-One of the important settings on the Billing page is the auto-recharge option. You can activate or deactivate auto-recharge based on your preferences:
+<Frame>
+  <img
+    src="/images/dark_mode/payment_method.png"
+    alt="Payment method on the Billing page"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-- **Auto-Recharge Activation**: When enabled, your balance will automatically recharge to a specified target balance whenever it falls below a defined threshold. This is highly recommended to ensure that your activities do not stop due to insufficient balance.
+<Note>
+You can update or replace your card at any time. The new payment method is used for your next charge.
+</Note>
 
-<div className="auto-recharge-info">
-  <h3>Auto-Recharge Benefits:</h3>
-  <p>Activating auto-recharge ensures that your activities continue without interruption, maintaining the smooth operation of your AI-driven calls.</p>
-</div>
+---
+
+## Invoices
+
+Access your full billing history from the Billing page. Every invoice is available to **view and download** for your records and accounting needs.
+
+<Frame>
+  <img
+    src="/images/dark_mode/inoivec-pciture.png"
+    alt="Invoices list on the Billing page"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+## Credits
+
+Credits fund your activities on NLPearl.AI. From the **Credits** tab of the **Subscription & Payment** page, you can top up your balance in two ways: buy credits instantly, or set up auto-recharge so your balance is replenished automatically.
+
+### Buy credits instantly
+
+Purchase a credit amount that is added to your balance **immediately**. Use this for a one-time top-up or to get started right away.
+
+<Frame>
+  <img
+    src="/images/dark_mode/purchasecredit.png"
+    alt="Buy credits instantly on the Subscription & Payment page"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+### Auto-recharge
+
+Auto-recharge keeps your balance topped up automatically so your activities never stop because of an insufficient balance.
+
+<Steps>
+  <Step title="Enable auto-recharge">
+    Turn on auto-recharge from the Credits tab.
+  </Step>
+  <Step title="Set your threshold">
+    Define the balance level that triggers a recharge.
+  </Step>
+  <Step title="Set your target balance">
+    Choose the amount your balance is recharged to whenever it falls below the threshold.
+  </Step>
+</Steps>
+
+<Frame>
+  <img
+    src="/images/dark_mode/autorechargecredit.png"
+    alt="Auto-recharge settings on the Subscription & Payment page"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Warning>
+We strongly recommend enabling auto-recharge. Without it, your calls and conversations stop as soon as your balance runs out.
+</Warning>
+
+---
+
+## Next steps
 
 <CardGroup cols={2}>
   <Card
@@ -42,6 +143,14 @@ One of the important settings on the Billing page is the auto-recharge option. Y
     iconType="light"
     href="https://nlpearl.ai/pricing/"
   >
-    Learn more about the different subscription plans and choose the best one for your needs.
+    Compare the different subscription plans and choose the best one for your needs.
+  </Card>
+  <Card
+    title="Payout"
+    icon="money-bill-transfer"
+    iconType="light"
+    href="/pages/payout"
+  >
+    Learn how payouts work and how to manage your earnings on the platform.
   </Card>
 </CardGroup>

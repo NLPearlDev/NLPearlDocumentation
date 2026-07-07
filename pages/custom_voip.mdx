@@ -9,8 +9,8 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/phone_number_voip-cover.png"
-        alt="Send Email action interface on light mode"
+        src="/images/dark_mode/customvoipcove.svg"
+        alt="Custom VoIP Integration cover"
         className="rounded-[14px]"
       />
     </div>
@@ -21,8 +21,8 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/phone_number_voip-cover.png"
-        alt="Send Email action interface on dark mode"
+        src="/images/dark_mode/customvoipcove.svg"
+        alt="Custom VoIP Integration cover"
         className="rounded-[14px]"
       />
     </div>
@@ -41,123 +41,67 @@ To integrate your custom VoIP service, follow these steps:
 
 <Step title="Go to Phone Numbers Settings">
 
-Start by clicking your **profile card** <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span> at the bottom-left corner of the sidebar. This opens the Settings panel.
+Start by clicking your **profile card** at the bottom-left corner of the sidebar, then open **Settings**.
 
-From there, go to the **Phone Numbers tab** <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span> to manage or purchase phone numbers linked to your account.
+<Frame>
+  <img
+    src="/images/dark_mode/gotosetting.png"
+    alt="Open Settings from the profile card"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_tab.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+From there, open the **Phone Numbers** tab to manage the numbers linked to your account.
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_tab.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/choosephonenumberinthesettings.png"
+    alt="Phone Numbers tab in Settings"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
-<Step title="Click on Custom VOiP">
+<Step title="Click on Custom VoIP">
 
-Inside the Phone Numbers tab, locate and click the Custom VoIP button in the center of the screen to start setting up your own provider.
+In the **Phone Numbers** tab, locate the **Custom VoIP** row and click **Add Custom VoIP** to start setting up your own provider.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-connect.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-connect.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/choosecustomvoip.png"
+    alt="Add Custom VoIP from the Phone Numbers settings"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
 <Step title="Add Phone Number">
 Enter the phone number you want to associate with this custom VoIP configuration.
 
 <Note>
-It can be any number – it's just for display (DID NUMBER/extension, etc.). 
+Enter it in **E.164 format** (digits only, with an optional leading `+`). This label is mainly for display (DID number, extension, etc.) and doesn't have to be a routable number, but it must be numeric.
 </Note>
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-addphonenumber.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-addphonenumber.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/enteryourphonenumbert.png"
+    alt="Enter the phone number for your custom VoIP configuration"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
-<Step title="Choose Your Call Direction">
+<Step title="Configure Inbound and/or Outbound">
  
-Decide whether this number will be used for inbound, outbound, or both. You can configure both flows independently afterward.
+After adding the number, you land on a setup screen with two cards — **Inbound Configuration** and **Outbound Configuration** — each showing a **Configured** / **Not Configured** badge. Configure the direction(s) you need (one or both), then click **Finish Setup**.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-configuration.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-configuration.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/chooseoutboundorinbound.png"
+    alt="Choose to configure inbound and/or outbound"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
 <Step title="Configure Your VoIP Settings">
@@ -175,107 +119,86 @@ Secures your VoIP traffic by encrypting both the signaling (via TLS) and media (
 - You want to ensure secure, encrypted voice communication (e.g., for compliance or privacy reasons).
 
 **When to Leave It Off:**
-- Your provider doesn’t support TLS/SRTP — enabling it may block calls or cause failed connections.
+- Your provider doesn’t support TLS/SRTP, enabling it may block calls or cause failed connections.
 - You’re using basic test environments or local SIP servers without encryption.
 </Tip>
 
-  <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-tlsinbound.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-tlsinbound.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/inboundtls.png"
+    alt="Inbound TLS (SRTP) encryption toggle"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 </Step>
 <Step title="Authentication Methods">
-Choose one of the following methods to authorize your outbound VoIP traffic:
+<Info>
+Inbound calls require **at least one** authentication method. Enable **IP Address** and/or **Credentials** authentication (you can use both).
+</Info>
 
 **IP Address Authentication:**  
 
-Allow traffic from specific IP addresses — ideal if your VoIP infrastructure has a static IP.
+Allow traffic from specific IP addresses, ideal if your VoIP infrastructure has a static IP.
 
 IP Address:
 Enter the public IP address(es) of your SIP servers so we can accept and process requests from them.
 
-  <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-ipadressauth.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/inboundipbasedauth.png"
+    alt="Inbound IP-based authentication"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-ipadressauth.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+---
 
-**Credentials Authentication (Optional):**  
+**Credentials Authentication:**  
 
-Use a username and password to authenticate each outbound SIP request.
+Use a username and password to authenticate each incoming SIP request.
 
-Username: Alphanumeric string (max 32 characters) <br/>
-Password: At least 12 characters, with 1 uppercase, 1 lowercase, 1 digit, and 1 special character.
+Username: 2–32 characters, using letters, digits, hyphens (`-`) and underscores (`_`) only. <br/>
+Password: At least 12 characters, with at least one uppercase letter, one lowercase letter, and one digit. Letters and digits only — **special characters are not allowed**.
 
 <Tip>
 This method is useful if your infrastructure is cloud-based and IPs can change, or you want multi-tenant control.
 </Tip>
 
-  <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-credentialauth.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/inboundcredbasedauth.png"
+    alt="Inbound credential-based authentication"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-credentialauth.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+</Step>
 
-<Note>
-Once you save the inbound configuration, you will receive a SIP Domain to connect. You will need to add this SIP Domain to your VoIP configuration so it can transfer the call to our platform. If you choose Credentials Authentication, make sure to also include the username and password you select in your VoIP settings.
-</Note>
+<Step title="Copy Your SIP Domain">
+
+After you save the inbound configuration, NLPearl generates a **SIP Domain** for this number. This is what tells your provider where to send incoming calls so they reach the platform.
+
+<Info>
+The SIP Domain isn't something you type. It's created automatically and shown **read-only** at the top of the **Inbound Configuration** card, with a **Copy** button. It only appears **once the inbound configuration has been saved**, so reopen the card afterward to retrieve it.
+</Info>
+
+<Frame>
+  <img
+    src="/images/dark_mode/inboundsipdomain.png"
+    alt="SIP Domain shown read-only with a Copy button in the Inbound Configuration"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Warning>
+**To finish connecting inbound calls:**
+
+1. Save the inbound configuration, then reopen the **Inbound Configuration** card.
+2. Copy the generated **SIP Domain**.
+3. Add it to your VoIP provider / PBX as the **destination for inbound calls**, so your operator routes incoming calls to NLPearl.
+4. If you enabled **Credentials Authentication**, also add the **username and password** you defined here to your VoIP settings so authentication succeeds.
+</Warning>
 
 </Step>
 </Steps>
@@ -296,62 +219,29 @@ Secures your VoIP traffic by encrypting both the signaling (via TLS) and media (
 - You want to ensure secure, encrypted voice communication (e.g., for compliance or privacy reasons).
 
 **When to Leave It Off:**
-- Your provider doesn’t support TLS/SRTP — enabling it may block calls or cause failed connections.
+- Your provider doesn’t support TLS/SRTP, enabling it may block calls or cause failed connections.
 - You’re using basic test environments or local SIP servers without encryption.
 </Tip>
 
-  <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-tlsinbound.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-tlsinbound.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/outboundtls.png"
+    alt="Outbound TLS (SRTP) encryption toggle"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
 <Step title="SIP Trunk URL"> 
-This is the address your outbound calls will be sent to — typically provided by your VoIP provider.
-Enter the SIP trunk URL where your calls should be routed. 
+This is the address your outbound calls will be sent to, typically provided by your VoIP provider. Enter it as a **domain or IP address** (this is where your calls will be routed).
 
-  <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-siptruck.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-siptruck.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/outboundsiptrucnkurl.png"
+    alt="Outbound SIP Trunk URL field"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
 <Step title="User Part"> 
@@ -362,63 +252,42 @@ You can use one of the following formats depending on your provider:
 - A SIP username (e.g. `caller01`)
 - A DID or phone number in `E.164` format (e.g. `+1234567890`)
 - An extension (e.g. `201`)
-- A SIP URI (e.g. `caller01@example.com`) — less common
+- A SIP URI (e.g. `caller01@example.com`), less common
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-userpart.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-userpart.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/outbounduserpart.png"
+    alt="Outbound User Part field"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
 <Step title="Data Center"> 
-Select the geographic location (network edge) closest to your VoIP infrastructure to optimize call routing and reduce latency.
+Select the network edge closest to your VoIP infrastructure to optimize call routing and reduce latency. Eight regions are available:
 
-  <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-datacenter.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+| Region | Location |
+|--------|----------|
+| North America | Virginia |
+| North America | Oregon |
+| Europe | Ireland |
+| Europe | Frankfurt |
+| Asia Pacific | Singapore |
+| Asia Pacific | Tokyo |
+| Asia Pacific | Sydney |
+| South America | São Paulo |
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-datacenter.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/outbounddatacenter.png"
+    alt="Outbound Data Center selection"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
 <Step title="Transfer Call Using SIP Refer"> 
-This toggle enables or disables call transfers using the SIP REFER method.
+This toggle enables or disables call transfers using the SIP REFER method. It is **enabled by default**.
 
 When enabled, it allows:
 
@@ -426,29 +295,17 @@ When enabled, it allows:
 - Offloading media streams directly between endpoints
 - Reducing latency and server load
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-siprefer.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Warning>
+If you **disable** SIP REFER, NLPearl's servers stay in the media path during transfers, which results in **additional costs**. Leave it on unless your provider doesn't support SIP REFER.
+</Warning>
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-siprefer.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/outboundtrasnfercallusingsip.png"
+    alt="Outbound Transfer Call Using SIP REFER toggle"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
 <Step title="Authentication Methods (optional based on your VoIP)"> 
@@ -464,29 +321,13 @@ Password:
 A secure password used to authenticate the SIP user.
 Make sure it meets your provider’s security requirements (e.g. minimum 12 characters, including upper/lowercase letters, a number, and a special character).
 
-  <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_credauth.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_credauth.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/outboundcredbaseauth.png"
+    alt="Outbound credential-based authentication"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 **Header-Based Authentication:**  
 
@@ -505,32 +346,16 @@ Ensure this matches exactly what your provider expects, as even small typos (lik
 </Note>
 
 <Info>
-You can add several key-value pairs if needed — for example, to meet multi-token security policies.
+You can add several key-value pairs if needed, for example, to meet multi-token security policies.
 </Info>
 
-  <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_voip-headerbasedauth.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_voip-headerbasedauth.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/outboundheaderbasedauth.png"
+    alt="Outbound header-based authentication"
+    className="rounded-[14px]"
+  />
+</Frame>
 
   - **IP Address Allow List:**  
     **IP Address:** See [Twilio's SIP Trunking IP Addresses](https://www.twilio.com/docs/sip-trunking/ip-addresses).
@@ -546,29 +371,13 @@ Once integrated:
 - **Assign to Inbound/Outbound:**  
   You can assign your custom VoIP phone numbers to inbound or outbound campaigns within NLPearl.AI.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/phone_number_campaign.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/phone_number_campaign.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/choosephoneforyourcampaign.png"
+    alt="Assign a custom VoIP number to a campaign"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 - **Update Configuration:**  
   If any changes are needed, you can edit the VoIP settings by accessing the phone number in the Phone Numbers tab.
@@ -581,7 +390,7 @@ Once integrated:
 <Tip>
 ### Troubleshooting Tips
 
-**Connection Issues**: Double-check all configuration settings — especially SIP URLs, usernames, passwords, and IP addresses.
+**Connection Issues**: Double-check all configuration settings, especially SIP URLs, usernames, passwords, and IP addresses.
 
 **Authentication Failures**: Make sure the authentication method you've selected matches the one supported by your VoIP provider.
 
@@ -593,7 +402,7 @@ Once integrated:
 
 **Flexibility**: Leverage your existing VoIP infrastructure without switching providers or modifying your current setup.
 
-**Global Reach**: Access phone numbers and make calls in any region your VoIP provider supports — ideal for international teams.
+**Global Reach**: Access phone numbers and make calls in any region your VoIP provider supports, ideal for international teams.
 </Info>
 
 ---
@@ -609,7 +418,7 @@ Once integrated:
     iconType="light"
     href="/pages/nlpearl_phones"
   >
-  Purchase and manage your **NLPearl-hosted phone numbers** directly — with instant activation and native support.
+  Purchase and manage your **NLPearl-hosted phone numbers** directly, with instant activation and native support.
   </Card>
   <Card
     title="Twilio Integration"

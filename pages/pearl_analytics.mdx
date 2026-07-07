@@ -1,0 +1,98 @@
+---
+title: "Call Analytics"
+icon: "chart-line"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/callanlayitcscoverrr.svg"
+        alt="Call Analytics cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/callanlayitcscoverrr.svg"
+        alt="Call Analytics cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+Use this section to track, evaluate, and act on your Pearl's performance. Define what success looks like, apply custom tags to key conversation moments, and set up notifications to stay on top of important calls.
+
+<Note>
+Other charts in your Call Analytics dashboard (duration, sentiment, costs, pickup rate, events, heatmap) are tracked automatically and don't depend on this setup step.
+</Note>
+
+---
+
+## Define the Success of Your Pearl
+
+Specify what constitutes a successful call for your Pearl, such as booking a meeting, confirming interest, or qualifying a lead. This success definition will be reflected in your campaign analytics and lead statuses, helping you sort and follow up efficiently.
+
+The success criteria is **free text**, up to **200 characters**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/analyitcs-1.png"
+    alt="Define the success of your Pearl"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Info>
+**In your Call Analytics dashboard**, without a success definition, answered calls are counted as **Completed**. Once defined, they split into **Call Successful** (green) and **Call Unsuccessful** (pink), and the **Success Rate** chart tracks the percentage of calls that met your criteria over time (empty until success is defined).
+</Info>
+
+---
+
+## Indicator Tags
+
+Use **Indicator Tags** to label and categorize key moments in a conversation. They help you structure your data, identify important insights, and filter your leads with precision.
+
+<Frame>
+  <img
+    src="/images/dark_mode/analyitcs-2.png"
+    alt="Indicator Tags"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+You can create up to **10 tags**. Each tag includes:
+
+- **Name**: A clear label, required (max **25 characters**), e.g. `"Interested"`, `"Mentioned Competitor"`.
+- **Color**: Used for visual sorting. Each tag must use a **unique color**, a color already assigned to another tag can't be reused.
+- **Assignment rule (When to assign)**: A short description of when the tag should be applied, required (max **300 characters**).
+
+Tags are assigned automatically during the call, based on the conditions you define.
+
+<Card>
+### Example
+
+You're asking leads what they usually drink in the morning. You might define:
+
+- **Tag**: `Coffee`  
+  - **Color**: Brown  
+  - **When to assign**: If the lead mentions drinking coffee
+
+- **Tag**: `Tea`  
+  - **Color**: Green  
+  - **When to assign**: If the lead mentions drinking tea
+
+These tags will then appear in your lead data and call logs, making it easy to segment and analyze responses.
+</Card>
+
+<Info>
+Indicator Tags are not just for display. They're functional. You can filter campaigns by tag, trigger notifications, or use them to define success in analytics.  <br/><br/>
+In your **Call Analytics dashboard**, they feed the **Tags** chart, showing each tag's name, its chosen color, and how many calls it was applied to.
+</Info>

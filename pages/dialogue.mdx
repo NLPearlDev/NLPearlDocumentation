@@ -1,0 +1,101 @@
+---
+title: "Dialogue Node"
+icon: "comment-dots"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/dialoguenode.svg"
+        alt="Dialogue node cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/dialoguenode.svg"
+        alt="Dialogue node cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+The **Dialogue** node is the main conversational node. Pearl speaks, asks questions, collects information, and keeps the conversation moving. It is the workhorse of most Pearl Voice flows.
+
+## What it does
+
+Unlike a traditional IVR, Dialogue is not a rigid prerecorded prompt. Pearl Voice understands the intent of the step, adapts its wording in real time to what the caller says, and can follow the most relevant configured transition based on the conversation.
+
+## When to use it
+
+Use Dialogue whenever Pearl needs to:
+
+| Pearl needs to | What it means |
+| --- | --- |
+| **Speak to the caller** | Deliver a message, greeting, or confirmation |
+| **Ask a question** | Prompt the caller for an answer or a choice |
+| **Collect information** | Capture details such as a name, email, or intent |
+| **Explain something** | Give context, options, or next steps |
+| **React to the caller** | Respond before continuing or branching to another path in the flow |
+
+## How to configure
+
+<Steps>
+  <Step title="Write the script">
+    In **Script / Free Text**, enter what Pearl should say or ask. Maximum 500 characters. Supports all available variables.
+  </Step>
+  <Step title="Add instructions (optional)">
+    Use **Instructions** to guide tone, context, exceptions, pronunciation, required details, or how closely Pearl should follow the script.
+  </Step>
+</Steps>
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/dialoguenodeexemple.png"
+        alt="Dialogue node configuration on the platform"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/dialoguenodeexemple.png"
+        alt="Dialogue node configuration on the platform"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<Tip>
+When specific wording must be followed closely, add clear instructions such as "Say this exactly", "Do not rephrase", or "Always include the following sentence".
+</Tip>
+
+## Transitions
+
+Each Dialogue node includes a default **Continue** path. You can also add conditional transitions to direct the caller to another Dialogue node, an action node, or an End Call node.
+
+Each conditional transition includes:
+
+| Field | Description |
+| --- | --- |
+| **Condition** | Written in plain language, with variable support |
+| **Destination** | The node the caller is routed to |
+
+<Card title="Example: routing on the caller's answer" icon="code-branch">
+Pearl asks whether the caller wants to book an appointment. Based on the answer, she can move to a Booking node, send an SMS, transfer the call, or continue to another part of the conversation.
+</Card>

@@ -1,8 +1,9 @@
 ---
 title: "Getting Started"
 sidebarTitle: "Quick Start"
-description: "Go from sign-up to your first live AI voice agent in minutes."
+description: "Go from sign-up to your first live AI agent in minutes."
 icon: "rocket"
+iconType: "light"
 ---
 
 <iframe
@@ -16,11 +17,23 @@ icon: "rocket"
 
 This guide walks you through the full path: create an account, build your first agent, test it, and go live.
 
+<Note>
+This guide focuses on building a **voice agent**. The flow is the same for **text agents** - you just connect your messaging channels (SMS, WhatsApp, email, chat) instead of a phone number. See [Pearl Text](/pages/text/pearl_text) to get started with text.
+</Note>
+
 ---
 
 ## 1. Sign Up
 
 Create your account at [platform.nlpearl.ai](https://platform.nlpearl.ai). You'll get complimentary minutes to test calls - no subscription required to start.
+
+<Frame>
+  <img
+    src="/images/dark_mode/signup.png"
+    alt="NLPearl sign-up screen"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <Info>
 During the trial phase, you can create agents and run test calls. To unlock full inbound and outbound campaigns, you'll need to [subscribe to a plan](https://nlpearl.ai/pricing).
@@ -30,7 +43,15 @@ During the trial phase, you can create agents and run test calls. To unlock full
 
 ## 2. Create Your Agent with PearlVibe
 
-PearlVibe is how you build your AI voice agent. Describe what you need in a single prompt - PearlVibe generates the agent's personality, conversation flow, knowledge base, and connected actions.
+PearlVibe is how you build your AI agents - voice or text. Describe what you need in a single prompt - PearlVibe generates the agent's personality, conversation flow, knowledge base, and connected actions.
+
+<Frame>
+  <img
+    src="/images/dark_mode/dashbiardnlpearl.png"
+    alt="NLPearl dashboard with the PearlVibe chat"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <Steps>
 
@@ -242,6 +263,14 @@ to avoid interviewer bias. Support English and Spanish.
 
 Once your agent is ready, run test calls directly from the platform to hear how it sounds, verify the conversation flow, and confirm that actions (API calls, transfers, emails) fire correctly.
 
+<Frame>
+  <img
+    src="/images/dark_mode/testcall.png"
+    alt="Run a test call from the platform"
+    className="rounded-[14px]"
+  />
+</Frame>
+
 <Tip>
 Use your complimentary minutes for testing. Iterate on the prompt, variables, and actions until the agent handles your scenarios cleanly.
 </Tip>
@@ -254,7 +283,7 @@ Based on your test calls:
 
 - **Adjust the conversation flow** - refine how the agent responds to edge cases or unexpected inputs.
 - **Configure variables** - make sure data collection (names, emails, IDs) works as expected. See [Variables](/pages/variables).
-- **Set up actions** - connect API calls, call transfers, email or SMS triggers. See [Actions](/pages/actions).
+- **Set up actions** - connect API calls, call transfers, email or SMS triggers. See [API Node](/pages/api_action).
 
 ---
 
@@ -267,6 +296,10 @@ When you're satisfied with the agent's performance, publish it. This locks in yo
 ## 6. Connect a Phone Number
 
 Assign a phone number to your agent. All plans include at least one US number. You can purchase additional numbers or port existing ones from the [Phone Numbers](/pages/phone_numbers) settings.
+
+<Note>
+Building a text agent instead? Connect your messaging channels (SMS, WhatsApp, email, chat) rather than a phone number. See [Pearl Text](/pages/text/pearl_text).
+</Note>
 
 ---
 
@@ -285,6 +318,14 @@ Monitor performance in real time from the [Call Analytics](/pages/analytics) das
 
 Once you subscribe to a plan, you get access to agents, phone numbers, and call minutes. Each call minute is deducted from your plan's included minutes - once exhausted, your credits are used.
 
+<Frame>
+  <img
+    src="/images/dark_mode/billing.png"
+    alt="Subscription plans in Subscriptions & Payments"
+    className="rounded-[14px]"
+  />
+</Frame>
+
 <CardGroup cols={2}>
 <Card title="Full Access to Activities" icon="check" iconType="light">
 Engage in both inbound and outbound activities with no restrictions.
@@ -294,30 +335,6 @@ Engage in both inbound and outbound activities with no restrictions.
 Concurrent agents and at least one US phone number included in every plan.
 </Card>
 </CardGroup>
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/getting_started-minutes-included.jpg"
-        alt="Minutes included in plan on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/getting_started-minutes-included.jpg"
-        alt="Minutes included in plan on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
 
 <Note>
 **Auto-Recharge** - We recommend activating [auto-recharge](https://platform.nlpearl.ai/app/settings/subscriptions-and-payments/credits) to automatically top up your credits when they fall below a threshold, ensuring uninterrupted service.
@@ -335,10 +352,6 @@ Concurrent agents and at least one US phone number included in every plan.
 
 <Card title="PearlVibe" icon="wand-magic-sparkles" href="/pages/pearl_vibe">
   Deep dive into agent creation and customization.
-</Card>
-
-<Card title="Actions" icon="bolt" href="/pages/actions">
-  Configure API calls, transfers, emails, and SMS during live calls.
 </Card>
 
 <Card title="Call Analytics" icon="chart-mixed" href="/pages/analytics">

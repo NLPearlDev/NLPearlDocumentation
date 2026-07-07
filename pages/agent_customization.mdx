@@ -1,0 +1,234 @@
+---
+title: "Pearl Settings"
+icon: "user-gear"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/pearlsettingscover.svg"
+        alt="Pearl Settings cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/pearlsettingscover.svg"
+        alt="Pearl Settings cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+In this step, you can customize your voice agent's identity and behavior by setting its **name**, **language**, **voice**, **personality**, and **timezone**.
+
+---
+
+## Agent Names, Languages & Voices
+
+To define your agent's identity:
+
+- **<span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span> Agent Name** – Give your agent a name (e.g., *Joa*, *Victoria*). This name helps humanize the interaction and reflect your brand identity.
+- **<span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span> Language** – Select the default language your agent will speak. This ensures accurate pronunciation and localized expressions.
+- **<span style={{ color: '#f87171', fontWeight: 600 }}>(3)</span> Voice** – Choose the voice that will represent your agent. You can preview voices and select the one that fits your tone.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voicelanguagescreen.png"
+    alt="Agent Names, Languages & Voices section"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+You can set up your Pearl to support multiple languages by adding several agent configurations, each with its own **name**, **language**, and **voice**. When a caller asks to switch language mid-conversation, Pearl automatically reroutes the call to the agent for that language.
+
+The **first agent** you create is the **Default Agent** and always opens the conversation, unless another language is requested. You can add more agents directly in the table.
+
+<Info>
+Explore [Voice and Language](/pages/languages) to view all the language options available.
+</Info>
+
+---
+
+## Pearl Model
+
+The **Pearl Model** defines the intelligence, speed, and cost profile of your agent. Voice agents can choose from four models.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voicelanguagescreen-3.png"
+    alt="Pearl Model selection in Pearl Settings"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+| Model | Quality | Speed | Cost |
+|-------|---------|-------|------|
+| **Pearl Hydra** | Highest Quality | Higher latency | +2 credits/min |
+| **Pearl Arrow** | Best Quality | Fastest | +2 credits/min |
+| **Pearl Trident** | Best Quality | Standard | Standard Rate |
+| **Pearl Oyster** | Good Quality | Standard | -2 credits/min |
+
+<Card>
+<Tabs>
+  <Tab title="Pearl Hydra">
+    <Info>
+    **Highest Quality · Higher latency · +2 credits/min**
+    </Info>
+    Our smartest model, built for demanding use cases that require deeper reasoning, stronger understanding, and the highest-quality responses.
+
+    Use it when you need:
+    - The deepest reasoning for complex, multi-step conversations.
+    - Maximum nuance and understanding on high-stakes or ambiguous calls.
+    - The best possible answer quality, even if it means slightly higher latency.
+  </Tab>
+  <Tab title="Pearl Arrow">
+    <Info>
+    **Best Quality · Fastest · +2 credits/min**
+    </Info>
+    Our high-intelligence model, offering the same depth as Pearl Trident but tuned for ultra-low latency.
+
+    Use it when you need:
+    - The snappiest real-time experience for callers.
+    - Highly nuanced, human-like conversations.
+    - VIP lines, complex sales calls, or high-stakes negotiations where every second of silence matters.
+  </Tab>
+  <Tab title="Pearl Trident">
+    <Info>
+    **Best Quality · Standard Rate**
+    </Info>
+    Our most intelligent general-purpose model, designed for human-like conversations and handling complex use cases.
+
+    Use it when you want:
+    - A strong balance of quality vs cost.
+    - Rich dialogues with multi-step reasoning and edge-case handling.
+    - Your main production Pearl for most inbound and outbound flows.
+
+    <Note>
+    In most cases, Pearl Trident is the recommended default for production.
+    </Note>
+  </Tab>
+  <Tab title="Pearl Oyster">
+    <Info>
+    **2 credits cheaper/min**
+    </Info>
+    Our most cost-effective model for straightforward cases, prioritizing simplicity and efficiency.
+
+    Use it when you need:
+    - High-volume or bulk campaigns (e.g. reminders, notifications, simple surveys).
+    - Flows with predictable, scripted logic and limited branching.
+    - To minimize cost while maintaining a solid conversational baseline.
+  </Tab>
+</Tabs>
+</Card>
+
+**Choosing the right model for your Pearl**
+
+When selecting a model, consider three main dimensions:
+
+| Dimension | Recommendation |
+|-----------|----------------|
+| **Speed** | If the caller experience must feel instant (no awkward silences, rapid back-and-forth), prefer Pearl Arrow. For standard conversational latency, Pearl Trident and Pearl Oyster are usually enough. |
+| **Reasoning / intelligence** | For the most demanding use cases that need the deepest reasoning, choose Pearl Hydra. For complex qualification, multi-step troubleshooting, or situations where the agent needs to "think", Pearl Trident or Pearl Arrow are strong choices. For simple flows with clear scripts and few edge cases, Pearl Oyster is more than sufficient. |
+| **Cost** | Pearl Arrow delivers top experience at a higher per-minute cost (+2 credits/min vs Trident). Pearl Trident offers best quality at a standard rate. Pearl Oyster is cheaper per minute (–2 credits/min vs Trident), ideal when cost per call is the main constraint. |
+
+<Tip>
+You can use different models for different Pearls depending on their role, volume, and business impact (for example: Hydra for the most complex high-stakes calls, Arrow for VIP inbound support, Trident for main support, Oyster for large reminder campaigns).
+</Tip>
+
+<Info>
+Start with Pearl Trident as a balanced default, then use Analytics to compare performance and cost. If you need more speed or nuance, move to Pearl Arrow; if you need to optimize budget for simple flows, switch to Pearl Oyster.
+</Info>
+
+---
+
+## Personality
+
+Your AI agent can take on a wide range of personalities, from natural and professional to wild, fictional, or downright iconic.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voicelanguagescreen-1.png"
+    alt="Personality selection in Pearl Settings"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Tip>
+**Create your own personality.** You're not limited to the predefined list. Type any description in the **Personality** field and select **Use "&lt;your text&gt;" as a custom personality** to define your own.
+</Tip>
+
+<Note>
+Choose wisely. Your agent's personality will shape how it sounds and behaves in every interaction. Personality is optional, only **Agent Name** and **Timezone** are required.
+</Note>
+
+The personalities below are **examples** to give you a feel for the range available. The full list is loaded in the app and may evolve over time.
+
+| Personality Name             | Description (vibe / reference)                            |
+|-----------------------------|------------------------------------------------------------|
+| Natural                     | Neutral and balanced, default tone.                      |
+| Friendly Consultant         | Warm, helpful, and a touch conversational.                |
+| Aggressive Closer           | Direct, assertive, always aiming for a "yes."             |
+| Donald Trump                | Bold, confident, and controversial.                       |
+| Joe Biden                   | Soft-spoken, empathetic, with a hint of grandpa energy.   |
+| Wolf of Wall Street         | Energetic, persuasive, and money-focused.                 |
+| Elon Musk                   | Visionary, quirky, and matter-of-fact.                    |
+| Kevin Hart                  | Fast-talking and hilarious.                              |
+| The Rock                    | Charismatic and full of hype.                            |
+| Jar Jar Binks               | Clumsy comic relief with a chaotic syntax.               |
+| Yoda                        | Wise, reversed sentence order, it has.                   |
+| Tommy Shelby               | Cold, calculated, Peaky Blinders style.                  |
+| Saul Goodman                | Slick, legal hustler energy.                             |
+| Heisenberg (Walter White)   | Dark, serious, calculated: "I am the danger."           |
+| Jesse Pinkman               | Street-smart, informal, frequent "yo."                   |
+| Optimus Prime               | Heroic, formal, and noble.                              |
+| Megatron                   | Villainous and authoritarian.                           |
+| Son Goku                    | Cheerful and battle-ready.                               |
+| Daenerys Targaryen          | Regal, determined, breaker of chains.                    |
+| Hermione Granger            | Book-smart, precise, articulate.                         |
+| Mulan                       | Brave, focused, honorable.                               |
+| Lady Gaga                   | Glamorous and creatively intense.                        |
+| Tony Stark (Iron Man)       | Witty, tech-savvy, and full of sarcasm.                  |
+| Elsa (Frozen)               | Calm, regal, with an icy edge.                           |
+| Michael Scott (The Office)  | Awkward, unpredictable, tries to be funny.               |
+| Moana                       | Adventurous, optimistic, and kind.                       |
+| Frida Kahlo                 | Artistic, deep, and passionate.                          |
+| Jack Sparrow                | Eccentric and unpredictable.                            |
+| Indiana Jones               | Adventurous and confident.                              |
+| Beyoncé                     | Empowered, elegant, and commanding.                      |
+| Sherlock Holmes             | Analytical, detached, brilliant.                        |
+| Tiana (The Princess & Frog) | Driven, grounded, and focused.                          |
+| Charlie Chaplin             | Silent-era charm with expressive tone.                   |
+| Katniss Everdeen            | Stoic, focused, and fiercely independent.               |
+| Groot                       | Repetitive but expressive ("I am Groot").                |
+| Deadpool                    | Chaotic, irreverent, 4th-wall-breaking.                 |
+| The Joker                   | Unhinged, theatrical, and darkly funny.                 |
+| Loki                        | Mischievous, cunning, and charismatic.                  |
+| Bugs Bunny                  | Witty, cheeky, and playful.                             |
+| Pee-wee Herman              | Eccentric and unpredictable.                            |
+| Dr. Evil                   | Satirical villain, comically ambitious.                 |
+| Borat Sagdiyev              | Naive, awkward, hilariously inappropriate.              |
+| Albert Einstein             | Brilliant, theoretical, with quirky logic.              |
+| Dorothy Gale                | Innocent, curious, with wonder in her tone.             |
+
+---
+
+## Timezone
+
+Define the timezone of the agent. This influences time-related actions, such as booking meetings.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voicelanguagescreen-2.png"
+    alt="Timezone selection in Pearl Settings"
+    className="rounded-[14px]"
+  />
+</Frame>

@@ -1,0 +1,215 @@
+---
+title: "Post-Chat"
+description: "All you need to know about Post-Chat in NLPearl"
+icon: "message-check"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/light_mode/postcall-cover.svg"
+        alt="Post-Chat cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/postcall-cover.svg"
+        alt="Post-Chat cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+## What is a Post-Chat?  
+In NLPearl, a **post-chat** is a structured summary generated after each conversation handled by Pearl. It centralizes all key information captured before, during, and after the conversation to ensure full traceability, improve quality, and support human follow‑up when needed.
+
+---
+
+## What Does the Post-Chat Include?
+
+A post-chat provides multiple key sections to review and analyze the outcome of a conversation:
+
+### Chat ID
+A unique identifier for each conversation, displayed at the top right of the page. It allows you to quickly reference or search for a specific conversation across the system.
+
+---
+
+### Conversation Details  
+
+This section summarizes the essential metadata captured during the conversation, including participant details, conversation status, timing, and performance metrics.
+
+| Ref | Section              | Description |
+|-----|----------------------|-------------|
+| ①   | **Header Information** | Displays the participants of the conversation (the user and the channel used). Also includes the name of the Pearl used and the status of the conversation (e.g. “Chat Successful”). |
+| ②   | **Conversation Metrics** | Shows the duration of the conversation and the number of messages exchanged, along with the final conversation status (e.g. Completed, Closed, No Response). |
+| ③   | **Timestamp**           | Located on the right-hand side, this shows the exact date and time the conversation took place. |
+
+---
+
+**Chat Status** <br />
+The technical status of the conversation (whether the user engaged or not). Possible values include:
+
+| Status        | Description                                                                 |
+|---------------|-----------------------------------------------------------------------------|
+| `In Chat`     | The conversation is currently ongoing.                                      |
+| `Completed`   | The conversation was conducted and ended normally.                          |
+| `Closed`      | The conversation was closed, either manually or automatically after inactivity. |
+| `No Response` | The conversation was started but the user never replied.                    |
+
+<Info>Chat Status refers to the lifecycle-level result of the conversation, such as whether the user engaged, the conversation completed, or it was closed without a response.</Info>
+
+---
+
+**Conversation Status** <br />
+Indicates the outcome of the conversation from a business or process perspective. Possible values include:
+
+| Status               | Description                                                            |
+|----------------------|------------------------------------------------------------------------|
+| `Chat Successful`    | The conversation achieved its expected outcome.                       |
+| `Not Successful`     | The conversation failed to meet its objective.                        |
+| `Completed`          | The conversation was conducted and finalized, regardless of outcome.  |
+
+<Card icon="circle-info" iconType="light">
+  <b>Important distinctions about Conversation Status</b>:
+
+  - The difference between `Successful`, `Not Successful`, and `Complete` depends on whether a **Success Definition** was configured when creating the Pearl:
+    - If a **Success Definition** was configured:
+      - `Successful` → the Success Definition criteria were met during the conversation.
+      - `Not Successful` → the conversation did not meet the Success Definition criteria.
+    - If **no Success Definition** was configured:
+      - `Complete` → the conversation was completed without any Success Definition evaluation.
+</Card>
+
+<Note> For more information on Success Definitions, see [PearlVibe](/pages/pearl_vibe#pearl-success).</Note>
+
+---
+
+**Tags** <br />
+  The list of **tags defined during the last step of the Pearl creation process**. These tags represent key topics or categories you chose when setting up the Pearl configuration.  
+
+<Note>For more information on setting up tags, see [PearlVibe](/pages/pearl_vibe).</Note>
+
+---
+
+**Events** <br />
+  A log of the actions triggered by Pearl during the conversation. Each event includes a timestamp and details about the action.  
+
+  Possible event types include:
+
+| Event Type             | Description                                           |
+|------------------------|-------------------------------------------------------|
+| `Conversation Handed Off` | The conversation was handed off to a human agent or another destination. |
+| `API`                  | An API was triggered during the conversation.        |
+| `Email Sent`           | An email was sent during the conversation.           |
+
+**Events Log** <br />
+
+The Event Log provides a chronological view of all actions triggered by Pearl during the conversation. Each entry includes the action type (such as API call, email sent, or hand off), the execution status, and contextual data.
+
+This section allows users to review the flow of automated operations, verify that each action was successfully executed, and understand the resulting outputs in detail.
+
+---
+
+**Sentiment Analysis**  <br />
+  An automatic classification of the customer's tone and emotional state throughout the conversation. Possible sentiment values include:
+
+| Sentiment Value       | Description                                                       |
+|------------------------|-------------------------------------------------------------------|
+| `Positive`             | The conversation was clearly positive in tone and emotion.        |
+| `Slightly Positive`    | The overall tone was mostly positive, with minor neutral moments. |
+| `Neutral`              | The sentiment was balanced or emotionless.                       |
+| `Slightly Negative`    | The tone leaned slightly negative, but not strongly so.           |
+| `Negative`             | The conversation had a clearly negative emotional tone.           |
+
+---
+
+### Transcript  
+
+A full text version of the conversation between the customer and Pearl. Always available. Useful for:
+- Reviewing the interaction
+- Auditing purposes
+- Training and improvement
+
+---
+
+### Conversation Information  
+
+This section displays **structured variables captured before or during the conversation**, corresponding to the dynamic data collected through the Pearl configuration.  
+Examples:
+- Delivery type
+- Selected options (e.g. “Dessert: Cheesecake”)
+- Customer preferences
+
+Variables displayed here are based on those defined in your **Pearl configuration**. 
+
+<Info> 
+You can learn more about creating variables in the Pearl [here](/pages/variables).
+</Info>
+
+---
+
+### Human Takeover
+
+At any point, a human agent can step in and **take over the conversation** directly from the post-chat page. When a takeover happens, Pearl stops replying and the agent answers the customer in real time, while the full context (transcript, variables, and events) remains available.
+
+This is useful when:
+- The customer explicitly asks to speak with a human
+- The request falls outside what Pearl is configured to handle
+- A sensitive or high-value conversation needs a personal touch
+
+<Note>
+  A takeover does not close the conversation. Pearl simply stops responding so the human agent can reply, and everything stays logged in the post-chat for full traceability.
+</Note>
+
+---
+
+### Summary  
+
+Unlike voice post-calls, a summary is **not generated automatically** for a post-chat. Instead, you generate it **on demand**, directly from the conversation, and you can do so even while the chat is still **ongoing**.
+
+A summary is a concise, human‑readable recap of the conversation, generated by Pearl. It includes:
+- What the customer requested
+- What was confirmed or declined
+- The overall outcome of the interaction
+
+<Note>
+  Each summary generation costs **2 credits**. Since it is triggered manually, you only spend credits when you actually need a recap.
+</Note>
+
+---
+
+## Why the Post-Chat Matters
+
+<CardGroup cols={2}>
+
+<Card title="Traceability" icon="check" iconType="light">
+  Every conversation leaves a documented trace for accountability.
+</Card>
+
+<Card title="Faster Follow‑Up" icon="check" iconType="light">
+  Helps support and operations teams follow up efficiently with customers.
+</Card>
+
+<Card title="Quality & Analytics" icon="check" iconType="light">
+  Enables continuous improvement through quality review, sentiment tracking, and conversation analysis.
+</Card>
+
+<Card title="Auditing & Compliance" icon="check" iconType="light">
+  Provides an auditable record of AI-driven conversations to meet regulatory or internal policy needs.
+</Card>
+</CardGroup>
+
+---
+
+By consolidating all these elements, the **Post-Chat Activities** page provides a complete overview of each AI-handled conversation, ensuring transparency, traceability, and actionable insights for your team.
