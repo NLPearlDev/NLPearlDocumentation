@@ -52,433 +52,178 @@ You can work in two complementary ways:
 
 | Mode | Description |
 |------|-------------|
-| **Vibe coding (chat mode)** | You talk to the AI in natural language (e.g. "Add a post‑call SMS when the booking is confirmed") and Pearl Vibe automatically creates or edits nodes and transitions for you. |
-| **Manual mode** | You configure each node and its transitions yourself for full control. Every setting is visible and editable. |
+| **Chat (default)** | You describe changes in natural language to **Ask Pearl** (e.g. "Add a post‑call SMS when the booking is confirmed") and Pearl Vibe creates or edits the nodes and transitions for you. |
+| **Manual Edit** | You open **Manual Edit** on the selected node to configure it and its transitions yourself, for full control. Every setting is visible and editable. |
 </Info>
 
 ### What can you build with PearlVibe?
 
-With PearlVibe, you can design:
+With PearlVibe, you can design both **voice** (phone) and **text** (chat) flows:
 
 | Flow Type | Use Cases |
 |-----------|-----------|
 | **Inbound flows** | Support and customer care lines, order tracking, FAQs, triage, appointment management, etc. |
 | **Outbound campaigns** | Sales campaigns, payment reminders, debt collection, upsell flows, satisfaction surveys, and more. |
 
+<Info>
+Each of these works the same way whether your Pearl is **voice** or **text** — you build the flow once, and the editor adapts labels and available nodes to your Pearl's channel.
+</Info>
+
 ### Key benefits
 
 <Check>
 - **Build in minutes instead of days** – Use the chat to describe what you want, then refine visually.
-- **Safe versioning** – Work in a Draft with autosave while your Published version continues to run in production.
+- **Safe versioning** – Work in a separate version with autosave while your Published version keeps running in production.
 - **Visual understanding of calls** – Use test calls and live node highlighting to see exactly how calls traverse your flow.
 - **Structured but flexible** – Combine high‑level "vibes" (global instructions, personality) with precise node and transition logic.
 </Check>
 
 ---
 
-## How PearlVibe Is Structured
+## Header
 
-PearlVibe is composed of four main areas:
+The header is always visible at the top of the editor. From left to right, it holds the **Pearl icon (menu)** and the editable **Pearl title** with its autosave indicator, the **version selector**, the **top navigation tabs**, and — on the right — the **credentials & variables** (`{ }`) button, **Test Call**, and **Publish**. Each of these is detailed below.
 
-| Area | Description |
-|------|-------------|
-| **The header** | Global controls, versioning, model choice, integrations, tasks, and test calls. |
-| **The left sidebar** | Chat (vibe coding) and manual configuration of the selected node. |
-| **The central canvas** | The visual decision tree where nodes and transitions live. |
-| **Top navigation tabs** | Switch between the main workspaces of your Pearl: Flow Editor, Pearl Settings, Knowledge Base, Analytics, and Campaign Settings (inbound / outbound). |
-
-<Tip>
-Let's dive into each area to understand how the editor comes together.
-</Tip>
-
----
-
-### Header
-
-The header is always visible at the top of the editor. It centralizes the main controls related to your Pearl as a whole.
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-header.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-header.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/pearl-header-bar.png"
+    alt="PearlVibe header bar with title, version selector, and top-right controls"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <br/>
 
 <AccordionGroup>
 
-<Accordion title="Pearl Name" icon="tag">
-Shows the current Pearl's name and lets you rename it. This is the label you'll reuse in the platform and in your workspace.
+<Accordion title="Pearl Title & Menu" icon="tag">
+The top-left corner shows the Pearl's **title** as an inline, editable field (it reads **Untitled Pearl** by default). Click it to rename your Pearl — this is the label you'll reuse across the platform and in your workspace. Just below, an autosave indicator shows the save status (for example **Saved 2 min ago**).
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-title.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/rename-pearl-title.png"
+    alt="Inline editable Pearl title with autosave indicator"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-title.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+**Pearl menu**
+
+The Pearl icon next to the title opens a menu with quick actions for the whole Pearl.
+
+<Frame>
+  <img
+    src="/images/dark_mode/open-pearl-menu-icon.png"
+    alt="Pearl icon that opens the Pearl menu"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+From this menu you can go back to the Dashboard or Overview, open the Pearl's **Settings**, **Duplicate** or **Delete** the Pearl, check your **Credit Balance**, switch the **Theme**, and reach the Documentation or Support & Feedback.
+
+<Frame>
+  <img
+    src="/images/dark_mode/pearl-options-menu.png"
+    alt="Pearl menu with dashboard, settings, duplicate, delete, credit balance, and theme options"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 </Accordion>
 
-<Accordion title="Model Selection" icon="microchip">
-Model selection defines the intelligence, speed, and cost profile of your Pearl. The models available depend on your agent type: **voice agents** can choose from the four models below, while **text agents** run on **Pearl Swan** (see [Text model](#text-model)).
+<Accordion title="Versioning & Publishing" icon="code-branch">
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-modelselection.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+Pearl Vibe is built for safe iteration: you can experiment freely without breaking your live calls. Your work is organized into **versions** (v1, v2, v3…), and the one currently handling calls carries a **Published** badge.
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-modelselection.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+**Autosave**
 
-**Voice models**
-
-| Model | Quality | Speed | Cost |
-|-------|---------|-------|------|
-| **Pearl Hydra** | Highest Quality | Higher latency | +2 credits/min |
-| **Pearl Arrow** | Best Quality | Fastest | +2 credits/min |
-| **Pearl Trident** | Best Quality | Standard | Standard Rate |
-| **Pearl Oyster** | Good Quality | Standard | -2 credits/min |
-
-<Tabs>
-  <Tab title="Pearl Hydra">
-    <Info>
-    **Highest Quality · Higher latency · +2 credits/min**
-    </Info>
-    Our smartest model, built for demanding use cases that require deeper reasoning, stronger understanding, and the highest-quality responses.
-
-    Use it when you need:
-    - The deepest reasoning for complex, multi-step conversations.
-    - Maximum nuance and understanding on high-stakes or ambiguous calls.
-    - The best possible answer quality, even if it means slightly higher latency.
-  </Tab>
-  <Tab title="Pearl Arrow">
-    <Info>
-    **Best Quality · Fastest · +2 credits/min**
-    </Info>
-    Our high-intelligence model, offering the same depth as Pearl Trident but tuned for ultra-low latency.
-
-    Use it when you need:
-    - The snappiest real-time experience for callers.
-    - Highly nuanced, human-like conversations.
-    - VIP lines, complex sales calls, or high-stakes negotiations where every second of silence matters.
-  </Tab>
-  <Tab title="Pearl Trident">
-    <Info>
-    **Best Quality · Standard Rate**
-    </Info>
-    Our most intelligent general-purpose model, designed for human-like conversations and handling complex use cases.
-
-    Use it when you want:
-    - A strong balance of quality vs cost.
-    - Rich dialogues with multi-step reasoning and edge-case handling.
-    - Your main production Pearl for most inbound and outbound flows.
-
-    <Note>
-    In most cases, Pearl Trident is the recommended default for production.
-    </Note>
-  </Tab>
-  <Tab title="Pearl Oyster">
-    <Info>
-    **2 credits cheaper/min**
-    </Info>
-    Our most cost-effective model for straightforward cases, prioritizing simplicity and efficiency.
-
-    Use it when you need:
-    - High-volume or bulk campaigns (e.g. reminders, notifications, simple surveys).
-    - Flows with predictable, scripted logic and limited branching.
-    - To minimize cost while maintaining a solid conversational baseline.
-  </Tab>
-</Tabs>
+Every change you make is saved automatically. The header shows an **Auto Save** indicator that turns into **Saved N min ago** once your edits are stored, so you never lose work and can come back later.
 
 ---
 
-**Choosing the right model for your Pearl**
+**Versions & history**
 
-When selecting a model, consider three main dimensions:
+The version selector next to the title shows the version you're editing (for example **v35**).
 
-| Dimension | Recommendation |
-|-----------|----------------|
-| **Speed** | If the caller experience must feel instant (no awkward silences, rapid back-and-forth), prefer Pearl Arrow. For standard conversational latency, Pearl Trident and Pearl Oyster are usually enough. |
-| **Reasoning / intelligence** | For the most demanding use cases that need the deepest reasoning, choose Pearl Hydra. For complex qualification, multi-step troubleshooting, or situations where the agent needs to "think", Pearl Trident or Pearl Arrow are strong choices. For simple flows with clear scripts and few edge cases, Pearl Oyster is more than sufficient. |
-| **Cost** | Pearl Arrow delivers top experience at a higher per-minute cost (+2 credits/min vs Trident). Pearl Trident offers best quality at a standard rate. Pearl Oyster is cheaper per minute (–2 credits/min vs Trident), ideal when cost per call is the main constraint. |
+<Frame>
+  <img
+    src="/images/dark_mode/version-selector.png"
+    alt="Version selector next to the Pearl title"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+Open it to browse the full **version history**. You can search for a version, see when each was last edited, spot the **Published** one at a glance, and open any past version to review it. You can also **tag** each version with a label of your own so it's easy to recognize later (e.g. "stable", "summer promo", "before refactor").
+
+<Frame>
+  <img
+    src="/images/dark_mode/version-history-dropdown.png"
+    alt="Version history dropdown with a Published badge on the live version"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+**Creating a new version**
+
+Use the **+** button next to the version selector to create a new version.
+
+<Frame>
+  <img
+    src="/images/dark_mode/create-new-version-button.png"
+    alt="Button to create a new version"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+In the **Create New Version** dialog, pick the existing version to use as the base, then click **Create**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/create-new-version-popup.png"
+    alt="Create New Version dialog with a base version selector"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <Tip>
-You can use different models for different Pearls depending on their role, volume, and business impact (for example: Hydra for the most complex high-stakes calls, Arrow for VIP inbound support, Trident for main support, Oyster for large reminder campaigns).
+Editing a version that is already **Published** automatically creates a new version for your changes, so the live configuration keeps running untouched while you iterate.
 </Tip>
 
 ---
 
-**Impact on your Pearl**
+**Publishing**
 
-Your model choice directly affects:
+When you're satisfied with your changes and tests, click **Publish** (top-right of the header). The current version becomes the new **Published** version and starts handling calls.
 
-| Impact | Description |
-|--------|-------------|
-| **Answer quality** | Nuance, empathy, and how well the Pearl handles ambiguous or messy input. |
-| **Latency** | How quickly the Pearl responds after the caller finishes speaking. |
-| **Cost per call / per minute** | The effective cost of each campaign or use case. |
+<Frame>
+  <img
+    src="/images/dark_mode/publish-testcall-credential-variable-buttons.png"
+    alt="Publish, Test Call, and credentials/variables buttons in the header"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-<Info>
-You can start with Pearl Trident as a balanced default, then use Analytics to compare performance and cost. If you need more speed or nuance, move to Pearl Arrow; if you need to optimize budget for simple flows, switch to Pearl Oyster.
-</Info>
-
----
-
-**Text model**
-
-Text agents run on a single model - **Pearl Swan** - so there's no model picker to configure. It's billed per message rather than per minute.
-
-<Info>
-**Pearl Swan** - our standard model for chat agents, built to handle any text-based use case with reliable reasoning and natural responses.
-</Info>
-
-Optional add-ons let your text agent understand richer inputs sent in the chat:
-
-| Add-on | Description |
-|--------|-------------|
-| **Vision** | Read and understand images customers send, such as screenshots, documents, or photos. |
-| **Audio input** | Understand voice notes and audio messages sent in the conversation. |
+<Note>
+If your flow still has unresolved issues, the **Publish** button is replaced by an **Errors & Tasks (N)** button until you fix or dismiss them (see the **Tasks & Errors** section below).
+</Note>
 </Accordion>
 
-<Accordion title="Versioning, Drafts & Publishing" icon="code-branch">
+<Accordion title="Credentials & Variables Managers" icon="plug">
+Credentials and variables are what connect your Pearl to the rest of your stack. Both are opened from the **`{ }`** button in the top-right of the header.
 
-Pearl Vibe is built for safe iteration: you can experiment freely without breaking your live calls.
+**Variables Manager**
 
-**Autosave Drafts**
+The **Variables Manager** lets you create, edit, and organize the variables used in your conversation flows.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-versioning.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-versioning.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-- All changes in the editor are automatically saved into a Draft.
-- The Draft is independent from the live Published version.
-- You can close and come back later: the Draft is preserved.
-
----
-
-**Published Version (View Mode)**
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-versioning2.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-versioning2.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-- The Published version is the one actually used to handle calls.
-- You can open it in view‑only mode to review what is currently live.
-- This helps align product, ops, and compliance teams on the exact live configuration.
-
----
-
-**Rollback to Published**
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-versioning3.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-versioning3.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-- If your Draft becomes messy or contains changes you no longer want, you can rollback.
-- Rollback discards the current Draft and reloads the editor with the latest Published version.
-
-<Tip>
-This is useful to recover quickly after experimental edits or bad modifications.
-</Tip>
-
----
-
-**Publishing a New Version**
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-versioning4.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-versioning4.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-- When you are satisfied with your Draft and tests, click Publish.
-- The Draft becomes the new Published version and starts handling calls.
-- A new Draft session then begins for your next round of changes.
-</Accordion>
-
-<Accordion title="Integrations & Variables" icon="plug">
-Integrations and variables are what connect your Pearl to the rest of your stack.
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-managers.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-managers.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-**Variable Manager**
-
-Variables can be managed using the Variable Manager, the Variable Manager allows you to create, edit, and organize variables used in your conversation flows.
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/variables_manager.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/variables_manager.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/variables_manager.jpg"
+    alt="Variables Manager to create, edit, and organize variables"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <Info>
 See the [Variables documentation](/pages/variables) for more details.
@@ -486,65 +231,25 @@ See the [Variables documentation](/pages/variables) for more details.
 
 ---
 
-**Integration Manager**
+**Credentials Manager**
 
-The Integration Manager is where you connect external systems by adding credentials and configuration for each integration.
+The **Credentials Manager** is where your integrations live: you connect external systems by adding credentials and configuration for each one. Once a credential is added, the matching integration becomes available as a node in your flow.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-cred-manager.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-cred-manager.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/pearlvibe-cred-manager.png"
+    alt="Credentials Manager to connect external systems"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 It lets you:
 - Add new integrations (e.g. Salesforce, HubSpot, ticketing tools, booking engines).
 - Configure authentication.
 </Accordion>
 
-<Accordion title="Task & Error Management" icon="circle-exclamation">
+<Accordion title="Tasks & Errors" icon="circle-exclamation">
 As your flows grow, PearlVibe helps you keep them valid, connected, and fully configured.
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-task-error.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-task-error.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
 
 <Warning>
 **Error detection**
@@ -555,93 +260,110 @@ Pearl Vibe automatically scans your Pearl for common issues, such as:
 - Missing required fields (for example: API nodes without an endpoint or description).
 - Incomplete campaign or flow configuration.
 
-When such issues are detected, the Tasks & Errors button in the header lights up to signal that something needs your attention.
+When such issues are detected, the **Publish** button in the header is replaced by a red **Errors & Tasks (N)** button that signals how many items need your attention.
 </Warning>
 
-**Tasks & Errors sidebar**
+<Frame>
+  <img
+    src="/images/dark_mode/errors-and-tasks-button.png"
+    alt="Errors & Tasks button in the header when issues are detected"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-Clicking the Tasks & Errors button opens a right-hand sidebar that groups everything in one place:
+**Tasks & Errors panel**
 
-| Section | Content |
-|---------|---------|
-| **Task & Error section** | Lists all issues found in your nodes (e.g. "Missing API Endpoint", "Missing Transition: Continue"). |
-| **Credentials section** | Lists integrations that still need to be connected (e.g. Algolia, Calendly, etc.). |
+Clicking the **Errors & Tasks** button opens a right-hand **Tasks & Errors** panel that groups every issue in one place, organized per workspace (Flow Editor, credentials, etc.). Each card names the affected node and what's missing (e.g. "Missing Transition: Budget provided", "Missing Inbound Transition").
 
-Each card in the Task & Error section shows:
-- A short description of what's missing or misconfigured.
-- A **"Fix with AI"** action to let the agent propose and apply a fix.
-- An **"Open in editor"** action that jumps directly to the affected node in the Flow Editor.
+<Frame>
+  <img
+    src="/images/dark_mode/tasks-and-errors-panel.png"
+    alt="Tasks & Errors panel listing issues per node"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+Each card offers two actions:
+- **Fix With Pearl** — let the agent propose and apply the corrected configuration for you.
+- **Open in editor** — jump directly to the affected node in the Flow Editor.
+
+<Frame>
+  <img
+    src="/images/dark_mode/error-item-selected.png"
+    alt="Selecting an issue card in the Tasks & Errors panel"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+**On the canvas**
+
+Affected nodes are highlighted in red, and the problem is flagged directly in the node's Transitions section, so you can spot exactly what needs attention.
+
+<Frame>
+  <img
+    src="/images/dark_mode/node-missing-transition-error.png"
+    alt="Node flagged with a missing transition error on the canvas"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+You can also fix an issue from the node itself: hovering a node reveals a quick **Fix With Pearl** action.
+
+<Frame>
+  <img
+    src="/images/dark_mode/node-ai-fix-button.png"
+    alt="Fix With Pearl quick action on a node"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <Tip>
-You can either fix issues manually or let the AI draft and apply the corrected configuration for you.
+You can either fix issues manually or let Pearl draft and apply the corrected configuration for you.
 </Tip>
 </Accordion>
 
 <Accordion title="Test Calls & Debugging" icon="phone-volume">
 Test calls are the safest way to validate your Pearl before and after publishing.
 
+<Note>
+On **text** Pearls, these controls read **Test Chat** and **Past Chats** instead of **Test Call** and **Past Calls**.
+</Note>
+
 **Launching a Test Call**
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-testcall.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+Open the **Test Call** menu in the header. From here you switch between the two views: **Test Call** (test your agent by phone) and **Past Calls** (view your call history and details).
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-testcall.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/test-call-dropdown-menu.png"
+    alt="Test Call menu to switch between Test Call and Past Calls"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-To run a test call:
-- Open the Test Call panel from the header.
-- Enter the phone number you want to call (usually your own or a test device).
-- Start the test: the Pearl calls that number using the current Draft configuration (unless you choose otherwise).
+In the **Test Call** panel, choose the **From** and **To** phone numbers, optionally reset the Pearl's memory for a fresh test, prefill opening sentences and lead variables, then click **Call Now**. The Pearl calls that number using the version you're currently editing.
+
+<Frame>
+  <img
+    src="/images/dark_mode/test-call-panel.png"
+    alt="Test Call panel with phone numbers, lead variables, and Call Now button"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 ---
 
 **Live Node Tracing**
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-testcallview2.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+During the test call, a **Ringing… / Stop Following** pill appears and the nodes in the canvas light up one after another as the conversation progresses, so you can visually follow the path the call is taking through your flow.
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-testcallview2.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-During the test call:
-- Nodes in the canvas light up one after another as the conversation progresses.
-- You can visually follow the path the call is taking through your flow.
+<Frame>
+  <img
+    src="/images/dark_mode/live-call-ringing-stop-following.png"
+    alt="Live node tracing during a test call with a Stop Following pill"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <Tip>
 This helps you understand why a certain question was asked, see which transition was taken at each step, and debug misrouted calls or unexpected behaviors.
@@ -649,39 +371,20 @@ This helps you understand why a certain question was asked, see which transition
 
 ---
 
-**Post‑Call Views**
+**Past Calls**
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-testcallview.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+The **Past Calls** view lists your previous test calls grouped by date. Open any entry to inspect its details and verify that your flow — including post-call automation — behaved as expected.
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-testcallview.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-The Test Call panel also includes a tab for Post‑Calls:
-- See which Post‑Call nodes were executed after hang‑up.
-- Inspect the actions triggered (SMS, emails, CRM updates, webhooks…).
-- Use this view to verify that your back‑office automation is behaving as expected.
+<Frame>
+  <img
+    src="/images/dark_mode/past-calls-panel.png"
+    alt="Past Calls panel listing previous test calls by date"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <Info>
-To learn more about Post-Call, see the [Post-Call documentation](/pages/postcall).
+To learn more about post-call actions, see the [Post-Call documentation](/pages/postcall) — or, for text Pearls, the [Post-Chat documentation](/pages/text/postchat).
 </Info>
 
 </Accordion>
@@ -690,105 +393,206 @@ To learn more about Post-Call, see the [Post-Call documentation](/pages/postcall
 
 ---
 
-### Chat Sidebar
+## Chat Sidebar
 
-The chat sidebar is the control panel for the current node.
+The chat sidebar is where you build your Pearl — either by talking to PearlVibe in natural language to create and edit your flow, or by switching to Manual Edit to configure things by hand.
+
+<Frame>
+  <img
+    src="/images/dark_mode/chat-sidebar-overview.png"
+    alt="Chat sidebar on the left of the editor"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 It combines two complementary views:
 
 | View | Description |
 |------|-------------|
-| **Chat** | Vibe coding with the PearlVibe AI. |
-| **Manual** | Explicit configuration of the selected node. |
+| **Chat (Ask Pearl)** | Describe changes in natural language and let Pearl build them. This is the default view. |
+| **Manual Edit** | Explicit, hands-on configuration of the selected node. |
 
 <Note>
 All actions in this sidebar always apply to the node currently selected in the flow editor (unless explicitly noted as global, like General Instructions).
 </Note>
 
-<Tabs>
-  <Tab title="Chat mode (Vibe Coding)">
-    
-    <div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-sidebar.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<AccordionGroup>
+  <Accordion title="Chat (Ask Pearl)" icon="comments">
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-sidebar.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/pearl-chat-panel.png"
+    alt="Ask Pearl chat panel in the left sidebar"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-    In Chat mode, you design and update the flow by describing changes in natural language. Pearl Vibe interprets your request and applies the corresponding modifications to the Draft.
+    This is the default view. You design and update the flow by describing changes in natural language, and Pearl builds them into your current version.
 
     **Typical operations you can perform:**
-    - Create or delete nodes.
-    - Edit the content and behavior of a node.
-    - Add, rename, or reconnect transitions.
-    - Attach actions (API calls, SMS, email, transfers, etc.).
-    - Configure post-call logic.
 
-    **Key elements:**
+    | Operation | Example |
+    |-----------|---------|
+    | **Create or delete nodes** | "Add a qualification step after the greeting." |
+    | **Edit a node's content and behavior** | "Make the opening more formal and mention our summer offer." |
+    | **Add, rename, or reconnect transitions** | "Add a 'Not interested' branch that ends the call politely." |
+    | **Attach actions** | "Send a confirmation SMS after a successful booking." (API calls, SMS, email, transfers, etc.) |
+    | **Configure post-call logic** | "Log the outcome to the CRM once the call ends." |
 
-    | Element | Description |
-    |---------|-------------|
-    | **Chat input** | Enter instructions such as: "Split this node into three outcomes based on payment status.", "After a successful payment, send a confirmation SMS and end the call.", "Create a post-call node that logs the outcome to the CRM." |
-    | **Send** | Sends your instruction to the AI and applies the resulting changes to the flow. The editor is updated in real time so you can immediately review what has changed. |
-    | **File upload** | Attach supporting material (FAQs, pricing sheets, policy docs, playbooks, etc.). These files enrich the Pearl's knowledge and can be referenced in node prompts and call behavior. |
-    | **Enhance prompt** | Takes a rough or short instruction and rewrites it into a clearer, more structured request before execution. Use this when your initial prompt is ambiguous or incomplete and you want the AI to "clean it up" first. |
-    | **Node context pill** | When a node is selected in the canvas, its name appears as a pill above the chat. Any instruction you send while this pill is active is interpreted in the context of that node (for example: "Change the greeting", "Add a failure transition that transfers to support", etc.). |
+    **The composer**
+
+    Type your instruction in the **Ask Pearl…** box — for example: "Split this node into three outcomes based on payment status.", "After a successful payment, send a confirmation SMS and end the call.", "Create a post-call node that logs the outcome to the CRM." Press **Send** and the editor updates in real time.
+
+<Frame>
+  <img
+    src="/images/dark_mode/ask-pearl-input-box.png"
+    alt="Ask Pearl composer input box"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    The composer includes a few helpers:
+
+    - **Attach files** — add supporting material (FAQs, pricing sheets, policy docs, playbooks…) to enrich the Pearl's knowledge and reference it in node prompts.
+
+<Frame>
+  <img
+    src="/images/dark_mode/ask-pearl-attach-file-button.png"
+    alt="Attach file button in the Ask Pearl composer"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    Accepted formats: `.pdf`, `.docx`, `.txt`, `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.mp3`, `.m4a`, `.wav`, `.webm` — up to **10 files per message**.
 
     <Tip>
-    Chat mode is the recommended entry point to quickly build or refactor a flow, especially for large or complex trees.
+    You can attach a **full recording of a real conversation** (e.g. an `.mp3` or `.wav` call) and ask PearlVibe to build the flow from it — it will turn the exchange into nodes and transitions for you.
     </Tip>
-  </Tab>
-  <Tab title="Manual mode (per node)">
-    Manual mode is available as an alternative tab to the chat. It targets the currently selected node.
 
-    It is split into two tabs:
+    - **Enhance prompt** — rewrite a rough or short instruction into a clearer, more structured request before it runs.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-sidebar2.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/ask-pearl-ai-suggest-button.png"
+    alt="Enhance prompt button in the Ask Pearl composer"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-sidebar2.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+    - **Voice input** — dictate your instruction instead of typing it.
 
-    **The Node tab**
+<Frame>
+  <img
+    src="/images/dark_mode/ask-pearl-voice-input-button.png"
+    alt="Voice input button in the Ask Pearl composer"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-    Exposes all the settings that are specific to the current node type. What you see here changes depending on whether the node is a Dialogue, API, SMS, Email, Transfer, Integration, or Post-Call node.
+    **Node context**
 
-    In short, the Node tab is where you configure what this node does internally, based purely on its type.
+    When a node is selected in the canvas, its name appears as a pill above the composer. Any instruction you send while this pill is active is interpreted in the context of that node (for example: "Change the greeting", "Add a failure transition that transfers to support").
+
+<Frame>
+  <img
+    src="/images/dark_mode/ask-pearl-node-context-panel.png"
+    alt="Node context pill above the Ask Pearl composer"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    **Reviewing what Pearl builds**
+
+    Before applying larger edits, Pearl often shows a short plan and asks you to confirm (**Yes, build it**) or answer directly.
+
+<Frame>
+  <img
+    src="/images/dark_mode/build-changes-confirmation.png"
+    alt="Pearl asking to confirm before building changes"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    When Pearl needs a decision, it can present interactive choices right in the chat (for example, which CRM to connect).
+
+<Frame>
+  <img
+    src="/images/dark_mode/crm-selection-prompt.png"
+    alt="Interactive choice prompt in the Ask Pearl chat"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    Once applied, each batch of edits appears as a **Changes** card summarizing what was added and removed.
+
+<Frame>
+  <img
+    src="/images/dark_mode/changes-summary-panel.png"
+    alt="Changes card summarizing applied edits"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    Expand it (**View more**) to see the full diff — added, edited, and removed nodes and transitions, highlighted in green and red.
+
+<Frame>
+  <img
+    src="/images/dark_mode/changes-diff-expanded.png"
+    alt="Expanded diff of the applied changes"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    If you don't want to keep a batch, click **Undo changes** to roll it back.
+
+<Frame>
+  <img
+    src="/images/dark_mode/undo-changes-button.png"
+    alt="Undo changes button on a Changes card"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    <Tip>
+    Chat is the recommended entry point to quickly build or refactor a flow, especially for large or complex trees.
+    </Tip>
+  </Accordion>
+  <Accordion title="Manual Edit" icon="sliders">
+    Select a node in the canvas, then click the **Manual Edit** button at the bottom of the sidebar to configure it by hand.
+
+<Frame>
+  <img
+    src="/images/dark_mode/manual-edit-button.png"
+    alt="Manual Edit button at the bottom of the chat sidebar"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    Manual Edit always targets the currently selected node (shown by the node context pill).
+
+<Frame>
+  <img
+    src="/images/dark_mode/manual-edit-with-node-selected.png"
+    alt="Manual Edit with a node selected in the canvas"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    It is split into two tabs: **Edit** and **Transitions**.
+
+    **The Edit tab**
+
+    Exposes all the settings specific to the current node type (Script / Free Text, Instructions, variables…). What you see here changes depending on whether the node is a Dialogue, API, SMS, Email, Transfer, Integration, or Post-Call node.
+
+<Frame>
+  <img
+    src="/images/dark_mode/node-edit-panel-open.png"
+    alt="Edit tab of a node in Manual Edit"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+    In short, the Edit tab is where you configure what this node does internally, based purely on its type.
 
     <Note>
     Routing to other nodes is not handled here, but in the Transitions tab.
@@ -796,85 +600,88 @@ All actions in this sidebar always apply to the node currently selected in the f
 
     **The Transitions tab**
 
-    Defines how the conversation can exit this node.
+    Defines how the conversation can exit this node. Each transition is a labeled branch (for example "Agreed to future contact") pointing to the next node, and you add new ones with **New Transition**.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-sidebar3.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-sidebar3.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/node-transitions-tab.png"
+    alt="Transitions tab in Manual Edit with a transition and the New Transition button"
+    className="rounded-[14px]"
+  />
+</Frame>
 
     From here you can:
     - **Create transitions** – Add exits such as "Success", "Failure", "No answer", "Customer asks for human", etc.
-    - **Connect transitions** – Choose the target node for each transition to shape the path of the call.
+    - **Connect transitions** – Choose the target node for each transition to shape the path of the conversation.
     - **Edit or delete transitions** – Rename transitions, change their destination, or remove them when they are no longer needed.
 
+    **Back to Chat**
+
+    When you're done, click **Back to Chat** to return to the Ask Pearl view.
+
+<Frame>
+  <img
+    src="/images/dark_mode/back-to-chat-button.png"
+    alt="Back to Chat button in Manual Edit"
+    className="rounded-[14px]"
+  />
+</Frame>
+
     <Info>
-    Any modification done in Manual mode is immediately reflected in the visual flow and remains fully understood by the AI.
-    
-    You can freely switch between Chat (AI-assisted editing) and Manual (explicit configuration) as you work on the same node.
+    Any modification done in Manual Edit is immediately reflected in the visual flow and remains fully understood by Pearl.
+
+    You can freely switch between Chat (Ask Pearl) and Manual Edit as you work on the same node.
     </Info>
-  </Tab>
-</Tabs>
+  </Accordion>
+</AccordionGroup>
 
 ---
 
-### Central Canvas
+## Central Canvas
 
 The central canvas displays your flow as a graph of nodes and transitions.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-canva.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-canva.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/flow-editor-canvas.png"
+    alt="Central canvas showing the flow as a graph of nodes and transitions"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 | Element | Description |
 |---------|-------------|
-| **Nodes** | Each node represents a step in the call (a message, an action, or a set of actions). |
+| **Nodes** | Each node represents a step in the conversation (a message, an action, or a set of actions). |
 | **Transitions** | Each transition represents a possible path from one node to another based on intents, recognition results, or business logic. |
 
 **From the canvas you can:**
-- Select nodes to open them in the sidebar.
-- Drag nodes to reorganize the layout visually.
-- Follow transitions to understand how the call can move through the flow.
-- Hover nodes to see popovers with a quick summary of what they do (main actions, key conditions, etc.).
+
+| Action | Description |
+|--------|-------------|
+| **Add, connect, branch, disconnect** | Create nodes and wire transitions to shape the flow. |
+| **Move, pan & zoom** | Navigate large trees comfortably. |
+| **Search** | Find a node by name or content. |
+| **Reorganize** | Re-lay out the flow automatically (auto-layout). |
+| **Go to Start / End** | Jump straight to the beginning or end of the flow. |
+| **Hover preview** | See a quick summary of what a node does. |
+| **Quick actions** | Fix, Edit, Duplicate, or Delete a node in place. |
+| **Undo / Redo** | Roll your latest changes back and forth. |
+
+<Note>
+The canvas has no minimap — use zoom, pan, **Reorganize**, and **Search** to move around instead.
+</Note>
+
+**Right toolbar**
+
+The vertical toolbar on the right groups the navigation controls: **Undo / Redo**, **Go to Start / End**, **Reorganize** (auto-layout), and **Zoom in / out**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/flow-editor-right-toolbar.png"
+    alt="Right toolbar with undo/redo, go to start/end, reorganize, and zoom"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <AccordionGroup>
 
@@ -912,36 +719,20 @@ Once the call is finished, these nodes handle asynchronous tasks: writing CRM lo
 <Accordion title="Start Node" icon="play">
 Every flow begins with a Start node. It controls how the conversation is initiated.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-startnode.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-startnode.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/start-node.png"
+    alt="Start node at the entry point of the flow"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 You can configure it in two ways:
 
 | Configuration | Description |
 |---------------|-------------|
 | **Opening sentence** | A standard greeting and first question, for example: "Hi, you've reached [Company]. How can I help you today?" |
-| **Pre‑Call API** | Before the Pearl speaks, it can call an external API (for example to fetch order details, check account status, or pre‑qualify the caller). The API response can then change the opening sentence, route the caller toward different branches, or preload variables and context. |
+| **Pre‑Call API** | Before the Pearl speaks, it can call an external API (for example to fetch order details, check account status, or pre‑qualify the caller). The API response can then change the opening sentence, route the caller toward different branches, or preload variables and context. On text Pearls this is labeled **Pre‑Chat API**. |
 
 <Note>
 The Pre-Call API cannot be used to import leads into your Pearl. Its purpose is strictly to enrich or prepare contextual data before the call starts
@@ -949,67 +740,42 @@ The Pre-Call API cannot be used to import leads into your Pearl. Its purpose is 
 </Accordion>
 
 <Accordion title="In‑Call Nodes" icon="phone">
-In‑Call nodes represent actions and dialogues during the call. Typical types include:
+In‑Call nodes represent the actions and dialogues that happen during the conversation. In the **Add Node** picker they're split into **Live Global Nodes** (Dialogue, Knowledge Base) and **Live Action Nodes** (SMS, Email, API, Transfer Call).
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-incallnode.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-incallnode.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/full-flow-selected.png"
+    alt="In-call nodes across the conversation flow"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 | Node Type | Description |
 |-----------|-------------|
-| **Dialogue** | The Pearl speaks, listens, and interprets the caller's response according to your instructions. |
-| **Send SMS** | Send a text message to the caller during the call (e.g. a confirmation code, a link, or a summary). |
-| **Send email** | Trigger an email to the caller or your team. |
+| **Dialogue** | The Pearl speaks, listens, and interprets the customer's response according to your instructions. |
+| **Knowledge Base** | Answer questions using your Pearl's configured knowledge base. |
+| **Send SMS** | Send a text message during the call (e.g. a confirmation code, a link, or a summary). *Voice only — hidden on text Pearls.* |
+| **Send Email** | Trigger an email to the customer or your team. |
 | **API** | Call an external API (e.g. update a record, check availability, create a ticket). |
-| **Transfer call** | Transfer the caller to a human agent or another phone number. You can control what happens before and after transfer. |
+| **Transfer Call** | Transfer the caller to a human agent or another phone number. *Voice only — hidden on text Pearls.* |
+| **Hand-Off** | Hand the conversation over to a human. *Text Pearls only.* |
+| **Recording** | Control call recording (availability depends on your platform). |
+
+<Note>
+Integration-specific actions (e.g. Google Calendar, Salesforce) appear in a separate **Integration Nodes** group of the picker — see below.
+</Note>
 </Accordion>
 
 <Accordion title="Integration Nodes" icon="plug">
-Integration nodes allow your Pearl to interact directly with external tools and services without writing any API code yourself. They serve as pre-configured action blocks that handle authentication, request formatting, and data mapping automatically.
+Integration nodes let your Pearl interact directly with external tools and services without writing any API code yourself. Technically, each one is an **API node pre-configured with an integration credential** from the **Credentials Manager** — it handles authentication, request formatting, and data mapping for you. They appear in a dedicated **Integration Nodes** group of the **Add Node** picker.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-integrationtnode.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-integrationtnode.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/pearlvibe-integrationtnode.png"
+    alt="Integration node configured from a credential"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 **Integration node variants:**
 
@@ -1029,13 +795,13 @@ Integration nodes encapsulate tasks such as:
 | **Booking engines** | Calendly, Cloudbeds, Shore… | Check availability, create reservations, cancel or modify bookings. |
 | **Search & data services** | Algolia, Elasticsearch… | Query product/catalog data, validate inputs, or retrieve structured info. |
 | **Payments & billing** | Stripe, Paystack… | Check payment status, initiate a payment link workflow, validate customer identity. |
-| **Custom Integrations** | Any configured integration | Any integration you configure in the Integration Manager becomes available here as a dedicated node. |
+| **Custom Integrations** | Any configured integration | Any integration you configure in the Credentials Manager becomes available here as a dedicated node. |
 
 **How They Work**
 
 | Feature | Description |
 |---------|-------------|
-| **Secure Credentials** | The Integration Manager stores credentials securely (API keys, tokens, IDs…). |
+| **Secure Credentials** | The Credentials Manager stores credentials securely (API keys, tokens, IDs…). |
 | **Available as Node** | Once connected, each service becomes available as a node in the flow. |
 | **Simple Configuration** | The node exposes only the required parameters, no API documentation or coding needed. |
 | **Data Mapping** | Returned data can be mapped to variables and used later in the conversation. |
@@ -1149,31 +915,15 @@ Integration nodes encapsulate tasks such as:
 
 **End Call node**
 
-This node closes the conversation gracefully (e.g. "Thanks for your time, goodbye."). It is typically the last in‑call node.
+This node closes the conversation gracefully (e.g. "Thanks for your time, goodbye."). It is typically the last in‑call node. On text Pearls it's labeled **End Chat**.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-endcalltnode.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-endcalltnode.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/end-call-node.png"
+    alt="End Call node closing the conversation"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 **Post‑Call nodes**
 
@@ -1184,64 +934,33 @@ After the End Call node, you can add Post‑Call nodes via transitions. These no
 - Sending internal notifications to your team.
 
 <Info>
-Post‑Call nodes support many of the same actions as In‑Call nodes but are not constrained by real‑time conversation.
+Post‑Call nodes support many of the same actions as In‑Call nodes but are not constrained by real‑time conversation. In the **Add Node** picker, the Post-Call tab offers **SMS**, **Email**, and **API** nodes.
 </Info>
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-postcalltnode.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-postcalltnode.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/post-call-action-nodes.png"
+    alt="Column of post-call action nodes"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Accordion>
 
 <Accordion title="Node Structure" icon="layer-group">
-Each node shares a common structure:
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-structurenode.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-structurenode.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+Each node shares a common structure.
 
 **Header**
+
 - Icon representing the type of node.
 - Node name, editable to reflect its role ("Payment check", "Qualification", "Post‑call CRM update"…).
+
+<Frame>
+  <img
+    src="/images/dark_mode/node-header.png"
+    alt="Node header with type icon and editable name"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 **Transitions list**
 
@@ -1250,91 +969,169 @@ Under the header, you see the list of transitions for this node (e.g. "Success",
 - Click to navigate along the transition.
 - Disconnect or reconnect transitions to reshape the flow.
 
+<Frame>
+  <img
+    src="/images/dark_mode/node-transition-branches.png"
+    alt="A node's transition branches listed under its header"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+**Quick actions**
+
+Selecting a node reveals quick actions right below it — **Edit**, **Duplicate**, and **Delete**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/node-action-buttons-edit-duplicate-delete.png"
+    alt="Node quick actions: edit, duplicate, and delete"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+**Node colors when selected**
+
+When you select a node, the canvas colors the surrounding nodes to show their position relative to it:
+
+| Border color | Meaning |
+|--------------|---------|
+| **Blue** | Nodes that come **before** the selected node. |
+| **Green** | The **selected** node (the current one). |
+| **Orange** | Nodes that come **after** the selected node. |
+
+<Frame>
+  <img
+    src="/images/dark_mode/qualify-nodes-flow-view.png"
+    alt="Selected node with blue (previous), green (current), and orange (next) node borders"
+    className="rounded-[14px]"
+  />
+</Frame>
+
 **Hover popover**
 
-When you hover a node in the canvas, a popover shows a short summary:
-- Main instruction or script.
-- Key actions (SMS, API, transfer…).
-- Critical transitions or tags.
+When you hover a node in the canvas, a preview card shows a short summary of what it does — its main instruction or script, key actions, and transitions.
+
+<Frame>
+  <img
+    src="/images/dark_mode/node-details-preview-card.png"
+    alt="Hover preview card summarizing a node"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 </Accordion>
 
 <Accordion title="Bottom tools" icon="toolbox">
-At the bottom of the canva you'll find:
+The toolbar at the bottom of the canvas groups three controls.
+
+<Frame>
+  <img
+    src="/images/dark_mode/flow-editor-bottom-toolbar.png"
+    alt="Bottom toolbar with Add Node, General Instructions, and Search"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 | Tool | Description |
 |------|-------------|
-| **Add node buttons** | Create new nodes manually (Pre-Call, In-Call, or Post-Call nodes), browse and search node types, and insert nodes directly into the flow. |
-| **General Instructions** | Opens a popup where you define global instructions for the entire flow (tone, strategy, guardrails, constraints). These act as a "meta prompt" on top of individual nodes. |
+| **Add Node** | Open the node picker to browse and insert new nodes into the flow. |
+| **General Instructions** | Open a modal to define global guidance for the whole flow. |
 | **Search** | Search across all nodes by name or content and jump directly to the node you need. |
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-structurenode22.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+**Add Node**
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-structurenode22.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/add-node-button.png"
+    alt="Add Node button in the bottom toolbar"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+The **Add Node** picker is organized by moment in the conversation — **Pre-Call**, **In-Call**, and **Post-Call** tabs (labeled **Pre-Chat / In-Chat / Post-Chat** on text Pearls) — and, within a tab, by group:
+
+| Tab | Addable nodes |
+|-----|---------------|
+| **Start** | Opening Sentence **or** Pre-Call API (Pre-Chat API on text). |
+| **In-Call** | **Live Global Nodes**: Dialogue, Knowledge Base — **Live Action Nodes**: SMS\*, Email, API, Transfer Call\*, Hand-Off (text only), Recording. |
+| **Post-Call** | SMS, Email, API. |
+| **Integration** | Dynamic integration nodes — an API node pre-filled with an integration credential from the Credentials Manager. |
+
+<Frame>
+  <img
+    src="/images/dark_mode/add-node-menu.png"
+    alt="Add Node picker with Pre-Call, In-Call, and Post-Call tabs and node groups"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Note>
+\*On **text** Pearls, **SMS** and **Transfer Call** are hidden from the picker, while **Hand-Off** is available only on text. Post-call **SMS** remains available for both.
+</Note>
+
+**General Instructions**
+
+The middle button opens **General Instructions**, a modal where you define global guidance for the whole flow — persona, tone, strategy, and guardrails. These act as a "meta prompt" layered on top of individual nodes.
+
+<Frame>
+  <img
+    src="/images/dark_mode/node-list-panel-button.png"
+    alt="General Instructions button in the bottom toolbar"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Frame>
+  <img
+    src="/images/dark_mode/general-instructions-modal.png"
+    alt="General Instructions modal with global flow guidance"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+**Search**
+
+<Frame>
+  <img
+    src="/images/dark_mode/search-nodes-button.png"
+    alt="Search button in the bottom toolbar"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Accordion>
 
 </AccordionGroup>
 
 ---
 
-### Top Navigation tabs
+## Top Navigation tabs
 
-Configure your Pearl's identity, knowledge, and behavior settings.
+The top navigation switches between the main workspaces of your Pearl. **Flow Editor** is the PearlVibe editor covered on this page; the other tabs configure your Pearl's identity, knowledge, analytics, and campaign behavior.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-top-bar-navigation.png"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/pearlvibe-top-bar-navigation.png"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/top-navigation-tabs.png"
+    alt="Top navigation tabs: Pearl Settings, Knowledge Base, Analytics, campaign settings, and Flow Editor"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 <br/>
 
 <CardGroup cols={2}>
-  <Card title="Agent Customization" icon="user-gear" href="/pages/agent_customization">
+  <Card title="Pearl Settings" icon="user-gear" href="/pages/agent_customization">
     Set your agent's name, language, voice, personality, and timezone.
   </Card>
-  <Card title="Agent Knowledge Base" icon="book" href="/pages/knowledge_base">
+  <Card title="Knowledge Base" icon="book" href="/pages/knowledge_base">
     Give Pearl the company context and knowledge it needs to answer accurately.
   </Card>
   <Card title="Analytics" icon="chart-line" href="/pages/pearl_analytics">
     Define success, apply indicator tags, and track your Pearl's performance.
+  </Card>
+  <Card title="Inbound Settings" icon="phone-arrow-down-left" href="/pages/inbound">
+    Configure how your Pearl answers incoming calls.
+  </Card>
+  <Card title="Outbound Settings" icon="phone-arrow-up-right" href="/pages/outbound">
+    Configure how your Pearl runs outbound campaigns.
   </Card>
 </CardGroup>
