@@ -107,7 +107,7 @@ details.accordion p[data-component-part="accordion-title"] {
 
 /* Override maple theme blue tint on main page background only */
 :root[class~="dark"] {
-  --background: 0 0% 6.7% !important;
-  --background-dark: 17 17 17 !important;
+  --background: 60 2% 10% !important;
+  --background-dark: 26 26 25 !important;
 }
 

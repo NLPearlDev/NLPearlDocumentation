@@ -4,26 +4,12 @@ icon: "chart-line"
 iconType: "light"
 ---
 
-Use this section to track, evaluate, and act on your Pearl's performance. Define what success looks like, apply custom tags to key conversation moments, and set up notifications to stay on top of important calls.
-
-<Card id="pearl-success">
-
-**Define the Success of Your Pearl**
-
-Specify what constitutes a successful call for your Pearl, such as booking a meeting, confirming interest, or qualifying a lead. This success definition will be reflected in your campaign analytics and lead statuses, helping you sort and follow up efficiently.
-
-<Info>
-If you don't define success for your Pearl, all answered calls will be marked as **Completed** by default.  <br/><br/>
-By using this feature, you'll unlock two possible outcomes instead: **Call Successful** and **Call Unsuccessful**, giving you more control over lead qualification.
-</Info>
-
-
 <div className="block dark:hidden">
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/simplepearl_definesuccess.jpg"
-        alt="Send Email action interface on light mode"
+        src="/images/dark_mode/text-pearl-analytics-cover.svg"
+        alt="Chat Analytics cover"
         className="rounded-[14px]"
       />
     </div>
@@ -34,29 +20,61 @@ By using this feature, you'll unlock two possible outcomes instead: **Call Succe
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/simplepearl_definesuccess.jpg"
-        alt="Send Email action interface on dark mode"
+        src="/images/dark_mode/text-pearl-analytics-cover.svg"
+        alt="Chat Analytics cover"
         className="rounded-[14px]"
       />
     </div>
   </Frame>
 </div>
-<br/>
+
+Use this section to track, evaluate, and act on your Pearl's performance. Define what success looks like, apply custom tags to key conversation moments, and set up notifications to stay on top of important conversations.
+
+<Note>
+Other charts in your Chat Analytics dashboard are tracked automatically and don't depend on this setup step.
+</Note>
 
 ---
 
-**Indicator Tags**
+## Define the Success of Your Pearl
 
-Use **Indicator Tags** to label and categorize key moments in a conversation.  <br/><br/>
-They help you structure your data, identify important insights, and filter your leads with precision.
+Specify what constitutes a successful conversation for your Pearl, such as booking a meeting, confirming interest, or qualifying a lead. This success definition will be reflected in your campaign analytics and lead statuses, helping you sort and follow up efficiently.
 
-Each tag includes:
+The success criteria is **free text**, up to **200 characters**.
 
-- **Name**: A clear label (e.g. `"Interested"`, `"Mentioned Competitor"`)
-- **Color**: Used for visual sorting in your interface
-- **Assignment rule**: A short description of when the tag should be applied
+<Frame>
+  <img
+    src="/images/dark_mode/pearl-analytics-1.png"
+    alt="Define the success of your Pearl"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-Tags are assigned automatically during the call, based on the conditions you define.
+<Info>
+**In your Chat Analytics dashboard**, without a success definition, conversations are counted as **Completed**. Once defined, they split into **Successful** (green) and **Unsuccessful** (pink), and the **Success Rate** chart tracks the percentage of conversations that met your criteria over time (empty until success is defined).
+</Info>
+
+---
+
+## Indicator Tags
+
+Use **Indicator Tags** to label and categorize key moments in a conversation. They help you structure your data, identify important insights, and filter your leads with precision.
+
+<Frame>
+  <img
+    src="/images/dark_mode/pearl-analytics-2.png"
+    alt="Indicator Tags"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+You can create up to **10 tags**. Each tag includes:
+
+- **Name**: A clear label, required (max **25 characters**), e.g. `"Interested"`, `"Mentioned Competitor"`.
+- **Color**: Used for visual sorting. Each tag must use a **unique color**, a color already assigned to another tag can't be reused.
+- **Assignment rule (When to assign)**: A short description of when the tag should be applied, required (max **300 characters**).
+
+Tags are assigned automatically during the conversation, based on the conditions you define.
 
 <Card>
 ### Example
@@ -71,36 +89,10 @@ You're asking leads what they usually drink in the morning. You might define:
   - **Color**: Green  
   - **When to assign**: If the lead mentions drinking tea
 
-These tags will then appear in your lead data and call logs, making it easy to segment and analyze responses.
+These tags will then appear in your lead data and conversation logs, making it easy to segment and analyze responses.
 </Card>
 
 <Info>
-Indicator Tags are not just for display. They're functional. You can filter campaigns by tag, trigger notifications, or use them to define success in analytics.
+Indicator Tags are not just for display. They're functional. You can filter campaigns by tag, trigger notifications, or use them to define success in analytics.  <br/><br/>
+In your **Chat Analytics dashboard**, they feed the **Tags** chart, showing each tag's name, its chosen color, and how many conversations it was applied to.
 </Info>
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/simplepearl_indicatortags.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/simplepearl_indicatortags.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-<br/>
-
-</Card>

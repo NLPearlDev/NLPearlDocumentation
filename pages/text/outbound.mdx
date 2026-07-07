@@ -1,6 +1,6 @@
 ---
 title: Outbound
-description: 'Learn how to set up and manage Outbound Campaigns using NLPearl.AI to handle outbound conversations effectively.'
+description: 'Configure your text Pearl to run outbound campaigns, from budget and scheduling to message limits, inactivity handling, and leads.'
 icon: "paper-plane"
 iconType: "light"
 ---
@@ -9,7 +9,7 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/outbound_text-cover.svg"
+        src="/images/dark_mode/text-outbound-cover.png"
         alt="Outbound cover"
         className="rounded-[14px]"
       />
@@ -21,7 +21,7 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/outbound_text-cover.svg"
+        src="/images/dark_mode/text-outbound-cover.png"
         alt="Outbound cover"
         className="rounded-[14px]"
       />
@@ -33,108 +33,417 @@ iconType: "light"
 
 ## Setting Up Outbound Campaigns
 
-Outbound text campaigns let Pearl start conversations with a list of leads through your connected messaging channels. Start by asking PearlVibe to create an **outbound text Pearl**, then configure how the campaign should handle scheduling, messages, inactivity, transcripts, webhooks, and leads.
+Once you have created a Pearl, you can use it to run outbound text campaigns. Outbound settings are configured inside your Pearl, under **Outbound Settings**, so your Pearl starts conversations with your leads following the conversational flow you defined.
 
 <Info>
-### What are Outbound Campaigns?
-Outbound campaigns are used when Pearl starts the conversation. Each conversation follows the flow, knowledge, and actions defined in your Pearl.
+**What are outbound campaigns?**
+
+Outbound campaigns let your Pearl start conversations with a list of leads through your connected messaging channels, following the conversational logic you defined for consistent and effective outreach.
 </Info>
 
 ---
 
-### Steps to Create an Outbound Campaign
+## Connect a Channel
 
-<Steps>
-<Step title="Create an outbound text Pearl">
+Unlike a voice campaign, an outbound text campaign isn't tied to a phone number, it's connected to a **messaging channel**. Once your Pearl is published, open its **overview** page and connect the channel your campaign will use.
 
-Ask PearlVibe to create a Pearl for your outbound text use case. Describe your audience, goal, tone, qualification logic, handoff rules, and any tools Pearl should use.
+NLPearl supports channels such as **WhatsApp**, **Telegram**, **SMS**, and **Glassix**. Follow the dedicated guides to set one up:
 
-<Card
-  title="PearlVibe"
-  icon="diagram-subtask"
-  iconType="light"
-  href="/pages/pearl_vibe"
->
-  Build and customize your Pearl's logic, knowledge, and actions from a single prompt-driven interface.
+<CardGroup cols={2}>
+
+<Card title="SMS" icon="comment-sms" iconType="light" href="/pages/text/channels/sms">
+  Connect your Pearl to SMS through Twilio to text with your customers.
 </Card>
-</Step>
 
-<Step title="Configure outbound settings">
-Set how Pearl should manage each outbound chat:
+<Card title="Telegram" icon="telegram" iconType="light" href="/pages/text/channels/telegram">
+  Connect your Pearl to Telegram by linking a bot created with BotFather.
+</Card>
 
-- **Name**: Give the campaign a clear name so it is easy to identify.
-- **Pearl**: Choose the Pearl that defines the conversation flow for this campaign.
-- **Timezone**: Set the local timezone used for campaign scheduling.
-- **Budget**: Define an optional budget. Once the budget is reached, Pearl stops starting new conversations.
-- **Schedule Conversations**: Choose when Pearl should start outbound conversations.
-- **Message Limit**: Set the maximum number of messages Pearl can send before automatically handing the conversation off to a human.
-- **Auto-close After Inactivity**: Set how long the chat can remain inactive before Pearl marks it as finished and triggers the post-chat summary.
-- **Inactivity Follow-up**: Send follow-up messages when the end user stops replying after Pearl's last message. You can configure up to **3** follow-ups.
-- **Transcript Options**: Choose what should be kept from the conversation: the full transcript, only non-sensitive parts, or no transcript.
-</Step>
-
-<Step title="Publish the Pearl">
-Publish the Pearl when its flow and outbound settings are ready. After publishing, use the Pearl overview page to connect channels and manage leads.
-</Step>
-
-<Step title="Connect a channel from the overview">
-From the Pearl overview page, connect the messaging channel your campaign will use.
-
-Unlike a voice campaign, an outbound text campaign is not tied to a phone number. It is connected to a **messaging channel**, such as:
-
-- **WhatsApp**
-- **Telegram**
-- **SMS**
-- **Glassix**
-</Step>
-
-<Step title="Add leads from the overview">
-
-Easily add the leads you want to contact directly from the platform. You can enter lead details such as name, contact identifier (e.g. phone number or messaging handle), and any other relevant information.
-
-From the Pearl overview page, go to the **Leads** tab, then click **Add Lead**.
-
-Choose how you want to add your leads:
-
-- **Manual entry**: Add leads one by one from the platform. Use this for small lists or quick tests.
-- **File upload**: Upload leads in bulk with a CSV file. Download the template, fill in the lead data, then upload it back to the platform.
-- **API**: Add leads programmatically with the [Add Lead endpoint](/api-reference/v2/outbound/add-lead) when leads come from a CRM, form, or custom backend.
-
-<Note>
-When you download the template, the file will only contain column names for the variables *actually used* in your flow. If you create a variable but don’t use it, it won’t appear in the file.  
-
-If you manually add new columns that aren’t linked to your Pearl, they won’t be recognized when re-uploading the file.
-</Note>
-
-</Step>
-
-<Step title="Configure webhooks if needed">
-Use webhooks only if external tools need event notifications, such as when a chat starts, ends, or when a lead status changes.
-
-<Note>
-  For actual automations, rely on Post-Chat actions tied to how the conversation ended.
-</Note>
-</Step>
-
-</Steps>
+</CardGroup>
 
 ---
 
-<CardGroup cols={2}>
-  <Card
-    title="Agents"
-    icon="users"
-    iconType="light"
-    href="/pages/agents"
-  >
-    Understand how to manage your agents, including adding and configuring agents for your inbound and outbound activities.
-  </Card>
-  <Card
-    title="Post-Chat"
-    icon="message-check"
-    iconType="light"
-    href="/pages/text/postchat"
-  >
-    Review everything captured after a conversation, from transcript to summary.
-  </Card>
-</CardGroup>
+## Outbound Settings
+
+Configure your campaign from the **Outbound Settings** tab of your Pearl, in the [PearlVibe](/pages/pearl_vibe) flow editor.
+
+<Warning>
+These settings apply to **text** Pearls only. A voice Pearl has a different set of outbound options.
+</Warning>
+
+### Budget
+
+Set an optional spending cap for the campaign, in dollars. Once the budget is reached, Pearl stops starting new conversations for that campaign. You can increase it at any time as long as you have enough credit on your account.
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-outbound-budget.png"
+    alt="Budget setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Transcript Options
+
+Choose what is kept from the conversation transcript. Transcripts appear in your conversation logs.
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-outbound-transcript-options.png"
+    alt="Transcript Options setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+| Option | Description | When to use |
+| --- | --- | --- |
+| **Full Transcript** | Keeps the entire conversation as-is. | Complete analysis, QA, and training. |
+| **Sensitive Info Removed** | Automatically masks sensitive data (credit card numbers, Social Security numbers, personal identifiers) while keeping the conversation readable. | Compliance and PII protection. |
+| **No Transcript** | No transcript is stored for the conversation. | Maximum privacy. |
+
+<Info>
+With **Sensitive Info Removed**, if a customer writes *"My credit card number is 1234-5678-9012-3456"*, the transcript stores it as *"My credit card number is \*\*\*\*-3456"*, so you can review interactions safely without exposing sensitive data.
+</Info>
+
+---
+
+### Default Timezone
+
+Set the timezone for the campaign so that calling hours and scheduling are applied at the right local time.
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-outbound-default-timezone.png"
+    alt="Default Timezone setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Message Limit
+
+The maximum number of messages Pearl sends before automatically handing the conversation off to a human. You can set between **5 and 1000** messages (default **100**).
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-outbound-message-limit.png"
+    alt="Message Limit setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Auto-close After Inactivity
+
+How long a conversation can stay inactive before Pearl closes the chat and triggers the post-chat summary. You can set between **1 and 72 hours** (default **24 hours**).
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-outbound-auto-close-after-inactivity.png"
+    alt="Auto-close After Inactivity setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Inactivity Follow-up
+
+When enabled (on/off), Pearl sends follow-up messages when the lead stops replying after Pearl's last message, to re-engage the conversation.
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-outbound-inactivity-followup.png"
+    alt="Inactivity Follow-up setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+- **Up to 3 follow-ups**: each one is a **delay** plus an optional **message**.
+- **Minimum delay**: at least **30 minutes** between follow-ups for outbound.
+- **Default**: a single follow-up sent after **60 minutes**.
+
+<Note>
+Follow-up messages can use **Pre-Call** variables (e.g. the lead's first name) to keep the re-engagement personal.
+</Note>
+
+---
+
+### Calling Hours
+
+Define the hours during which Pearl is allowed to send outbound messages. By default, messages go out **Monday to Friday, 08:00–18:00**. Calling hours respect each lead's timezone, so everyone is contacted at an appropriate local time.
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-outbound-calling-hours.png"
+    alt="Calling Hours setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Webhooks
+
+Send conversation and lead events to an external endpoint, useful for tracking performance and keeping your CRM in sync.
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-outbound-webhook.png"
+    alt="Webhooks setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+- **Chat Webhook**: fires at key points in the conversation lifecycle (when the chat starts and ends), sending details like the outcome and any data collected during the conversation.
+- **Lead Webhook**: fires whenever a lead changes status (at the start and end of the conversation), sending the lead's full information and current status. Use it to update your CRM in real time.
+
+Each webhook supports:
+
+- **Version**: `V1` or `V2` (default **V2**).
+- **Credentials**: optional authentication token attached to the requests so your endpoint can verify they come from NLPearl.
+
+<Tip>
+Use Webhooks only if external tools need event notifications. For actual automations, rely on **Post-Chat Actions** tied to how the conversation ended.
+</Tip>
+
+<Card
+  title="Webhooks"
+  icon="webhook"
+  iconType="light"
+  href="/pages/webhooks"
+>
+  Learn how to configure webhooks, authenticate requests, and handle the events NLPearl sends.
+</Card>
+
+---
+
+## Project-Level Settings
+
+A few settings live at the **Project** level rather than in the campaign settings screen. Open them from the settings popover on your Pearl.
+
+### Agents
+
+Sets how many **simultaneous agents** run this campaign, i.e. how many conversations can be handled at the same time, capped by your account's agent quota. A higher number allows faster outreach.
+
+<Card
+  title="Agents"
+  icon="users"
+  iconType="light"
+  href="/pages/agents"
+>
+  Learn how to manage the agents assigned to your inbound and outbound activities.
+</Card>
+
+---
+
+### Retention
+
+Applies to **all conversations**. Set how long conversations are kept (a number of days, or leave empty to keep them indefinitely), then choose what is removed when they expire: delete all conversation data, or granularly the **Transcript**, **Summary**, or collected **Variables**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/outbound-call-retention-settings.png"
+    alt="Retention settings"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Lead Retention
+
+Outbound only. Set how long leads are kept before they are automatically deleted (a number of days, or leave empty to keep them indefinitely). This removes the entire lead.
+
+<Frame>
+  <img
+    src="/images/dark_mode/outbound-lead-retention-settings.png"
+    alt="Lead Retention settings"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+## Managing Leads
+
+Open the **Leads** tab in your campaign to add, view, and manage the people Pearl will contact. Leads are shown in a searchable, paginated table with default columns **Created**, **Phone Number**, **Time Zone**, **Reference ID**, and **Status**, plus one column per variable used in your Pearl.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-overview.png"
+    alt="Leads tab overview"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+### Adding Leads
+
+Click **Add Lead**, then choose how you want to add them.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-add.png"
+    alt="Add Lead button"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Card>
+
+<Tabs>
+
+<Tab title="Upload a File">
+
+Download the **CSV** or **XLSX** template, fill it with your lead data, and upload it back. The template only includes the variables actually used in your Pearl (unused ones won't appear, and extra columns you add won't be recognized). You can also set a timezone for the file — if left empty, the campaign timezone is used. After the upload, a report shows how many leads were added and lets you download the list of any failed rows.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-add-popup-upload-file.png"
+    alt="Add Lead - upload file"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+</Tab>
+
+<Tab title="Add Manually">
+
+Enter a lead one by one: contact identifier (phone number or messaging handle), any variables your Pearl uses, an optional timezone, and an optional **Reference ID** (your own external identifier, up to 100 characters).
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-add-manually.png"
+    alt="Add Lead - manually"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+</Tab>
+
+</Tabs>
+
+</Card>
+
+<Note>
+Both methods require accepting the **AI-messaging compliance** checkbox.
+</Note>
+
+---
+
+### Customizing the View
+
+Use **Customize Column** to show or hide any column, including the per-variable columns (by default, only the last 3 variables are shown). Up to 50 columns can be visible at once, and your selection is saved locally in your browser.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-customize-view.png"
+    alt="Customize columns"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Exporting Leads
+
+Click **Download CSV** to export your leads together with their current statuses. The export respects the filters currently applied to the table.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-download-csv.png"
+    alt="Download leads as CSV"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Refreshing and Deleting
+
+Select one or more leads (or select all across the current filter), then:
+
+- **Refresh**: resets the leads to **New** so they re-enter the queue — handy to re-contact already-processed leads (Completed, Unsuccessful, etc.).
+- **Delete**: permanently removes the selected leads, after a confirmation.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-delete-or-refresh.png"
+    alt="Refresh or delete selected leads"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Outside Calling Hours
+
+When a lead's local time falls outside your campaign's [calling hours](#calling-hours), a **moon icon** appears on its Time Zone column — the lead is "sleeping" and won't be contacted until its window opens. Hover the icon to see the lead's local time and UTC offset.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-sleeping.png"
+    alt="Lead outside calling hours indicator"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Lead Details
+
+Click a lead to open its details panel. Use the arrows or **↑/↓** keys to move between leads. The header shows the lead's name (or contact identifier), its **Lead ID** (copyable), and its status.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-popup-overview.png"
+    alt="Lead detail panel"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+**Status** — change the lead's status from the editable dropdown; the change is applied instantly. This simply updates the lead's status label (e.g. **Chat Successful**, **Chat Unsuccessful**, **New**) — for example, set it back to **New** to re-contact the lead.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-popup-change-status.png"
+    alt="Change lead status"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+**Lead information** — Timezone, Reference ID, contact identifier, and every Pearl variable are **editable inline**, and each change is saved immediately. The panel separates two groups:
+
+- **Lead data**: values you provided up front (imported or entered variables).
+- **Lead Collected Info**: values Pearl gathered during the conversation.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-popup-info.png"
+    alt="Lead information and collected info"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+**Chats** — the right column lists the lead's conversations with their time and status; click one to open its **Post-Chat** view.
+
+<Frame>
+  <img
+    src="/images/dark_mode/lead-popup-calls-view.png"
+    alt="Lead chats history"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Card
+  title="Post-Chat"
+  icon="message-check"
+  iconType="light"
+  href="/pages/text/postchat"
+>
+  See everything captured after a conversation: outcome, transcript, summary, and collected data.
+</Card>

@@ -9,8 +9,8 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/blacklist_cover.jpg"
-        alt="Send Email action interface on light mode"
+        src="/images/dark_mode/blacklist-cover.svg"
+        alt="Phone Number Blacklist cover"
         className="rounded-[14px]"
       />
     </div>
@@ -21,8 +21,8 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/blacklist_cover.jpg"
-        alt="Send Email action interface on dark mode"
+        src="/images/dark_mode/blacklist-cover.svg"
+        alt="Phone Number Blacklist cover"
         className="rounded-[14px]"
       />
     </div>
@@ -42,100 +42,113 @@ The **Blacklist** feature enables you to restrict specific phone numbers or enti
 
 ---
 
-### Setting Up Your Blacklist
+### Accessing the Blacklist
+
+The Blacklist lives in your **Settings**. Click your **profile card** at the bottom-left corner of the sidebar, then select **Settings**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/go-to-settings.png"
+    alt="Open Settings from the profile card"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+From the left menu, select **Blacklist** under the *Workspace* section.
+
+<Frame>
+  <img
+    src="/images/dark_mode/blacklist-tab.png"
+    alt="Blacklist tab in the Workspace settings"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Adding a Number to the Blacklist
 
 <Steps>
-  <Step title="Access Advanced Settings">
-    Click on your profile icon located at the bottom left corner, then select the **Advanced** tab at the top, and choose **Blacklist** from the sidebar menu.
+  <Step title="Open the Add dialog">
+    In the **Add Blacklisted Phone Number** bar at the top, click **Add Phone Number**.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
+    <Frame>
       <img
-        src="/images/light_mode/blacklist_go.jpg"
-        alt="Send Email action interface on light mode"
+        src="/images/dark_mode/blacklist-add-bar.png"
+        alt="Add Blacklisted Phone Number bar"
         className="rounded-[14px]"
       />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/blacklist_go.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
+    </Frame>
   </Step>
-  <Step title="Adding Numbers or Prefixes">
-    Enter a specific phone number (e.g., `+33123456789`) or a prefix (e.g., `+33`) to blacklist.
+
+  <Step title="Enter the number and confirm">
+    In the **Phone Number Blacklist** dialog, type the phone number you want to block (e.g., `+1 408 XXX XXXX`), then click **Add Phone Number**.
+
+    <Frame>
+      <img
+        src="/images/dark_mode/blacklist-add-dialog.png"
+        alt="Phone Number Blacklist dialog to enter a number"
+        className="rounded-[14px]"
+      />
+    </Frame>
 
     <Note>
-    When adding a prefix (e.g., `+33`), all numbers beginning with that prefix (`+33123456789`, `+33456789012`, etc.) are automatically blocked from both receiving and making calls.
+    You can also block an entire **prefix** (e.g., `+33`). Every number beginning with that prefix (`+33123456789`, `+33456789012`, etc.) is then blocked from both receiving and making calls.
     </Note>
 
-    Click the **Add** button to save your entry to the blacklist.
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/blacklist_add.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/blacklist_add.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+    <Tip>
+    Need to block many numbers at once? You can **add them in bulk** instead of entering them one by one — paste or import a whole list in a single action.
+    </Tip>
   </Step>
 </Steps>
+
+---
+
+### Managing Blacklisted Numbers
+
+All blocked numbers appear under **Blacklisted Phone Numbers**, with a counter showing how many are stored.
+
+<Frame>
+  <img
+    src="/images/dark_mode/blacklist-list.png"
+    alt="List of blacklisted phone numbers"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+**Search** — use the search field at the top right to quickly find a specific number in a long list.
+
+<Frame>
+  <img
+    src="/images/dark_mode/blacklist-search.png"
+    alt="Search field in the blacklist"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+**Remove** — click the red trash icon on a row to remove that number from the blacklist.
+
+<Frame>
+  <img
+    src="/images/dark_mode/blacklist-remove.png"
+    alt="Remove a number from the blacklist with the trash icon"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
 
 ### Monitoring Blacklisted Numbers in Campaigns
 
 - Blacklisted numbers will appear with a `Blacklisted` label in your campaign interface.
 - Track attempted interactions involving blacklisted numbers, whether inbound calls to your campaigns or outbound calls initiated by your AI agent.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/blacklist_label.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/blacklist_label.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
+<Frame>
+  <img
+    src="/images/dark_mode/blacklist-call-label.png"
+    alt="Blacklisted label on a call in a Pearl's Calls list"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 Leveraging the blacklist feature ensures your campaigns remain targeted, effective, and free from unwanted communication.

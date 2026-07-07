@@ -9,8 +9,8 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/security_cover.png"
-        alt="Send Email action interface on light mode"
+        src="/images/dark_mode/security-cover.svg"
+        alt="Account Security Settings cover"
         className="rounded-[14px]"
       />
     </div>
@@ -21,8 +21,8 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/security_cover.png"
-        alt="Send Email action interface on dark mode"
+        src="/images/dark_mode/security-cover.svg"
+        alt="Account Security Settings cover"
         className="rounded-[14px]"
       />
     </div>
@@ -34,19 +34,35 @@ iconType: "light"
 Use account security settings to manage how users access your workspace, how long sessions stay active, and how administrators review important account activity.
 
 <CardGroup cols={2}>
-  <Card title="Session timeout" icon="clock">
+  <Card title="Session timeout" icon="clock" iconType="light">
     Automatically log users out after a period of inactivity.
   </Card>
-  <Card title="Two-factor authentication" icon="shield">
+  <Card title="Two-factor authentication" icon="shield" iconType="light">
     Add an extra verification step when users log in.
   </Card>
-  <Card title="Audit log" icon="list">
+  <Card title="Audit log" icon="list" iconType="light">
     Track workspace activity and security-related events.
   </Card>
-  <Card title="Enterprise SSO" icon="building-lock">
+  <Card title="Enterprise SSO" icon="building-lock" iconType="light">
     Connect enterprise identity providers through Single Sign-On.
   </Card>
 </CardGroup>
+
+---
+
+## Accessing Your Settings
+
+All the settings on this page live in your **Settings**. To open them, click your **profile card** at the bottom-left corner of the sidebar, then select **Settings**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/go-to-settings.png"
+    alt="Open Settings from the profile card"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+From there, use the left menu: the **Security** tab (under *User*) for 2FA and password, and **General Settings** or **Audit Log** (under *Workspace*) for session timeout and activity logs.
 
 ---
 
@@ -54,35 +70,41 @@ Use account security settings to manage how users access your workspace, how lon
 
 You can configure how long a session remains active before the user is automatically logged out due to inactivity. This helps protect your account if you forget to log out, especially when using a shared or public device.
 
-On our platform, you can set the session timeout duration in **minutes**, with a minimum of **30 minutes** and a maximum of **3 days**. To adjust this setting, go to **Workspace > General Settings**, update the **Session Timeout** field, and click **Update**.
+The session timeout is set in **minutes**, with a minimum of **30 minutes** and a maximum of **3 days**.
+
+<Note>
+This is a **workspace-level** setting managed by the **workspace owner**. The value applies to **all members** of the workspace, not just the account that changes it.
+</Note>
+
+<Steps>
+  <Step title="Open General Settings">
+    Go to **Settings > General Settings** under the *Workspace* section.
+
+    <Frame>
+      <img
+        src="/images/dark_mode/security-general-settings-location.png"
+        alt="General Settings tab in the Workspace section"
+        className="rounded-[14px]"
+      />
+    </Frame>
+  </Step>
+
+  <Step title="Set the Session Timeout">
+    In the **Session Timeout** field, enter the duration in minutes and click **Update**.
+
+    <Frame>
+      <img
+        src="/images/dark_mode/security-session-timeout.png"
+        alt="Session Timeout field in Workspace General Settings"
+        className="rounded-[14px]"
+      />
+    </Frame>
+  </Step>
+</Steps>
 
 <Tip>
   Shorter session timeouts are recommended for shared devices, public computers, or workspaces with stricter security policies.
 </Tip>
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/security_timeout.jpg"
-        alt="Session timeout setting on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/security_timeout.jpg"
-        alt="Session timeout setting on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
 
 ---
 
@@ -90,17 +112,33 @@ On our platform, you can set the session timeout duration in **minutes**, with a
 
 The **Audit Log** helps administrators review important activity and security events in the workspace. It is useful for monitoring sign-ins, configuration changes, published Pearls, and other account-level events.
 
-To access it, go to **Workspace > Audit Log**.
+To access it, go to **Settings > Audit Log** under the *Workspace* section.
 
-The audit log includes:
+<Frame>
+  <img
+    src="/images/dark_mode/security-audit-log-location.png"
+    alt="Audit Log tab in the Workspace section"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+Each entry in the log includes:
 
 - **Timestamp**: when the event happened.
 - **Event Type**: the kind of action recorded, such as a successful login or published Pearl.
 - **User**: the workspace member who triggered the event.
 - **Details**: additional context about the action, when available.
 
+<Frame>
+  <img
+    src="/images/dark_mode/security-audit-log-filters.png"
+    alt="Audit Log with date range and event type filters"
+    className="rounded-[14px]"
+  />
+</Frame>
+
 <Note>
-  Use the date range and event type filters to narrow the audit log when investigating a specific time period or activity.
+  Use the **date range** and **Event Type** filters at the top right to narrow the audit log when investigating a specific time period or activity.
 </Note>
 
 ---
@@ -113,262 +151,161 @@ Single Sign-On (SSO) is available for Enterprise workspaces. It allows your team
   To enable SSO for your workspace, contact us at [support@nlpearl.ai](mailto:support@nlpearl.ai). Please include your workspace name, company domain, and preferred identity provider if available.
 </Info>
 
+Once SSO is enabled, members sign in with the **Sign in with SSO** button on the login screen instead of entering a password.
+
+<Frame>
+  <img
+    src="/images/dark_mode/security-sso-login.png"
+    alt="Sign in with SSO button on the login screen"
+    className="rounded-[14px]"
+  />
+</Frame>
+
 ---
 
-## Setting Up Two-Factor Authentication (2FA)
+## Two-Factor Authentication (2FA)
 
 Two-Factor Authentication (2FA) adds an additional step to the login process to strengthen your account’s security. Instead of relying solely on your password, which could be guessed, leaked, or stolen, 2FA requires a second form of verification that only you should have access to.
 
-Typically, this second factor is a temporary code generated by a mobile app like Google Authenticator. Alternatively, you can receive the code by **SMS** or **email**, depending on your preferences and the contact details you provided during signup. Even if someone knows your password, they won’t be able to access your account without that second code. That’s why 2FA is a simple and highly effective way to safeguard your data.
+Typically, this second factor is a temporary code generated by a mobile app like Google Authenticator. If you can't reach your app, you can also receive the code by **SMS** at login. Even if someone knows your password, they won’t be able to access your account without that second code. That’s why 2FA is a simple and highly effective way to safeguard your data.
 
 In this guide, we’ll show you exactly how to activate and use Two-Factor Authentication on our platform.
 
 ---
 
-### How to Set Up 2FA on the Platform
+### How to Set Up 2FA
 
 <Steps>
 
-<Step title="Log into your account.">
+<Step title="Open the Platform Security page">
+Click your **profile card** at the bottom-left corner of the sidebar, open **Settings**, then select the **Security** tab under the *User* section.
+
+<Frame>
+  <img
+    src="/images/dark_mode/security-tab-location.png"
+    alt="Security tab in Settings, opening the Platform Security page"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
-<Step title="Access Settings and Go to Security:">
-Click on your profile icon located at the bottom-left corner of the sidebar (marked as 1 in the image).
+<Step title="Locate the 2FA box">
+The **Platform Security** page has two areas: the **2FA (Two-Factor Authentication)** box and a **Reset Password** section.
 
-Then, in the top navigation bar, click on the **Advanced** tab (marked as 2).
-
-In the left-hand menu, under **Advanced**, select **Platform Security**, then go to the **Security** tab.
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/security_settings.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/security_settings.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/security-2fa-location.png"
+    alt="Two-Factor Authentication box on the Platform Security page"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
+<Step title="Open the setup window">
+In the **2FA (Two-Factor Authentication)** box, click **Set up authenticator** (labeled **Reset authenticator** once 2FA is already set up) to open the QR code window.
 
-<Step title="Locate the 2FA Box">
-Find the section labeled **Two-Factor Authentication**.  
-Click on **Set Up Authentificator**.
+<Frame>
+  <img
+    src="/images/dark_mode/security-2fa-setup-button.png"
+    alt="Button that opens the 2FA setup window"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/security_twofa.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+The **Secure your NLPearl account with 2FA** window appears, showing a QR code on the right and the boxes to enter your code.
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/security_twofa.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/security-2fa-setup-window.png"
+    alt="2FA setup window with QR code and verification code"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
-<Step title="Install an Authenticator App">
-If you haven’t already, download an app like **Google Authenticator** on your mobile device.
+<Step title="Download an authenticator app">
+On your phone, install an authenticator app such as **Google Authenticator**, **Microsoft Authenticator**, or **Authy**.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/security_appstore.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/security_appstore.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
+<Frame>
+  <img
+    src="/images/dark_mode/security-google-authenticator-appstore.png"
+    alt="Google Authenticator on the App Store"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
-<Step title="Scan the QR Code">
-Open the authenticator app.  
-Tap the **+** icon and select **Scan a QR Code**. 
+<Step title="Scan the QR code">
+Open the app, tap the **+** button, and choose **Scan a QR code**. Point your camera at the QR code shown in the setup window.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/security_scanqrcode.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/security_scanqrcode.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-Use your camera to scan the QR code displayed on the platform.
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/security_scanqrcode2.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/security_scanqrcode2.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
+<Frame>
+  <img
+    src="/images/dark_mode/security-google-authenticator-scan.png"
+    alt="Scanning a QR code in Google Authenticator"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
-<Step title="Enter the Verification Code">
-Your app will generate a 6-digit code that refreshes every few seconds.  
-Enter this code on the platform to validate and finalize the setup.
+<Step title="Enter the 6-digit code">
+The app generates a **6-digit code** that refreshes every few seconds. Enter it in the setup window and click **Verify & Activate**.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/security_scanqrcode3.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/security_scanqrcode3.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
+<Frame>
+  <img
+    src="/images/dark_mode/security-google-authenticator-code.png"
+    alt="6-digit code generated by Google Authenticator"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
-<Step title="Final Confirmation">
-Once verified, 2FA will be enabled.  
-You can toggle 2FA on or off at any time in this section. 
-When active, you will be required to enter a verification code at each login.
+<Step title="Turn 2FA on or off">
+Once 2FA has been set up, use the **toggle** in the 2FA box to turn it on or off for your account at any time. When it's on, you're asked for a code at every login; when it's off, 2FA is disabled but your authenticator stays configured.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/security_update2fa.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/security-2fa-toggle.png"
+    alt="Toggle to turn 2FA on or off on your account"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/security_update2fa.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Check>
+Once the code is verified, 2FA is active on your account. You'll be asked for a code at every login.
+</Check>
 
+<Note>
+Lost access to your authenticator app or got a new phone? Click **Reset authenticator** in the 2FA box (the same button used during setup) to unlink the current device and reopen the QR window to set up a new one.
+</Note>
+</Step>
+
+<Step title="How it works at login">
+Once 2FA is active, every login prompts you for a verification code:
+
+- Enter the current 6-digit code from your **authenticator app**.
+- If you can't reach your app, click **Get your code via SMS** in the prompt to receive the code by text instead.
+
+<Frame>
+  <img
+    src="/images/dark_mode/security-2fa-login-prompt.png"
+    alt="Two-Factor Authentication prompt at login"
+    className="rounded-[14px]"
+  />
+</Frame>
 </Step>
 
 </Steps>
+
 ---
 
-### After Activation: How 2FA Works
+## Resetting Your Password
 
-- Every time you log into your account, you will be prompted to enter a verification code.  
-- You can retrieve this code from your authenticator app.  
-- Alternatively, you can receive the code via **SMS**, depending on the method you have set up.
+You can update your account password at any time from the **Platform Security** page. In the **Reset Password** section, click **Reset Password** and follow the prompts.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/security_login.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/security_login.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/security-reset-password.png"
+    alt="Reset Password section on the Platform Security page"
+    className="rounded-[14px]"
+  />
+</Frame>

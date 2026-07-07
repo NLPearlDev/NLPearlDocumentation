@@ -4,92 +4,96 @@ icon: "user-gear"
 iconType: "light"
 ---
 
-In this step, you can customize your voice agent's identity and behavior by setting its **name**, **language**, **voice**, **personality**, and **timezone**.
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/text-agent-customization-cover.svg"
+        alt="Pearl Settings cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-<Card>
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/text-agent-customization-cover.svg"
+        alt="Pearl Settings cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
 
-**Agent Names, Languages & Voices**
+In this step, you can customize your chat agent's identity and behavior by setting its **name**, **personality**, **timezone**, and **Pearl Model**.
+
+---
+
+## Agent Name
 
 To define your agent's identity:
 
-- **<span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span> Agent Name** – Give your agent a name (e.g., *Joa*, *Victoria*). This name helps humanize the interaction and reflect your brand identity.
-- **<span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span> Language** – Select the default language your agent will speak. This ensures accurate pronunciation and localized expressions.
-- **<span style={{ color: '#f87171', fontWeight: 600 }}>(3)</span> Voice** – Choose the voice that will represent your agent. You can preview voices and select the one that fits your tone.
+- **Agent Name** – Set your Pearl's name (e.g., *Joe*, *Victoria*). This is the name it will use when chatting with customers. Max **25 characters**, required.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/simplepearl_voicechoose.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/simplepearl_voicechoose.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
+<Frame>
+  <img
+    src="/images/dark_mode/text-agent-customization-name.png"
+    alt="Agent Name in Pearl Settings"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 ---
 
-**Multilingual Agent Configuration:**
+## Pearl Model
 
-You can set up your Pearl to support multiple languages by creating several agent configurations, each with a specific **name**, **language**, and **voice**.
+The **Pearl Model** defines the intelligence, speed, and cost profile of your agent. Chat agents run on a single model, **Pearl Swan**.
 
-- To add a new language configuration, click on the **"+"** button <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span>. This allows you to define additional agents who can handle conversations in other languages.
-- Each configuration should include a **name** (used during calls), a **language**, and a corresponding **voice**.
+<Frame>
+  <img
+    src="/images/dark_mode/text-agent-customization-model.png"
+    alt="Pearl Model (Pearl Swan) in Pearl Settings"
+    className="rounded-[14px]"
+  />
+</Frame>
 
-When a caller requests to switch to another language during the conversation, Pearl will automatically reroute the call to the agent associated with that language, ensuring a smooth and localized experience.
-
-- The **first agent** you create is automatically marked as the **Default Agent** <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span>. This agent will always initiate the conversation when a call begins, unless another language is requested by the caller.
+<Card>
+  <Info>
+  **High Reasoning · Higher Latency · Standard Rate**
+  </Info>
+  Our standard model for chat agents, built to handle any text-based use case with reliable reasoning and natural responses.
+</Card>
 
 <Note>
-You can define as many language configurations as needed, perfect for global audiences or multilingual teams.
+Since Pearl Swan is the only model available for chat agents, the selector is fixed on it.
 </Note>
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/simplepearl_defaultagent.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/simplepearl_defaultagent.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<Info>
-Explore [Voice and Language](/pages/languages) to view all the language options available.
-</Info>
 
 ---
 
-**Personality**
+## Personality
 
 Your AI agent can take on a wide range of personalities, from natural and professional to wild, fictional, or downright iconic.
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-agent-customization-personality.png"
+    alt="Personality selection in Pearl Settings"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Tip>
+**Create your own personality.** You're not limited to the predefined list. Type any description in the **Personality** field and select **Use "&lt;your text&gt;" as a custom personality** to define your own.
+</Tip>
+
+<Note>
+Choose wisely. Your agent's personality will shape how it behaves in every interaction. Personality is optional, only **Agent Name** and **Timezone** are required.
+</Note>
+
+The personalities below are **examples** to give you a feel for the range available. The full list is loaded in the app and may evolve over time.
 
 | Personality Name             | Description (vibe / reference)                            |
 |-----------------------------|------------------------------------------------------------|
@@ -138,61 +142,16 @@ Your AI agent can take on a wide range of personalities, from natural and profes
 | Albert Einstein             | Brilliant, theoretical, with quirky logic.              |
 | Dorothy Gale                | Innocent, curious, with wonder in her tone.             |
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/simplepearl_personnality.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/simplepearl_personnality.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<Note>
-Choose wisely. Your agent's personality will shape how it sounds and behaves in every interaction.
-</Note>
-
 ---
 
-**Timezone**
+## Timezone
 
 Define the timezone of the agent. This influences time-related actions, such as booking meetings.
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/light_mode/simplepearl_timezone.jpg"
-        alt="Send Email action interface on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/simplepearl_timezone.jpg"
-        alt="Send Email action interface on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-</Card>
+<Frame>
+  <img
+    src="/images/dark_mode/text-agent-customization-timezone.png"
+    alt="Timezone selection in Pearl Settings"
+    className="rounded-[14px]"
+  />
+</Frame>

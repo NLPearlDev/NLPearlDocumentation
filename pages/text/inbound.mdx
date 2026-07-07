@@ -1,6 +1,6 @@
 ---
 title: Inbound
-description: 'Learn how to set up Inbound Activities using your created Pearl to handle incoming conversations effectively.'
+description: 'Configure your text Pearl to handle incoming conversations, from message limits and inactivity handling to transcripts and webhooks.'
 icon: "comments"
 iconType: "light"
 ---
@@ -9,7 +9,7 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/light_mode/inbound_text-cover.png"
+        src="/images/dark_mode/text-inbound-cover.svg"
         alt="Inbound cover"
         className="rounded-[14px]"
       />
@@ -21,7 +21,7 @@ iconType: "light"
   <Frame>
     <div className="p-1">
       <img
-        src="/images/dark_mode/inbound_text-cover.png"
+        src="/images/dark_mode/text-inbound-cover.svg"
         alt="Inbound cover"
         className="rounded-[14px]"
       />
@@ -33,88 +33,184 @@ iconType: "light"
 
 ## Setting Up Inbound Activities
 
-Inbound text activities let Pearl answer incoming conversations from your connected messaging channels. Start by asking PearlVibe to create an **inbound text Pearl**, then configure how the activity should handle messages, inactivity, transcripts, and webhooks.
+Once you have created a Pearl, you can enable it to handle inbound conversations. Inbound settings are configured inside your Pearl, under **Inbound Settings**, so your Pearl replies to incoming messages following the conversational flow you defined.
 
 <Info>
+**What are inbound activities?**
+
 Inbound activities are used when the end user starts the conversation. Pearl replies using the flow, knowledge, and actions defined in your Pearl.
 </Info>
+
 ---
 
-### Steps to Create an Inbound Activity
+## Connect a Channel
 
-<Steps>
+Unlike a voice activity, an inbound text activity isn't tied to a phone number, it's connected to a **messaging channel**. Once your Pearl is published, open its **overview** page and connect the channel your customers will use. Each channel is dedicated to your activity and can receive conversations from anywhere, at any time.
 
-<Step title="Create an inbound text Pearl">
-
-Ask PearlVibe to create a Pearl for your inbound text use case. Describe the channel, tone, expected questions, handoff rules, and any tools Pearl should use.
-
-<Card
-  title="PearlVibe"
-  icon="diagram-subtask"
-  iconType="light"
-  href="/pages/pearl_vibe"
->
-  Build and customize your Pearl's logic, knowledge, and actions from a single prompt-driven interface.
-</Card>
-</Step>
-
-<Step title="Configure inbound settings">
-Set how Pearl should manage each incoming chat:
-
-- **Message Limit**: Set the maximum number of messages Pearl can send before automatically handing the conversation off to a human.
-- **Auto-close After Inactivity**: Set how long the chat can remain inactive before Pearl marks it as finished and triggers the post-chat summary.
-- **Inactivity Follow-up**: Send follow-up messages when the end user stops replying after Pearl's last message. You can configure up to **3** follow-ups.
-- **Transcript Options**: Choose what should be kept from the conversation: the full transcript, only non-sensitive parts, or no transcript.
-</Step>
-<Step title="Publish the Pearl">
-Publish the Pearl when its flow and inbound settings are ready. After publishing, use the Pearl overview page to connect a channel.
-</Step>
-<Step title="Connect a channel from the overview">
-From the Pearl overview page, connect the messaging channel your customers will use.
-
-Unlike a voice activity, an inbound text activity is not tied to a phone number. It is connected to a **messaging channel**, such as:
-
-- **WhatsApp**
-- **Telegram**
-- **SMS**
-- **Glassix**
-
-Each channel can be dedicated to your Inbound Activity and can receive conversations from anywhere at any time.
-</Step>
-<Step title="Configure webhooks if needed">
-Use webhooks only if external tools need event notifications, such as when a chat starts or ends.
-
-<Note>
-  For actual automations, rely on Post-Chat actions tied to how the conversation ended.
-</Note>
-</Step>
-
-</Steps>
----
+NLPearl supports channels such as **WhatsApp**, **Telegram**, **SMS**, and **Glassix**. Follow the dedicated guides to set one up:
 
 <CardGroup cols={2}>
-  <Card
-    title="Agents"
-    icon="users"
-    iconType="light"
-    href="/pages/agents"
-  >
-    Understand how to manage your agents, including adding and configuring agents for your inbound and outbound activities.
-  </Card>
-  <Card
-    title="Post-Chat"
-    icon="message-check"
-    iconType="light"
-    href="/pages/text/postchat"
-  >
-    Review everything captured after a conversation, from transcript to summary.
-  </Card>
+
+<Card title="SMS" icon="comment-sms" iconType="light" href="/pages/text/channels/sms">
+  Connect your Pearl to SMS through Twilio to text with your customers.
+</Card>
+
+<Card title="Telegram" icon="telegram" iconType="light" href="/pages/text/channels/telegram">
+  Connect your Pearl to Telegram by linking a bot created with BotFather.
+</Card>
+
 </CardGroup>
+
+---
+
+## Inbound Settings
+
+Configure how your Pearl handles incoming conversations from the **Inbound Settings** tab of your Pearl, in the [PearlVibe](/pages/pearl_vibe) flow editor.
+
+<Warning>
+These settings apply to **text** Pearls only. A voice Pearl has a different set of inbound options.
+</Warning>
+
+### Message Limit
+
+The maximum number of messages Pearl sends before automatically handing the conversation off to a human. You can set between **5 and 1000** messages (default **100**).
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-inbound-message-limit.png"
+    alt="Message Limit setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Auto-close After Inactivity
+
+How long a conversation can stay inactive before Pearl closes the chat and triggers the post-chat summary. You can set between **1 and 72 hours** (default **24 hours**).
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-inbound-auto-close.png"
+    alt="Auto-close After Inactivity setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+### Inactivity Follow-up
+
+When enabled (on/off), Pearl sends follow-up messages when the end user stops replying after Pearl's last message, to re-engage the conversation.
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-inbound-inactivity-followup.png"
+    alt="Inactivity Follow-up setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+- **Up to 3 follow-ups**: each one is a **delay** plus an optional **message**.
+- **Minimum delay**: at least **5 minutes** between follow-ups for inbound.
+- **Default**: a single follow-up sent after **10 minutes**.
+
+<Note>
+Follow-up messages can use **Pre-Call** variables (e.g. the customer's first name) to keep the re-engagement personal.
+</Note>
+
+---
+
+### Transcript Options
+
+Choose what is kept from the conversation transcript. Transcripts appear in your conversation logs.
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-inbound-transcript-option.png"
+    alt="Transcript Options setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+| Option | Description | When to use |
+| --- | --- | --- |
+| **Full Transcript** | Keeps the entire conversation as-is. | Complete analysis, QA, and training. |
+| **Sensitive Info Removed** | Automatically masks sensitive data (credit card numbers, Social Security numbers, personal identifiers) while keeping the conversation readable. | Compliance and PII protection. |
+| **No Transcript** | No transcript is stored for the conversation. | Maximum privacy. |
+
+<Info>
+With **Sensitive Info Removed**, if a customer writes *"My credit card number is 1234-5678-9012-3456"*, the transcript stores it as *"My credit card number is \*\*\*\*-3456"*, so you can review interactions safely without exposing sensitive data.
+</Info>
+
+---
+
+### Webhooks
+
+Send conversation lifecycle events to an external endpoint.
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-inbound-webhook.png"
+    alt="Webhooks setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+- **Version**: `V1` or `V2` (default **V2**). V2 is the current payload format; keep V1 only if you have an older integration built against it.
+- **Chat Webhook URL**: fires at key points in the conversation lifecycle (when the chat starts and when it ends), sending details like the outcome and any data collected during the conversation.
+- **Credentials**: optional authentication token attached to the requests so your endpoint can verify they come from NLPearl.
+
+<Tip>
+Use Webhooks only if external tools need event notifications. For actual automations, rely on **Post-Chat Actions** tied to how the conversation ended.
+</Tip>
+
+<Card
+  title="Webhooks"
+  icon="webhook"
+  iconType="light"
+  href="/pages/webhooks"
+>
+  Learn how to configure webhooks, authenticate requests, and handle the events NLPearl sends.
+</Card>
+
+---
+
+## Project-Level Settings
+
+A few settings live at the **Project** level rather than in the Inbound Settings screen. Open them from the settings popover on your Pearl.
+
+### Agents
+
+Sets how many **simultaneous agents** handle this Pearl's incoming conversations, i.e. how many chats can be handled at the same time, capped by your account's agent quota. A higher number lets your Pearl take more concurrent conversations.
+
+<Card
+  title="Agents"
+  icon="users"
+  iconType="light"
+  href="/pages/agents"
+>
+  Learn how to manage the agents assigned to your inbound and outbound activities.
+</Card>
+
+---
+
+### Retention
+
+Applies to **all conversations**. Set how long conversations are kept (a number of days, or leave empty to keep them indefinitely), then choose what is removed when they expire: delete all conversation data, or granularly the **Transcript**, **Summary**, or collected **Variables**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/outbound-call-retention-settings.png"
+    alt="Retention settings"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 ---
 
 <Info>
 ### Monitoring and Adjusting Your Inbound Activities
 
-While basic monitoring of conversation logs and activity reports can be done via our API, any modifications to the activity setup or its settings need to be handled directly on the platform.
+While basic monitoring of conversation logs and reports can be done via our API, any changes to the setup or its settings must be handled directly on the platform.
 </Info>
