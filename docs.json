@@ -11,6 +11,11 @@
     "light": "#F7F7F7",
     "dark": "#111111"
   },
+  "background": {
+    "color": {
+      "dark": "#1A1A19"
+    }
+  },
   "fonts": {
     "family": "Roboto"
   },
