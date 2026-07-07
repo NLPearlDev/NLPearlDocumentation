@@ -102,10 +102,14 @@ This is the part people get wrong most often, so read it carefully. There are **
 
 ### Node IDs: you provide them
 
-- **You choose `nodeId`, and it is required.** It is how the graph wires itself together: a transition points at a node through `toNodeId`, which must equal that node's `nodeId`.
-- Node IDs must be **unique** within the flow and are capped at **20 characters**.
+- **You choose `nodeId`.** It is how the graph wires itself together: a transition points at a node through `toNodeId`, which must equal that node's `nodeId`.
+- The `nodeId` must be **unique** within the flow and is capped at **20 characters**. The `name` does **not** have to be unique.
 - Pick short, stable, meaningful IDs (`opening`, `triage`, `booking`, `endCall`). You will reuse them across every transition that leads to the node.
-- If you omit a `nodeId`, the request is rejected. There is no auto-generation for nodes: the graph cannot connect nodes it cannot name.
+- **A node needs at least one of `nodeId` or `name`, and the platform derives the missing one.** Send only a `nodeId` and the `name` is generated from it (`verifyCustomer` → "Verify Customer", `endCall` → "End Call"); send only a `name` and the `nodeId` is generated from it in camelCase ("Verify Customer" → `verifyCustomer`). Send neither and the request is rejected.
+
+<Warning>
+A name-only node gets an **auto-generated `nodeId`** (the camelCase of its `name`, made unique). Because a transition's `toNodeId` must match that id, any node another node points to should carry an explicit `nodeId`, it is the robust path and you still get the `name` for free. Deriving the id from the name is most convenient for nodes nothing transitions to (post-call actions, hand-off sub-actions).
+</Warning>
 
 ### Transition IDs: you do NOT provide them
 
@@ -316,6 +320,10 @@ A TransferCall node behaves differently depending on how it is reached, and this
   "transitions": [ { "name": "Continue", "toNodeId": "endCall" } ]
 }
 ```
+
+<Note>
+A TransferCall node does **not** need an outgoing transition. Once the call is handed off there is nothing left to branch on, so the platform connects it **straight to the EndCall node** on its own. This holds whether the transfer is **wired** (it has an incoming transition) or **floating** (it has none): in both cases you can leave its `transitions` empty and the post-call flow still runs. The `{ "name": "Continue", "toNodeId": "endCall" }` transition shown above is therefore optional.
+</Note>
 
 ---
 
