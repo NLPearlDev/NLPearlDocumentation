@@ -1,0 +1,342 @@
+---
+title: "Groups"
+description: "Organize related Pearls into Groups so they can share the same contacts, interaction history, and optionally a common per-contact memory."
+icon: "layer-group"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/groups-cover.png"
+        alt="A Group with its Pearls organized by type"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/groups-cover.png"
+        alt="A Group with its Pearls organized by type"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+## Overview
+
+A **Group** brings together several Pearls - voice, text, or a mix of both - that serve the same customers or the same part of your business.
+
+When Pearls belong to the same Group, they can share:
+
+- **Contacts** - the same contact records across every Pearl in the Group.
+- **Interaction history** - a combined view of the calls and chats a contact had with any Pearl in the Group.
+- **Collected information** - the structured data gathered by any Pearl in the Group.
+- **Memory** *(optional)* - a single, shared memory for each contact.
+
+<Info>
+A Pearl can belong to **one Group at a time**. Moving it into another Group removes it from the previous one.
+</Info>
+
+---
+
+## Individual vs Shared Memory
+
+Two related concepts control how a contact is remembered.
+
+<CardGroup cols={2}>
+  <Card title="Individual Memory" icon="brain" iconType="light">
+    A per-Pearl setting (in a Pearl's **Knowledge Base**). When enabled, that specific Pearl remembers a contact and continues from where it left off - **within that single Pearl only**.
+  </Card>
+  <Card title="Shared Memory" icon="users" iconType="light">
+    A **Group-level** setting. When enabled, every Pearl in the Group accesses and updates the **same memory** for a contact, so context carries over between Pearls.
+  </Card>
+</CardGroup>
+
+<Warning>
+Enabling **Shared Memory** at the Group level is not enough on its own. Each Pearl must **also** have its individual **Memory** toggle enabled (in its Knowledge Base) to participate in the Group's Shared Memory.
+</Warning>
+
+---
+
+## Open the Pearls area
+
+Groups live inside **Pearls**. Open **Pearls** from the left navigation.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-open-pearls.png"
+    alt="Pearls in the left navigation"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+Inside **Pearls**, the left sidebar shows **All Pearls** at the top, then a **Groups** section listing your Groups, ending with **Create Group**. **All Pearls** lists every Pearl grouped by type - **Inbound Phone**, **Outbound Phone**, and **Inbound Text** - and each Pearl that belongs to a Group shows the Group name as a **tag** next to its title.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-all-pearls.png"
+    alt="All Pearls listed by type, each Pearl showing its Group as a tag"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+---
+
+## Create a Group
+
+<Steps>
+<Step title="Click Create Group">
+In the **Groups** section of the sidebar, click **Create Group**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-create-group-button.png"
+    alt="Create Group option in the Groups section of the sidebar"
+    className="rounded-[14px]"
+  />
+</Frame>
+</Step>
+<Step title="Name the Group">
+Enter a Group name (required, up to **50 characters**), then click **Create**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-create-group-dialog.png"
+    alt="Create group dialog with the name field and the Create button"
+    className="rounded-[14px]"
+  />
+</Frame>
+</Step>
+</Steps>
+
+---
+
+## Assign Pearls to a Group
+
+From **All Pearls**, select one or more Pearls. An action bar appears at the bottom showing the number selected, along with **Move to group**, **Delete**, and **Cancel**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-select-move-to-group.png"
+    alt="Two Pearls selected in All Pearls with the Move to group action bar"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+Click **Move to group** to open the dialog, then choose the destination Group and click **Move**. Selecting **Remove From Group** takes the Pearls out of their current Group instead.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-move-to-group-dialog.png"
+    alt="Move to group dialog listing the available Groups and Remove From Group"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Note>
+You can also add Pearls from inside a Group, using the **+** action in the **Assigned Pearls** toolbar.
+</Note>
+
+---
+
+## Inside a Group
+
+Opening a Group shows three tabs, starting on **Assigned Pearls**.
+
+| Tab | Purpose |
+| --- | --- |
+| **Group Settings** | Configure the Group name, Shared Contacts, Shared Memory, Additional Details, Contact Retention, and Delete Group. |
+| **Assigned Pearls** | View and manage the Pearls that belong to this Group. |
+| **Shared Contacts** | Browse the contacts shared across the Group's Pearls. |
+
+In **Assigned Pearls**, Pearls are grouped by type with a count per section. A toolbar lets you **search**, **sort** (Last edited, Date created, Alphabetical), **filter** by status and type, and switch between **grid** and **list** views.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-assigned-pearls.png"
+    alt="Assigned Pearls tab showing Pearls grouped by type with a toolbar"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Warning>
+Removing a Pearl from a Group does **not** delete it. Only the **Delete** action permanently deletes a Pearl.
+</Warning>
+
+---
+
+## Group Settings
+
+The **Group Settings** tab is where the Group's behavior is defined. Changes are saved immediately.
+
+<Steps>
+<Step title="Group Name">
+Change the name of this Group. Use the pencil next to the field to rename it.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-settings-group-name.png"
+    alt="Group Name field in Group Settings"
+    className="rounded-[14px]"
+  />
+</Frame>
+</Step>
+
+<Step title="Shared Contacts, Shared Memory & Additional Details">
+These three toggles work together and control what Pearls in the Group share about each contact:
+
+- **Shared Contacts** - Pearls in the Group use the same contact records and interaction history.
+- **Shared Memory** - every Pearl accesses and updates the same per-contact memory (see the [memory warning](#individual-vs-shared-memory) above).
+- **Additional Details** - additional information collected through variables is stored on the contact and shown under **Collected Info**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-settings-shared-contacts.png"
+    alt="Shared Contacts, Shared Memory, and Additional Details toggles"
+    className="rounded-[14px]"
+  />
+</Frame>
+</Step>
+
+<Step title="Contact Retention">
+Choose how long contact data is kept before it is automatically deleted. Leave it on **Never** to keep contacts indefinitely, or set a number of days after which older contacts are removed.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-settings-contact-retention.png"
+    alt="Contact Retention setting in Group Settings"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Warning>
+Retention-based deletion is permanent. Once a contact is deleted based on the configured period, it cannot be recovered.
+</Warning>
+</Step>
+
+<Step title="Delete Group">
+Permanently delete the Group. The Pearls assigned to it are **not** deleted - only the Group and its shared-contact configuration are removed.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-settings-delete-group.png"
+    alt="Delete Group section in Group Settings"
+    className="rounded-[14px]"
+  />
+</Frame>
+</Step>
+</Steps>
+
+---
+
+## Shared Contacts
+
+The **Shared Contacts** tab lists every contact shared across the Group's Pearls, with a search bar and a sortable table:
+
+| Column | |
+| --- | --- |
+| **Phone Number** | The contact's phone number. |
+| **First Name** / **Last Name** | The contact's name, when known. |
+| **Email** | The contact's email, when known. |
+| **Reference ID** | An external reference, when provided. |
+| **Last Contact** | The date and time of the most recent interaction. |
+
+Hover a row and click **Open** to view the full contact.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-shared-contacts-table.png"
+    alt="Shared Contacts table listing contacts shared across the Group"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+An opened contact shows its **Contact ID** at the top and three areas: **Contact Information**, **Collected Info**, and **Interactions**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-contact-details.png"
+    alt="Opened contact with Contact Information, Collected Info, and Interactions"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<AccordionGroup>
+<Accordion title="Contact Information" icon="address-card">
+The contact's core details: phone number, first and last name, email, reference ID, time zone, and last contact date.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-contact-information.png"
+    alt="Contact Information section of an opened contact"
+    className="rounded-[14px]"
+  />
+</Frame>
+</Accordion>
+<Accordion title="Collected Info" icon="brackets-curly">
+The values gathered by the Group's Pearls through **variables** (populated when **Additional Details** is enabled).
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-contact-collected-info.png"
+    alt="Collected Info section showing variables gathered by Pearls"
+    className="rounded-[14px]"
+  />
+</Frame>
+</Accordion>
+<Accordion title="Interactions" icon="clock-rotate-left">
+Every call and chat the contact had with Pearls in the Group - each entry shows the Pearl name and type, the date, and a status such as **Completed** or **In Progress**, with access to the related call or chat.
+
+<Frame>
+  <img
+    src="/images/dark_mode/groups-contact-interactions.png"
+    alt="Interactions list of the contact's calls and chats with Pearls in the Group"
+    className="rounded-[14px]"
+  />
+</Frame>
+</Accordion>
+</AccordionGroup>
+
+<Note>
+A **Group Contacts** tab also appears on an individual Pearl's page when that Pearl belongs to a Group with **Shared Contacts** enabled.
+</Note>
+
+---
+
+## Best Practices
+
+<Tip>
+- Group Pearls that serve the **same customers** or the **same workflow**.
+- Enable **Shared Memory** only when cross-Pearl continuity is genuinely useful - and remember to enable each Pearl's individual **Memory** toggle.
+- Use **variables** for structured information and **Shared Memory** for conversational context.
+- Review **Contact Retention** before handling production contact data.
+- Name Groups after the team, customer journey, or business process they represent.
+</Tip>
+
+---
+
+## Related Documentation
+
+<CardGroup cols={2}>
+  <Card title="Pearl Voice" icon="phone-volume" iconType="light" href="/pages/pearl_voice">
+    AI voice agents that handle real phone conversations - inbound and outbound.
+  </Card>
+  <Card title="Pearl Text" icon="messages" iconType="light" href="/pages/text/pearl_text">
+    AI text agents that message your customers across SMS, WhatsApp, email, and chat.
+  </Card>
+  <Card title="Variables" icon="brackets-curly" iconType="light" href="/pages/variables">
+    Collect, store, and reuse data during conversations.
+  </Card>
+  <Card title="Pearl Settings" icon="user-gear" iconType="light" href="/pages/agent_customization">
+    Configure a Pearl's name, language, voice, personality, and time zone.
+  </Card>
+</CardGroup>
