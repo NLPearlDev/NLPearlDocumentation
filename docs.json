@@ -72,6 +72,7 @@
               },
               "pages/variables",
               "pages/webhooks",
+              "pages/pearl_groups",
               "pages/payout"
             ]
           },
