@@ -1,6 +1,6 @@
 ---
 title: Building a Pearl Flow
-description: 'How to build a Pearl as a graph of nodes and transitions through the API, for both Phone and Text.'
+description: 'How to build a Pearl as a graph of nodes and transitions through the API, for both Voice and Text.'
 icon: "diagram-project"
 iconType: "light"
 ---
@@ -10,12 +10,12 @@ A **Pearl** can be driven in one of two ways:
 - A **Simple Pearl**: a single opening sentence plus a flow script. Created with [Create Pearl](/api-reference/v2/pearlFlow/add-pearl-flow).
 - A **Pearl** (the focus of this guide): a **graph of nodes** connected by **transitions**, giving you full control over the conversation, branching, integrations, and post-call automation.
 
-This page explains the node logic: how nodes connect, how the entry point and IDs work, how transitions branch, and what differs between the **Phone** and **Text** channels.
+This page explains the node logic: how nodes connect, how the entry point and IDs work, how transitions branch, and what differs between the **Voice** and **Text** channels.
 
 <Note>
 Endpoints for node-graph Pearls:
 
-- **Phone**: [Create Phone Pearl](/api-reference/v2/pearlFlow/add-phone-pearl), [Update Phone Pearl](/api-reference/v2/pearlFlow/update-phone-pearl)
+- **Voice**: [Create Voice Pearl](/api-reference/v2/pearlFlow/add-voice-pearl), [Update Voice Pearl](/api-reference/v2/pearlFlow/update-voice-pearl)
 - **Text**: [Create Text Pearl](/api-reference/v2/pearlFlow/add-text-pearl), [Update Text Pearl](/api-reference/v2/pearlFlow/update-text-pearl)
 - **Read back**: [Get Pearl Settings](/api-reference/v2/pearlFlow/get-pearl-flow)
 </Note>
@@ -49,16 +49,16 @@ Every node has a `nodeType` (an integer). This is the single most important fiel
 | `10` | Dialogue | Both | `script` (+ optional `instructions`) |
 | `31` | HandoffChatToHuman | **Text only** | `handOffAction` (+ optional `script`) |
 | `40` | API | Both | `apiSettings` |
-| `50` | SMS | **Phone only** (as a node) | `smsSettings` |
+| `50` | SMS | **Voice only** (as a node) | `smsSettings` |
 | `51` | Email | Both | `emailSettings` |
-| `60` | TransferCall | **Phone only** | `transferCallSettings` |
-| `65` | StartCallRecording | **Phone only** | nothing (its presence is the whole configuration) |
+| `60` | TransferCall | **Voice only** | `transferCallSettings` |
+| `65` | StartCallRecording | **Voice only** | nothing (its presence is the whole configuration) |
 | `80` | SearchKnowledgeBase | Both | searches the knowledge base, branches on the result |
 | `100` | EndCall | Both | transitions to post-call containers only |
 | `200` | PostCallActions | Both | `postCallActions` (a container of actions) |
 
 <Note>
-Sending a node type that is not allowed for the channel is rejected. For example an SMS node (`50`) or a TransferCall node (`60`) in a Text Pearl, or a HandoffChatToHuman node (`31`) in a Phone Pearl.
+Sending a node type that is not allowed for the channel is rejected. For example an SMS node (`50`) or a TransferCall node (`60`) in a Text Pearl, or a HandoffChatToHuman node (`31`) in a Voice Pearl.
 </Note>
 
 ---
@@ -270,10 +270,10 @@ Action nodes do work instead of talking. Each carries the settings object that m
 | Node | `nodeType` | Settings object | Notes |
 | --- | --- | --- | --- |
 | API | `40` | `apiSettings` | Calls an HTTP endpoint mid-conversation. |
-| SMS | `50` | `smsSettings` | Phone only as a standalone node. |
+| SMS | `50` | `smsSettings` | Voice only as a standalone node. |
 | Email | `51` | `emailSettings` | Sends an email. |
-| TransferCall | `60` | `transferCallSettings` | Phone only. Hands the call to a phone number. |
-| StartCallRecording | `65` | none | Phone only. Its presence starts recording from that point. |
+| TransferCall | `60` | `transferCallSettings` | Voice only. Hands the call to a phone number. |
+| StartCallRecording | `65` | none | Voice only. Its presence starts recording from that point. |
 
 `apiSettings` (`method` codes: `1` GET, `2` POST, `3` PUT, `4` DELETE, `5` PATCH):
 
@@ -300,7 +300,7 @@ Action nodes do work instead of talking. Each carries the settings object that m
 Action node settings on a node graph carry **no trigger description**: the transitions decide when an action runs, so there is nothing to describe. (The one exception is a *floating* TransferCall, see below.) For the full API body, headers, credentials, and output-schema options, see the [API node](/pages/api_action) guide and [Flow Variables](/api-reference/flow_variables).
 </Note>
 
-### TransferCall: wired vs floating (Phone)
+### TransferCall: wired vs floating (Voice)
 
 A TransferCall node behaves differently depending on how it is reached, and this changes whether `triggerDescription` is required:
 
@@ -333,7 +333,7 @@ Post-call actions run **after** the conversation ends. They are fire-and-forget:
 
 The structure has two parts:
 
-1. A **PostCallActions container** node (`nodeType: 200`) whose `postCallActions` array holds the actual action nodes (API `40`, Email `51`, and on Phone also SMS `50`). These inner nodes have **no transitions**.
+1. A **PostCallActions container** node (`nodeType: 200`) whose `postCallActions` array holds the actual action nodes (API `40`, Email `51`, and on Voice also SMS `50`). These inner nodes have **no transitions**.
 2. The **EndCall** node's transitions, which point at those containers. **This is the only place EndCall may transition to.** Each transition `name` is the **condition** under which that container fires.
 
 When the call ends, the platform evaluates all of EndCall's transitions at once. Each condition that is true triggers its container, and multiple containers can fire in parallel (logical OR). Use a transition named "Always" for a container that should run on every call.
@@ -397,17 +397,17 @@ Post-call actions are the only place where **post-call variables** (`post_call_s
 
 ---
 
-## Phone vs Text
+## Voice vs Text
 
 The node logic above is identical for both channels. The differences are the node types allowed, the model, and a few channel fields.
 
-| | Phone Pearl | Text Pearl |
+| | Voice Pearl | Text Pearl |
 | --- | --- | --- |
-| Endpoint | [Create Phone Pearl](/api-reference/v2/pearlFlow/add-phone-pearl) | [Create Text Pearl](/api-reference/v2/pearlFlow/add-text-pearl) |
+| Endpoint | [Create Voice Pearl](/api-reference/v2/pearlFlow/add-voice-pearl) | [Create Text Pearl](/api-reference/v2/pearlFlow/add-text-pearl) |
 | Model (`modelType`) | `1` Trident, `2` Oyster, `3` Arrow, `4` Hydra (defaults to Arrow) | `11` Swan only |
 | Agent identity | `agents` (voice agents, one per language) + `speechRecognitionKeywords` | `agentName` (single text agent, all languages natively) |
 | Human escalation | TransferCall node (`60`) to a phone number | HandoffChatToHuman node (`31`) |
-| Phone-only nodes | SMS (`50`), TransferCall (`60`), StartCallRecording (`65`) | not available |
+| Voice-only nodes | SMS (`50`), TransferCall (`60`), StartCallRecording (`65`) | not available |
 | Text-only nodes | not available | HandoffChatToHuman (`31`) |
 | SMS | a standalone SMS node (`50`) | **only inside a Hand-Off** (as a sub-action), never as a standalone node or post-call action |
 | Channel binding | phone number is assigned on the platform | `textChannelId` on the inbound/outbound settings (from [Get Text Channels](/api-reference/v2/pearlSettings/get-text-channels)) |
@@ -459,7 +459,7 @@ Send the whole thing at once. The request wrapper is the same shape for both cha
     "companyName": "Bright Dental",
     "agentPersonality": "Warm and professional",
     "modelType": 3,
-    "agents": [ /* voice agents (Phone), or use agentName for Text */ ],
+    "agents": [ /* voice agents (Voice), or use agentName for Text */ ],
     "nodes": [ /* the full node graph */ ]
   },
   "variables": [ /* your flow variables, see Flow Variables */ ],
@@ -473,7 +473,7 @@ Send the whole thing at once. The request wrapper is the same shape for both cha
 
 ### Update: `pearl` is a full replace, settings are a patch
 
-The update endpoints ([Update Phone Pearl](/api-reference/v2/pearlFlow/update-phone-pearl), [Update Text Pearl](/api-reference/v2/pearlFlow/update-text-pearl)) treat each part of the request differently:
+The update endpoints ([Update Voice Pearl](/api-reference/v2/pearlFlow/update-voice-pearl), [Update Text Pearl](/api-reference/v2/pearlFlow/update-text-pearl)) treat each part of the request differently:
 
 | Part of the request | Behavior on update |
 | --- | --- |

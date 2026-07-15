@@ -228,10 +228,10 @@
                 "pages": [
                   "api-reference/v2/pearlFlow/get-pearl-flow",
                   "api-reference/v2/pearlFlow/add-pearl-flow",
-                  "api-reference/v2/pearlFlow/add-phone-pearl",
+                  "api-reference/v2/pearlFlow/add-voice-pearl",
                   "api-reference/v2/pearlFlow/add-text-pearl",
                   "api-reference/v2/pearlFlow/update-pearl-flow",
-                  "api-reference/v2/pearlFlow/update-phone-pearl",
+                  "api-reference/v2/pearlFlow/update-voice-pearl",
                   "api-reference/v2/pearlFlow/update-text-pearl",
                   "api-reference/v2/pearlFlow/update-pearl-inbound",
                   "api-reference/v2/pearlFlow/update-pearl-outbound",
