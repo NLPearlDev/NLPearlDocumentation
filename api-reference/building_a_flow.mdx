@@ -470,10 +470,11 @@ Send the whole thing at once. The request wrapper is the same shape for both cha
 - Provide **exactly one** channel: `inbound` **or** `outbound`, never both.
 - For a Text Pearl, put the `textChannelId` on the `inbound`/`outbound` settings.
 - `variables` defines the flow variables; keep it minimal and only include what you reference. See [Flow Variables](/api-reference/flow_variables).
+- The Pearl is created **already published**: the configuration you send becomes its live version.
 
 ### Update: `pearl` is a full replace, settings are a patch
 
-The update endpoints ([Update Voice Pearl](/api-reference/v2/pearlFlow/update-voice-pearl), [Update Text Pearl](/api-reference/v2/pearlFlow/update-text-pearl)) treat each part of the request differently:
+The update endpoints ([Update Voice Pearl](/api-reference/v2/pearlFlow/update-voice-pearl), [Update Text Pearl](/api-reference/v2/pearlFlow/update-text-pearl)) treat each part of the request differently. In every case the update applies to the **published version** of the Pearl: if several versions exist on the platform, only the currently published one is modified.
 
 | Part of the request | Behavior on update |
 | --- | --- |
