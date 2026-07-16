@@ -2397,7 +2397,7 @@
                     "Pearl"
                 ],
                 "summary": "Get Pearl Settings",
-                "description": "Retrieves the Settings for the specified Pearl. The shape of the response depends on the Pearl: the Pearl section is a Simple Pearl configuration (opening sentence + flow script) or a Pearl configuration (node graph), and the Inbound/Outbound section carries the voice or the text settings according to the AgentType field (1 = Phone, 2 = Text). AgentType also tells you which update endpoint to use: Update Pearl (Simple Pearl), Update Voice Pearl, or Update Text Pearl.",
+                "description": "Retrieves the Settings for the specified Pearl. The shape of the response depends on the Pearl: the Pearl section is a Simple Pearl configuration (opening sentence + flow script) or a Pearl configuration (node graph), and the Inbound/Outbound section carries the voice or the text settings according to the AgentType field (1 = Voice, 2 = Text). AgentType also tells you which update endpoint to use: Update Pearl (Simple Pearl), Update Voice Pearl, or Update Text Pearl.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2724,7 +2724,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Voice Pearl",
-                "description": "Updates a voice Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied). Omitted parts are kept unchanged. The Pearl must be a voice Pearl (AgentType = Phone). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For more details, click [here](/api-reference/building_a_flow).",
+                "description": "Updates a voice Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied). Omitted parts are kept unchanged. The Pearl must be a voice Pearl (AgentType = Voice). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For more details, click [here](/api-reference/building_a_flow).",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -3765,7 +3765,7 @@
                                 "$ref": "#/components/schemas/eAgentInteractionType"
                             }
                         ],
-                        "description": "`1 - Phone`\n\n`2 - Text`\n\n"
+                        "description": "`1 - Voice`\n\n`2 - Text`\n\n"
                     },
                     "variables": {
                         "type": "array",
@@ -3917,7 +3917,7 @@
                                 "$ref": "#/components/schemas/eAgentInteractionType"
                             }
                         ],
-                        "description": "`1 - Phone`\n\n`2 - Text`\n\n"
+                        "description": "`1 - Voice`\n\n`2 - Text`\n\n"
                     },
                     "variables": {
                         "type": "array",
@@ -3956,7 +3956,7 @@
                     }
                 },
                 "additionalProperties": false,
-                "description": "Settings of a voice Pearl (AgentType = Phone): configuration driven by a graph of nodes."
+                "description": "Settings of a voice Pearl (AgentType = Voice): configuration driven by a graph of nodes."
             },
             "AgentChatMessageApiView": {
                 "type": "object",
@@ -7418,7 +7418,7 @@
                                 "$ref": "#/components/schemas/eAgentInteractionType"
                             }
                         ],
-                        "description": "`1 - Phone`\n\n`2 - Text`\n\n"
+                        "description": "`1 - Voice`\n\n`2 - Text`\n\n"
                     },
                     "variables": {
                         "type": "array",
@@ -7457,7 +7457,7 @@
                     }
                 },
                 "additionalProperties": false,
-                "description": "Settings of a Simple Pearl (AgentType = Phone): configuration driven by an opening sentence and a flow script."
+                "description": "Settings of a Simple Pearl (AgentType = Voice): configuration driven by an opening sentence and a flow script."
             },
             "SipAuthMethodApi": {
                 "type": "object",
@@ -7938,7 +7938,7 @@
             },
             "eAgentInteractionType": {
                 "type": "integer",
-                "description": "`1 - Phone`\n\n`2 - Text`\n\n",
+                "description": "`1 - Voice`\n\n`2 - Text`\n\n",
                 "format": "int32"
             },
             "eAuditLogEvent": {
