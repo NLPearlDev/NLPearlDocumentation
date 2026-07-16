@@ -1631,7 +1631,7 @@
                     "Pearl"
                 ],
                 "summary": "Create Pearl",
-                "description": "Creates a new Simple Pearl, driven by an opening sentence and a flow script. Provide exactly one channel: inbound settings OR outbound settings. To create a Pearl (node graph), use Create Voice Pearl or Create Text Pearl instead.",
+                "description": "Creates a new Simple Pearl, driven by an opening sentence and a flow script. Provide exactly one channel: inbound settings OR outbound settings. The Pearl is created already published: the configuration you send becomes its live (published) version. To create a Pearl (node graph), use Create Voice Pearl or Create Text Pearl instead.",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1775,7 +1775,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Pearl",
-                "description": "Updates the configuration of a Simple Pearl (name, pearl settings and variables). For Pearls, use Update Voice Pearl or Update Text Pearl instead.",
+                "description": "Updates the configuration of a Simple Pearl (name, pearl settings and variables). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For Pearls, use Update Voice Pearl or Update Text Pearl instead.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2560,7 +2560,7 @@
                     "Pearl"
                 ],
                 "summary": "Create Voice Pearl",
-                "description": "Creates a new voice Pearl: the conversation is driven by a graph of nodes connected by transitions. The graph must contain one OpeningSentence node (or a PreCallAPI leading to one or two OpeningSentence nodes), one EndCall node, and every node must be reachable. Provide exactly one channel: inbound settings OR outbound settings. At least one agent voice is required; to retrieve available voices, use the Get Voices endpoint (GET /v2/Account/Voices). For more details, click [here](/api-reference/building_a_flow).",
+                "description": "Creates a new voice Pearl: the conversation is driven by a graph of nodes connected by transitions. The graph must contain one OpeningSentence node (or a PreCallAPI leading to one or two OpeningSentence nodes), one EndCall node, and every node must be reachable. Provide exactly one channel: inbound settings OR outbound settings. At least one agent voice is required; to retrieve available voices, use the Get Voices endpoint (GET /v2/Account/Voices). The Pearl is created already published: the configuration you send becomes its live (published) version. For more details, click [here](/api-reference/building_a_flow).",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -2642,7 +2642,7 @@
                     "Pearl"
                 ],
                 "summary": "Create Text Pearl",
-                "description": "Creates a new text Pearl: the conversation is driven by a graph of nodes connected by transitions, and messages are exchanged over a text channel. Provide exactly one channel: inbound settings OR outbound settings, with the TextChannelId of the channel to use. To retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels). For more details, click [here](/api-reference/building_a_flow).",
+                "description": "Creates a new text Pearl: the conversation is driven by a graph of nodes connected by transitions, and messages are exchanged over a text channel. Provide exactly one channel: inbound settings OR outbound settings, with the TextChannelId of the channel to use. To retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels). The Pearl is created already published: the configuration you send becomes its live (published) version. For more details, click [here](/api-reference/building_a_flow).",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -2724,7 +2724,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Voice Pearl",
-                "description": "Updates a voice Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied). Omitted parts are kept unchanged. The Pearl must be a voice Pearl (AgentType = Phone). For more details, click [here](/api-reference/building_a_flow).",
+                "description": "Updates a voice Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied). Omitted parts are kept unchanged. The Pearl must be a voice Pearl (AgentType = Phone). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For more details, click [here](/api-reference/building_a_flow).",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2816,7 +2816,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Text Pearl",
-                "description": "Updates a text Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied; when TextChannelId is omitted, the current channel is kept). Omitted parts are kept unchanged. The Pearl must be a text Pearl (AgentType = Text). For more details, click [here](/api-reference/building_a_flow).",
+                "description": "Updates a text Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied; when TextChannelId is omitted, the current channel is kept). Omitted parts are kept unchanged. The Pearl must be a text Pearl (AgentType = Text). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For more details, click [here](/api-reference/building_a_flow).",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2908,7 +2908,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Outbound Settings",
-                "description": "Updates the outbound settings for the specified Pearl.",
+                "description": "Updates the outbound settings for the specified Pearl. The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -3005,7 +3005,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Inbound Settings",
-                "description": "Updates the inbound settings for the specified Pearl.",
+                "description": "Updates the inbound settings for the specified Pearl. The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified.",
                 "parameters": [
                     {
                         "name": "pearlId",
