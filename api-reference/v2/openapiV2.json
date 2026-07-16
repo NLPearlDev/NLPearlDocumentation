@@ -183,6 +183,66 @@
                 }
             }
         },
+        "/v2/Account/TextChannels": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Get Text Channels",
+                "description": "Retrieves the text channels available on the account (for example SMS-capable numbers or WhatsApp accounts). Use a returned channelId as the TextChannelId of the inbound/outbound settings when creating or updating a text Pearl.",
+                "responses": {
+                    "200": {
+                        "description": "The list of text channels for the account.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TextChannelViewApi"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TextChannelViewApi"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TextChannelViewApi"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v2/Account/Voices": {
             "get": {
                 "tags": [
@@ -1571,9 +1631,8 @@
                     "Pearl"
                 ],
                 "summary": "Create Pearl",
-                "description": "Creates a new Pearl",
+                "description": "Creates a new Simple Pearl, driven by an opening sentence and a flow script. Provide exactly one channel: inbound settings OR outbound settings. The Pearl is created already published: the configuration you send becomes its live (published) version. To create a Pearl (node graph), use Create Voice Pearl or Create Text Pearl instead.",
                 "requestBody": {
-                    "description": "The Pearl flow configuration to create.",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -1581,7 +1640,8 @@
                                     {
                                         "$ref": "#/components/schemas/AddProjectApiRequest"
                                     }
-                                ]
+                                ],
+                                "description": "Create Pearl request (simple mode): a voice Pearl driven by an opening sentence and a flow script."
                             }
                         },
                         "text/json": {
@@ -1590,7 +1650,8 @@
                                     {
                                         "$ref": "#/components/schemas/AddProjectApiRequest"
                                     }
-                                ]
+                                ],
+                                "description": "Create Pearl request (simple mode): a voice Pearl driven by an opening sentence and a flow script."
                             }
                         },
                         "application/*+json": {
@@ -1599,7 +1660,8 @@
                                     {
                                         "$ref": "#/components/schemas/AddProjectApiRequest"
                                     }
-                                ]
+                                ],
+                                "description": "Create Pearl request (simple mode): a voice Pearl driven by an opening sentence and a flow script."
                             }
                         }
                     }
@@ -1713,7 +1775,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Pearl",
-                "description": "Updates the settings for the specified Pearl.",
+                "description": "Updates the configuration of a Simple Pearl (name, pearl settings and variables). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For Pearls, use Update Voice Pearl or Update Text Pearl instead.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2335,7 +2397,7 @@
                     "Pearl"
                 ],
                 "summary": "Get Pearl Settings",
-                "description": "Retrieves the Settings for the specified Pearl. The Pearl and Variables sections in the response are populated only if the Pearl was created via the API. If the Pearl was created through the platform interface, these fields will be returned empty.",
+                "description": "Retrieves the Settings for the specified Pearl. The shape of the response depends on the Pearl: the Pearl section is a Simple Pearl configuration (opening sentence + flow script) or a Pearl configuration (node graph), and the Inbound/Outbound section carries the voice or the text settings according to the AgentType field (1 = Voice, 2 = Text). AgentType also tells you which update endpoint to use: Update Pearl (Simple Pearl), Update Voice Pearl, or Update Text Pearl.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2349,21 +2411,470 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The settings for the specified Pearl.",
+                        "description": "The settings for the specified Pearl: a Simple Pearl, a voice Pearl, or a text Pearl configuration depending on the Pearl.",
                         "content": {
                             "text/plain": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProjectFlowApiView"
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/SimplePearlFlowApiView"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/AdvancedVoicePearlFlowApiView"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/AdvancedTextPearlFlowApiView"
+                                        }
+                                    ]
                                 }
                             },
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProjectFlowApiView"
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/SimplePearlFlowApiView"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/AdvancedVoicePearlFlowApiView"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/AdvancedTextPearlFlowApiView"
+                                        }
+                                    ]
                                 }
                             },
                             "text/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ProjectFlowApiView"
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/SimplePearlFlowApiView"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/AdvancedVoicePearlFlowApiView"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/AdvancedTextPearlFlowApiView"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Pearl/Credential/{pearlId}": {
+            "get": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Get Pearl Credentials",
+                "description": "Retrieves the API credentials (Id and Name only) available to the specified Pearl. Use a returned Id as the CredentialId of an API action in the Pearl flow.",
+                "parameters": [
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "description": "The unique identifier of the Pearl.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The credentials available to the specified Pearl.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CredentialApiView"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CredentialApiView"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CredentialApiView"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Pearl/Voice": {
+            "post": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Create Voice Pearl",
+                "description": "Creates a new voice Pearl: the conversation is driven by a graph of nodes connected by transitions. The graph must contain one OpeningSentence node (or a PreCallAPI leading to one or two OpeningSentence nodes), one EndCall node, and every node must be reachable. Provide exactly one channel: inbound settings OR outbound settings. At least one agent voice is required; to retrieve available voices, use the Get Voices endpoint (GET /v2/Account/Voices). The Pearl is created already published: the configuration you send becomes its live (published) version. For more details, click [here](/api-reference/building_a_flow).",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AddProjectVoiceApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AddProjectVoiceApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AddProjectVoiceApiRequest"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The ID of the newly created Pearl.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Pearl/Text": {
+            "post": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Create Text Pearl",
+                "description": "Creates a new text Pearl: the conversation is driven by a graph of nodes connected by transitions, and messages are exchanged over a text channel. Provide exactly one channel: inbound settings OR outbound settings, with the TextChannelId of the channel to use. To retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels). The Pearl is created already published: the configuration you send becomes its live (published) version. For more details, click [here](/api-reference/building_a_flow).",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AddProjectTextApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AddProjectTextApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AddProjectTextApiRequest"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The ID of the newly created Pearl.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Pearl/Voice/{pearlId}": {
+            "put": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Update Voice Pearl",
+                "description": "Updates a voice Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied). Omitted parts are kept unchanged. The Pearl must be a voice Pearl (AgentType = Voice). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For more details, click [here](/api-reference/building_a_flow).",
+                "parameters": [
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateProjectVoiceApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateProjectVoiceApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateProjectVoiceApiRequest"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The Pearl was updated successfully.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Pearl/Text/{pearlId}": {
+            "put": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Update Text Pearl",
+                "description": "Updates a text Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied; when TextChannelId is omitted, the current channel is kept). Omitted parts are kept unchanged. The Pearl must be a text Pearl (AgentType = Text). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For more details, click [here](/api-reference/building_a_flow).",
+                "parameters": [
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateProjectTextApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateProjectTextApiRequest"
+                                    }
+                                ]
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateProjectTextApiRequest"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The Pearl was updated successfully.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
                                 }
                             }
                         }
@@ -2397,7 +2908,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Outbound Settings",
-                "description": "Updates the outbound settings for the specified Pearl.",
+                "description": "Updates the outbound settings for the specified Pearl. The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2416,27 +2927,30 @@
                             "schema": {
                                 "allOf": [
                                     {
-                                        "$ref": "#/components/schemas/OutboundSettingsApi"
+                                        "$ref": "#/components/schemas/OutboundVoiceSettingsApi"
                                     }
-                                ]
+                                ],
+                                "description": "Outbound settings of a voice Pearl."
                             }
                         },
                         "text/json": {
                             "schema": {
                                 "allOf": [
                                     {
-                                        "$ref": "#/components/schemas/OutboundSettingsApi"
+                                        "$ref": "#/components/schemas/OutboundVoiceSettingsApi"
                                     }
-                                ]
+                                ],
+                                "description": "Outbound settings of a voice Pearl."
                             }
                         },
                         "application/*+json": {
                             "schema": {
                                 "allOf": [
                                     {
-                                        "$ref": "#/components/schemas/OutboundSettingsApi"
+                                        "$ref": "#/components/schemas/OutboundVoiceSettingsApi"
                                     }
-                                ]
+                                ],
+                                "description": "Outbound settings of a voice Pearl."
                             }
                         }
                     }
@@ -2491,7 +3005,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Inbound Settings",
-                "description": "Updates the inbound settings for the specified Pearl.",
+                "description": "Updates the inbound settings for the specified Pearl. The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2510,27 +3024,30 @@
                             "schema": {
                                 "allOf": [
                                     {
-                                        "$ref": "#/components/schemas/InboundSettingsApi"
+                                        "$ref": "#/components/schemas/InboundVoiceSettingsApi"
                                     }
-                                ]
+                                ],
+                                "description": "Inbound settings of a voice Pearl."
                             }
                         },
                         "text/json": {
                             "schema": {
                                 "allOf": [
                                     {
-                                        "$ref": "#/components/schemas/InboundSettingsApi"
+                                        "$ref": "#/components/schemas/InboundVoiceSettingsApi"
                                     }
-                                ]
+                                ],
+                                "description": "Inbound settings of a voice Pearl."
                             }
                         },
                         "application/*+json": {
                             "schema": {
                                 "allOf": [
                                     {
-                                        "$ref": "#/components/schemas/InboundSettingsApi"
+                                        "$ref": "#/components/schemas/InboundVoiceSettingsApi"
                                     }
-                                ]
+                                ],
+                                "description": "Inbound settings of a voice Pearl."
                             }
                         }
                     }
@@ -2558,6 +3075,245 @@
                     },
                     "400": {
                         "description": "The request is invalid or the data is malformed.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/PhoneNumber/CustomVoip": {
+            "post": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "Create Custom VoIP Number",
+                "description": "Creates a custom VoIP phone number and, in the same call, optionally configures its inbound (sipConfig) and/or outbound (sipTrunkConfig). When an inbound configuration is provided, the generated SIP domain is returned in sipConfig.domain.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The created custom VoIP phone number, including the SIP domain when inbound is configured.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/PhoneNumber/CustomVoip/{phoneNumberId}": {
+            "put": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "Update Custom VoIP Number",
+                "description": "Updates a custom VoIP phone number and its inbound (sipConfig) and/or outbound (sipTrunkConfig) configuration in a single call (full replacement). A provided configuration is created or updated; a configuration left null is removed and the direction is recomputed.",
+                "parameters": [
+                    {
+                        "name": "phoneNumberId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated custom VoIP phone number, including the SIP domain when inbound is configured.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "Delete Custom VoIP Number",
+                "description": "Deletes a custom VoIP phone number and releases its SIP resources.",
+                "parameters": [
+                    {
+                        "name": "phoneNumberId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a boolean indicating if the deletion was successful.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
                         "content": {
                             "text/plain": {
                                 "schema": {
@@ -2739,6 +3495,19 @@
                         "type": "string",
                         "description": "A short description of what this API action does.\r\n            \r\nMax 150 characters only.",
                         "nullable": true
+                    },
+                    "outputBody": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/APIDataSchemaPropertyApi"
+                        },
+                        "description": "Maps fields of the API response onto flow variables, so the values returned by the API can be used\r\nlater in the conversation.",
+                        "nullable": true
+                    },
+                    "credentialId": {
+                        "type": "string",
+                        "description": "Optional ID of a credential used to authenticate the API call.\r\nTo retrieve the credentials available to a Pearl, use the Get Pearl Credentials endpoint (GET /v2/Pearl/Credential/{pearlId}).",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -2771,7 +3540,7 @@
                     "inbound": {
                         "allOf": [
                             {
-                                "$ref": "#/components/schemas/InboundSettingsApi"
+                                "$ref": "#/components/schemas/InboundVoiceSettingsApi"
                             }
                         ],
                         "description": "Inbound settings for the Pearl. Required when creating an inbound Pearl. Must not be provided together with Outbound.",
@@ -2780,10 +3549,103 @@
                     "outbound": {
                         "allOf": [
                             {
-                                "$ref": "#/components/schemas/OutboundSettingsApi"
+                                "$ref": "#/components/schemas/OutboundVoiceSettingsApi"
                             }
                         ],
                         "description": "Outbound settings for the Pearl. Required when creating an outbound Pearl. Must not be provided together with Inbound.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Create Pearl request (simple mode): a voice Pearl driven by an opening sentence and a flow script."
+            },
+            "AddProjectTextApiRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the Pearl.",
+                        "nullable": true
+                    },
+                    "pearl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AdvancedTextPearlApi"
+                            }
+                        ],
+                        "description": "Conversation flow (node graph) and agent behavior configuration for the Pearl.",
+                        "nullable": true
+                    },
+                    "variables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataSettingsApi"
+                        },
+                        "description": "Variables that can be defined, stored, and used by the agent during conversations.\r\nFor details on variable groups and how to use variables in supported fields, see: [Flow Variables](/api-reference/flow_variables)",
+                        "nullable": true
+                    },
+                    "inbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InboundTextSettingsApi"
+                            }
+                        ],
+                        "description": "Inbound text settings for the Pearl. Required when creating an inbound Pearl. Must not be provided together with Outbound.",
+                        "nullable": true
+                    },
+                    "outbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/OutboundTextSettingsApi"
+                            }
+                        ],
+                        "description": "Outbound text settings for the Pearl. Required when creating an outbound Pearl. Must not be provided together with Inbound.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "AddProjectVoiceApiRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the Pearl.",
+                        "nullable": true
+                    },
+                    "pearl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AdvancedVoicePearlApi"
+                            }
+                        ],
+                        "description": "Conversation flow (node graph) and agent behavior configuration for the Pearl.",
+                        "nullable": true
+                    },
+                    "variables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataSettingsApi"
+                        },
+                        "description": "Variables that can be defined, stored, and used by the agent during conversations.\r\nFor details on variable groups and how to use variables in supported fields, see: [Flow Variables](/api-reference/flow_variables)",
+                        "nullable": true
+                    },
+                    "inbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InboundVoiceSettingsApi"
+                            }
+                        ],
+                        "description": "Inbound voice settings for the Pearl. Required when creating an inbound Pearl. Must not be provided together with Outbound.",
+                        "nullable": true
+                    },
+                    "outbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/OutboundVoiceSettingsApi"
+                            }
+                        ],
+                        "description": "Outbound voice settings for the Pearl. Required when creating an outbound Pearl. Must not be provided together with Inbound.",
                         "nullable": true
                     }
                 },
@@ -2802,6 +3664,299 @@
                 },
                 "additionalProperties": false,
                 "description": "Request to add or remove phone numbers or prefixes from the blacklist.\r\n            \r\nPhoneNumbers:\r\n- Can contain full phone numbers (e.g. +1234567890).\r\n- Can also contain prefixes to block a range of numbers (e.g. +41 for Switzerland or +41837 for a specific range).\r\n- Maximum length per entry: 25 characters.\r\n- Duplicates in the list are not allowed."
+            },
+            "AdvancedTextPearlApi": {
+                "type": "object",
+                "properties": {
+                    "agentPersonality": {
+                        "type": "string",
+                        "description": "Defines the agent's personality and tone (for example, more assertive or more calm).\n\nConstraints:\n- Max length: 35 characters.",
+                        "nullable": true
+                    },
+                    "timeZone": {
+                        "type": "string",
+                        "description": "Time zone identifier used by the Pearl's agents.\r\n            \r\nThe agent will operate according to this time zone, regardless of the lead/customer local time zone.\r\nFor accepted values, refer to the [Windows Time Zones list](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11).\r\n            \r\nExample: \"Pacific Standard Time\", \"Romance Standard Time\".",
+                        "nullable": true
+                    },
+                    "modelType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eBrainModelType"
+                            }
+                        ],
+                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
+                        "nullable": true
+                    },
+                    "companyName": {
+                        "type": "string",
+                        "description": "The company name used by the agent during conversations.\r\n            \r\nConstraints:\r\n- Max length: 100 characters.",
+                        "nullable": true
+                    },
+                    "companyDescription": {
+                        "type": "string",
+                        "description": "The company description used by the agent during conversations.\r\n            \r\nConstraints:\r\n- Max length: 500 characters.",
+                        "nullable": true
+                    },
+                    "generalInstructions": {
+                        "type": "string",
+                        "description": "General behavior guidelines applied to the agent across the whole conversation, on top of the\r\nper-node scripts and instructions (for example a tone to keep or rules that always apply).\r\n            \r\nConstraints:\r\n- Max length: 2,500 characters.\r\n- Cannot contain variables.",
+                        "nullable": true
+                    },
+                    "knowledgeBase": {
+                        "type": "string",
+                        "description": "Knowledge base content provided to the agent, such as FAQs, internal context, and operational instructions.\r\n            \r\nConstraints:\r\n- Max length: 20,000 characters.",
+                        "nullable": true
+                    },
+                    "memory": {
+                        "type": "boolean",
+                        "description": "Indicates whether memory is enabled. When enabled, the Pearl can remember previous conversations for a given phone number.",
+                        "nullable": true
+                    },
+                    "successDescription": {
+                        "type": "string",
+                        "description": "Description of what makes a conversation successful. Used to evaluate and report the conversation outcome.\r\n            \r\nConstraints:\r\n- Max length: 200 characters.",
+                        "nullable": true
+                    },
+                    "indicatorTags": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CallLabelApi"
+                        },
+                        "description": "Indicator tags used to classify conversations (name, description and color).\r\n            \r\nConstraints:\r\n- Max entries: 10.\r\n- Colors must be unique across tags.",
+                        "nullable": true
+                    },
+                    "nodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/NodeApi"
+                        },
+                        "description": "The nodes of the conversation graph. Each node has a unique NodeId and its transitions\r\nreference the NodeId of the target node.\r\n            \r\nThe entry point is determined automatically: the PreCallAPI node if present, otherwise the OpeningSentence node.\r\n            \r\nConstraints:\r\n- Exactly one OpeningSentence node (or one PreCallAPI leading to one or two OpeningSentence nodes).\r\n- Exactly one EndCall node, and every path must be able to reach it.\r\n- Every non-start node needs at least one incoming transition (except a TransferCall node, which may\r\n  be left unwired and is then fired by the agent from its trigger description).",
+                        "nullable": true
+                    },
+                    "agentName": {
+                        "type": "string",
+                        "description": "The display name of the agent in the conversation.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Configuration of a text Pearl: a graph of nodes driven by a text agent over a messaging channel (unlike a\r\nSimple Pearl, which is driven by a single opening sentence and flow script)."
+            },
+            "AdvancedTextPearlFlowApiView": {
+                "title": "Text Pearl",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the Pearl.",
+                        "nullable": true
+                    },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eProjectType"
+                            }
+                        ],
+                        "description": "Defines the type of activity of the pearl.\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n"
+                    },
+                    "agentType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eAgentInteractionType"
+                            }
+                        ],
+                        "description": "`1 - Voice`\n\n`2 - Text`\n\n"
+                    },
+                    "variables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataSettingsApiView"
+                        },
+                        "description": "Variables defined for the Pearl and used by the agent during conversations.\r\nFor details on variable groups and how to use variables in supported fields, see: [Flow Variables](/api-reference/flow_variables)",
+                        "nullable": true
+                    },
+                    "pearl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AdvancedTextPearlApi"
+                            }
+                        ],
+                        "description": "Conversation flow and agent behavior configuration for the Pearl.\r\nA Simple Pearl returns its opening-sentence-and-script configuration; a Pearl returns its node graph.",
+                        "nullable": true
+                    },
+                    "inbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InboundTextSettingsApi"
+                            }
+                        ],
+                        "description": "Inbound settings for the Pearl. Present only when the Pearl type is inbound (voice or text variant, according to AgentType).",
+                        "nullable": true
+                    },
+                    "outbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/OutboundTextSettingsApi"
+                            }
+                        ],
+                        "description": "Outbound settings for the Pearl. Present only when the Pearl type is outbound (voice or text variant, according to AgentType).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Settings of a text Pearl (AgentType = Text): configuration driven by a graph of nodes over a text channel."
+            },
+            "AdvancedVoicePearlApi": {
+                "type": "object",
+                "properties": {
+                    "agentPersonality": {
+                        "type": "string",
+                        "description": "Defines the agent's personality and tone (for example, more assertive or more calm).\n\nConstraints:\n- Max length: 35 characters.",
+                        "nullable": true
+                    },
+                    "timeZone": {
+                        "type": "string",
+                        "description": "Time zone identifier used by the Pearl's agents.\r\n            \r\nThe agent will operate according to this time zone, regardless of the lead/customer local time zone.\r\nFor accepted values, refer to the [Windows Time Zones list](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11).\r\n            \r\nExample: \"Pacific Standard Time\", \"Romance Standard Time\".",
+                        "nullable": true
+                    },
+                    "modelType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eBrainModelType"
+                            }
+                        ],
+                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
+                        "nullable": true
+                    },
+                    "companyName": {
+                        "type": "string",
+                        "description": "The company name used by the agent during conversations.\r\n            \r\nConstraints:\r\n- Max length: 100 characters.",
+                        "nullable": true
+                    },
+                    "companyDescription": {
+                        "type": "string",
+                        "description": "The company description used by the agent during conversations.\r\n            \r\nConstraints:\r\n- Max length: 500 characters.",
+                        "nullable": true
+                    },
+                    "generalInstructions": {
+                        "type": "string",
+                        "description": "General behavior guidelines applied to the agent across the whole conversation, on top of the\r\nper-node scripts and instructions (for example a tone to keep or rules that always apply).\r\n            \r\nConstraints:\r\n- Max length: 2,500 characters.\r\n- Cannot contain variables.",
+                        "nullable": true
+                    },
+                    "knowledgeBase": {
+                        "type": "string",
+                        "description": "Knowledge base content provided to the agent, such as FAQs, internal context, and operational instructions.\r\n            \r\nConstraints:\r\n- Max length: 20,000 characters.",
+                        "nullable": true
+                    },
+                    "memory": {
+                        "type": "boolean",
+                        "description": "Indicates whether memory is enabled. When enabled, the Pearl can remember previous conversations for a given phone number.",
+                        "nullable": true
+                    },
+                    "successDescription": {
+                        "type": "string",
+                        "description": "Description of what makes a conversation successful. Used to evaluate and report the conversation outcome.\r\n            \r\nConstraints:\r\n- Max length: 200 characters.",
+                        "nullable": true
+                    },
+                    "indicatorTags": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CallLabelApi"
+                        },
+                        "description": "Indicator tags used to classify conversations (name, description and color).\r\n            \r\nConstraints:\r\n- Max entries: 10.\r\n- Colors must be unique across tags.",
+                        "nullable": true
+                    },
+                    "nodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/NodeApi"
+                        },
+                        "description": "The nodes of the conversation graph. Each node has a unique NodeId and its transitions\r\nreference the NodeId of the target node.\r\n            \r\nThe entry point is determined automatically: the PreCallAPI node if present, otherwise the OpeningSentence node.\r\n            \r\nConstraints:\r\n- Exactly one OpeningSentence node (or one PreCallAPI leading to one or two OpeningSentence nodes).\r\n- Exactly one EndCall node, and every path must be able to reach it.\r\n- Every non-start node needs at least one incoming transition (except a TransferCall node, which may\r\n  be left unwired and is then fired by the agent from its trigger description).",
+                        "nullable": true
+                    },
+                    "agents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AgentConfigToAddApi"
+                        },
+                        "description": "Agents configured for the Pearl.\r\n            \r\n- Each agent represents a language-specific entry point (based on the selected voice).\r\n- Configure multiple agents to support multilingual experiences and language-based transfers.\r\n            \r\nConstraints:\r\n- Voice language must be unique across agents (no duplicates).",
+                        "nullable": true
+                    },
+                    "speechRecognitionKeywords": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/VocabularyEntry"
+                        },
+                        "description": "Keywords configured to improve speech recognition accuracy (for example product names, acronyms, or domain-specific terms).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Configuration of a voice Pearl: a graph of nodes driven by voice agents (unlike a Simple Pearl, which is\r\ndriven by a single opening sentence and flow script)."
+            },
+            "AdvancedVoicePearlFlowApiView": {
+                "title": "Voice Pearl",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the Pearl.",
+                        "nullable": true
+                    },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eProjectType"
+                            }
+                        ],
+                        "description": "Defines the type of activity of the pearl.\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n"
+                    },
+                    "agentType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eAgentInteractionType"
+                            }
+                        ],
+                        "description": "`1 - Voice`\n\n`2 - Text`\n\n"
+                    },
+                    "variables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataSettingsApiView"
+                        },
+                        "description": "Variables defined for the Pearl and used by the agent during conversations.\r\nFor details on variable groups and how to use variables in supported fields, see: [Flow Variables](/api-reference/flow_variables)",
+                        "nullable": true
+                    },
+                    "pearl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AdvancedVoicePearlApi"
+                            }
+                        ],
+                        "description": "Conversation flow and agent behavior configuration for the Pearl.\r\nA Simple Pearl returns its opening-sentence-and-script configuration; a Pearl returns its node graph.",
+                        "nullable": true
+                    },
+                    "inbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InboundVoiceSettingsApi"
+                            }
+                        ],
+                        "description": "Inbound settings for the Pearl. Present only when the Pearl type is inbound (voice or text variant, according to AgentType).",
+                        "nullable": true
+                    },
+                    "outbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/OutboundVoiceSettingsApi"
+                            }
+                        ],
+                        "description": "Outbound settings for the Pearl. Present only when the Pearl type is outbound (voice or text variant, according to AgentType).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Settings of a voice Pearl (AgentType = Voice): configuration driven by a graph of nodes."
             },
             "AgentChatMessageApiView": {
                 "type": "object",
@@ -3094,6 +4249,33 @@
                 },
                 "additionalProperties": false
             },
+            "BooleanNullableOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "type": "boolean",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "BooleanOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "type": "boolean"
+                    }
+                },
+                "additionalProperties": false
+            },
             "CallApiView": {
                 "type": "object",
                 "properties": {
@@ -3129,7 +4311,7 @@
                                 "$ref": "#/components/schemas/eConversationStatusView"
                             }
                         ],
-                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
                     },
                     "status": {
                         "allOf": [
@@ -3255,7 +4437,7 @@
                                 "$ref": "#/components/schemas/eConversationStatusView"
                             }
                         ],
-                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
                         "nullable": true
                     },
                     "status": {
@@ -3542,7 +4724,7 @@
                                 "$ref": "#/components/schemas/eConversationStatusView"
                             }
                         ],
-                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
                     },
                     "status": {
                         "allOf": [
@@ -3683,7 +4865,7 @@
                     "statuses": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/eLeadStatusView"
+                            "$ref": "#/components/schemas/eConversationStatusView"
                         },
                         "description": "List of Status to filter by.\n\n",
                         "nullable": true
@@ -3855,6 +5037,10 @@
                         "description": "The number of calls to an unreachable phone number.",
                         "format": "int32"
                     },
+                    "answeredCalls": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
                     "error": {
                         "type": "integer",
                         "description": "The number of calls that encountered a system or processing error.",
@@ -3920,6 +5106,10 @@
                     "unreachable": {
                         "type": "integer",
                         "description": "The number of calls to an unreachable phone number.",
+                        "format": "int32"
+                    },
+                    "answeredCalls": {
+                        "type": "integer",
                         "format": "int32"
                     },
                     "error": {
@@ -3999,7 +5189,7 @@
                     "statuses": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/eLeadStatusView"
+                            "$ref": "#/components/schemas/eConversationStatusView"
                         },
                         "description": "List of Status to filter by.\n\n",
                         "nullable": true
@@ -4054,6 +5244,11 @@
                         "description": "The phone number in E.164 format.",
                         "nullable": true
                     },
+                    "displayName": {
+                        "type": "string",
+                        "description": "The display name of the phone number. Falls back to the raw number when no display name is set.",
+                        "nullable": true
+                    },
                     "direction": {
                         "allOf": [
                             {
@@ -4061,9 +5256,36 @@
                             }
                         ],
                         "description": "Phone number direction (supported call capabilities).\n\n- InboundOutbound: Supports both inbound and outbound calls.\n- Inbound: Supports inbound calls only.\n- Outbound: Supports outbound calls only.\n- NotSet: Direction is not set.\n\n`1 - InboundOutbound`\n\n`2 - Inbound`\n\n`3 - Outbound`\n\n`10 - NotSet`\n\n"
+                    },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ePhoneNumberTypeApi"
+                            }
+                        ],
+                        "description": "Indicates how the phone number is provisioned and connected to NLPearl.\n\n- NLPearlDefault: a shared default number provided by NLPearl.\n- NLPearl: a number purchased and managed for you by NLPearl.\n- Twilio: a number from your own Twilio account that you connected.\n- CustomVoip: a custom VoIP number you connect over SIP.\n- Undefined: the type could not be determined.\n\n`1 - NLPearlDefault`\n\n`2 - NLPearl`\n\n`3 - Twilio`\n\n`4 - CustomVoip`\n\n`99 - Undefined`\n\n"
+                    },
+                    "sipConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPConfigApiView"
+                            }
+                        ],
+                        "description": "The inbound SIP configuration. Present only for custom VoIP numbers that have inbound configured; passwords are never returned.",
+                        "nullable": true
+                    },
+                    "sipTrunkConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPTrunkConfigApiView"
+                            }
+                        ],
+                        "description": "The outbound SIP trunk configuration. Present only for custom VoIP numbers that have outbound configured; passwords are never returned.",
+                        "nullable": true
                     }
                 },
-                "additionalProperties": false
+                "additionalProperties": false,
+                "description": "A phone number of the account as exposed by the API. For custom VoIP numbers it also carries the\r\nconfigured inbound and/or outbound SIP setup (with passwords masked)."
             },
             "CollectedInfoView": {
                 "type": "object",
@@ -4084,6 +5306,56 @@
                     }
                 },
                 "additionalProperties": false
+            },
+            "CredentialApiView": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The credential ID. Use this value as the CredentialId of an API action.",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The display name of the credential.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "A credential available to the Pearl. Reference it through APISettingsApi.CredentialId to authenticate API actions.\r\nNo secret material is ever included."
+            },
+            "CustomVoipNumberRequestApi": {
+                "required": [
+                    "number"
+                ],
+                "type": "object",
+                "properties": {
+                    "number": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The phone number in E.164 format."
+                    },
+                    "sipConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPConfigApi"
+                            }
+                        ],
+                        "description": "Optional inbound SIP configuration. Provide it to receive calls on this number. On update, omitting it (null) removes the existing inbound configuration.",
+                        "nullable": true
+                    },
+                    "sipTrunkConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPTrunkConfigApi"
+                            }
+                        ],
+                        "description": "Optional outbound SIP trunk configuration. Provide it to place calls from this number. On update, omitting it (null) removes the existing outbound configuration.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
             },
             "DataSettingsApi": {
                 "type": "object",
@@ -4245,6 +5517,23 @@
                 },
                 "additionalProperties": false
             },
+            "DayWorkingHoursListOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DayWorkingHours"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "DeleteCallsRequestApi": {
                 "type": "object",
                 "properties": {
@@ -4380,31 +5669,47 @@
                 },
                 "additionalProperties": false
             },
-            "InboundSettingsApi": {
-                "required": [
-                    "phoneNumberId",
-                    "waitingSentence"
-                ],
+            "InactivityFollowUp": {
                 "type": "object",
                 "properties": {
-                    "phoneNumberId": {
-                        "minLength": 1,
-                        "type": "string",
-                        "description": "The phone number ID to use for this Pearl.\r\nTo retrieve available phone numbers, see: [Get Phone Numbers](/api-reference/v2/pearlSettings/get-phones)\r\n            \r\nConstraints:\r\n- A phone number cannot be assigned to more than one active inbound Pearl at the same time."
+                    "delayMinutes": {
+                        "type": "integer",
+                        "description": "Delay (in minutes) of customer inactivity before this follow-up is sent.",
+                        "format": "int32"
                     },
+                    "message": {
+                        "type": "string",
+                        "description": "Optional custom follow-up message. When empty, the agent generates one from the conversation context.\r\n            \r\nMax 1000 characters only.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Follow-up message automatically sent when the customer stops responding during a text conversation."
+            },
+            "InactivityFollowUpListOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InactivityFollowUp"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "InboundTextSettingsApi": {
+                "type": "object",
+                "properties": {
                     "totalAgents": {
                         "type": "integer",
                         "description": "Total number of agents allocated to this inbound activity.",
                         "format": "int32"
-                    },
-                    "recordingOptions": {
-                        "type": "boolean",
-                        "description": "Enables or disables call recording."
-                    },
-                    "isStopRecordingAfterTransferCall": {
-                        "type": "boolean",
-                        "description": "Indicates whether recording should continue after a call is transferred.",
-                        "nullable": true
                     },
                     "transcriptOptions": {
                         "allOf": [
@@ -4419,14 +5724,242 @@
                         "description": "Optional webhook URL to receive call events (for example call started and call ended).",
                         "nullable": true
                     },
-                    "waitingSentence": {
-                        "minLength": 1,
+                    "textChannelId": {
                         "type": "string",
-                        "description": "Message played to the caller when no agent is available and the caller is waiting in the queue.\r\n            \r\nMax 300 characters only."
+                        "description": "The text channel ID to use for this Pearl.\r\nTo retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels).",
+                        "nullable": true
+                    },
+                    "maxTurns": {
+                        "type": "integer",
+                        "description": "Message limit: maximum number of agent messages per conversation. When the limit is reached, the conversation is closed.\r\nIf null, the default limit applies.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "autoCloseAfterInactivityHours": {
+                        "type": "integer",
+                        "description": "Number of hours of customer inactivity after which the conversation is automatically closed.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "inactivityFollowUps": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InactivityFollowUp"
+                        },
+                        "description": "Follow-up messages automatically sent when the customer stops responding.\r\nEach entry defines the delay (in minutes) and an optional custom message.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound settings of a text Pearl."
+            },
+            "InboundTextSettingsPatchApi": {
+                "type": "object",
+                "properties": {
+                    "totalAgents": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32OptionalType"
+                            }
+                        ],
+                        "description": "Total number of agents allocated to this inbound activity."
+                    },
+                    "transcriptOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTranscriptOptionsOptionalType"
+                            }
+                        ],
+                        "description": "Transcript generation mode (full transcript, sensitive info removed, or no transcript)."
+                    },
+                    "callWebhookUrl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "Webhook URL to receive call events (for example call started and call ended). Send null to remove the webhook."
+                    },
+                    "textChannelId": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "The text channel ID to use for this Pearl. When omitted, the current channel is kept.\r\nTo retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels)."
+                    },
+                    "maxTurns": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Message limit: maximum number of agent messages per conversation. When the limit is reached, the conversation is closed."
+                    },
+                    "autoCloseAfterInactivityHours": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Number of hours of customer inactivity after which the conversation is automatically closed."
+                    },
+                    "inactivityFollowUps": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InactivityFollowUpListOptionalType"
+                            }
+                        ],
+                        "description": "Follow-up messages automatically sent when the customer stops responding.\r\nEach entry defines the delay (in minutes) and an optional custom message."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Partial update of the inbound settings of a text Pearl: only the fields present in the JSON are applied."
+            },
+            "InboundVoiceSettingsApi": {
+                "type": "object",
+                "properties": {
+                    "totalAgents": {
+                        "type": "integer",
+                        "description": "Total number of agents allocated to this inbound activity.",
+                        "format": "int32"
+                    },
+                    "transcriptOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTranscriptOptions"
+                            }
+                        ],
+                        "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
+                    },
+                    "callWebhookUrl": {
+                        "type": "string",
+                        "description": "Optional webhook URL to receive call events (for example call started and call ended).",
+                        "nullable": true
+                    },
+                    "phoneNumberId": {
+                        "type": "string",
+                        "description": "The phone number ID to use for this Pearl.\r\nTo retrieve available phone numbers, see: [Get Phone Numbers](/api-reference/v2/pearlSettings/get-phones)\r\n            \r\nConstraints:\r\n- A phone number cannot be assigned to more than one active inbound Pearl at the same time.",
+                        "nullable": true
+                    },
+                    "recordingOptions": {
+                        "type": "boolean",
+                        "description": "Enables or disables call recording."
+                    },
+                    "isStopRecordingAfterTransferCall": {
+                        "type": "boolean",
+                        "description": "Indicates whether recording should continue after a call is transferred.",
+                        "nullable": true
+                    },
+                    "waitingSentence": {
+                        "type": "string",
+                        "description": "Message played to the caller when no agent is available and the caller is waiting in the queue.\r\n            \r\nMax 300 characters only.",
+                        "nullable": true
                     },
                     "isSayQueueDetails": {
                         "type": "boolean",
                         "description": "When enabled, the caller is informed about queue details (for example how many callers are ahead) while waiting."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound settings of a voice Pearl."
+            },
+            "InboundVoiceSettingsPatchApi": {
+                "type": "object",
+                "properties": {
+                    "totalAgents": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32OptionalType"
+                            }
+                        ],
+                        "description": "Total number of agents allocated to this inbound activity."
+                    },
+                    "transcriptOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTranscriptOptionsOptionalType"
+                            }
+                        ],
+                        "description": "Transcript generation mode (full transcript, sensitive info removed, or no transcript)."
+                    },
+                    "callWebhookUrl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "Webhook URL to receive call events (for example call started and call ended). Send null to remove the webhook."
+                    },
+                    "phoneNumberId": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "The phone number ID to use for this Pearl.\r\nTo retrieve available phone numbers, see: [Get Phone Numbers](/api-reference/v2/pearlSettings/get-phones)"
+                    },
+                    "recordingOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/BooleanOptionalType"
+                            }
+                        ],
+                        "description": "Enables or disables call recording."
+                    },
+                    "isStopRecordingAfterTransferCall": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/BooleanNullableOptionalType"
+                            }
+                        ],
+                        "description": "Indicates whether recording should continue after a call is transferred."
+                    },
+                    "waitingSentence": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "Message played to the caller when no agent is available and the caller is waiting in the queue.\r\n            \r\nMax 300 characters only."
+                    },
+                    "isSayQueueDetails": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/BooleanOptionalType"
+                            }
+                        ],
+                        "description": "When enabled, the caller is informed about queue details (for example how many callers are ahead) while waiting."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Partial update of the inbound settings of a voice Pearl: only the fields present in the JSON are applied."
+            },
+            "Int32NullableOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Int32OptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "type": "integer",
+                        "format": "int32"
                     }
                 },
                 "additionalProperties": false
@@ -4479,7 +6012,7 @@
                                 "$ref": "#/components/schemas/eLeadStatusView"
                             }
                         ],
-                        "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
+                        "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n"
                     },
                     "created": {
                         "type": "string",
@@ -4619,7 +6152,7 @@
                                 "$ref": "#/components/schemas/eLeadStatusView"
                             }
                         ],
-                        "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
+                        "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n"
                     },
                     "created": {
                         "type": "string",
@@ -4790,6 +6323,214 @@
                 },
                 "additionalProperties": false
             },
+            "NodeAPISettingsApi": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "A friendly name for this API action.\r\n            \r\nMax 50 characters only.",
+                        "nullable": true
+                    },
+                    "method": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/APIMethod"
+                            }
+                        ],
+                        "description": "`1 - GET`\n\n`2 - POST`\n\n`3 - PUT`\n\n`4 - DELETE`\n\n`5 - PATCH`\n\n"
+                    },
+                    "endpointUrl": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nThe endpoint URL to call.\r\n            \r\nMax 4,000 characters only.\r\n            \r\nVariables support depends on the node: on a PreCallAPI node only pre-call variables are available,\r\nwhile on an API node pre-call and in-call variables are available.",
+                        "nullable": true
+                    },
+                    "body": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/APIDataSchemaPropertyApi"
+                        },
+                        "description": "Request body definition (key/value pairs) for this API call.\r\n            \r\nConstraints:\r\n- Only applicable for POST, PUT, or PATCH.\r\n- Must be empty for GET, DELETE (and any method that does not send a body).",
+                        "nullable": true
+                    },
+                    "headers": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Optional HTTP headers to include in the API request.",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A short description of what this API action does.\r\n            \r\nMax 150 characters only.",
+                        "nullable": true
+                    },
+                    "outputBody": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/APIDataSchemaPropertyApi"
+                        },
+                        "description": "Maps fields of the API response onto flow variables, so the values returned by the API can be used\r\nlater in the conversation.",
+                        "nullable": true
+                    },
+                    "credentialId": {
+                        "type": "string",
+                        "description": "Optional ID of a credential used to authenticate the API call.\r\nTo retrieve the credentials available to a Pearl, use the Get Pearl Credentials endpoint (GET /v2/Pearl/Credential/{pearlId}).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "API call configuration of an API or PreCallAPI node.\r\nThere is no trigger description here: the node runs when a transition leads to it."
+            },
+            "NodeApi": {
+                "type": "object",
+                "properties": {
+                    "nodeId": {
+                        "type": "string",
+                        "description": "Unique identifier of the node within the flow. Transitions reference this value as their target.\r\nOptional: a node may be authored with only a name, in which case the id is derived from it server-side.",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Display name of the node.",
+                        "nullable": true
+                    },
+                    "nodeType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eNodeTypeApi"
+                            }
+                        ],
+                        "description": "The type of a node in a Pearl's conversation flow. It determines what the node does and which settings object it carries.\n\n- OpeningSentence: the first message the agent sends to start the conversation.\n- PreCallAPI: an API call executed before the conversation starts (for example a customer lookup). Its transitions use apiResult to branch on success or failure.\n- Dialogue: a scripted node where the agent converses with the customer.\n- HandoffChatToHuman: hands the conversation over to a human operator. Text Pearls only.\n- API: an API call executed during the conversation.\n- SMS: sends an SMS message.\n- Email: sends an email.\n- TransferCall: transfers the call to another phone number. Voice Pearls only.\n- StartCallRecording: starts recording the call from this point. Voice Pearls only. This node carries no settings.\n- SearchKnowledgeBase: searches the agent's knowledge base and returns the answer.\n- EndCall: terminates the conversation. Exactly one per flow, and every path must lead to it.\n- PostCallActions: a container whose nested actions run after the conversation ends.\n\n`2 - OpeningSentence`\n\n`3 - PreCallAPI`\n\n`10 - Dialogue`\n\n`31 - HandoffChatToHuman`\n\n`40 - API`\n\n`50 - SMS`\n\n`51 - Email`\n\n`60 - TransferCall`\n\n`65 - StartCallRecording`\n\n`80 - SearchKnowledgeBase`\n\n`100 - EndCall`\n\n`200 - PostCallActions`\n\n"
+                    },
+                    "transitions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TransitionApi"
+                        },
+                        "description": "Outgoing transitions of the node. Each transition has a name describing the condition that triggers\r\nit and the NodeId of the target node (the transition id is generated server-side from the name).\r\n            \r\nOn a PreCallAPI node, every transition must set apiResult (Success or Failure) and must lead to an\r\nOpeningSentence node.",
+                        "nullable": true
+                    },
+                    "script": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nThe script the agent follows while in this node (for OpeningSentence and Dialogue nodes).",
+                        "nullable": true
+                    },
+                    "instructions": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nFree-form instructions that guide the agent's behavior in this node.",
+                        "nullable": true
+                    },
+                    "apiSettings": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeAPISettingsApi"
+                            }
+                        ],
+                        "description": "API call configuration. Required when the node type is API or PreCallAPI.",
+                        "nullable": true
+                    },
+                    "smsSettings": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeSMSTemplateApi"
+                            }
+                        ],
+                        "description": "SMS configuration. Required when the node type is SMS.",
+                        "nullable": true
+                    },
+                    "emailSettings": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NodeEmailTemplateApi"
+                            }
+                        ],
+                        "description": "Email configuration. Required when the node type is Email.",
+                        "nullable": true
+                    },
+                    "transferCallSettings": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/TransferCallSettingsApi"
+                            }
+                        ],
+                        "description": "Call transfer configuration. Required when the node type is TransferCall (voice Pearls only).",
+                        "nullable": true
+                    },
+                    "handOffAction": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/NodeApi"
+                        },
+                        "description": "Notification actions fired when the conversation is handed off to a human. Allowed only on a\r\nHandoffChatToHuman node (text Pearls only).\r\n            \r\nEach entry is a node object, with the same fields as the items of `nodes`, whose type is an action:\r\nSMS, Email, or API (with the matching settings object). These nested nodes are fire-and-forget\r\nactions: they cannot have transitions, nor nested lists of their own.",
+                        "nullable": true
+                    },
+                    "postCallActions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/NodeApi"
+                        },
+                        "description": "Actions executed after the conversation ends. Allowed only on a PostCallActions node, which acts as\r\nthe container of these actions and is not connected to the rest of the graph.\r\n            \r\nEach entry is a node object, with the same fields as the items of `nodes`, whose type is an action:\r\nSMS, Email, or API (with the matching settings object). These nested nodes are fire-and-forget\r\nactions: they cannot have transitions, nor nested lists of their own.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "A node of the Pearl's conversation graph.\r\nThe settings object matching the node type must be provided (for example ApiSettings for an API node).\r\nA StartCallRecording node is the exception: it carries no settings, its presence alone starts the recording."
+            },
+            "NodeEmailTemplateApi": {
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of primary recipients.\r\n            \r\nConstraints:\r\n- Max 10 recipients.\r\n- Max 255 characters per email address.",
+                        "nullable": true
+                    },
+                    "cc": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of CC recipients.\r\n            \r\nConstraints:\r\n- Max 10 recipients.\r\n- Max 255 characters per email address.",
+                        "nullable": true
+                    },
+                    "subject": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nEmail subject.\r\n            \r\nConstraints:\r\n- Max 150 characters.\r\n- Supports pre-call and in-call variables. Inside a PostCallActions container, post-call variables are also supported.",
+                        "nullable": true
+                    },
+                    "body": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nEmail body content.\r\n            \r\nConstraints:\r\n- Max 100,000 characters.\r\n- Supports pre-call and in-call variables. Inside a PostCallActions container, post-call variables are also supported.",
+                        "nullable": true
+                    },
+                    "smtpSettings": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SmtpSettings"
+                            }
+                        ],
+                        "description": "Optional SMTP configuration used to send the email.\r\nIf not provided, the email is sent using the default platform email sender.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Email configuration of an Email node.\r\nThere is no trigger description here: the node runs when a transition leads to it."
+            },
+            "NodeSMSTemplateApi": {
+                "type": "object",
+                "properties": {
+                    "body": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nThe SMS message content.\r\n            \r\nConstraints:\r\n- Max 2,000 characters.\r\n- Supports pre-call and in-call variables. Inside a PostCallActions container, post-call variables are also supported.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "SMS configuration of an SMS node.\r\nThere is no trigger description here: the node runs when a transition leads to it."
+            },
             "OngoingCallsApiView": {
                 "type": "object",
                 "properties": {
@@ -4823,31 +6564,13 @@
                 },
                 "additionalProperties": false
             },
-            "OutboundSettingsApi": {
+            "OutboundTextSettingsApi": {
                 "type": "object",
                 "properties": {
-                    "phoneNumberId": {
-                        "type": "string",
-                        "description": "The phone number ID to use for this Pearl.\r\nTo retrieve available phone numbers, see: [Get Phone Numbers](/api-reference/v2/pearlSettings/get-phones)",
-                        "nullable": true
-                    },
                     "totalAgents": {
                         "type": "integer",
                         "description": "Total number of agents allocated to this outbound activity.",
                         "format": "int32"
-                    },
-                    "recordingTrack": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/eRecordingTrack"
-                            }
-                        ],
-                        "description": "Call recording track selection.\n\n- Both: Records both sides of the call (agent and lead/customer).\n- Outbound: Records only the agent side.\n- Inbound: Records only the lead/customer side.\n- None: Disables call recording.\n\n`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n"
-                    },
-                    "isStopRecordingAfterTransferCall": {
-                        "type": "boolean",
-                        "description": "Indicates whether recording should continue after a call is transferred.",
-                        "nullable": true
                     },
                     "transcriptOptions": {
                         "allOf": [
@@ -4868,39 +6591,173 @@
                         "description": "Default time zone for the outbound activity.\r\n            \r\nLeads are called according to this time zone unless a lead-specific time zone is provided when adding leads.\r\nFor accepted values, refer to the [Windows Time Zones list](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11).\r\n            \r\nExample: \"Pacific Standard Time\", \"Romance Standard Time\".",
                         "nullable": true
                     },
-                    "maximumCallAttempts": {
-                        "type": "integer",
-                        "description": "Maximum number of call attempts per lead.\r\n            \r\nConstraints:\r\n- Max 5 attempts.",
-                        "format": "int32"
+                    "callingHours": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DayWorkingHours"
+                        },
+                        "description": "Allowed calling hours for the outbound activity.",
+                        "nullable": true
                     },
-                    "minimumRetryIntervalHours": {
+                    "callWebhookUrl": {
+                        "type": "string",
+                        "description": "Optional webhook URL to receive call events (for example call started and call ended).",
+                        "nullable": true
+                    },
+                    "leadWebhookUrl": {
+                        "type": "string",
+                        "description": "Optional webhook URL to receive lead events (for example lead created/updated).",
+                        "nullable": true
+                    },
+                    "textChannelId": {
+                        "type": "string",
+                        "description": "The text channel ID to use for this Pearl.\r\nTo retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels).",
+                        "nullable": true
+                    },
+                    "maxTurns": {
+                        "type": "integer",
+                        "description": "Message limit: maximum number of agent messages per conversation. When the limit is reached, the conversation is closed.\r\nIf null, the default limit applies.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "autoCloseAfterInactivityHours": {
+                        "type": "integer",
+                        "description": "Number of hours of customer inactivity after which the conversation is automatically closed.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "inactivityFollowUps": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InactivityFollowUp"
+                        },
+                        "description": "Follow-up messages automatically sent when the customer stops responding.\r\nEach entry defines the delay (in minutes) and an optional custom message.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound settings of a text Pearl."
+            },
+            "OutboundTextSettingsPatchApi": {
+                "type": "object",
+                "properties": {
+                    "totalAgents": {
                         "allOf": [
                             {
-                                "$ref": "#/components/schemas/eMinimumRetryIntervalHours"
+                                "$ref": "#/components/schemas/Int32OptionalType"
                             }
                         ],
-                        "description": "`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n"
+                        "description": "Total number of agents allocated to this outbound activity."
                     },
-                    "ringDuration": {
+                    "transcriptOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTranscriptOptionsOptionalType"
+                            }
+                        ],
+                        "description": "Transcript generation mode (full transcript, sensitive info removed, or no transcript)."
+                    },
+                    "budgetTotal": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Total budget allocated for the outbound activity. Send null to remove the budget limit."
+                    },
+                    "timeZone": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "Default time zone for the outbound activity.\r\nFor accepted values, refer to the [Windows Time Zones list](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11)."
+                    },
+                    "callingHours": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/DayWorkingHoursListOptionalType"
+                            }
+                        ],
+                        "description": "Allowed calling hours for the outbound activity. The provided list replaces the current one."
+                    },
+                    "callWebhookUrl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "Webhook URL to receive call events (for example call started and call ended). Send null to remove the webhook."
+                    },
+                    "leadWebhookUrl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "Webhook URL to receive lead events (for example lead created/updated). Send null to remove the webhook."
+                    },
+                    "textChannelId": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "The text channel ID to use for this Pearl. When omitted, the current channel is kept.\r\nTo retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels)."
+                    },
+                    "maxTurns": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Message limit: maximum number of agent messages per conversation. When the limit is reached, the conversation is closed."
+                    },
+                    "autoCloseAfterInactivityHours": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Number of hours of customer inactivity after which the conversation is automatically closed."
+                    },
+                    "inactivityFollowUps": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InactivityFollowUpListOptionalType"
+                            }
+                        ],
+                        "description": "Follow-up messages automatically sent when the customer stops responding. The provided list replaces the current one."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Partial update of the outbound settings of a text Pearl: only the fields present in the JSON are applied."
+            },
+            "OutboundVoiceSettingsApi": {
+                "type": "object",
+                "properties": {
+                    "totalAgents": {
                         "type": "integer",
-                        "description": "Ringing duration (in seconds) before considering the call unanswered.\r\n            \r\nConstraints:\r\n- Min 10 seconds.\r\n- Max 50 seconds.",
+                        "description": "Total number of agents allocated to this outbound activity.",
+                        "format": "int32"
+                    },
+                    "transcriptOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTranscriptOptions"
+                            }
+                        ],
+                        "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
+                    },
+                    "budgetTotal": {
+                        "type": "integer",
+                        "description": "Total budget allocated for the outbound activity.\r\nIf null, the outbound activity runs without a budget limit.",
                         "format": "int32",
                         "nullable": true
                     },
-                    "callTimeout": {
-                        "type": "integer",
-                        "description": "Maximum call duration (in minutes). The call is ended when this limit is reached.\r\n            \r\nConstraints:\r\n- Min 1 minute.\r\n- Max 120 minutes.",
-                        "format": "int32",
-                        "nullable": true
-                    },
-                    "voiceMail": {
+                    "timeZone": {
                         "type": "string",
-                        "description": "`🧩 May support variables`\r\n            \r\nVoicemail message left when a voicemail/answering machine is detected.\r\nIf empty, the agent will not leave voicemails.\r\n            \r\nNotes:\r\n- Supports pre-call variables only.\r\n- When a voicemail is left, the call is marked as \"voicemail left\" and no further retries are attempted.\r\n            \r\nMax 500 characters only.",
-                        "nullable": true
-                    },
-                    "bypassIVRInstruction": {
-                        "type": "string",
-                        "description": "`🧩 May support variables`\r\n            \r\nInstructions used to bypass IVR (Interactive Voice Response) systems.\r\n            \r\nAutomatically navigates external IVR systems by detecting voice menu options\r\nand executing the appropriate DTMF inputs, enabling Pearl to reach its intended goal.\r\n            \r\nNotes:\r\n- Supports pre-call variables only.\r\n- Instructions should be clear, sequential, and action-oriented.\r\n- If empty, no IVR bypass will be attempted.\r\n            \r\nExample:\r\n\"If prompted, press 1 for English, then press 2 for support, then press 3 for billing.\"\r\n            \r\nMax 500 characters only.",
+                        "description": "Default time zone for the outbound activity.\r\n            \r\nLeads are called according to this time zone unless a lead-specific time zone is provided when adding leads.\r\nFor accepted values, refer to the [Windows Time Zones list](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11).\r\n            \r\nExample: \"Pacific Standard Time\", \"Romance Standard Time\".",
                         "nullable": true
                     },
                     "callingHours": {
@@ -4920,9 +6777,198 @@
                         "type": "string",
                         "description": "Optional webhook URL to receive lead events (for example lead created/updated).",
                         "nullable": true
+                    },
+                    "phoneNumberId": {
+                        "type": "string",
+                        "description": "The phone number ID to use for this Pearl.\r\nTo retrieve available phone numbers, see: [Get Phone Numbers](/api-reference/v2/pearlSettings/get-phones)",
+                        "nullable": true
+                    },
+                    "recordingTrack": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eRecordingTrack"
+                            }
+                        ],
+                        "description": "`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n"
+                    },
+                    "isStopRecordingAfterTransferCall": {
+                        "type": "boolean",
+                        "description": "Indicates whether recording should continue after a call is transferred.",
+                        "nullable": true
+                    },
+                    "maximumCallAttempts": {
+                        "type": "integer",
+                        "description": "Maximum number of call attempts per lead.\r\n            \r\nConstraints:\r\n- Max 5 attempts.",
+                        "format": "int32"
+                    },
+                    "minimumRetryIntervalHours": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eMinimumRetryIntervalHours"
+                            }
+                        ],
+                        "description": "`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n"
+                    },
+                    "voiceMail": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nVoicemail message left when a voicemail/answering machine is detected.\r\nIf empty, the agent will not leave voicemails.",
+                        "nullable": true
+                    },
+                    "bypassIVRInstruction": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nInstructions used to bypass IVR (Interactive Voice Response) systems.",
+                        "nullable": true
+                    },
+                    "ringDuration": {
+                        "type": "integer",
+                        "description": "Ringing duration (in seconds) before considering the call unanswered.\r\n            \r\nConstraints:\r\n- Min 10 seconds.\r\n- Max 50 seconds.",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "callTimeout": {
+                        "type": "integer",
+                        "description": "Maximum call duration (in minutes). The call is ended when this limit is reached.\r\n            \r\nConstraints:\r\n- Min 1 minute.\r\n- Max 120 minutes.",
+                        "format": "int32",
+                        "nullable": true
                     }
                 },
-                "additionalProperties": false
+                "additionalProperties": false,
+                "description": "Outbound settings of a voice Pearl."
+            },
+            "OutboundVoiceSettingsPatchApi": {
+                "type": "object",
+                "properties": {
+                    "totalAgents": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32OptionalType"
+                            }
+                        ],
+                        "description": "Total number of agents allocated to this outbound activity."
+                    },
+                    "transcriptOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTranscriptOptionsOptionalType"
+                            }
+                        ],
+                        "description": "Transcript generation mode (full transcript, sensitive info removed, or no transcript)."
+                    },
+                    "budgetTotal": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Total budget allocated for the outbound activity. Send null to remove the budget limit."
+                    },
+                    "timeZone": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "Default time zone for the outbound activity.\r\nFor accepted values, refer to the [Windows Time Zones list](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11)."
+                    },
+                    "callingHours": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/DayWorkingHoursListOptionalType"
+                            }
+                        ],
+                        "description": "Allowed calling hours for the outbound activity. The provided list replaces the current one."
+                    },
+                    "callWebhookUrl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "Webhook URL to receive call events (for example call started and call ended). Send null to remove the webhook."
+                    },
+                    "leadWebhookUrl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "Webhook URL to receive lead events (for example lead created/updated). Send null to remove the webhook."
+                    },
+                    "phoneNumberId": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "The phone number ID to use for this Pearl.\r\nTo retrieve available phone numbers, see: [Get Phone Numbers](/api-reference/v2/pearlSettings/get-phones)"
+                    },
+                    "recordingTrack": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eRecordingTrackOptionalType"
+                            }
+                        ],
+                        "description": "Which side(s) of the call are recorded (Pearl only, customer only, both, or none)."
+                    },
+                    "isStopRecordingAfterTransferCall": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/BooleanNullableOptionalType"
+                            }
+                        ],
+                        "description": "Indicates whether recording should continue after a call is transferred."
+                    },
+                    "maximumCallAttempts": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32OptionalType"
+                            }
+                        ],
+                        "description": "Maximum number of call attempts per lead.\r\n            \r\nConstraints:\r\n- Max 5 attempts."
+                    },
+                    "minimumRetryIntervalHours": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eMinimumRetryIntervalHoursOptionalType"
+                            }
+                        ],
+                        "description": "Minimum time interval to wait before retrying a lead after a failed attempt."
+                    },
+                    "voiceMail": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "`🧩 May support variables`\r\n            \r\nVoicemail message left when a voicemail/answering machine is detected. Send null so the agent does not leave voicemails."
+                    },
+                    "bypassIVRInstruction": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "`🧩 May support variables`\r\n            \r\nInstructions used to bypass IVR (Interactive Voice Response) systems."
+                    },
+                    "ringDuration": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Ringing duration (in seconds) before considering the call unanswered.\r\n            \r\nConstraints:\r\n- Min 10 seconds.\r\n- Max 50 seconds."
+                    },
+                    "callTimeout": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Maximum call duration (in minutes). The call is ended when this limit is reached.\r\n            \r\nConstraints:\r\n- Min 1 minute.\r\n- Max 120 minutes."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Partial update of the outbound settings of a voice Pearl: only the fields present in the JSON are applied."
             },
             "PearlSettingsApi": {
                 "type": "object",
@@ -4951,7 +6997,7 @@
                                 "$ref": "#/components/schemas/eBrainModelType"
                             }
                         ],
-                        "description": "Agent model type.\n\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
+                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
                         "nullable": true
                     },
                     "companyName": {
@@ -4984,12 +7030,12 @@
                     },
                     "openingSentence": {
                         "type": "string",
-                        "description": "`🧩 may include variables`\r\n\r\nThe opening sentence spoken by the agent when a conversation starts.\r\n            \r\nConstraints:\r\n-Max 500 characters only.\r\n-Supports pre-call variables only.",
+                        "description": "`🧩 May support variables`\r\n\r\nThe opening sentence spoken by the agent when a conversation starts.\r\n            \r\nConstraints:\r\n-Max 500 characters only.\r\n-Supports pre-call variables only.",
                         "nullable": true
                     },
                     "flowScript": {
                         "type": "string",
-                        "description": "`🧩 may include variables`\r\n\r\nThe flow script the agent follows to drive the conversation.\r\n            \r\nConstraints:\r\n- Max 20,000 characters.\r\n- Supports pre-call variables and in-call variables.",
+                        "description": "`🧩 May support variables`\r\n\r\nThe flow script the agent follows to drive the conversation.\r\n            \r\nConstraints:\r\n- Max 20,000 characters.\r\n- Supports pre-call variables and in-call variables.",
                         "nullable": true
                     },
                     "transferCallSettings": {
@@ -5141,60 +7187,6 @@
                 },
                 "additionalProperties": false
             },
-            "ProjectFlowApiView": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the Pearl.",
-                        "nullable": true
-                    },
-                    "type": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/eProjectType"
-                            }
-                        ],
-                        "description": "Defines the type of activity of the pearl.\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n"
-                    },
-                    "pearl": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/PearlSettingsApi"
-                            }
-                        ],
-                        "description": "Conversation flow and agent behavior configuration for the Pearl.\r\n            \r\nThis field is populated only if the Pearl was created via the API.\r\nIf the Pearl was created through the platform interface, this field will be empty.",
-                        "nullable": true
-                    },
-                    "variables": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/DataSettingsApiView"
-                        },
-                        "description": "Variables defined for the Pearl and used by the agent during conversations.\r\n            \r\nThis field is populated only if the Pearl was created via the API.\r\nIf the Pearl was created through the platform interface, this field will be empty.",
-                        "nullable": true
-                    },
-                    "inbound": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/InboundSettingsApi"
-                            }
-                        ],
-                        "description": "Inbound settings for the Pearl. Present only when the Pearl type is inbound.",
-                        "nullable": true
-                    },
-                    "outbound": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/OutboundSettingsApi"
-                            }
-                        ],
-                        "description": "Outbound settings for the Pearl. Present only when the Pearl type is outbound.",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false
-            },
             "ProjectListApiView": {
                 "type": "object",
                 "properties": {
@@ -5244,6 +7236,135 @@
                 },
                 "additionalProperties": false
             },
+            "SIPConfigApi": {
+                "required": [
+                    "authMethod"
+                ],
+                "type": "object",
+                "properties": {
+                    "authMethod": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SipAuthMethodApi"
+                            }
+                        ],
+                        "description": "How incoming SIP calls are authenticated (username/password and/or IP allowlist). At least one method is required."
+                    },
+                    "isTLS": {
+                        "type": "boolean",
+                        "description": "Whether inbound SIP traffic uses TLS."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound SIP configuration of a custom VoIP number: how incoming calls are authenticated and secured.\r\nThe SIP domain is generated by NLPearl and is not provided by the client."
+            },
+            "SIPConfigApiView": {
+                "type": "object",
+                "properties": {
+                    "domain": {
+                        "type": "string",
+                        "description": "The SIP domain to which inbound traffic for this number must be sent (e.g. `{id}-nlpearl-ai.sip.twilio.com`).",
+                        "nullable": true
+                    },
+                    "isTLS": {
+                        "type": "boolean",
+                        "description": "Whether inbound SIP traffic uses TLS."
+                    },
+                    "authMethod": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SipAuthMethodApiView"
+                            }
+                        ],
+                        "description": "How incoming calls are authenticated (username and/or IP allowlist). Passwords are never returned.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound SIP configuration as returned by the API for a custom VoIP number."
+            },
+            "SIPTrunkConfigApi": {
+                "required": [
+                    "from",
+                    "sipTrunk"
+                ],
+                "type": "object",
+                "properties": {
+                    "sipTrunk": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The host of your SIP trunk (IP address or domain) where outbound calls are sent."
+                    },
+                    "edge": {
+                        "type": "string",
+                        "description": "Optional edge/region of the SIP trunk.",
+                        "nullable": true
+                    },
+                    "authMethod": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SipTrunkAuthMethodApi"
+                            }
+                        ],
+                        "description": "Optional authentication for the outbound trunk (credentials and/or custom SIP headers).",
+                        "nullable": true
+                    },
+                    "isTLS": {
+                        "type": "boolean",
+                        "description": "Whether outbound SIP traffic uses TLS."
+                    },
+                    "from": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The user part of the originating SIP URI (the caller identity presented on outbound calls)."
+                    },
+                    "isSipRefer": {
+                        "type": "boolean",
+                        "description": "Whether call transfers are performed using SIP REFER."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound SIP trunk configuration of a custom VoIP number: where and how outgoing calls are placed\r\nthrough your own SIP trunk."
+            },
+            "SIPTrunkConfigApiView": {
+                "type": "object",
+                "properties": {
+                    "sipTrunk": {
+                        "type": "string",
+                        "description": "The host of your SIP trunk (IP address or domain) where outbound calls are sent.",
+                        "nullable": true
+                    },
+                    "edge": {
+                        "type": "string",
+                        "description": "The edge/region of the SIP trunk, if set.",
+                        "nullable": true
+                    },
+                    "isTLS": {
+                        "type": "boolean",
+                        "description": "Whether outbound SIP traffic uses TLS."
+                    },
+                    "from": {
+                        "type": "string",
+                        "description": "The user part of the originating SIP URI (the caller identity presented on outbound calls).",
+                        "nullable": true
+                    },
+                    "isSipRefer": {
+                        "type": "boolean",
+                        "description": "Whether call transfers are performed using SIP REFER."
+                    },
+                    "authMethod": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SipTrunkAuthMethodApiView"
+                            }
+                        ],
+                        "description": "The outbound trunk authentication (username and/or custom headers). Passwords are never returned.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound SIP trunk configuration as returned by the API for a custom VoIP number."
+            },
             "SMSTemplateApi": {
                 "type": "object",
                 "properties": {
@@ -5273,6 +7394,158 @@
                 },
                 "additionalProperties": false,
                 "description": "Defines the request structure for setting the active status of an entity."
+            },
+            "SimplePearlFlowApiView": {
+                "title": "Simple Pearl",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the Pearl.",
+                        "nullable": true
+                    },
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eProjectType"
+                            }
+                        ],
+                        "description": "Defines the type of activity of the pearl.\n\n`1 - Inbound`\n\n`2 - Outbound`\n\n"
+                    },
+                    "agentType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eAgentInteractionType"
+                            }
+                        ],
+                        "description": "`1 - Voice`\n\n`2 - Text`\n\n"
+                    },
+                    "variables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataSettingsApiView"
+                        },
+                        "description": "Variables defined for the Pearl and used by the agent during conversations.\r\nFor details on variable groups and how to use variables in supported fields, see: [Flow Variables](/api-reference/flow_variables)",
+                        "nullable": true
+                    },
+                    "pearl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PearlSettingsApi"
+                            }
+                        ],
+                        "description": "Conversation flow and agent behavior configuration for the Pearl.\r\nA Simple Pearl returns its opening-sentence-and-script configuration; a Pearl returns its node graph.",
+                        "nullable": true
+                    },
+                    "inbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InboundVoiceSettingsApi"
+                            }
+                        ],
+                        "description": "Inbound settings for the Pearl. Present only when the Pearl type is inbound (voice or text variant, according to AgentType).",
+                        "nullable": true
+                    },
+                    "outbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/OutboundVoiceSettingsApi"
+                            }
+                        ],
+                        "description": "Outbound settings for the Pearl. Present only when the Pearl type is outbound (voice or text variant, according to AgentType).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Settings of a Simple Pearl (AgentType = Voice): configuration driven by an opening sentence and a flow script."
+            },
+            "SipAuthMethodApi": {
+                "type": "object",
+                "properties": {
+                    "userNamePassword": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UserNamePasswordApi"
+                            }
+                        ],
+                        "description": "SIP credentials accepted for inbound calls.",
+                        "nullable": true
+                    },
+                    "ips": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Allowlist of source IP addresses authorized to send inbound calls.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound SIP authentication: by username/password and/or by an allowlist of source IP addresses.\r\nAt least one method must be provided."
+            },
+            "SipAuthMethodApiView": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "The SIP username accepted for inbound calls.",
+                        "nullable": true
+                    },
+                    "ips": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Allowlist of source IP addresses authorized to send inbound calls.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound SIP authentication as returned by the API. Passwords are never included."
+            },
+            "SipTrunkAuthMethodApi": {
+                "type": "object",
+                "properties": {
+                    "userNamePassword": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UserNamePasswordApi"
+                            }
+                        ],
+                        "description": "SIP credentials sent when placing outbound calls.",
+                        "nullable": true
+                    },
+                    "headers": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Custom SIP headers added to the outbound INVITE.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound SIP trunk authentication: optional credentials and/or custom SIP headers."
+            },
+            "SipTrunkAuthMethodApiView": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "The SIP username used for outbound calls.",
+                        "nullable": true
+                    },
+                    "headers": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Custom SIP headers added to the outbound INVITE.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound SIP trunk authentication as returned by the API. Passwords are never included."
             },
             "SmtpSettings": {
                 "type": "object",
@@ -5325,6 +7598,45 @@
                 },
                 "additionalProperties": false
             },
+            "StringOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "TextChannelViewApi": {
+                "type": "object",
+                "properties": {
+                    "channel": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTextMessageChannel"
+                            }
+                        ],
+                        "description": "`1 - TwilioSMS`\n\n`2 - WhatsApp`\n\n`3 - Telegram`\n\n`5 - TestBrowser`\n\n"
+                    },
+                    "channelId": {
+                        "type": "string",
+                        "description": "The channel ID. Use this value as the TextChannelId when creating or updating a text Pearl.",
+                        "nullable": true
+                    },
+                    "displayName": {
+                        "type": "string",
+                        "description": "Human-readable name of the channel (for example the phone number or the WhatsApp account name).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "A text channel available on the account. Use its ChannelId as the TextChannelId of the text inbound/outbound settings."
+            },
             "TransferCallSettingsApi": {
                 "type": "object",
                 "properties": {
@@ -5335,7 +7647,7 @@
                     },
                     "triggerDescription": {
                         "type": "string",
-                        "description": "Instructions describing when the agent should transfer the call (for example, when the caller asks to speak with a human).\r\n            \r\nMax 500 characters only.",
+                        "description": "Instructions describing when the agent should transfer the call (for example, when the caller asks to speak with a human).\r\n            \r\nMax 500 characters only.\r\n            \r\nIn a Simple Pearl, this field is required.\r\nIn a Pearl (node graph), it depends on how the TransferCall node is reached: required when the node\r\nhas no inbound transition (the agent fires the transfer based on this description), and not allowed when\r\nthe node is reached by transitions (the flow decides when the transfer happens).",
                         "nullable": true
                     },
                     "warmTransferMessage": {
@@ -5345,6 +7657,32 @@
                     }
                 },
                 "additionalProperties": false
+            },
+            "TransitionApi": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "`🧩 May support variables`\r\n            \r\nThe condition that triggers this transition (for example \"the customer asks for a human agent\").\r\nMust be unique within the node: the transition id is generated from it server-side.\r\nPost-call variables are not allowed here.",
+                        "nullable": true
+                    },
+                    "toNodeId": {
+                        "type": "string",
+                        "description": "The NodeId of the target node.",
+                        "nullable": true
+                    },
+                    "apiResult": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTransitionApiResult"
+                            }
+                        ],
+                        "description": "The outcome of the pre-call API request that fires this transition. Allowed only on the transitions of a PreCallAPI node, where every transition must set it: Success leads to the opening sentence used when the pre-call API succeeds, Failure to the one used when it fails.\n\n`1 - Success`\n\n`2 - Failure`\n\n",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "A transition between two nodes of the conversation graph."
             },
             "UpdateProjectApiRequest": {
                 "type": "object",
@@ -5369,6 +7707,98 @@
                             "$ref": "#/components/schemas/DataSettingsApi"
                         },
                         "description": "Variables that can be defined, stored, and used by the agent during conversations.\r\nFor details on variable groups and how to use variables in supported fields, see: [Flow Variables](/api-reference/flow_variables)",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "UpdateProjectTextApiRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The updated name of the Pearl.",
+                        "nullable": true
+                    },
+                    "pearl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AdvancedTextPearlApi"
+                            }
+                        ],
+                        "description": "Updated conversation flow (node graph) for the Pearl. When omitted, the current flow is kept unchanged.\r\nWhen provided, it replaces the whole flow, so send the complete node graph.",
+                        "nullable": true
+                    },
+                    "variables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataSettingsApi"
+                        },
+                        "description": "Variables that can be defined, stored, and used by the agent during conversations. Used together with Pearl.\r\nFor details on variable groups and how to use variables in supported fields, see: [Flow Variables](/api-reference/flow_variables)",
+                        "nullable": true
+                    },
+                    "inbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InboundTextSettingsPatchApi"
+                            }
+                        ],
+                        "description": "Partial update of the inbound text settings: only the fields present in the JSON are applied.\r\nWhen omitted, the inbound settings are kept unchanged. Must not be provided together with Outbound.",
+                        "nullable": true
+                    },
+                    "outbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/OutboundTextSettingsPatchApi"
+                            }
+                        ],
+                        "description": "Partial update of the outbound text settings: only the fields present in the JSON are applied.\r\nWhen omitted, the outbound settings are kept unchanged. Must not be provided together with Inbound.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "UpdateProjectVoiceApiRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The updated name of the Pearl.",
+                        "nullable": true
+                    },
+                    "pearl": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AdvancedVoicePearlApi"
+                            }
+                        ],
+                        "description": "Updated conversation flow (node graph) for the Pearl. When omitted, the current flow is kept unchanged.\r\nWhen provided, it replaces the whole flow, so send the complete node graph.",
+                        "nullable": true
+                    },
+                    "variables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DataSettingsApi"
+                        },
+                        "description": "Variables that can be defined, stored, and used by the agent during conversations. Used together with Pearl.\r\nFor details on variable groups and how to use variables in supported fields, see: [Flow Variables](/api-reference/flow_variables)",
+                        "nullable": true
+                    },
+                    "inbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/InboundVoiceSettingsPatchApi"
+                            }
+                        ],
+                        "description": "Partial update of the inbound voice settings: only the fields present in the JSON are applied.\r\nWhen omitted, the inbound settings are kept unchanged. Must not be provided together with Outbound.",
+                        "nullable": true
+                    },
+                    "outbound": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/OutboundVoiceSettingsPatchApi"
+                            }
+                        ],
+                        "description": "Partial update of the outbound voice settings: only the fields present in the JSON are applied.\r\nWhen omitted, the outbound settings are kept unchanged. Must not be provided together with Inbound.",
                         "nullable": true
                     }
                 },
@@ -5399,6 +7829,27 @@
                     }
                 },
                 "additionalProperties": false
+            },
+            "UserNamePasswordApi": {
+                "required": [
+                    "password",
+                    "username"
+                ],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The SIP username."
+                    },
+                    "password": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The SIP password. Write-only: it is accepted on input but never returned in responses."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "A SIP username and password pair. The password is write-only and is never returned in responses."
             },
             "ValidationProblemDetails": {
                 "type": "object",
@@ -5485,6 +7936,11 @@
                 "description": "Here is the activity status\n\n`1 - Running`\n\n`2 - Paused`\n\n`3 - Suspended`\n\n`10 - TemporaryMaintenance`\n\n",
                 "format": "int32"
             },
+            "eAgentInteractionType": {
+                "type": "integer",
+                "description": "`1 - Voice`\n\n`2 - Text`\n\n",
+                "format": "int32"
+            },
             "eAuditLogEvent": {
                 "type": "integer",
                 "description": "The type of event recorded in the audit log.\n\n`1 - LoginAttempt`\n\n`2 - LoginSuccessful`\n\n`10 - PublishPearl`\n\n`11 - PearlStatus`\n\n`18 - TransferPearl`\n\n`19 - DeletePearl`\n\n`30 - CreateAPIKey`\n\n`31 - DeleteAPIKey`\n\n`40 - PurchaseAgents`\n\n`41 - DeleteAgent`\n\n`50 - SetBillingDetails`\n\n`51 - SetPaymentMethod`\n\n`52 - SetSubscription`\n\n`59 - CancelSubscription`\n\n`60 - PurchaseCredits`\n\n`61 - SetAutoRecharge`\n\n`70 - InviteUser`\n\n`71 - UserJoin`\n\n`72 - InvitationCanceled`\n\n`73 - UpdateUserRole`\n\n`74 - UpdateAccountInformations`\n\n`75 - RemoveUserFromTheAccount`\n\n`76 - UserLeftAccount`\n\n`80 - UpdateSessionTTL`\n\n`81 - Set2FA`\n\n",
@@ -5492,7 +7948,7 @@
             },
             "eBrainModelType": {
                 "type": "integer",
-                "description": "Agent model type.\n\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
+                "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
                 "format": "int32"
             },
             "eCallAuthorizationStatus": {
@@ -5512,7 +7968,7 @@
             },
             "eConversationStatusView": {
                 "type": "integer",
-                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
+                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eDataSettingsGroup": {
@@ -5532,12 +7988,35 @@
             },
             "eLeadStatusView": {
                 "type": "integer",
-                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
+                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eMinimumRetryIntervalHours": {
                 "type": "integer",
                 "description": "`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n",
+                "format": "int32"
+            },
+            "eMinimumRetryIntervalHoursOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eMinimumRetryIntervalHours"
+                            }
+                        ],
+                        "description": "`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "eNodeTypeApi": {
+                "type": "integer",
+                "description": "The type of a node in a Pearl's conversation flow. It determines what the node does and which settings object it carries.\n\n- OpeningSentence: the first message the agent sends to start the conversation.\n- PreCallAPI: an API call executed before the conversation starts (for example a customer lookup). Its transitions use apiResult to branch on success or failure.\n- Dialogue: a scripted node where the agent converses with the customer.\n- HandoffChatToHuman: hands the conversation over to a human operator. Text Pearls only.\n- API: an API call executed during the conversation.\n- SMS: sends an SMS message.\n- Email: sends an email.\n- TransferCall: transfers the call to another phone number. Voice Pearls only.\n- StartCallRecording: starts recording the call from this point. Voice Pearls only. This node carries no settings.\n- SearchKnowledgeBase: searches the agent's knowledge base and returns the answer.\n- EndCall: terminates the conversation. Exactly one per flow, and every path must lead to it.\n- PostCallActions: a container whose nested actions run after the conversation ends.\n\n`2 - OpeningSentence`\n\n`3 - PreCallAPI`\n\n`10 - Dialogue`\n\n`31 - HandoffChatToHuman`\n\n`40 - API`\n\n`50 - SMS`\n\n`51 - Email`\n\n`60 - TransferCall`\n\n`65 - StartCallRecording`\n\n`80 - SearchKnowledgeBase`\n\n`100 - EndCall`\n\n`200 - PostCallActions`\n\n",
                 "format": "int32"
             },
             "eOverallSentiment": {
@@ -5548,6 +8027,11 @@
             "ePhoneNumberDirection": {
                 "type": "integer",
                 "description": "Phone number direction (supported call capabilities).\n\n- InboundOutbound: Supports both inbound and outbound calls.\n- Inbound: Supports inbound calls only.\n- Outbound: Supports outbound calls only.\n- NotSet: Direction is not set.\n\n`1 - InboundOutbound`\n\n`2 - Inbound`\n\n`3 - Outbound`\n\n`10 - NotSet`\n\n",
+                "format": "int32"
+            },
+            "ePhoneNumberTypeApi": {
+                "type": "integer",
+                "description": "Indicates how the phone number is provisioned and connected to NLPearl.\n\n- NLPearlDefault: a shared default number provided by NLPearl.\n- NLPearl: a number purchased and managed for you by NLPearl.\n- Twilio: a number from your own Twilio account that you connected.\n- CustomVoip: a custom VoIP number you connect over SIP.\n- Undefined: the type could not be determined.\n\n`1 - NLPearlDefault`\n\n`2 - NLPearl`\n\n`3 - Twilio`\n\n`4 - CustomVoip`\n\n`99 - Undefined`\n\n",
                 "format": "int32"
             },
             "ePredefinedCallLabelColors": {
@@ -5562,17 +8046,63 @@
             },
             "eRecordingTrack": {
                 "type": "integer",
-                "description": "Call recording track selection.\n\n- Both: Records both sides of the call (agent and lead/customer).\n- Outbound: Records only the agent side.\n- Inbound: Records only the lead/customer side.\n- None: Disables call recording.\n\n`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n",
+                "description": "`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n",
                 "format": "int32"
+            },
+            "eRecordingTrackOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eRecordingTrack"
+                            }
+                        ],
+                        "description": "`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n"
+                    }
+                },
+                "additionalProperties": false
             },
             "eStateDataType": {
                 "type": "integer",
                 "description": "`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n",
                 "format": "int32"
             },
+            "eTextMessageChannel": {
+                "type": "integer",
+                "description": "`1 - TwilioSMS`\n\n`2 - WhatsApp`\n\n`3 - Telegram`\n\n`5 - TestBrowser`\n\n",
+                "format": "int32"
+            },
             "eTranscriptOptions": {
                 "type": "integer",
                 "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n",
+                "format": "int32"
+            },
+            "eTranscriptOptionsOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eTranscriptOptions"
+                            }
+                        ],
+                        "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "eTransitionApiResult": {
+                "type": "integer",
+                "description": "The outcome of the pre-call API request that fires this transition. Allowed only on the transitions of a PreCallAPI node, where every transition must set it: Success leads to the opening sentence used when the pre-call API succeeds, Failure to the one used when it fails.\n\n`1 - Success`\n\n`2 - Failure`\n\n",
                 "format": "int32"
             },
             "eUserType": {

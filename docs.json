@@ -172,7 +172,8 @@
               "api-reference/api_quickstart",
               "api-reference/python_wrapper",
               "api-reference/authorization",
-              "api-reference/flow_variables"
+              "api-reference/flow_variables",
+              "api-reference/building_a_flow"
             ]
           },
           {
@@ -189,6 +190,7 @@
                   "api-reference/v2/account/get-audit-log",
                    "api-reference/v2/pearlSettings/get-voices",
                   "api-reference/v2/pearlSettings/get-phones",
+                  "api-reference/v2/pearlSettings/get-text-channels",
                   "api-reference/v2/account/search-blacklist",
                   "api-reference/v2/account/add-to-blacklist",
                   "api-reference/v2/account/remove-from-blacklist"
@@ -199,6 +201,7 @@
                             "expanded": true, 
                 "pages": [
                   "api-reference/v2/call/get-call",
+                  "api-reference/v2/call/get-recording",
                   "api-reference/v2/call/delete-call"
                 ]
               },
@@ -222,9 +225,14 @@
                 "pages": [
                   "api-reference/v2/pearlFlow/get-pearl-flow",
                   "api-reference/v2/pearlFlow/add-pearl-flow",
+                  "api-reference/v2/pearlFlow/add-voice-pearl",
+                  "api-reference/v2/pearlFlow/add-text-pearl",
                   "api-reference/v2/pearlFlow/update-pearl-flow",
+                  "api-reference/v2/pearlFlow/update-voice-pearl",
+                  "api-reference/v2/pearlFlow/update-text-pearl",
                   "api-reference/v2/pearlFlow/update-pearl-inbound",
-                  "api-reference/v2/pearlFlow/update-pearl-outbound"
+                  "api-reference/v2/pearlFlow/update-pearl-outbound",
+                  "api-reference/v2/pearlFlow/get-pearl-credentials"
                 ]
               },
               {
