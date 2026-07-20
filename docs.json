@@ -145,7 +145,8 @@
                 "icon": "comments",
                 "pages": [
                   "pages/text/channels/sms",
-                  "pages/text/channels/telegram"
+                  "pages/text/channels/telegram",
+                  "pages/text/channels/generic"
                 ]
               }
             ]
