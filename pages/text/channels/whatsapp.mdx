@@ -55,20 +55,26 @@ The connection runs through **Meta Embedded Signup**: a Meta window opens on the
 
 Before connecting, pick how NLPearl should use your number:
 
-| Mode | What it means |
-|---|---|
-| **Coexistence** - *Keep using WhatsApp on my phone* | Your number stays active in the WhatsApp Business app and keeps its chat history. NLPearl connects alongside the app, so you can keep messaging from your phone. |
-| **Dedicated** - *Dedicate this number to NLPearl* | Full API access and higher messaging volume. The number can no longer be used in the WhatsApp Business app, and its app chat history is not kept. |
+| | **Coexistence** - *Keep using WhatsApp on my phone* | **Dedicated** - *Dedicate this number to NLPearl* |
+|---|---|---|
+| **WhatsApp Business app** | Keeps working - the number stays active in the app with its chat history. | No longer usable for this number, and its app chat history is not kept. |
+| **Who replies to customers** | Pearl and you - replies you send from your phone show up in the NLPearl conversation. | Pearl only, through NLPearl. |
+| **Phone dependency** | Open the app at least once every 14 days, or Meta drops the connection and your campaigns stop. | None - the number runs entirely on the Cloud API. |
+| **Sending throughput** | Fixed at 20 messages per second. | 80 messages per second, up to 1,000 for eligible numbers. |
+| **Phone numbers** | One per connection - the number active in your app. | Several numbers can be imported on the same account. |
+| **Group chats** | Stay in the app - Pearl only handles individual conversations. | Not supported - the API only handles individual conversations. |
+
+Both modes share WhatsApp's [messaging limits](https://developers.facebook.com/docs/whatsapp/messaging-limits): business-initiated conversations start at 250 per 24 hours and scale automatically to 2,000, 10,000, 100,000, then unlimited - once you [verify your business](https://www.facebook.com/business/help/2058515294227817) with Meta or sustain enough high-quality template volume.
 
 <Note>
-If you already use the number in the WhatsApp Business app, choose **Coexistence** - you keep your app and chat history while Pearl handles conversations on the same number.
+If you already use the number in the WhatsApp Business app, choose **Coexistence** - you keep your app and chat history while Pearl handles conversations on the same number. Choose **Dedicated** for high-volume campaigns or when the channel must not depend on a phone.
 </Note>
 
 ---
 
 ### Connect in Coexistence mode
 
-Before you start, keep your number active in the WhatsApp Business app on your phone, and make sure the app is up to date.
+Before you start, keep your number active in the **WhatsApp Business app** on your phone - Meta requires app version 2.24.17 or later, and the regular WhatsApp app is not supported.
 
 <Steps>
   <Step title="Start the connection">
@@ -175,6 +181,12 @@ Before you start, keep your number active in the WhatsApp Business app on your p
   </Step>
 </Steps>
 
+<Info>
+- Messages you send from the WhatsApp Business app stay free and don't affect the API conversation windows Pearl uses.
+- Onboarding unlinks the app's companion devices (WhatsApp Web, desktop apps); you can re-link supported devices afterwards.
+- For the full technical details, see [Meta's coexistence documentation](https://developers.facebook.com/documentation/business-messaging/whatsapp/embedded-signup/onboarding-business-app-users).
+</Info>
+
 ---
 
 ### Connect in Dedicated mode
@@ -236,7 +248,7 @@ Before you start, keep your number active in the WhatsApp Business app on your p
     </Frame>
   </Step>
   <Step title="Finish the signup">
-    Your account is connected. Meta reviews your business against WhatsApp's Commerce Policy and reaches out within 24 hours if there's an issue. You can also add a payment method to your Meta account now or later.
+    Your account is connected. Meta reviews your business against [WhatsApp's Commerce Policy](https://whatsappbusiness.com/policy/) and reaches out within 24 hours if there's an issue. You can also add a payment method now or later - Meta bills the conversations your business initiates to the payment method on your WhatsApp Business account.
 
     <Frame>
       <img src="/images/dark_mode/whatsapp-dedicated-connected.png" alt="Meta confirmation that the account is connected to NLPearl" className="rounded-[14px] w-full" />
