@@ -294,6 +294,28 @@ Everything is managed from the WhatsApp Business account screen in **Settings** 
 
 ---
 
+### Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="My coexistence number disconnected after two weeks">
+    Meta drops the coexistence connection when the WhatsApp Business app stays inactive for about 14 days, and your campaigns stop with it. To reconnect the number, open the WhatsApp Business app on your phone, then go to **Settings** → **Text Channels**, open your **WhatsApp Business Account**, and click **Add a number from your WhatsApp app** - the Meta window opens and you scan the QR code again, exactly like the first connection. To prevent it, open the app at least once every 14 days.
+  </Accordion>
+  <Accordion title="I forgot the two-step verification PIN">
+    The 6-digit PIN requested when importing a dedicated number is WhatsApp's two-step verification PIN.
+
+    - If the number is still registered in the WhatsApp Business app, reset it from the app under **Settings** → **Account** → **Two-step verification**.
+    - If the number is already registered on the Cloud API, manage its PIN from Meta's **WhatsApp Manager**, in the phone number's settings.
+  </Accordion>
+  <Accordion title="Meta says my number is already registered to a WhatsApp account">
+    In dedicated mode, the number can't be attached to any WhatsApp or WhatsApp Business app account.
+
+    - If you want to keep using the app with this number, connect it in **Coexistence** mode instead.
+    - Otherwise, release the number by deleting its account in the app (**Settings** → **Account** → **Delete account**), then try again. It can take up to 3 minutes for Meta to refresh the number's status.
+  </Accordion>
+</AccordionGroup>
+
+---
+
 <CardGroup cols={2}>
   <Card title="Inbound" icon="inbox-in" iconType="light" href="/pages/text/inbound">
     Deploy your agent on inbound channels to answer incoming WhatsApp messages instantly.
