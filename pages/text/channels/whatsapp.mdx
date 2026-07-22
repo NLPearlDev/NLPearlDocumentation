@@ -1,0 +1,128 @@
+---
+title: "WhatsApp"
+description: "Connect your Pearl Text agent to WhatsApp Business through Meta Embedded Signup, keeping your number active in the WhatsApp Business app or dedicating it to NLPearl."
+icon: "whatsapp"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/whatsapp-cover.png"
+        alt="WhatsApp cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/whatsapp-cover.png"
+        alt="WhatsApp cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+## WhatsApp Channel
+
+Connect your Pearl Text agent to **WhatsApp** through your WhatsApp Business account. Pearl replies using the flow, knowledge, and actions defined in your Pearl, across both [inbound](/pages/text/inbound) conversations and [outbound](/pages/text/outbound) campaigns.
+
+The connection runs through **Meta Embedded Signup**: a Meta window opens on the platform, you log in with the Facebook account that manages your business, and Meta links your WhatsApp Business account to NLPearl. You can start it from two places:
+
+- **Settings** → **Text Channels**, then select **WhatsApp**.
+- From a project, through the **Add a Channel** chooser.
+
+---
+
+### Step 1 - Choose a connection mode
+
+Before connecting, pick how NLPearl should use your number:
+
+| Mode | What it means |
+|---|---|
+| **Coexistence** — *Keep using WhatsApp on my phone* | Your number stays active in the WhatsApp Business app and keeps its chat history. NLPearl connects alongside the app, so you can keep messaging from your phone. |
+| **Dedicated** — *Dedicate this number to NLPearl* | Full API access and higher messaging volume. The number can no longer be used in the WhatsApp Business app, and its app chat history is not kept. |
+
+<Note>
+If you already use the number in the WhatsApp Business app, choose **Coexistence** - you keep your app and chat history while Pearl handles conversations on the same number.
+</Note>
+
+<Frame>
+  <img src="/images/dark_mode/whatsapp-channel-modes.png" alt="WhatsApp connection mode selection with Coexistence and Dedicated options" className="rounded-[14px] w-full" />
+</Frame>
+
+---
+
+### Step 2 - Connect with Meta
+
+<Steps>
+  <Step title="Start the connection">
+    Select the connection mode, then click **Connect WhatsApp**. A Meta window opens.
+
+    <Note>
+    For Coexistence, keep your number active in the WhatsApp Business app on your phone, and make sure the app is up to date.
+    </Note>
+  </Step>
+  <Step title="Log in with Facebook">
+    Log in with the Facebook account that manages your business.
+  </Step>
+  <Step title="Follow Meta's guided steps">
+    Pick or create your business portfolio and WhatsApp Business account, then choose the number to connect.
+  </Step>
+  <Step title="Scan the QR code (Coexistence only)">
+    Meta shows a QR code. Scan it with your WhatsApp Business app to link the number to NLPearl. Your chat history stays in the app while NLPearl connects alongside it.
+  </Step>
+</Steps>
+
+---
+
+### Step 3 - Import your numbers
+
+Once connected, the platform lists the phone numbers of your WhatsApp Business account. Click **Add to account** next to each number you want to use - each one becomes a text channel on the platform.
+
+<Frame>
+  <img src="/images/dark_mode/whatsapp-channel-numbers.png" alt="WhatsApp Business account numbers listed for import" className="rounded-[14px] w-full" />
+</Frame>
+
+<Note>
+**Dedicated numbers and two-step verification.** Importing a dedicated number registers it on the WhatsApp Cloud API. If two-step verification is enabled on the number, enable it in the import dialog and enter the number's **6-digit PIN**. Coexistence numbers skip this step entirely.
+</Note>
+
+<Frame>
+  <img src="/images/dark_mode/whatsapp-channel-import-pin.png" alt="Import dialog asking for the two-step verification PIN" className="rounded-[14px] w-full" />
+</Frame>
+
+To use the channel, open the Pearl you want for [inbound](/pages/text/inbound) or [outbound](/pages/text/outbound) conversations, go to **Settings**, and set the imported WhatsApp number as its **Text Channel**.
+
+<Frame>
+  <img src="/images/dark_mode/text-channel-assign-pearl.png" alt="Assign the WhatsApp channel to a Pearl from its settings" className="rounded-[14px] w-full" />
+</Frame>
+
+---
+
+### Manage the connection
+
+Everything is managed from the WhatsApp Business account screen in **Settings** → **Text Channels**:
+
+- **Add a number from your WhatsApp app** - connect an additional number in coexistence mode at any time.
+- **Remove a number** - disconnects the number from NLPearl and deletes its text channel. Any Pearl using it is paused, and you can import the number again later.
+- **Disconnect** - disconnects your WhatsApp Business account from NLPearl. You can reconnect it at any time.
+
+---
+
+<CardGroup cols={2}>
+  <Card title="Inbound" icon="inbox-in" iconType="light" href="/pages/text/inbound">
+    Deploy your agent on inbound channels to answer incoming WhatsApp messages instantly.
+  </Card>
+  <Card title="Outbound" icon="paper-plane" iconType="light" href="/pages/text/outbound">
+    Launch outbound WhatsApp campaigns to reach customers proactively.
+  </Card>
+</CardGroup>

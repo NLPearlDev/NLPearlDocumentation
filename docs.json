@@ -146,6 +146,7 @@
                 "pages": [
                   "pages/text/channels/sms",
                   "pages/text/channels/telegram",
+                  "pages/text/channels/whatsapp",
                   "pages/text/channels/generic"
                 ]
               }
