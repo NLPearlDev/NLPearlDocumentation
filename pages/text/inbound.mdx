@@ -47,9 +47,13 @@ Inbound activities are used when the end user starts the conversation. Pearl rep
 
 Unlike a voice activity, an inbound text activity isn't tied to a phone number, it's connected to a **messaging channel**. Once your Pearl is published, open its **overview** page and connect the channel your customers will use. Each channel is dedicated to your activity and can receive conversations from anywhere, at any time.
 
-NLPearl supports channels such as **WhatsApp**, **Telegram**, **SMS**, and **Glassix**. Follow the dedicated guides to set one up:
+NLPearl supports built-in channels such as **WhatsApp**, **Telegram**, **SMS**, and **Glassix**, as well as a **Generic** channel for custom messaging systems. Follow the dedicated guides to set one up:
 
 <CardGroup cols={2}>
+
+<Card title="WhatsApp" icon="whatsapp" iconType="light" href="/pages/text/channels/whatsapp">
+  Connect your WhatsApp Business account through Meta - keep your number in the app or dedicate it to Pearl.
+</Card>
 
 <Card title="SMS" icon="comment-sms" iconType="light" href="/pages/text/channels/sms">
   Connect your Pearl to SMS through Twilio to text with your customers.
@@ -57,6 +61,10 @@ NLPearl supports channels such as **WhatsApp**, **Telegram**, **SMS**, and **Gla
 
 <Card title="Telegram" icon="telegram" iconType="light" href="/pages/text/channels/telegram">
   Connect your Pearl to Telegram by linking a bot created with BotFather.
+</Card>
+
+<Card title="Generic" icon="webhook" iconType="light" href="/pages/text/channels/generic">
+  Connect a web chat, mobile app, CRM inbox, or custom platform through asynchronous webhooks.
 </Card>
 
 </CardGroup>
