@@ -45,9 +45,9 @@ Outbound campaigns (initiated by Pearl) offer more data, while inbound campaigns
 - `Completed` : Calls where someone picked up and interacted with Pearl, regardless of outcome.
 - `Successful` : Calls that achieved the success condition defined for the Pearl (e.g. booking, confirmation, etc).
 - `Unsuccessful` : The conversation happened, but the user declined or failed to reach the intended outcome.
-- `Need Retry` : The lead didn't pick up, so the attempt will be retried automatically according to the retry configuration.
-- `Voice Mail Left` : Pearl left a voicemail.
-- `Unreachable` : No one picked up or the number was unreachable.
+- `Need Retry` : The lead didn't pick up, so the attempt will be retried automatically according to the retry configuration. *(Outbound only)*
+- `Voice Mail Left` : Pearl left a voicemail. *(Outbound only)*
+- `Unreachable` : The lead couldn't be reached after all retry attempts were exhausted. *(Outbound only)*
 
 <div className="block dark:hidden">
   <Frame>
