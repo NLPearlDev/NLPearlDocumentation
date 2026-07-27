@@ -203,7 +203,44 @@ POST {baseUrl}/EndConversation
 }
 ```
 
-Both control actions return `200` when successful or `404` when no active conversation exists for the supplied `chatId`.
+### Take Over a Conversation
+
+Let a human agent take control at any time, without waiting for Pearl to hand off:
+
+```http
+POST {baseUrl}/TakeOver
+```
+
+```json
+{
+  "chatId": "+1234567890"
+}
+```
+
+Pearl goes silent while your agent handles the conversation. Because you initiated the takeover, NLPearl does **not** send a `handoff` event. When your agent is finished, call `/HandoffToPearl` to resume Pearl or `/EndConversation` to close the conversation.
+
+### Record a Manual Reply
+
+Add a reply your human agent sent from your own system to the NLPearl transcript, so Pearl resumes with full context:
+
+```http
+POST {baseUrl}/ManualMessage
+```
+
+```json
+{
+  "chatId": "+1234567890",
+  "text": "Sure, I can help you with that."
+}
+```
+
+NLPearl records the message but does **not** deliver it, since your platform already sent it to the user. This is valid only while the conversation is handed off — after a `handoff` event or your own `/TakeOver` — and otherwise returns `400`.
+
+<Warning>
+`/ManualMessage` has no retry deduplication. If a request times out and you resend it, the message is recorded twice.
+</Warning>
+
+These control actions return `200` when successful, or `404` when no active conversation exists for the supplied `chatId`.
 
 ---
 
@@ -304,12 +341,14 @@ If you configured a custom authentication header, NLPearl includes it alongside 
 
 ## Handle Human Handoffs
 
+A handoff can start in two ways: Pearl steps aside on its own and sends a `handoff` event, or your agent takes control directly with `/TakeOver`. Either way, Pearl stays silent until the conversation is returned to it.
+
 <Steps>
-  <Step title="Receive the handoff">
-    Pearl sends a `handoff` event with the reason it stepped aside.
+  <Step title="Start the handoff">
+    Pearl sends a `handoff` event with the reason it stepped aside, or your agent calls `/TakeOver` to step in directly. No `handoff` event is sent for your own takeover.
   </Step>
-  <Step title="Continue forwarding user messages">
-    Let your human agent communicate with the user in your own system. Continue sending the user's messages to `/Message`; Pearl remains silent while handed off, but the transcript and inactivity timers stay up to date.
+  <Step title="Keep the transcript in sync">
+    Let your human agent communicate with the user in your own system. Continue sending the user's messages to `/Message`, and record your agent's replies with `/ManualMessage`. Pearl remains silent while handed off, but the transcript and inactivity timers stay up to date, so Pearl resumes with full context.
   </Step>
   <Step title="Finish the handoff">
     Call `/HandoffToPearl` when Pearl should resume, or `/EndConversation` when the conversation is complete. Your endpoint then receives `ai_resumed` or `conversation_ended`, respectively.
