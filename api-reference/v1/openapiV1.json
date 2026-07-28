@@ -2425,7 +2425,7 @@
                                 "$ref": "#/components/schemas/eConversationStatusView"
                             }
                         ],
-                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`35 - InQueue`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
                     },
                     "status": {
                         "allOf": [
@@ -2517,6 +2517,12 @@
                         "type": "integer",
                         "description": "The total amount of credits debited for SMS usage during this conversation.",
                         "format": "int32"
+                    },
+                    "pearlVersion": {
+                        "type": "integer",
+                        "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
+                        "format": "int32",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -2621,7 +2627,7 @@
                                 "$ref": "#/components/schemas/eConversationStatusView"
                             }
                         ],
-                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`35 - InQueue`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
                     },
                     "status": {
                         "allOf": [
@@ -2652,6 +2658,12 @@
                             "type": "string"
                         },
                         "description": "The tags or labels triggered during the conversation",
+                        "nullable": true
+                    },
+                    "pearlVersion": {
+                        "type": "integer",
+                        "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
+                        "format": "int32",
                         "nullable": true
                     }
                 },
@@ -3893,7 +3905,7 @@
             },
             "eConversationStatusView": {
                 "type": "integer",
-                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
+                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`35 - InQueue`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eLeadStatusInputApi": {

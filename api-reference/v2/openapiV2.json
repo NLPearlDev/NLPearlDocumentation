@@ -3999,7 +3999,7 @@
                     },
                     "voiceId": {
                         "type": "string",
-                        "description": "The ID of the voice to use for this agent.\r\nTo retrieve available voices, see: [Get Voices](/api-reference/v2/pearlSettings/get-voices)\r\n            \r\nConstraints:\r\n- The voice language must be unique across agents in the same Pearl (no two agents can use voices from the same language).",
+                        "description": "The ID of the voice to use for this agent.\r\nTo retrieve available voices, see: [Get Voices](/api-reference/v2/pearlSettings/get-voices)\r\n            \r\nConstraints:\r\n- Required: an agent without a voiceId is rejected.\r\n- The voice language must be unique across agents in the same Pearl (no two agents can use voices from the same language).",
                         "nullable": true
                     }
                 },
@@ -4311,7 +4311,7 @@
                                 "$ref": "#/components/schemas/eConversationStatusView"
                             }
                         ],
-                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`35 - InQueue`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
                     },
                     "status": {
                         "allOf": [
@@ -4403,6 +4403,12 @@
                         "type": "integer",
                         "description": "The total amount of credits debited for SMS usage during this conversation.",
                         "format": "int32"
+                    },
+                    "pearlVersion": {
+                        "type": "integer",
+                        "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
+                        "format": "int32",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -4437,7 +4443,7 @@
                                 "$ref": "#/components/schemas/eConversationStatusView"
                             }
                         ],
-                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`35 - InQueue`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
                         "nullable": true
                     },
                     "status": {
@@ -4539,6 +4545,12 @@
                     "leadId": {
                         "type": "string",
                         "description": "If the call is related to a lead, this is the unique identifier of that lead. Otherwise, this value is null.",
+                        "nullable": true
+                    },
+                    "pearlVersion": {
+                        "type": "integer",
+                        "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
+                        "format": "int32",
                         "nullable": true
                     }
                 },
@@ -4724,7 +4736,7 @@
                                 "$ref": "#/components/schemas/eConversationStatusView"
                             }
                         ],
-                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
+                        "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`35 - InQueue`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n"
                     },
                     "status": {
                         "allOf": [
@@ -4755,6 +4767,12 @@
                             "type": "string"
                         },
                         "description": "The tags or labels triggered during the conversation",
+                        "nullable": true
+                    },
+                    "pearlVersion": {
+                        "type": "integer",
+                        "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
+                        "format": "int32",
                         "nullable": true
                     }
                 },
@@ -4880,7 +4898,7 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "Optional list selecting which additional fields are included in each returned call. Only the requested fields are populated; all others are omitted. Allowed values: Tags, Name, Summary, Recording, Transcript, CollectedInfo, OverallSentiment, IsCallTransferred, QueueDuration, CreditDebited, SmsCreditDebited, LeadId.",
+                        "description": "Optional list selecting which additional fields are included in each returned call. Only the requested fields are populated; all others are omitted. Allowed values: Tags, Name, Summary, Recording, Transcript, CollectedInfo, OverallSentiment, IsCallTransferred, QueueDuration, CreditDebited, SmsCreditDebited, LeadId, PearlVersion.",
                         "nullable": true
                     }
                 },
@@ -6529,7 +6547,7 @@
                     }
                 },
                 "additionalProperties": false,
-                "description": "SMS configuration of an SMS node.\r\nThere is no trigger description here: the node runs when a transition leads to it."
+                "description": "SMS configuration of an SMS node.\r\nThere is no trigger description here: the node runs when a transition leads to it.\r\nThe SMS is always sent to the customer phone number of the conversation, so there is no recipient to configure."
             },
             "OngoingCallsApiView": {
                 "type": "object",
@@ -6978,7 +6996,7 @@
                         "items": {
                             "$ref": "#/components/schemas/AgentConfigToAddApi"
                         },
-                        "description": "Agents configured for the Pearl.\n\n- Each agent represents a language-specific entry point (based on the selected voice).\n- Configure multiple agents to support multilingual experiences and language-based transfers.\n\nConstraints:\n- Voice language must be unique across agents (no duplicates).",
+                        "description": "Agents configured for the Pearl.\n\n- Each agent represents a language-specific entry point (based on the selected voice).\n- Configure multiple agents to support multilingual experiences and language-based transfers.\n\nConstraints:\n- At least one agent is required.\n- Each agent must have a voiceId.\n- Voice language must be unique across agents (no duplicates).",
                         "nullable": true
                     },
                     "agentPersonality": {
@@ -7067,7 +7085,7 @@
                         "items": {
                             "$ref": "#/components/schemas/APISettingsApi"
                         },
-                        "description": "API actions configured for the Pearl.\r\n            \r\nConstraints:\r\n- Max actions: 10.",
+                        "description": "API actions configured for the Pearl.\r\n            \r\nConstraints:\r\n- Max actions: 20.",
                         "nullable": true
                     },
                     "successDescription": {
@@ -7621,7 +7639,7 @@
                                 "$ref": "#/components/schemas/eTextMessageChannel"
                             }
                         ],
-                        "description": "`1 - TwilioSMS`\n\n`2 - WhatsApp`\n\n`3 - Telegram`\n\n`5 - TestBrowser`\n\n"
+                        "description": "`1 - TwilioSMS`\n\n`2 - WhatsApp`\n\n`3 - Telegram`\n\n`5 - TestBrowser`\n\n`6 - Generic`\n\n`7 - Glassix`\n\n"
                     },
                     "channelId": {
                         "type": "string",
@@ -7968,7 +7986,7 @@
             },
             "eConversationStatusView": {
                 "type": "integer",
-                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
+                "description": "The outcome of the conversation during the call.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`10 - NotAnswered`\n\n`35 - InQueue`\n\n`40 - OnGoing`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`220 - Blacklisted`\n\n`300 - QueueAbandon`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eDataSettingsGroup": {
@@ -8074,7 +8092,7 @@
             },
             "eTextMessageChannel": {
                 "type": "integer",
-                "description": "`1 - TwilioSMS`\n\n`2 - WhatsApp`\n\n`3 - Telegram`\n\n`5 - TestBrowser`\n\n",
+                "description": "`1 - TwilioSMS`\n\n`2 - WhatsApp`\n\n`3 - Telegram`\n\n`5 - TestBrowser`\n\n`6 - Generic`\n\n`7 - Glassix`\n\n",
                 "format": "int32"
             },
             "eTranscriptOptions": {
