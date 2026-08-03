@@ -129,6 +129,111 @@ Each entry in the log includes:
 - **User**: the workspace member who triggered the event.
 - **Details**: additional context about the action, when available.
 
+### Recorded event types
+
+The audit log records the following events. The **Event Type** filter uses the same labels shown below.
+
+#### Pearls
+
+| Event type | Description |
+| --- | --- |
+| Publish Pearl | A Pearl was published. |
+| Pearl Status | A Pearl's status was changed. |
+| Pearl Retention | A Pearl's data retention settings were changed. |
+| Pearl Total Agents | The number of agents assigned to a Pearl was changed. |
+| Pearl Budget | A Pearl's budget was changed. |
+| Pearl Phone Number | A Pearl's phone number was changed. |
+| Transfer Pearl | A Pearl was transferred. |
+| Delete Pearl | A Pearl was deleted. |
+
+#### API keys
+
+| Event type | Description |
+| --- | --- |
+| Create API Key | An API key was created. |
+| Delete API Key | An API key was deleted. |
+| Reveal API Key | An API key was revealed. The secret value is not stored in the log. |
+
+#### Users and roles
+
+| Event type | Description |
+| --- | --- |
+| Invite User | A user was invited to the workspace. |
+| User Join | A user joined the workspace. |
+| Invitation Canceled | A pending invitation was canceled. |
+| Update User Role | A user's role was changed. |
+| Update Account Information | Workspace account information was changed. |
+| Remove User from Account | A user was removed from the workspace. |
+| User Left Account | A user left the workspace. |
+| Create Role | A workspace role was created. |
+| Update Role | A workspace role or its permissions were changed. |
+| Delete Role | A workspace role was deleted. |
+
+#### Security
+
+| Event type | Description |
+| --- | --- |
+| Login Attempt | A user attempted to sign in. |
+| Login Successful | A user signed in successfully. |
+| Update Session TTL | The workspace session timeout was changed. |
+| Set 2FA | Two-factor authentication settings were changed. |
+| Change Password | A user changed their password. |
+| Delete Account | The workspace account was deleted. |
+| Add to Blacklist | One or more phone numbers were added to the blacklist. |
+| Remove from Blacklist | One or more phone numbers were removed from the blacklist. |
+
+#### Billing and agents
+
+| Event type | Description |
+| --- | --- |
+| Purchase Agents | Agents were purchased. |
+| Delete Agent | An agent was removed. |
+| Set Billing Details | Workspace billing details were changed. |
+| Set Payment Method | The workspace payment method was changed. |
+| Set Subscription | The workspace subscription was changed. |
+| Cancel Subscription | The workspace subscription was canceled. |
+| Purchase Credits | Credits were purchased. |
+| Set Auto Recharge | Automatic credit recharge settings were changed. |
+
+#### Phone numbers
+
+| Event type | Description |
+| --- | --- |
+| Purchase Phone Numbers | One or more phone numbers were purchased. |
+| Release Phone Number | A phone number was released. |
+| Add Phone Number | A bring-your-own phone number was added. |
+| Update Phone Number | A phone number's settings were changed. |
+| Update SIP Configuration | SIP settings for a phone number were changed. |
+| Set Twilio Credentials | Workspace Twilio credentials were changed. |
+
+#### Text channels and integrations
+
+| Event type | Description |
+| --- | --- |
+| Create Text Channel | A text channel was created. |
+| Update Text Channel | A text channel was changed. |
+| Delete Text Channel | A text channel was deleted. |
+| Rotate Channel Secret | A text channel secret was rotated. |
+| Reveal Channel Secret | A text channel secret was revealed. The secret value is not stored in the log. |
+| Connect WhatsApp | A WhatsApp integration was connected. |
+| Add WhatsApp Number | A phone number was added to a WhatsApp integration. |
+| Disconnect WhatsApp | A WhatsApp integration was disconnected. |
+| Set Email Credentials | Email credentials were configured. |
+| Delete Email Credentials | Email credentials were removed. |
+| Connect Slack | A Slack integration was connected. |
+| Connect Calendar | A calendar integration was connected. |
+
+#### Data and groups
+
+| Event type | Description |
+| --- | --- |
+| Import Leads | Leads were imported into a Pearl. |
+| Delete Leads | Leads were deleted from a Pearl. |
+| Delete Calls | Calls were deleted from a Pearl. |
+| Export Calls | Calls were exported from a Pearl. |
+| Group Retention | A group's contact retention settings were changed. |
+| Delete Contacts | Group contacts were purged by the retention policy. |
+
 <Frame>
   <img
     src="/images/dark_mode/security-audit-log-filters.png"
