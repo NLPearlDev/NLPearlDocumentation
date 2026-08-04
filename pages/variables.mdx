@@ -189,8 +189,12 @@ Post-call variables are predefined by our team and cannot be created manually. T
 </Warning>
 
 <Note>
-Some variables are **system-defined and read-only** (shown at the top of the list), you can use them but not edit or delete them. Examples: **Pre-call** — agent name, first name, last name, phone number, email address, call id; **Post-call** — summary, transcript, recording, duration, call time.
+Some variables are **system-defined and read-only** (shown at the top of the list), you can use them but not edit or delete them. Examples: **Pre-call** — agent name, agent phone number, first name, last name, phone number, email address, call id; **Post-call** — summary, transcript, recording, duration, call time.
 </Note>
+
+<Warning>
+**Agent Phone Number** (`agentPhoneNumber`) contains the Pearl's own phone line for the current conversation, unlike **Phone Number**, which identifies the customer. It is empty on channels without a phone number, including Telegram and browser Test Chat. An API node does not execute if it references this variable while it is empty.
+</Warning>
 
 <div className="block dark:hidden">
   <Frame>

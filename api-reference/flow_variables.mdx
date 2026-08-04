@@ -95,11 +95,16 @@ If you try, the API will reject it as a duplicate ID.
 | ID | Name | Description |
 | --- | --- | --- |
 | `agentName` | Agent Name | The name of the agent. |
+| `agentPhoneNumber` | Agent Phone Number | The Pearl's own phone line for the current conversation. Read-only; empty on channels without a phone number. |
 | `firstName` | First Name | The customer's first name formatted as a proper first name. |
 | `lastName` | Last Name | The customer's last name formatted as a proper last name. |
 | `emailAddress` | Email Address | The customer's email address in a standard format (RFC 5321 / RFC 5322). |
 | `phoneNumber` | Phone Number | The customer's phone number with country code (digits + optional `+`). |
 | `callId` | Call ID | The identifier of the call. |
+
+<Warning>
+  `agentPhoneNumber` is empty on channels without a phone number, including Telegram and browser Test Chat. An API node does not execute when it references an empty required pre-call variable, so only use this variable in API nodes for channels that have a phone number.
+</Warning>
 
 ### Built-in In-call Variables
 
