@@ -5487,7 +5487,8 @@
                         "description": "Indicates whether the variable is a platform-built preset.\r\nIf true, the variable can be used but cannot be modified or overridden."
                     }
                 },
-                "additionalProperties": false
+                "additionalProperties": false,
+                "description": "A variable returned in the Pearl settings. `agentPhoneNumber` is a built-in, read-only PreCall string containing the Pearl's own phone line for the current conversation. It is empty on channels without a phone number, including Telegram and browser Test Chat."
             },
             "DateSearch": {
                 "type": "object",
