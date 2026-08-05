@@ -8133,14 +8133,39 @@
         "securitySchemes": {
             "bearer_auth": {
                 "type": "http",
-                "description": "Specify the authorization token.\n\nFor more information, check out the [Authorization Guide](/api-reference/authorization).",
+                "description": "Specify the authorization token in the form `AccountId:SecretKey`, or an OAuth 2.0 access token.\n\nFor more information, check out the [Authorization Guide](/api-reference/authorization) and the [OAuth 2.0 Guide](/api-reference/oauth).",
                 "scheme": "bearer"
+            },
+            "oauth2": {
+                "type": "oauth2",
+                "description": "OAuth 2.0 client credentials, for scoped third-party access.\n\nFor more information, check out the [OAuth 2.0 Guide](/api-reference/oauth).",
+                "flows": {
+                    "clientCredentials": {
+                        "tokenUrl": "https://api.nlpearl.ai/oauth/token",
+                        "scopes": {
+                            "pearls:read": "View Pearls and their settings.",
+                            "pearls:write": "Create and edit Pearls, including access to PearlVibe.",
+                            "pearls:moderate": "Change a Pearl's activity status.",
+                            "pearls:analytics": "View Pearl analytics.",
+                            "pearls:leads": "View and moderate leads.",
+                            "pearls:calls": "View calls and post-call information.",
+                            "account:phone_numbers": "Manage phone numbers.",
+                            "account:users": "Manage users.",
+                            "account:advanced": "Manage advanced account settings, such as security and sessions.",
+                            "account:audit_log": "View the audit log.",
+                            "account:billing": "Manage account billing."
+                        }
+                    }
+                }
             }
         }
     },
     "security": [
         {
             "bearer_auth": []
+        },
+        {
+            "oauth2": []
         }
     ],
     "tags": [

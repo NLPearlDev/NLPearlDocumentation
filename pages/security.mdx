@@ -150,8 +150,10 @@ The audit log records the following events. The **Event Type** filter uses the s
 
 | Event type | Description |
 | --- | --- |
-| Create API Key | An API key was created. |
-| Delete API Key | An API key was deleted. |
+| Create API Key | An API secret key or an OAuth 2.0 app was created. |
+| Update API Key | An OAuth 2.0 app's scopes were changed. |
+| Rotate API Key Secret | An OAuth 2.0 app's client secret was rotated. The secret value is not stored in the log. |
+| Delete API Key | An API secret key or an OAuth 2.0 app was deleted. |
 | Reveal API Key | An API key was revealed. The secret value is not stored in the log. |
 
 #### Users and roles

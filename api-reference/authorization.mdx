@@ -1,13 +1,38 @@
 ---
 title: API Authorization
-description: 'Learn how to authenticate your API requests using your Account ID and API secret key.'
+description: 'Authenticate your API requests with an API secret key, or with an OAuth 2.0 app for scoped third-party access.'
 icon: "key"
 iconType: "light"
 ---
 
 ## API Authorization Guide
 
-To interact with the NLPearl.AI API, you need to authenticate your requests by including your Account ID and API secret key in the request header. This ensures that your API calls are secure and correctly attributed to your account.
+Every request to the NLPearl.AI API must carry an `Authorization` header. There are two ways to obtain one, and both are accepted on every `/v2` endpoint.
+
+<CardGroup cols={2}>
+  <Card
+    title="API secret key"
+    icon="key"
+    iconType="light"
+    href="#api-secret-key"
+  >
+    One key with full access to your workspace. Best for **your own** backend code.
+  </Card>
+  <Card
+    title="OAuth 2.0 app"
+    icon="shield-check"
+    iconType="light"
+    href="/api-reference/oauth"
+  >
+    Scoped access with a secret you can rotate. Best for a **third-party** integration.
+  </Card>
+</CardGroup>
+
+---
+
+## API Secret Key
+
+Authenticate your requests by including your Account ID and API secret key in the request header. This ensures that your API calls are secure and correctly attributed to your account.
 
 ### Authorization Header Format
 
@@ -38,10 +63,33 @@ curl -X GET "https://api.nlpearl.ai/v2/endpoint" \
 
 Replace `66552698d60e456235eae520` and `tWPqr5EEZv2dxqutv58NsCg7NuqGc1tX` with your actual Account ID and API secret key.
 
-### Next Steps
+<Warning>
+A secret key carries **full access** to your workspace and cannot be restricted. Keep it server-side, and never share it with a third party — create an [OAuth 2.0 app](/api-reference/oauth) for that instead.
+</Warning>
 
-With your subscription selected, API secret key created, and Account ID found, you are ready to start using the NLPearl.AI API. To explore the available endpoints and learn more about integrating NLPearl.AI into your applications, check out the resources below.
+---
 
-## Conclusion
+## OAuth 2.0
 
-Getting started with the NLPearl.AI API is easy and straightforward. By following these steps, you can quickly set up your account and begin integrating powerful AI capabilities into your applications.
+An OAuth 2.0 app authenticates with its own **Client ID** and **Client Secret** and receives a short-lived access token limited to the **scopes** you granted it. Use it when an integration you do not control needs access to your workspace, or when you want an integration restricted to part of it.
+
+```http
+Authorization: Bearer <access_token>
+```
+
+<CardGroup cols={1}>
+  <Card
+    title="OAuth 2.0 Guide"
+    icon="shield-check"
+    iconType="light"
+    href="/api-reference/oauth"
+  >
+    Create an app, request a token, and read the full scope reference.
+  </Card>
+</CardGroup>
+
+---
+
+## Next Steps
+
+With your credentials ready, you can start calling the API. To explore the available endpoints and learn more about integrating NLPearl.AI into your applications, check out the resources below.

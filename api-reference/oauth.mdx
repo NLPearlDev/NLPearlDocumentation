@@ -1,0 +1,308 @@
+---
+title: OAuth 2.0
+description: 'Authenticate an integration with an OAuth 2.0 app: scoped access tokens, a rotatable client secret, and no shared account key.'
+icon: "shield-check"
+iconType: "light"
+---
+
+## Overview
+
+There are two ways to authenticate against the NLPearl API. Both are accepted on every `/v2` endpoint, so pick the one that matches who is making the calls.
+
+<CardGroup cols={2}>
+  <Card
+    title="API secret key"
+    icon="key"
+    iconType="light"
+    href="/api-reference/authorization"
+  >
+    One key with full access to your workspace. Best for **your own** backend code.
+  </Card>
+  <Card
+    title="OAuth 2.0 app"
+    icon="shield-check"
+    iconType="light"
+  >
+    Scoped access with a secret you can rotate. Best for a **third-party** integration.
+  </Card>
+</CardGroup>
+
+NLPearl implements the **client credentials** grant: the app authenticates with its own credentials and receives an access token limited to the scopes you granted it. There is no redirect, no login screen and no end user in the loop — it is machine-to-machine authentication.
+
+Compared with a secret key, an OAuth 2.0 app gives you two things: you decide **exactly what it can reach** (a reporting tool never needs to manage your phone numbers), and you can **rotate its secret** without breaking any of your other integrations.
+
+<Info>
+Creating an OAuth 2.0 app requires an active subscription.
+</Info>
+
+---
+
+## Creating an OAuth 2.0 App
+
+<Steps>
+  <Step title="Open the API Access page">
+    Click your **profile card** at the bottom-left corner of the sidebar, open **Settings**, then select **API** in the left menu. You can also go there directly: [platform.nlpearl.ai/app/settings/api](https://platform.nlpearl.ai/app/settings/api).
+  </Step>
+
+  <Step title="Create the app">
+    Click **Create OAuth 2.0 App**, give it a name that identifies the integration, and select the **scopes** it is allowed to use. Grant the fewest scopes the integration actually needs.
+  </Step>
+
+  <Step title="Copy the client ID and secret">
+    Your new app appears in the credentials list. Open it with the **edit** button to read its **Client ID** and **Client Secret**.
+  </Step>
+</Steps>
+
+<Warning>
+The client secret is a password: keep it server-side, never ship it in a browser, a mobile app or a public repository. If it leaks, [rotate it](#rotating-the-client-secret).
+</Warning>
+
+You can change an app's scopes at any time from the same window, and delete the app to revoke its access entirely.
+
+---
+
+## Requesting an Access Token
+
+```http
+POST https://api.nlpearl.ai/oauth/token
+Content-Type: application/x-www-form-urlencoded
+```
+
+<Note>
+The token endpoint sits at the **root** of the API host. Unlike every other Client API route, it is **not** under `/v2`.
+</Note>
+
+### Request parameters
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| `grant_type` | Yes | Must be `client_credentials`. No other grant type is supported. |
+| `client_id` | Yes | Your app's Client ID. |
+| `client_secret` | Yes | Your app's Client Secret. |
+| `scope` | No | Space-separated list of scopes to request. Omit it to receive every scope granted to the app. |
+
+Your credentials can be sent either in the request body or in an HTTP Basic header. Both methods are supported and issue the same token.
+
+<Tabs>
+  <Tab title="Credentials in the body">
+
+Also known as `client_secret_post`.
+
+```bash
+curl -X POST "https://api.nlpearl.ai/oauth/token" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "grant_type=client_credentials" \
+     -d "client_id=6a6c72b69b39e6add21204e7" \
+     -d "client_secret=YOUR_CLIENT_SECRET"
+```
+
+  </Tab>
+  <Tab title="Basic authentication header">
+
+Also known as `client_secret_basic`. The header value is `base64(client_id:client_secret)`.
+
+```bash
+curl -X POST "https://api.nlpearl.ai/oauth/token" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -u "6a6c72b69b39e6add21204e7:YOUR_CLIENT_SECRET" \
+     -d "grant_type=client_credentials"
+```
+
+  </Tab>
+</Tabs>
+
+<Warning>
+Send your credentials **one way or the other, never both**. A request carrying a Basic header *and* a `client_secret` in the body is rejected with `400 invalid_request`.
+</Warning>
+
+### Response
+
+```json
+{
+  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "scope": "pearls:read pearls:calls pearls:analytics"
+}
+```
+
+| Field | Description |
+| --- | --- |
+| `access_token` | The token to send on your API calls. |
+| `token_type` | Always `Bearer`. |
+| `expires_in` | Token lifetime in seconds — **3600**, one hour. |
+| `scope` | The scopes actually granted to this token. Read it to know what the token can do. |
+
+<Note>
+There is **no refresh token**. When a token expires, request a new one with the same credentials. **Cache the token and reuse it** for its whole lifetime — do not request a new one on every API call.
+</Note>
+
+---
+
+## Calling the API
+
+Send the access token as a bearer token on any `/v2` endpoint:
+
+```bash
+curl -X GET "https://api.nlpearl.ai/v2/Pearl" \
+     -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+<Note>
+There is no `AccountId:` prefix here, unlike the [secret key scheme](/api-reference/authorization) — the workspace the token belongs to is already part of the token.
+</Note>
+
+---
+
+## Scopes
+
+A scope is a permission. An app only reaches what its scopes allow; everything else is refused with `403`.
+
+The table below maps each checkbox in the **Create OAuth 2.0 App** window to the scope string returned in the token.
+
+### Pearls
+
+| In the platform | Scope |
+| --- | --- |
+| View pearls | `pearls:read` |
+| Create and edit, including access to PearlVibe | `pearls:write` |
+| Moderate activity status | `pearls:moderate` |
+| View analytics | `pearls:analytics` |
+| View and moderate leads | `pearls:leads` |
+| View calls and post-call information | `pearls:calls` |
+
+### Account
+
+| In the platform | Scope |
+| --- | --- |
+| Manage phone numbers | `account:phone_numbers` |
+| Manage users | `account:users` |
+| Manage advanced settings | `account:advanced` |
+| View audit log | `account:audit_log` |
+| Manage account billing | `account:billing` |
+
+<Note>
+`GET /v2/Account/Voices` is not scope-gated: the list of voices is needed to build a Pearl, so any valid token can read it.
+</Note>
+
+### Changing an app's scopes
+
+Scope changes apply to **newly issued tokens**. A token issued before the change keeps the scopes it was created with until it expires, so allow up to one hour for a change to take full effect.
+
+---
+
+## Errors
+
+### Token endpoint
+
+| Status | `error` | When |
+| --- | --- | --- |
+| `400` | `invalid_request` | `grant_type` is missing, or credentials were sent in the Basic header **and** the body. |
+| `400` | `unsupported_grant_type` | `grant_type` is anything other than `client_credentials`. |
+| `401` | `invalid_client` | Unknown `client_id`, wrong `client_secret`, or the app was deleted. |
+| `405` | — | The endpoint only accepts `POST`. |
+
+Every error comes back as JSON:
+
+```json
+{
+  "error": "invalid_client",
+  "error_description": "Client authentication failed"
+}
+```
+
+### API endpoints
+
+| Status | Meaning |
+| --- | --- |
+| `401` | The token is missing, malformed, or expired. Request a new token. |
+| `403` | The token is valid but **lacks the scope** this endpoint requires. |
+
+A `403` carries a challenge header and a machine-readable body:
+
+```http
+HTTP/1.1 403 Forbidden
+WWW-Authenticate: Bearer error="insufficient_scope",
+                  error_description="The token does not carry the scope required by this endpoint"
+```
+
+```json
+{
+  "error": "insufficient_scope",
+  "error_description": "The token does not carry the scope required by this endpoint"
+}
+```
+
+<Warning>
+Handle `403` and `401` differently. A `401` means *get a new token*; a `403` means *this app was never granted the scope* — requesting another token will return the same result. Retrying a `403` in a loop will never succeed.
+</Warning>
+
+---
+
+## Rotating the Client Secret
+
+Rotation replaces an app's secret without changing its Client ID, its scopes, or anything else about it. Use it when a secret may have been exposed, or as routine hygiene.
+
+<Steps>
+  <Step title="Open the app">
+    On the **API Access** page, open the OAuth 2.0 app with the **edit** button.
+  </Step>
+
+  <Step title="Rotate the secret">
+    Click the **rotate** button next to **Client Secret** and confirm.
+  </Step>
+
+  <Step title="Copy the new secret">
+    The new secret is displayed **once**, right after rotation. Copy it before closing the window.
+  </Step>
+</Steps>
+
+<Warning>
+The previous secret stops working as soon as you rotate. Every integration using it must be updated with the new secret, or it will start receiving `401 invalid_client`.
+</Warning>
+
+Access tokens that were already issued stay valid until they expire — rotation blocks new tokens, it does not revoke the ones already in circulation. To cut an integration off immediately, delete the app.
+
+---
+
+## Token Format and Discovery
+
+You do not need any of this to call the API, but it is there if your OAuth client expects it.
+
+Access tokens are **RS256-signed JWTs**. Their claims include `iss` and `aud` (both `https://api.nlpearl.ai`), `sub` (the Client ID), `account_id` (your workspace), `scope`, and the usual `iat` / `nbf` / `exp`. You can verify a token's signature against the public keys published in the JWKS below.
+
+| Endpoint | Purpose |
+| --- | --- |
+| [`/.well-known/oauth-authorization-server`](https://api.nlpearl.ai/.well-known/oauth-authorization-server) | Authorization server metadata: token endpoint, supported grant types and auth methods, full scope list. |
+| [`/.well-known/jwks.json`](https://api.nlpearl.ai/.well-known/jwks.json) | Public keys used to verify token signatures. |
+
+Both are public and require no authentication.
+
+---
+
+## Audit Trail
+
+Everything you do to an OAuth 2.0 app is recorded in your workspace [audit log](/pages/security#reviewing-workspace-activity-with-audit-logs): creating the app, changing its scopes, rotating its secret, and deleting it. Secret values are never written to the log.
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Authorization Guide"
+    icon="key"
+    iconType="light"
+    href="/api-reference/authorization"
+  >
+    The secret key scheme, and when to use it instead.
+  </Card>
+  <Card
+    title="Quick Start"
+    icon="rocket"
+    iconType="light"
+    href="/api-reference/api_quickstart"
+  >
+    Set up your account and make your first API call.
+  </Card>
+</CardGroup>
