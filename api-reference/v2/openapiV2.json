@@ -5410,7 +5410,7 @@
                     },
                     "description": {
                         "type": "string",
-                        "description": "Guidance for the agent on how to collect or infer this variable during the conversation.\r\n            \r\nMax 300 characters only.",
+                        "description": "Guidance for the agent on how to collect or infer this variable during the conversation.\r\n            \r\nMax 1000 characters only.",
                         "nullable": true
                     },
                     "value": {
@@ -5460,6 +5460,10 @@
                     "isList": {
                         "type": "boolean",
                         "description": "Indicates whether the variable holds multiple values (list) or a single value."
+                    },
+                    "isSessionScoped": {
+                        "type": "boolean",
+                        "description": "When true, this variable starts empty at the beginning of every interaction instead of carrying over its previous value."
                     },
                     "description": {
                         "type": "string",

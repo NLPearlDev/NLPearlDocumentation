@@ -155,6 +155,26 @@ How long a conversation can stay inactive before Pearl closes the chat and trigg
 
 ---
 
+### Response Delay
+
+How long Pearl waits before replying. When a lead sends several messages in a row, Pearl answers them together instead of replying to each one.
+
+Choose from **ASAP** up to **5 minutes**, in 30-second steps (default **ASAP**, which means Pearl replies as soon as it is ready).
+
+<Frame>
+  <img
+    src="/images/dark_mode/text-outbound-response-delay.png"
+    alt="Response Delay setting"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Note>
+  Each campaign has its own response delay, separate from your inbound activity.
+</Note>
+
+---
+
 ### Inactivity Follow-up
 
 When enabled (on/off), Pearl sends follow-up messages when the lead stops replying after Pearl's last message, to re-engage the conversation.

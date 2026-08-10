@@ -134,6 +134,12 @@ The configuration form is the same in all three cases. Only the available variab
     - The platform **casts each variable to its configured data type** (e.g. Whole Number becomes an integer, Text is quoted as a string). A type mismatch may cause the API to reject the request.
     - You can mix static values and variables in the same body.
     - For nested JSON, use **dot notation** in the Key (`customer.address.street`) and **square brackets** for array indices (`order.items[0].productId`). See [Using Nested Objects](#using-nested-objects) below.
+
+    A body value can also carry its own braces - a GraphQL query or a nested JSON fragment, for example. In an API node, only braces wrapping a valid variable ID are substituted; every other brace is sent as-is:
+
+    - `{ {agentName} }` - the variable is replaced, the outer braces are kept.
+    - `query { boards(ids: {agentName}) { id } }` - the variable is replaced, the rest of the query is left untouched.
+    - `{ agentName }` - braces containing spaces around the ID are **not** recognized as a variable; the text is sent literally.
   </Step>
 </Steps>
 
@@ -165,18 +171,18 @@ Many APIs expect a **nested JSON structure** in their request body. Use dot nota
   ```json body.json
   {
     "customer": {
-      "name": "{{customerName}}",
-      "email": "{{customerEmail}}",
+      "name": "{customerName}",
+      "email": "{customerEmail}",
       "address": {
-        "street": "{{street}}",
-        "city": "{{city}}"
+        "street": "{street}",
+        "city": "{city}"
       }
     },
     "order": {
       "items": [
         {
-          "productId": "{{productId}}",
-          "quantity": "{{quantity}}"
+          "productId": "{productId}",
+          "quantity": "{quantity}"
         }
       ]
     }

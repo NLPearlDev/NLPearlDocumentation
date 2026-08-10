@@ -240,7 +240,35 @@ If your account belongs to multiple workspaces, use the workspace switcher to mo
 
 ---
 
-## Related Settings
+## Transferring a Pearl to Another Workspace
+
+You can send a copy of a Pearl to another workspace you belong to - useful when you build agents in a test workspace before moving them to production, or manage several customers from a single account.
+
+<Frame>
+  <img
+    src="/images/dark_mode/pearl-transfer.png"
+    alt="Transfer Pearl dialog"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Steps>
+  <Step title="Open the transfer dialog">
+    On the Pearl's page, open the **Settings** menu and click **Transfer Pearl**. The same option is available from the Pearls list.
+  </Step>
+  <Step title="Choose the version to transfer">
+    Select which version of the Pearl to send. It becomes **version 1** of the new Pearl in the destination workspace.
+  </Step>
+  <Step title="Pick the destination">
+    Select one or more workspaces, then click **Transfer**.
+  </Step>
+</Steps>
+
+The Pearl is **copied, not moved**: the original stays in the current workspace, untouched and still running. The copy arrives as a **draft** with a clean slate - no calls, conversations, leads, or usage history follows it - so you can review it and publish it when ready.
+
+<Warning>
+  Phone numbers and text channels are not transferred. Before going live, assign the copy a phone number or text channel that belongs to the destination workspace.
+</Warning>
 
 <CardGroup cols={2}>
   <Card title="Account Security Settings" icon="lock" href="/pages/security">
