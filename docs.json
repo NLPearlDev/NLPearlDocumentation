@@ -172,11 +172,19 @@
             "expanded": true, 
             "pages": [
               "api-reference/api_quickstart",
-              "api-reference/python_wrapper",
-              "api-reference/authorization",
-              "api-reference/oauth",
+              {
+                "group": "API Authorization",
+                "icon": "key",
+                "expanded": true,
+                "root": "api-reference/authorization",
+                "pages": [
+                  "api-reference/api_secret_key",
+                  "api-reference/oauth"
+                ]
+              },
               "api-reference/flow_variables",
-              "api-reference/building_a_flow"
+              "api-reference/building_a_flow",
+              "api-reference/python_wrapper"
             ]
           },
           {
