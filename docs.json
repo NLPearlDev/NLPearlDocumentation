@@ -174,7 +174,7 @@
               "api-reference/api_quickstart",
               {
                 "group": "API Authorization",
-                "icon": "key",
+                "icon": "lock",
                 "expanded": true,
                 "root": "api-reference/authorization",
                 "pages": [
