@@ -29,12 +29,28 @@ NLPearl implements the **client credentials** grant: the app authenticates with 
 <Steps>
   <Step title="Open the API Access page">
     Click your **profile card** at the bottom-left corner of the sidebar, open **Settings**, then select **API Access** in the settings menu. You can also go there directly: [platform.nlpearl.ai/app/settings/api](https://platform.nlpearl.ai/app/settings/api).
+
+    <Frame>
+      <img
+        src="/images/dark_mode/oauth-api-access-page.png"
+        alt="API Access page with the Create OAuth 2.0 App button"
+        className="rounded-[14px]"
+      />
+    </Frame>
   </Step>
 
 <Step title="Add OAuth 2.0 App">
   Click **Create OAuth 2.0 App**. The window that opens holds everything the app
   is made of: a **Name**, its **Client ID** and **Client Secret**, and the
   **Scopes** it is allowed to use.
+
+  <Frame>
+    <img
+      src="/images/dark_mode/oauth-create-app.png"
+      alt="Create OAuth 2.0 App dialog"
+      className="rounded-[14px]"
+    />
+  </Frame>
 </Step>
 
 <Step title="Name it and choose its scopes">
@@ -203,6 +219,14 @@ The tables below map every checkbox in the **OAuth 2.0 App** window - grouped **
 ### Changing an app's scopes
 
 Open the app with the **edit** button, tick or untick scopes, then click **Save Scopes**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/oauth-edit-scopes.png"
+    alt="Edit OAuth 2.0 App scopes"
+    className="rounded-[14px]"
+  />
+</Frame>
 
 Scope changes apply to **newly issued tokens**. A token issued before the change keeps the scopes it was created with until it expires.
 
