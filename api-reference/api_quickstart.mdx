@@ -37,35 +37,43 @@ Getting started with the NLPearl.AI API is straightforward. Follow these steps t
 
 ### Step 1: Choose a Subscription
 
-Before you can use the NLPearl.AI API, you need to select a subscription plan that suits your needs. Visit the [Subscription Plans](#) page to view and choose the plan that best fits your requirements.
+Before you can use the NLPearl.AI API, you need to select a subscription plan that suits your needs. See [Billing](/pages/billing) to view and choose the plan that best fits your requirements.
 
-### Step 2: Create an API Secret Key
+### Step 2: Create Your Credentials
 
-To interact with the NLPearl.AI API, you need to create an API secret key. This key is essential for authenticating your requests.
+To interact with the NLPearl.AI API, you need credentials. Open **Settings** on the platform, select the **API Access** page, and create one of the two:
 
-1. **Navigate to the API Page**: Go to the settings tab on the platform and select the API page.
-2. **Create API Secret Key**: Follow the instructions to generate a new API secret key. Make sure to store this key securely.
+- An [**API secret key**](/api-reference/api_secret_key) - full access to your workspace, for code you own and run yourself. Store it securely.
+- An [**OAuth 2.0 app**](/api-reference/oauth) - a Client ID and Client Secret with only the [scopes](/api-reference/oauth#scopes) you select, for a third-party integration or an app that should reach only part of your workspace.
+
+If you are not sure, start with an API secret key and follow the steps below.
 
 ### Step 3: Find Your Account ID
 
-Your Account ID is required for API authentication. You can find your Account ID in the account details section of the settings tab.
-
-1. **Navigate to Settings**: Go to the settings tab on the platform.
-2. **Find Account ID**: Locate your Account ID in the account details section.
+Your Account ID is required to authenticate with an API secret key. Open **Settings**, then **General Settings**, and copy it from the **Account ID** field. (An OAuth 2.0 app does not need it - the workspace is already part of its access token.)
 
 ### Step 4: Set Up API Authentication
 
-To authenticate your API requests, you need to include your Account ID and API secret key in the header of each request. Check On The Authorisation Guide:
+To authenticate your API requests, include your credentials in the header of each request. Check the guide that matches the credentials you created:
 
 
 <CardGroup cols={2}>
- 
+
   <Card
-    title="Authorization Guide"
+    title="API Secret Key"
     icon="key"
-    href="/api-reference/authorization"
+    iconType="light"
+    href="/api-reference/api_secret_key"
   >
-    Learn more about setting up and managing API authentication.
+    Send your Account ID and secret key as a bearer token.
+  </Card>
+  <Card
+    title="OAuth 2.0"
+    icon="shield-check"
+    iconType="light"
+    href="/api-reference/oauth"
+  >
+    Request an access token and scope what an integration can reach.
   </Card>
 </CardGroup>
 ## Conclusion

@@ -229,8 +229,34 @@ Some variables are **system-defined and read-only** (shown at the top of the lis
 | **Type** | The variable's data type (see the **Variable Types** table below). | Required |
 | **Display Name** | Human-readable label shown in the UI and used by Pearl (e.g. `Customer Name`). | Required · max 40 chars · letters, numbers, spaces |
 | **ID** | Unique system key used to reference the variable in flows, CSV imports, and API payloads. Auto-generated from the Display Name, editable. | Required · unique · max 40 chars · letters, numbers, `_`, `-` · no spaces |
-| **Description** _(optional)_ | Explain the purpose or usage of this variable (helps Pearl use it correctly). | Optional · max 300 chars |
+| **Description** _(optional)_ | Explain the purpose or usage of this variable (helps Pearl use it correctly). | Optional · max 1000 chars |
 | **Allow Multiple Entries** | Store a list of values of the chosen type (e.g. several dates). | Optional |
+| **Reset Every Interaction** | Start this variable empty in every new interaction instead of reusing the value from a previous one. | Optional |
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/variables-reset-every-interaction.png"
+        alt="Reset Every Interaction toggle in the Variables Manager"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/variables-reset-every-interaction.png"
+        alt="Reset Every Interaction toggle in the Variables Manager"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+<br/>
 
 <Tip>
 **Display Name vs ID** — the **Display Name** is what you read and what Pearl says; the **ID** is the key the system uses everywhere else. When importing leads via CSV or the API, the column header / `callData` key must match the variable's **ID**, not its Display Name.
@@ -639,6 +665,10 @@ To collect user input into a variable, open the node's configuration in the **Fl
 
 ## Populating Variables from External Data
 Call variables can be filled dynamically from CSV files or APIs to personalize outbound calls.
+
+<Warning>
+  Do not enable **Reset Every Interaction** on a variable you populate from a CSV import or the API: the value you provide is cleared before the call starts.
+</Warning>
 
 <span style={{ fontSize: '18px', fontWeight: 600, color: 'white' }}>
   Adding Variables via the Platform (Outbound Campaigns)

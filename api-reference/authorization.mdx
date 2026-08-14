@@ -1,47 +1,69 @@
 ---
 title: API Authorization
-description: 'Learn how to authenticate your API requests using your Account ID and API secret key.'
+sidebarTitle: Overview
+description: "Every API request carries an Authorization header. Choose the credential that matches who is making the calls."
 icon: "key"
 iconType: "light"
 ---
 
 ## API Authorization Guide
 
-To interact with the NLPearl.AI API, you need to authenticate your requests by including your Account ID and API secret key in the request header. This ensures that your API calls are secure and correctly attributed to your account.
+Every request to the NLPearl API must carry an `Authorization` header. There are two kinds of credential behind it, and both are accepted on every `/v2` endpoint - so an integration built against one works against the other without changing a single call.
 
-### Authorization Header Format
+<CardGroup cols={2}>
+  <Card
+    title="API Secret Key"
+    icon="key"
+    iconType="light"
+    href="/api-reference/api_secret_key"
+  >
+    One key with full access to your workspace. Best for **your own** backend
+    code.
+  </Card>
+  <Card
+    title="OAuth 2.0"
+    icon="shield-check"
+    iconType="light"
+    href="/api-reference/oauth"
+  >
+    An app with its own client ID and secret, limited to the **scopes** you
+    grant and rotatable on its own. Best for a **third-party** integration.
+  </Card>
+</CardGroup>
 
-Include the following authorization header in all your API requests:
+---
 
-```http
-Authorization: Bearer AccountId:SecretKey
-```
+## Choosing Between Them
 
-The _**Token**_ must be in the form `AccountId:SecretKey`.
+|                      | API secret key                             | OAuth 2.0 app                                                      |
+| -------------------- | ------------------------------------------ | ------------------------------------------------------------------ |
+| What you send        | `Bearer AccountId:SecretKey` on every call | `Bearer <access_token>`, after requesting a token                  |
+| Reach                | The whole workspace, always                | Only the scopes you granted the app                                |
+| Lifetime             | The key does not expire                    | Access tokens last one hour; request a new one when they expire    |
+| If the secret leaks  | Delete the key and create a new one        | Rotate the app's secret; its client ID and scopes stay as they are |
+| Readable again later | Yes, copy it from the credentials list     | No, the client secret is shown once                                |
 
-**For example**:
+Both are created on the **API Access** page of your workspace settings, and creating either one requires an active subscription.
 
-```http
-Authorization: Bearer 66552698d60e456235eae520:tWPqr5EEZv2dxqutv58NsCg7NuqGc1tX
-```
+---
 
-You can retrieve your Account ID and Secret Key in [our platform](https://platform.nlpearl.ai/app/settings/api).
+## Next Steps
 
-### Example API Request
-
-Here’s an example of how to set up the Authorization header for an API request using cURL:
-
-```bash
-curl -X GET "https://api.nlpearl.ai/v2/endpoint" \
-     -H "Authorization: Bearer 66552698d60e456235eae520:tWPqr5EEZv2dxqutv58NsCg7NuqGc1tX"
-```
-
-Replace `66552698d60e456235eae520` and `tWPqr5EEZv2dxqutv58NsCg7NuqGc1tX` with your actual Account ID and API secret key.
-
-### Next Steps
-
-With your subscription selected, API secret key created, and Account ID found, you are ready to start using the NLPearl.AI API. To explore the available endpoints and learn more about integrating NLPearl.AI into your applications, check out the resources below.
-
-## Conclusion
-
-Getting started with the NLPearl.AI API is easy and straightforward. By following these steps, you can quickly set up your account and begin integrating powerful AI capabilities into your applications.
+<CardGroup cols={2}>
+  <Card
+    title="Quick Start"
+    icon="rocket"
+    iconType="light"
+    href="/api-reference/api_quickstart"
+  >
+    Set up your account and make your first API call.
+  </Card>
+  <Card
+    title="Python Wrapper"
+    icon="python"
+    iconType="light"
+    href="/api-reference/python_wrapper"
+  >
+    Call the API from Python without writing the HTTP layer yourself.
+  </Card>
+</CardGroup>
