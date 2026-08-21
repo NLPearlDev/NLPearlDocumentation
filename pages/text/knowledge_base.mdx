@@ -77,7 +77,7 @@ This is where you teach Pearl what it needs to know to respond with relevance an
 </Note>
 
 <Note>
-Both options live in the same area and can be combined: type your information directly in the **text field** and/or **upload reference files**. Multiple documents can be added if needed. Supported formats: `.docx`, `.txt`, `.pdf`.
+Both options live in the same area and can be combined: type your information directly in the **text field** and/or **upload reference files**. Multiple documents can be added if needed.
 </Note>
 
 Whether you're describing how your subscription plans work, listing available services, or clarifying your business hours, this section allows Pearl to access structured information that supports more precise answers.
@@ -85,6 +85,28 @@ Whether you're describing how your subscription plans work, listing available se
 <Info>
 This is the same knowledge that powers the [Knowledge Base node](/pages/knowledge_base_node) in the Flow Editor. What you add here is what your Pearl draws on during conversations.
 </Info>
+
+### Files and limits
+
+These caps apply **per Pearl**: they cover every file attached to that Pearl's Knowledge Base, not each file individually.
+
+| Limit | Value |
+|---|---|
+| Number of files | 50 |
+| Supported formats | `.pdf`, `.docx`, `.txt` |
+| Total size of all files | 25 MB (no per-file cap) |
+| Total text extracted from files | 1,000,000 characters |
+| Free-text field | 20,000 characters (counted separately) |
+
+There is no page limit and no character cap on an individual document, only the shared 25 MB and 1,000,000-character totals apply. The free-text field has its own 20,000-character budget and does **not** consume the 1,000,000 characters reserved for files.
+
+<Tip>
+A **Knowledge Base File Usage** bar appears once the text extracted from your files passes **100,000 characters**, so you can keep an eye on how much of the budget is left.
+</Tip>
+
+<Warning>
+Pearl uses the **text extracted** from your `.pdf`, `.docx`, and `.txt` files. Standalone image files can't be uploaded, so make sure anything Pearl needs to answer with exists as text in the document.
+</Warning>
 
 ---
 
