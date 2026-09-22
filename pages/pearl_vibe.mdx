@@ -50,9 +50,9 @@ PearlVibe is an AI‑assisted flow editor for building your agents - both **voic
 <Info>
 You can work in two complementary ways:
 
-| Mode | Description |
+| View | Description |
 |------|-------------|
-| **Chat (default)** | You describe changes in natural language to **Ask Pearl** (e.g. "Add a post‑call SMS when the booking is confirmed") and Pearl Vibe creates or edits the nodes and transitions for you. |
+| **Chat (default)** | You describe what you want in natural language (e.g. "Add a post‑call SMS when the booking is confirmed"). In **Build** mode, Pearl Vibe creates or edits the nodes and transitions for you; in **Ask** mode, it answers and advises without touching your flow. |
 | **Manual Edit** | You open **Manual Edit** on the selected node to configure it and its transitions yourself, for full control. Every setting is visible and editable. |
 </Info>
 
@@ -72,7 +72,7 @@ Each of these works the same way whether your Pearl is **voice** or **text** —
 ### Key benefits
 
 <Check>
-- **Build in minutes instead of days** – Use the chat to describe what you want, then refine visually.
+- **Build in minutes instead of days** – Describe what you want in the chat, let Pearl build it for you in **Build** mode, then refine visually.
 - **Safe versioning** – Work in a separate version with autosave while your Published version keeps running in production.
 - **Visual understanding of calls** – Use test calls and live node highlighting to see exactly how calls traverse your flow.
 - **Structured but flexible** – Combine high‑level "vibes" (global instructions, personality) with precise node and transition logic.
@@ -208,6 +208,8 @@ When you're satisfied with your changes and tests, click **Publish** (top-right 
 <Note>
 If your flow still has unresolved issues, the **Publish** button is replaced by an **Errors & Tasks (N)** button until you fix or dismiss them (see the **Tasks & Errors** section below).
 </Note>
+
+The version you are editing and the **Published** version drift apart as soon as you change anything, and they stay apart until you publish again. You don't have to keep track of that yourself: ask in the chat whether what you are editing still matches what is live, and Pearl compares the two for you (see [Chat Sidebar](#chat-sidebar)).
 </Accordion>
 
 <Accordion title="Credentials & Variables Managers" icon="plug">
@@ -284,7 +286,7 @@ Clicking the **Errors & Tasks** button opens a right-hand **Tasks & Errors** pan
 </Frame>
 
 Each card offers two actions:
-- **Fix With Pearl** — let the agent propose and apply the corrected configuration for you.
+- **Fix With Pearl** — sends the fix to the chat. In **Build**, the agent proposes the corrected configuration and applies it once you confirm; in **Ask**, it describes the fix instead.
 - **Open in editor** — jump directly to the affected node in the Flow Editor.
 
 <Frame>
@@ -307,7 +309,7 @@ Affected nodes are highlighted in red, and the problem is flagged directly in th
   />
 </Frame>
 
-You can also fix an issue from the node itself: hovering a node reveals a quick **Fix With Pearl** action.
+You can also fix an issue from the node itself: hovering a node reveals a quick **Fix With Pearl** action, which sends the same request to the chat.
 
 <Frame>
   <img
@@ -318,7 +320,7 @@ You can also fix an issue from the node itself: hovering a node reveals a quick 
 </Frame>
 
 <Tip>
-You can either fix issues manually or let Pearl draft and apply the corrected configuration for you.
+You can either fix issues manually or let Pearl draft the corrected configuration for you in the chat — in **Build** mode, it applies it once you confirm.
 </Tip>
 </Accordion>
 
@@ -395,7 +397,7 @@ To learn more about post-call actions, see the [Post-Call documentation](/pages/
 
 ## Chat Sidebar
 
-The chat sidebar is where you build your Pearl — either by talking to PearlVibe in natural language to create and edit your flow, or by switching to Manual Edit to configure things by hand.
+The chat sidebar is where you work on your Pearl — by talking to PearlVibe in natural language, either to ask it about your flow and your calls or to have it create and edit the flow for you, or by switching to Manual Edit to configure things by hand.
 
 <Frame>
   <img
@@ -409,27 +411,46 @@ It combines two complementary views:
 
 | View | Description |
 |------|-------------|
-| **Chat (Ask Pearl)** | Describe changes in natural language and let Pearl build them. This is the default view. |
+| **Chat** | Describe what you want in natural language. This is the default view, and it has two modes: **Ask**, which only answers and advises, and **Build**, which changes your flow. |
 | **Manual Edit** | Explicit, hands-on configuration of the selected node. |
 
+The Chat view is covered in two parts below: building your flow, and using the chat to investigate it.
+
 <Note>
-All actions in this sidebar always apply to the node currently selected in the flow editor (unless explicitly noted as global, like General Instructions).
+When a node is selected, everything you ask for in this sidebar is interpreted in the context of that node — unless it is explicitly global (like General Instructions), or you are asking about the flow as a whole, a past call, or the Published version (see **Investigating your flow and your calls** below).
 </Note>
 
 <AccordionGroup>
-  <Accordion title="Chat (Ask Pearl)" icon="comments">
+  <Accordion title="Chat" icon="comments">
 
 <Frame>
   <img
     src="/images/dark_mode/pearl-chat-panel.png"
-    alt="Ask Pearl chat panel in the left sidebar"
+    alt="Chat panel in the left sidebar"
     className="rounded-[14px]"
   />
 </Frame>
 
-    This is the default view. You design and update the flow by describing changes in natural language, and Pearl builds them into your current version.
+    This is the default view. You describe what you want in natural language, and Pearl either answers you or builds it into your current version — depending on the mode you are in.
+
+    **Ask and Build**
+
+    The composer carries a pill showing the current mode. Click it to open the mode menu and switch. The chat opens in **Build**.
+
+    | Mode | What it does |
+    |------|--------------|
+    | **Ask** | Investigates, checks, and advises. It reads your flow and your calls and answers your questions, but it never changes anything. |
+    | **Build** | Makes the changes you ask for, after you confirm them. |
+
+    The same sentence gives you two different outcomes. "Add an SMS step after the booking step" in **Ask** gets you a description of the change and an invitation to switch to **Build**, and your flow is left untouched. The same sentence in **Build** gets you a short plan, a confirmation, and then the step itself in the editor.
+
+    <Note>
+    Deletions are always confirmed by name. "Delete the booking step" is answered with a confirmation naming the node, and it is only removed once you say yes.
+    </Note>
 
     **Typical operations you can perform:**
+
+    These are all **Build** mode operations — in **Ask**, Pearl describes what it would do instead of doing it.
 
     | Operation | Example |
     |-----------|---------|
@@ -441,12 +462,12 @@ All actions in this sidebar always apply to the node currently selected in the f
 
     **The composer**
 
-    Type your instruction in the **Ask Pearl…** box — for example: "Split this node into three outcomes based on payment status.", "After a successful payment, send a confirmation SMS and end the call.", "Create a post-call node that logs the outcome to the CRM." Press **Send** and the editor updates in real time.
+    Type your instruction in the composer — its placeholder reads **Ask Pearl…** whichever mode you are in. For example: "Split this node into three outcomes based on payment status.", "After a successful payment, send a confirmation SMS and end the call.", "Create a post-call node that logs the outcome to the CRM." Press **Send**: in **Build**, Pearl answers with its plan and updates the editor once you confirm; in **Ask**, it answers without touching your flow.
 
 <Frame>
   <img
     src="/images/dark_mode/ask-pearl-input-box.png"
-    alt="Ask Pearl composer input box"
+    alt="Chat composer input box"
     className="rounded-[14px]"
   />
 </Frame>
@@ -458,7 +479,7 @@ All actions in this sidebar always apply to the node currently selected in the f
 <Frame>
   <img
     src="/images/dark_mode/ask-pearl-attach-file-button.png"
-    alt="Attach file button in the Ask Pearl composer"
+    alt="Attach file button in the chat composer"
     className="rounded-[14px]"
   />
 </Frame>
@@ -466,7 +487,7 @@ All actions in this sidebar always apply to the node currently selected in the f
     Accepted formats: `.pdf`, `.docx`, `.txt`, `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.mp3`, `.m4a`, `.wav`, `.webm` — up to **10 files per message**.
 
     <Tip>
-    You can attach a **full recording of a real conversation** (e.g. an `.mp3` or `.wav` call) and ask PearlVibe to build the flow from it — it will turn the exchange into nodes and transitions for you.
+    You can attach a **full recording of a real conversation** (e.g. an `.mp3` or `.wav` call) and ask PearlVibe to build the flow from it — in **Build** mode, it turns the exchange into nodes and transitions for you.
     </Tip>
 
     - **Enhance prompt** — rewrite a rough or short instruction into a clearer, more structured request before it runs.
@@ -474,7 +495,7 @@ All actions in this sidebar always apply to the node currently selected in the f
 <Frame>
   <img
     src="/images/dark_mode/ask-pearl-ai-suggest-button.png"
-    alt="Enhance prompt button in the Ask Pearl composer"
+    alt="Enhance prompt button in the chat composer"
     className="rounded-[14px]"
   />
 </Frame>
@@ -484,7 +505,7 @@ All actions in this sidebar always apply to the node currently selected in the f
 <Frame>
   <img
     src="/images/dark_mode/ask-pearl-voice-input-button.png"
-    alt="Voice input button in the Ask Pearl composer"
+    alt="Voice input button in the chat composer"
     className="rounded-[14px]"
   />
 </Frame>
@@ -496,14 +517,14 @@ All actions in this sidebar always apply to the node currently selected in the f
 <Frame>
   <img
     src="/images/dark_mode/ask-pearl-node-context-panel.png"
-    alt="Node context pill above the Ask Pearl composer"
+    alt="Node context pill above the chat composer"
     className="rounded-[14px]"
   />
 </Frame>
 
     **Reviewing what Pearl builds**
 
-    Before applying larger edits, Pearl often shows a short plan and asks you to confirm (**Yes, build it**) or answer directly.
+    In **Build** mode, Pearl usually shows a short plan before applying larger edits and asks you to confirm (for example **Yes, build it**) — or you can answer it directly in the composer.
 
 <Frame>
   <img
@@ -518,7 +539,7 @@ All actions in this sidebar always apply to the node currently selected in the f
 <Frame>
   <img
     src="/images/dark_mode/crm-selection-prompt.png"
-    alt="Interactive choice prompt in the Ask Pearl chat"
+    alt="Interactive choice prompt in the chat"
     className="rounded-[14px]"
   />
 </Frame>
@@ -555,6 +576,32 @@ All actions in this sidebar always apply to the node currently selected in the f
 
     <Tip>
     Chat is the recommended entry point to quickly build or refactor a flow, especially for large or complex trees.
+    </Tip>
+  </Accordion>
+  <Accordion title="Investigating your flow and your calls" icon="magnifying-glass">
+
+    Pearl can read your flow and your calls, not only change them. Ask it a question about either and it goes and reads the material itself. All of this works in **Ask** mode as well as in **Build**, since none of it changes your flow.
+
+    **Reading a past call**
+
+    Ask *"Look at my last test call and tell me what happened"* and Pearl reads the call itself — the lines that were exchanged, the nodes the call went through, and what your API steps returned. You don't have to open the call and go through the transcript yourself.
+
+    It works the same way on a text Pearl — ask about your last test chat instead.
+
+    **Asking why something went wrong**
+
+    You can go straight to the question instead of to the evidence: *"Investigate why my agent skipped the booking."* Pearl pulls up the relevant calls on its own and answers from what it finds in them.
+
+    **What changed since the published version**
+
+    Pearl knows both the version you are editing and the **Published** one that is handling your calls, and it can compare them. Ask *"What changed since the published version?"* after editing a node, or *"Is what I'm editing still the same as what is live?"*, and it tells you exactly what you have changed since.
+
+    **Checking the flow for problems**
+
+    *"Check my flow for problems"* gets you a structural review: nodes that lead nowhere, transitions that connect to nothing, configuration left unfinished. If your Pearl has already taken calls, it also reports which API steps behaved inconsistently across them.
+
+    <Tip>
+    This is the quickest way to use your call history: instead of opening past calls one by one, ask Pearl what happened in them.
     </Tip>
   </Accordion>
   <Accordion title="Manual Edit" icon="sliders">
@@ -617,7 +664,7 @@ All actions in this sidebar always apply to the node currently selected in the f
 
     **Back to Chat**
 
-    When you're done, click **Back to Chat** to return to the Ask Pearl view.
+    When you're done, click **Back to Chat** to return to the chat.
 
 <Frame>
   <img
@@ -630,7 +677,7 @@ All actions in this sidebar always apply to the node currently selected in the f
     <Info>
     Any modification done in Manual Edit is immediately reflected in the visual flow and remains fully understood by Pearl.
 
-    You can freely switch between Chat (Ask Pearl) and Manual Edit as you work on the same node.
+    You can freely switch between Chat and Manual Edit as you work on the same node.
     </Info>
   </Accordion>
 </AccordionGroup>

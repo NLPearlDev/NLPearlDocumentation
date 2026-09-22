@@ -3501,7 +3501,7 @@
                         "items": {
                             "$ref": "#/components/schemas/APIDataSchemaPropertyApi"
                         },
-                        "description": "Maps fields of the API response onto flow variables, so the values returned by the API can be used\r\nlater in the conversation.",
+                        "description": "Maps fields of the API response onto flow variables, so the values returned by the API can be used\r\nlater in the conversation.\r\n\r\nOn an output mapping, each entry's Key is the path to read from the response. A path supports filters, array indexes (including negative ones), slices, recursive descent, and {variableId} placeholders.",
                         "nullable": true
                     },
                     "credentialId": {
@@ -6393,7 +6393,7 @@
                         "items": {
                             "$ref": "#/components/schemas/APIDataSchemaPropertyApi"
                         },
-                        "description": "Maps fields of the API response onto flow variables, so the values returned by the API can be used\r\nlater in the conversation.",
+                        "description": "Maps fields of the API response onto flow variables, so the values returned by the API can be used\r\nlater in the conversation.\r\n\r\nOn an output mapping, each entry's Key is the path to read from the response. A path supports filters, array indexes (including negative ones), slices, recursive descent, and {variableId} placeholders.",
                         "nullable": true
                     },
                     "credentialId": {

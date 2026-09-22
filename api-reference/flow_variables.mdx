@@ -136,12 +136,15 @@ Typical examples include:
 * Flow scripts (when enabled)
 * API endpoint URLs
 * API body values (when the body field is a string)
+* API response output paths (the **JSON Path** column of a Response Output Schema) — not labeled, see the note below
 * SMS / Email templates (depending on the action timing)
 * End-call notifications (supports post-call variables)
 
 <Note>
 Only fields that support variables will be labeled with `🧩 May support variables`.
 If the field is not labeled, assume it is static-only.
+
+The one exception is the **JSON Path** column of an API action's Response Output Schema: it carries no label, but it does accept `{variableId}` placeholders. See [Using variables in API response output paths](#4-use-variables-in-api-response-output-paths).
 </Note>
 
 ---
@@ -195,7 +198,22 @@ This is a special case for the API body schema only. Everywhere else, variables 
 
 ---
 
-### 4) Use post-call variables in End-call notifications
+### 4) Use variables in API response output paths
+
+The **JSON Path** column of a [Response Output Schema](/pages/api_action#path-syntax) accepts variables, so the value you extract can depend on what the conversation has already collected.
+
+Example path:
+
+```text
+collection[?(@.start_time startswith '{preferredDateIso}')][0].start_time
+
+```
+
+The placeholder is replaced with the variable's current value before the API response is read.
+
+---
+
+### 5) Use post-call variables in End-call notifications
 
 Example email body:
 
