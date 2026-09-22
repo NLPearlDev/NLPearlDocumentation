@@ -218,8 +218,48 @@ Each row of the schema has three parts:
 
 ### How it works
 
-- Provide a list of **JSON Path** strings.
+- Provide a list of **JSON Path** strings, one per row.
 - The system extracts only those paths from the API response; everything else is discarded.
+
+### Path syntax
+
+A path walks down the API response to the value you want. The simplest form is a chain of keys, and it covers most responses:
+
+| Path | What it returns |
+| --- | --- |
+| `customer.email` | The `email` property inside `customer`. |
+| `items[0].id` | The `id` of the first entry in `items`. |
+
+A path can also **choose**, which is what you need as soon as an API answers with a list and you only want one entry out of it:
+
+| Path | What it returns |
+| --- | --- |
+| `collection[?(@.status == 'available')][0].start_time` | The `start_time` of the first entry whose `status` is `available` — a filter, then the first match. |
+| `items[-1].id` | The `id` of the last entry. Negative indices count from the end. |
+| `items[0:3]` | The first three entries — a slice. |
+| `..email` | Every `email` found anywhere in the response, at any depth. |
+
+A slice or a recursive `..` search can match several values at once. Assign one of those to a variable and the variable has to allow multiple values — see **Assigning to a variable** below.
+
+<Note>
+  These are not the same as the paths in the **Key** column of the request body. There, `order.items[0].productId` **builds** a nested payload. Here, the same shape **reads** a value out of the response.
+</Note>
+
+<Card icon="circle-info" iconType="light">
+  ### Using a variable inside a path
+
+  A path can carry a `{variableId}` placeholder — the same syntax used everywhere else (see [Flow Variables](/api-reference/flow_variables)). It is replaced with the variable's current value before the response is read, so the path can depend on what the conversation has collected:
+
+  ```text
+  collection[?(@.start_time startswith '{preferredDateIso}')][0].start_time
+  ```
+
+  If the caller asked for a particular day and it was collected into `preferredDateIso`, that path returns the first slot on that day.
+</Card>
+
+<Tip>
+  Use a filtered path whenever the API returns a list and you only want one entry from it. A calendar call is the usual case: without a filter, you map slot 1, slot 2 and slot 3 into separate variables and let the agent pick between them. With one filtered path, the platform hands it exactly the first free slot on the day the caller asked for.
+</Tip>
 
 <Check>
   Benefits:

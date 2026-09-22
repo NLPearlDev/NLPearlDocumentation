@@ -91,6 +91,7 @@
                 ]
               },
               "pages/languages",
+              "pages/voice_studio",
               {
                 "group": "Pearl Configurations",
                 "icon": "sliders",
