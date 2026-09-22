@@ -1,0 +1,365 @@
+---
+title: "Voice Studio"
+description: "Generate speech from text to hear how a voice sounds, browse the voice library, and clone a voice of your own from a short recording."
+icon: "microphone-lines"
+iconType: "light"
+---
+
+Voice Studio is where you work with voices. Write a line, choose who says it, and hear it — then keep the voices you like, or clone one of your own from a short recording and use it across your Pearls.
+
+Open it from **Voice Studio** in the left sidebar.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voice-studio-overview.png"
+    alt="The Voice Studio screen, with the composer and the controls along the bottom"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Note>
+A voice **is** a speaker in a language, so choosing a voice already chooses the language it speaks. That's why there is no separate language selector on this screen.
+</Note>
+
+---
+
+### Generating speech
+
+<Steps>
+  <Step title="Write what the voice should say">
+Type into the main area of the page. A single take can be up to **4,000 characters**. Past that limit, the page tells you by how much and the **Generate Speech** button stays disabled until you trim it.
+
+Type `@` anywhere in your text to insert a **speech marker** — a short tag the model reads as an instruction rather than as words. See [Speech markers](#speech-markers) below.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voice-studio-draft.png"
+    alt="A draft in the composer, with a breath marker shown as a highlighted chip"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+<Tip>
+Once you've picked a voice, the **dice** button fills the draft with an example line written to show that voice off: hesitations, a breath, a number said out loud. Press it again for a different one. Clean sentences sound the same in every voice and tell you very little about the one you picked.
+</Tip>
+  </Step>
+
+  <Step title="Choose a voice">
+Click the voice chip in the bar at the bottom of the screen to open the **voice picker**. Browse the library, search, filter, and click a voice to select it. The chip then shows the voice's language flag and its name.
+
+See [The voice library](#the-voice-library) for what the picker can do.
+  </Step>
+
+  <Step title="Set how fast the voice speaks">
+The **speed** control sets the delivery of the line — how slowly or quickly the voice reads it. Five levels are available, from **Very slow** to **Very fast**, with **Medium** as the default.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voice-studio-speed.png"
+    alt="The speed control open, showing Very slow, Slow, Medium, Fast and Very fast"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+Next to it, **Pearl TTS v2** names the model doing the speaking: our latest, most human-like text-to-speech model, with ultra-low latency, available in 6 languages.
+  </Step>
+
+  <Step title="Generate and listen">
+Click **Generate Speech**. Playback starts as soon as the first audio is ready — you don't wait for the whole take to finish generating, which matters for longer texts.
+
+When the take lands, a card appears with the text that was spoken, the voice that spoke it, and a player. From there you can:
+
+- **Play, pause and scrub** through the take.
+- **Download** the audio.
+- **Minimize** the card to a single line to get your draft back in full view.
+
+Generate again to produce a new take — the card is replaced each time, so download anything you want to keep.
+  </Step>
+</Steps>
+
+---
+
+### Speech markers
+
+Markers are tags the speech model reads as **instructions**, not as words. Type `@` in your draft to open the marker menu at your cursor, then pick one.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voice-studio-markers.png"
+    alt="The marker menu open at the cursor, offering Laughs and Breath"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+| Marker | Inserts | What it does |
+| --- | --- | --- |
+| **Laughs** | `[laughs]` | A laugh, where the line lands lightly. |
+| **Breath** | `[breath]` | An audible breath before what comes next. |
+
+<Warning>
+Only the markers listed above are recognised. Any other bracketed tag you type — including one that looks like it should work — is **read out loud, brackets and all**. For a beat in the middle of a sentence, use punctuation, or a `[breath]` mid-clause.
+</Warning>
+
+---
+
+### Speaking to a man or a woman
+
+Hebrew writes the same sentence differently depending on who is being addressed: the second person is inflected, so one written line is two different spoken ones.
+
+When you select a Hebrew voice, a **Speaking to** control appears under your draft. Set it to the gender of **the person being spoken to**.
+
+<Note>
+This is the **listener**, not the speaker. The voice's own gender is a property of the voice and is never something you set here. A female voice addressing a man is an ordinary call.
+</Note>
+
+The control appears for Hebrew voices only, because it is the only supported language where this changes the delivery.
+
+---
+
+### The voice library
+
+The voice picker is where you browse, filter and manage the voices available to your account.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voice-studio-voice-picker.png"
+    alt="The voice picker open on the Explore tab, with search, filters and a list of voices"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+It has two tabs:
+
+<CardGroup cols={2}>
+  <Card title="Explore" icon="compass" iconType="light">
+    Every voice available to you, for **choosing**: the NLPearl voices, your own clones, and voices other accounts have published.
+  </Card>
+  <Card title="My voices" icon="star" iconType="light">
+    Your account's own list, for **managing**. This is the list your Pearls can pick from.
+  </Card>
+</CardGroup>
+
+A voice reaches **My voices** in one of two ways: you clone it, or you add it from Explore.
+
+#### Searching and filtering
+
+Search by **name, accent or tag**, and narrow the list with the filters:
+
+- **Language**
+- **Accent** — appears once you've picked a language, and only for languages that have accent variants.
+- **Gender**
+
+#### Reading a row
+
+Each row shows the language flag, a gender mark, the voice's name, and its language, accent and tags. Some rows also carry a label:
+
+| Label | Meaning |
+| --- | --- |
+| `private` | Only your account can use it. Every voice you clone starts out private. |
+| `public` | One of your voices that you've published to the shared library. |
+| `shared` | Published by another account, rather than one of your own. |
+| `yours` | One of your own clones (shown in Explore, where the rest of the list isn't yours). |
+
+Click the **play** button on a row to hear the voice without leaving the picker. A voice you cloned plays back the same line you auditioned when you created it, so what you hear here is what you approved.
+
+<Note>
+Playing a voice doesn't generate a new take — the clip is rendered once and reused, so every play after the first is instant.
+</Note>
+
+#### Managing a voice
+
+The **⋯** button on a row opens its menu:
+
+<Frame>
+  <img
+    src="/images/dark_mode/voice-studio-voice-menu.png"
+    alt="The menu on a voice row, with Copy voice ID and Add to my voices"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+| Action | What it does |
+| --- | --- |
+| **Copy voice ID** | Copies the voice's identifier. |
+| **Publish to library** | Publishes the voice to the shared library. Offered only on your own private voices — see [Publishing a voice](#publishing-a-voice). |
+| **Add to my voices** | Adds the voice to your account's list, so your Pearls can use it. |
+| **Delete voice** | Removes the voice from your account's list. |
+
+<Warning>
+**Delete voice** removes the voice from *your list* — it does not destroy the voice. The voice stays in the library and other accounts keep it. What changes is that your Pearls can no longer be set to it, and **any agent already using it loses its voice**.
+</Warning>
+
+---
+
+### Cloning a voice
+
+You can build a voice from a short recording of someone speaking, then use it like any other voice on the platform.
+
+Open the voice picker and click **Clone a voice**.
+
+<Steps>
+  <Step title="Provide one recording">
+Drag an audio file anywhere onto the popup, click **Browse files**, or click **Record audio** to record straight from your microphone.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voice-studio-clone-recording.png"
+    alt="The first step of Clone a voice, asking for one recording"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+| | |
+| --- | --- |
+| **Length** | 5 to 60 seconds |
+| **File size** | Up to 20 MB |
+| **Formats** | WAV, MP3, M4A, OGG, WEBM |
+| **How many** | One |
+
+<Note>
+A voice is built from **a single recording**. Dropping a second file replaces the first rather than adding to it.
+</Note>
+
+For the best result, use **clear, continuous speech with no background noise** — one person talking, no music, no overlapping voices.
+  </Step>
+
+  <Step title="Describe the voice">
+| Field | Required | |
+| --- | --- | --- |
+| **Name** | Yes | How the voice appears in your library. Up to 25 characters. |
+| **Language** | Yes | The language the speaker is speaking. The voice is built for it — generating in another language won't sound like them. |
+| **Accent** | No | Available for English and Spanish. |
+| **Gender** | No | Used only to filter the library. It changes nothing about how the voice sounds. |
+| **Tags** | No | Up to 3, to make the voice easier to find — for example `warm`, `support`, `news`. |
+
+<Frame>
+  <img
+    src="/images/dark_mode/voice-studio-clone-details.png"
+    alt="The second step of Clone a voice, with the name, language, accent, gender and tags fields"
+    className="rounded-[14px]"
+  />
+</Frame>
+  </Step>
+
+  <Step title="Confirm you have permission">
+You must confirm that the voice in the recording is your own, or that you hold documented written permission from the person whose voice it is, before the voice can be created.
+
+<Warning>
+Cloning someone's voice without their explicit, documented permission is not permitted. The confirmation is a legal attestation, not a formality.
+</Warning>
+  </Step>
+
+  <Step title="Hear it before you keep it">
+Click **Hear this voice** to audition the clone. It reads a short line back to you, so you know what you're keeping before anything is saved.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voice-studio-clone-audition.png"
+    alt="The audition, playing a line back in the cloned voice before saving"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+If your recording contained little actual speech, the audition tells you how much it measured: the clone still works, but more audio makes a closer match. This is the last moment you can go back and record a longer take.
+
+<Note>
+Auditioning stores nothing. Closing the popup at this point leaves no voice behind.
+</Note>
+  </Step>
+
+  <Step title="Save">
+Click **Save to my voices**. The file uploads, the voice is built — this takes a few seconds — and it appears in **My voices** right away, ready to select on the main screen.
+  </Step>
+</Steps>
+
+<Note>
+If the recording is refused, the message tells you how much usable speech was actually measured. That's the difference between *try again* and *record a longer take*.
+</Note>
+
+---
+
+### Publishing a voice
+
+Publishing puts one of your voices into the **shared library**, where every account on the platform can use it.
+
+<Warning>
+**Publishing cannot be undone.** Once a voice is published, it stays in the shared library and you cannot withdraw it. Publish only voices you are certain you want to share, and only if the permission you hold for that voice covers it.
+</Warning>
+
+Publishing is offered from the voice's row menu in the picker, and only while the voice is still private. Once published, the option is gone.
+
+---
+
+### Using your voices in a Pearl
+
+The voices in **My voices** are the ones your Pearls can be set to.
+
+<Steps>
+  <Step title="Add the voice to your list">
+Clone it, or add it from **Explore**.
+  </Step>
+  <Step title="Open your Pearl's settings">
+Go to **Pearl Settings → Agent Names, Languages & Voices**.
+  </Step>
+  <Step title="Pick it for an agent">
+Open the agent's **Voice** dropdown and select it. For the languages Voice Studio supports, the dropdown also offers **Open Voice Studio** at the bottom of the list, which opens the studio in a new tab so you can clone or audition a voice without losing your place in the form.
+
+<Frame>
+  <img
+    src="/images/dark_mode/voice-studio-pearl-voice-dropdown.png"
+    alt="An agent's voice dropdown in Pearl Settings, with Open Voice Studio at the bottom of the list"
+    className="rounded-[14px]"
+  />
+</Frame>
+  </Step>
+</Steps>
+
+<Note>
+A voice cloned in one browser tab appears in the other tabs you have open, without reloading the platform.
+</Note>
+
+See [Voices and Languages](/pages/languages) for how agents, languages and voices work together in a Pearl.
+
+---
+
+### Supported languages
+
+Voice Studio generates speech in the following languages:
+
+| Language | Accents |
+| --- | --- |
+| **English** | American, British, Australian, Canadian, Irish, Indian |
+| **Spanish** | Castilian, Mexican, Argentinian, Colombian, Venezuelan |
+| **French** | — |
+| **German** | — |
+| **Italian** | — |
+| **Hebrew** | — |
+
+<Note>
+This is the list of languages the speech model currently serves, which is narrower than the full set of languages a Pearl can speak. See [Voices and Languages](/pages/languages) for everything the platform supports.
+</Note>
+
+<Info>
+Your library may look empty the first time you open it. Only voices the speech model can currently use are listed — clone one from a recording to get started.
+</Info>
+
+---
+
+<CardGroup cols={2}>
+  <Card
+    title="Voices and Languages"
+    icon="language"
+    iconType="light"
+    href="/pages/languages"
+  >
+    Configure agents, languages and voices for a Pearl.
+  </Card>
+  <Card
+    title="Pearl Settings"
+    icon="user-gear"
+    iconType="light"
+    href="/pages/agent_customization"
+  >
+    Everything you can configure on a Pearl, including its agents.
+  </Card>
+</CardGroup>
