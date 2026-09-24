@@ -309,7 +309,7 @@
                     "Account"
                 ],
                 "summary": "Get Audit Log",
-                "description": "Retrieves the audit log.",
+                "description": "Retrieves the audit log of the account. The date range cannot exceed 90 days and a call returns at most 100 entries. Returns a flat list by default; set IsPaginate to true to receive a paginated result with the total count.",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -318,7 +318,8 @@
                                     {
                                         "$ref": "#/components/schemas/AuditLogAPIRequest"
                                     }
-                                ]
+                                ],
+                                "description": "Represents the filters and pagination options used to retrieve the audit log of the account.\r\nBy default, entries are sorted by `Timestamp` in ascending order (oldest first) and up to 100 entries are returned.\r\n`SortProp` accepts `Timestamp`, `EventType` or `User` (sorted by user name)."
                             }
                         },
                         "text/json": {
@@ -327,7 +328,8 @@
                                     {
                                         "$ref": "#/components/schemas/AuditLogAPIRequest"
                                     }
-                                ]
+                                ],
+                                "description": "Represents the filters and pagination options used to retrieve the audit log of the account.\r\nBy default, entries are sorted by `Timestamp` in ascending order (oldest first) and up to 100 entries are returned.\r\n`SortProp` accepts `Timestamp`, `EventType` or `User` (sorted by user name)."
                             }
                         },
                         "application/*+json": {
@@ -336,20 +338,21 @@
                                     {
                                         "$ref": "#/components/schemas/AuditLogAPIRequest"
                                     }
-                                ]
+                                ],
+                                "description": "Represents the filters and pagination options used to retrieve the audit log of the account.\r\nBy default, entries are sorted by `Timestamp` in ascending order (oldest first) and up to 100 entries are returned.\r\n`SortProp` accepts `Timestamp`, `EventType` or `User` (sorted by user name)."
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "The list of audit log.",
+                        "description": "The list of audit log entries (or a paginated result when IsPaginate is true).",
                         "content": {
                             "text/plain": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/AuditLogView"
+                                        "$ref": "#/components/schemas/AuditLogAPIView"
                                     }
                                 }
                             },
@@ -357,7 +360,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/AuditLogView"
+                                        "$ref": "#/components/schemas/AuditLogAPIView"
                                     }
                                 }
                             },
@@ -365,7 +368,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/AuditLogView"
+                                        "$ref": "#/components/schemas/AuditLogAPIView"
                                     }
                                 }
                             }
@@ -1245,7 +1248,7 @@
                     "Outbound"
                 ],
                 "summary": "Delete Leads",
-                "description": "Deletes one or more leads associated with a specific outbound campaign.",
+                "description": "Permanently deletes one or more leads associated with a specific outbound campaign. Deleted leads are removed and cannot be restored.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -1478,7 +1481,7 @@
                     "Outbound"
                 ],
                 "summary": "Delete leads Via External",
-                "description": "Deletes one or more leads associated with a specific outbound campaign.",
+                "description": "Permanently deletes one or more leads associated with a specific outbound campaign. Deleted leads are removed and cannot be restored.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2208,6 +2211,8 @@
                 "tags": [
                     "Pearl"
                 ],
+                "summary": "Get Analytics",
+                "description": "Retrieves analytics data for a specific Pearl within a given date range.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -3096,252 +3101,13 @@
                 }
             }
         },
-        "/v2/PhoneNumber/CustomVoip": {
-            "post": {
-                "tags": [
-                    "PhoneNumber"
-                ],
-                "summary": "Create Custom VoIP Number",
-                "description": "Creates a custom VoIP phone number and, in the same call, optionally configures its inbound (sipConfig) and/or outbound (sipTrunkConfig). When an inbound configuration is provided, the generated SIP domain is returned in sipConfig.domain.",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
-                                    }
-                                ],
-                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
-                            }
-                        },
-                        "text/json": {
-                            "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
-                                    }
-                                ],
-                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
-                            }
-                        },
-                        "application/*+json": {
-                            "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
-                                    }
-                                ],
-                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "The created custom VoIP phone number, including the SIP domain when inbound is configured.",
-                        "content": {
-                            "text/plain": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
-                                }
-                            },
-                            "text/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Error",
-                        "content": {
-                            "text/plain": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            },
-                            "text/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/v2/PhoneNumber/CustomVoip/{phoneNumberId}": {
-            "put": {
-                "tags": [
-                    "PhoneNumber"
-                ],
-                "summary": "Update Custom VoIP Number",
-                "description": "Updates a custom VoIP phone number and its inbound (sipConfig) and/or outbound (sipTrunkConfig) configuration in a single call (full replacement). A provided configuration is created or updated; a configuration left null is removed and the direction is recomputed.",
-                "parameters": [
-                    {
-                        "name": "phoneNumberId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
-                                    }
-                                ],
-                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
-                            }
-                        },
-                        "text/json": {
-                            "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
-                                    }
-                                ],
-                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
-                            }
-                        },
-                        "application/*+json": {
-                            "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
-                                    }
-                                ],
-                                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "The updated custom VoIP phone number, including the SIP domain when inbound is configured.",
-                        "content": {
-                            "text/plain": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
-                                }
-                            },
-                            "text/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Error",
-                        "content": {
-                            "text/plain": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            },
-                            "text/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "PhoneNumber"
-                ],
-                "summary": "Delete Custom VoIP Number",
-                "description": "Deletes a custom VoIP phone number and releases its SIP resources.",
-                "parameters": [
-                    {
-                        "name": "phoneNumberId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Returns a boolean indicating if the deletion was successful.",
-                        "content": {
-                            "text/plain": {
-                                "schema": {
-                                    "type": "boolean"
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "type": "boolean"
-                                }
-                            },
-                            "text/json": {
-                                "schema": {
-                                    "type": "boolean"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Error",
-                        "content": {
-                            "text/plain": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            },
-                            "text/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationProblemDetails"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/v2/Recording/{clientId}/{pearlId}/{callId}": {
             "get": {
                 "tags": [
                     "Recording"
                 ],
                 "summary": "Get Call Recording",
-                "description": "Retrieves the audio recording for a specific call. If the client has public recordings enabled, the endpoint can be accessed anonymously; otherwise, a valid Authorization header matching the client is required. Recordings hosted on Twilio are returned as a permanent redirect, while recordings stored internally are converted from WAV to Opus (audio/ogg) and streamed back with range processing enabled for browser seeking.",
+                "description": "Retrieves the audio recording for a specific call. If the client has public recordings enabled, the endpoint can be accessed anonymously; otherwise, a valid Authorization header matching the client is required. Recordings hosted on Twilio are returned as a permanent redirect, while recordings stored internally are transcoded from WAV and streamed back inline with range processing enabled for browser seeking. Pass codec=mp3 (default, audio/mpeg) or codec=ogg (Ogg Opus, audio/ogg) - mp3 is the default because Safari and every iOS browser do not reliably play Ogg Opus. Pass dualChannel=true to keep the caller/Pearl channel split; the default folds two-channel recordings to mono, which roughly halves the file size.",
                 "parameters": [
                     {
                         "name": "clientId",
@@ -3366,11 +3132,26 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "codec",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "dualChannel",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "The audio recording in Opus format (audio/ogg).",
+                        "description": "The audio recording, as mp3 (audio/mpeg) by default or Ogg Opus (audio/ogg) when codec=ogg.",
                         "content": {
                             "text/plain": {
                                 "schema": {
@@ -3429,7 +3210,7 @@
                                 "$ref": "#/components/schemas/eStateDataType"
                             }
                         ],
-                        "description": "`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n",
+                        "description": "The data type of the value.\n\n`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n",
                         "nullable": true
                     },
                     "value": {
@@ -3446,7 +3227,7 @@
             },
             "APIMethod": {
                 "type": "integer",
-                "description": "`1 - GET`\n\n`2 - POST`\n\n`3 - PUT`\n\n`4 - DELETE`\n\n`5 - PATCH`\n\n",
+                "description": "The HTTP method used for the API request.\n\n`1 - GET`\n\n`2 - POST`\n\n`3 - PUT`\n\n`4 - DELETE`\n\n`5 - PATCH`\n\n",
                 "format": "int32"
             },
             "APISettingsApi": {
@@ -3463,7 +3244,7 @@
                                 "$ref": "#/components/schemas/APIMethod"
                             }
                         ],
-                        "description": "`1 - GET`\n\n`2 - POST`\n\n`3 - PUT`\n\n`4 - DELETE`\n\n`5 - PATCH`\n\n"
+                        "description": "The HTTP method used for the API request.\n\n`1 - GET`\n\n`2 - POST`\n\n`3 - PUT`\n\n`4 - DELETE`\n\n`5 - PATCH`\n\n"
                     },
                     "endpointUrl": {
                         "type": "string",
@@ -3501,7 +3282,7 @@
                         "items": {
                             "$ref": "#/components/schemas/APIDataSchemaPropertyApi"
                         },
-                        "description": "Maps fields of the API response onto flow variables, so the values returned by the API can be used\r\nlater in the conversation.\r\n\r\nOn an output mapping, each entry's Key is the path to read from the response. A path supports filters, array indexes (including negative ones), slices, recursive descent, and {variableId} placeholders.",
+                        "description": "Maps fields of the API response onto flow variables, so the values returned by the API can be used\r\nlater in the conversation.",
                         "nullable": true
                     },
                     "credentialId": {
@@ -3684,7 +3465,7 @@
                                 "$ref": "#/components/schemas/eBrainModelType"
                             }
                         ],
-                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
+                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n",
                         "nullable": true
                     },
                     "companyName": {
@@ -3765,7 +3546,7 @@
                                 "$ref": "#/components/schemas/eAgentInteractionType"
                             }
                         ],
-                        "description": "`1 - Voice`\n\n`2 - Text`\n\n"
+                        "description": "The channel of the Pearl: voice (phone calls) or text (messaging).\n\n`1 - Voice`\n\n`2 - Text`\n\n"
                     },
                     "variables": {
                         "type": "array",
@@ -3825,7 +3606,7 @@
                                 "$ref": "#/components/schemas/eBrainModelType"
                             }
                         ],
-                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
+                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n",
                         "nullable": true
                     },
                     "companyName": {
@@ -3917,7 +3698,7 @@
                                 "$ref": "#/components/schemas/eAgentInteractionType"
                             }
                         ],
-                        "description": "`1 - Voice`\n\n`2 - Text`\n\n"
+                        "description": "The channel of the Pearl: voice (phone calls) or text (messaging).\n\n`1 - Voice`\n\n`2 - Text`\n\n"
                     },
                     "variables": {
                         "type": "array",
@@ -3967,7 +3748,7 @@
                                 "$ref": "#/components/schemas/eChatMessageRoleView"
                             }
                         ],
-                        "description": "`2 - Pearl`\n\n`3 - Client`\n\n`4 - PlatformUser`\n\n"
+                        "description": "The author of the message in the conversation.\n\n`2 - Pearl`\n\n`3 - Client`\n\n`4 - PlatformUser`\n\n"
                     },
                     "content": {
                         "type": "string",
@@ -4103,16 +3884,49 @@
                 "additionalProperties": false
             },
             "AuditLogAPIRequest": {
+                "required": [
+                    "fromDate",
+                    "toDate"
+                ],
                 "type": "object",
                 "properties": {
+                    "skip": {
+                        "type": "integer",
+                        "description": "Number of entries to skip for pagination.",
+                        "format": "int32"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Limit on the number of entries to return.",
+                        "format": "int32"
+                    },
+                    "sortProp": {
+                        "type": "string",
+                        "description": "Property name to sort by.",
+                        "nullable": true
+                    },
+                    "isAscending": {
+                        "type": "boolean",
+                        "description": "Whether the sort order is ascending."
+                    },
+                    "fromDate": {
+                        "type": "string",
+                        "description": "The start date for filtering the search results.",
+                        "format": "date-time"
+                    },
+                    "toDate": {
+                        "type": "string",
+                        "description": "The end date for filtering the search results.",
+                        "format": "date-time"
+                    },
                     "from": {
                         "type": "string",
-                        "description": "The start date and time of the audit log query range (UTC).",
+                        "description": "The start date and time of the audit log query range (UTC). Alias of `FromDate`: send either one.",
                         "format": "date-time"
                     },
                     "to": {
                         "type": "string",
-                        "description": "The end date and time of the audit log query range (UTC).",
+                        "description": "The end date and time of the audit log query range (UTC). Alias of `ToDate`: send either one. The range cannot exceed 90 days.",
                         "format": "date-time"
                     },
                     "eventType": {
@@ -4121,12 +3935,54 @@
                                 "$ref": "#/components/schemas/eAuditLogEvent"
                             }
                         ],
-                        "description": "The type of event recorded in the audit log.\n\n`1 - LoginAttempt`\n\n`2 - LoginSuccessful`\n\n`10 - PublishPearl`\n\n`11 - PearlStatus`\n\n`12 - PearlRetention`\n\n`13 - PearlTotalAgents`\n\n`14 - PearlBudget`\n\n`15 - PearlPhoneNumber`\n\n`18 - TransferPearl`\n\n`19 - DeletePearl`\n\n`30 - CreateAPIKey`\n\n`31 - DeleteAPIKey`\n\n`32 - RevealAPIKey`\n\n`40 - PurchaseAgents`\n\n`41 - DeleteAgent`\n\n`50 - SetBillingDetails`\n\n`51 - SetPaymentMethod`\n\n`52 - SetSubscription`\n\n`59 - CancelSubscription`\n\n`60 - PurchaseCredits`\n\n`61 - SetAutoRecharge`\n\n`70 - InviteUser`\n\n`71 - UserJoin`\n\n`72 - InvitationCanceled`\n\n`73 - UpdateUserRole`\n\n`74 - UpdateAccountInformations`\n\n`75 - RemoveUserFromTheAccount`\n\n`76 - UserLeftAccount`\n\n`77 - CreateRole`\n\n`78 - UpdateRole`\n\n`79 - DeleteRole`\n\n`80 - UpdateSessionTTL`\n\n`81 - Set2FA`\n\n`82 - ChangePassword`\n\n`90 - DeleteAccount`\n\n`91 - AddToBlacklist`\n\n`92 - RemoveFromBlacklist`\n\n`100 - PurchasePhoneNumbers`\n\n`101 - ReleasePhoneNumber`\n\n`102 - AddPhoneNumber`\n\n`103 - UpdatePhoneNumber`\n\n`104 - UpdateSIPConfig`\n\n`105 - SetTwilioCredentials`\n\n`110 - CreateTextChannel`\n\n`111 - UpdateTextChannel`\n\n`112 - DeleteTextChannel`\n\n`113 - RotateChannelSecret`\n\n`114 - RevealChannelSecret`\n\n`115 - ConnectWhatsApp`\n\n`116 - AddWhatsAppNumber`\n\n`117 - DisconnectWhatsApp`\n\n`120 - SetEmailCredentials`\n\n`121 - DeleteEmailCredentials`\n\n`122 - ConnectSlack`\n\n`123 - ConnectCalendar`\n\n`130 - ImportLeads`\n\n`131 - DeleteLeads`\n\n`132 - DeleteCalls`\n\n`133 - ExportCalls`\n\n`140 - GroupRetention`\n\n`141 - DeleteContacts`\n\n",
+                        "description": "The type of event recorded in the audit log.\n\n`1 - LoginAttempt`\n\n`2 - LoginSuccessful`\n\n`10 - PublishPearl`\n\n`11 - PearlStatus`\n\n`12 - PearlRetention`\n\n`13 - PearlTotalAgents`\n\n`14 - PearlBudget`\n\n`15 - PearlPhoneNumber`\n\n`16 - CreatePearlVersion`\n\n`17 - DeletePearlVersion`\n\n`18 - TransferPearl`\n\n`19 - DeletePearl`\n\n`30 - CreateAPIKey`\n\n`31 - DeleteAPIKey`\n\n`32 - RevealAPIKey`\n\n`33 - UpdateAPIKey`\n\n`34 - RotateAPIKeySecret`\n\n`40 - PurchaseAgents`\n\n`41 - DeleteAgent`\n\n`50 - SetBillingDetails`\n\n`51 - SetPaymentMethod`\n\n`52 - SetSubscription`\n\n`59 - CancelSubscription`\n\n`60 - PurchaseCredits`\n\n`61 - SetAutoRecharge`\n\n`70 - InviteUser`\n\n`71 - UserJoin`\n\n`72 - InvitationCanceled`\n\n`73 - UpdateUserRole`\n\n`74 - UpdateAccountInformations`\n\n`75 - RemoveUserFromTheAccount`\n\n`76 - UserLeftAccount`\n\n`77 - CreateRole`\n\n`78 - UpdateRole`\n\n`79 - DeleteRole`\n\n`80 - UpdateSessionTTL`\n\n`81 - Set2FA`\n\n`82 - ChangePassword`\n\n`90 - DeleteAccount`\n\n`91 - AddToBlacklist`\n\n`92 - RemoveFromBlacklist`\n\n`100 - PurchasePhoneNumbers`\n\n`101 - ReleasePhoneNumber`\n\n`102 - AddPhoneNumber`\n\n`103 - UpdatePhoneNumber`\n\n`104 - UpdateSIPConfig`\n\n`105 - SetTwilioCredentials`\n\n`110 - CreateTextChannel`\n\n`111 - UpdateTextChannel`\n\n`112 - DeleteTextChannel`\n\n`113 - RotateChannelSecret`\n\n`114 - RevealChannelSecret`\n\n`115 - ConnectWhatsApp`\n\n`116 - AddWhatsAppNumber`\n\n`117 - DisconnectWhatsApp`\n\n`120 - SetEmailCredentials`\n\n`121 - DeleteEmailCredentials`\n\n`122 - ConnectSlack`\n\n`123 - ConnectCalendar`\n\n`130 - ImportLeads`\n\n`131 - DeleteLeads`\n\n`132 - DeleteCalls`\n\n`133 - ExportCalls`\n\n`134 - RefreshLeads`\n\n`140 - GroupRetention`\n\n`141 - DeleteContacts`\n\n`150 - CloneVoice`\n\n`151 - DeleteVoice`\n\n`152 - ShareVoice`\n\n`160 - VibePearlSideEffectRun`\n\n",
                         "nullable": true
                     },
                     "userId": {
                         "type": "string",
                         "description": "Optional filter by user ID. If not provided, logs for all users are returned.",
+                        "nullable": true
+                    },
+                    "isPaginate": {
+                        "type": "boolean",
+                        "description": "Indicates whether the response is paginated. When true, the response is an object with the total `count` of matching entries and the current page of `results`. When false or omitted (default), the response is a flat list of audit log entries.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents the filters and pagination options used to retrieve the audit log of the account.\r\nBy default, entries are sorted by `Timestamp` in ascending order (oldest first) and up to 100 entries are returned.\r\n`SortProp` accepts `Timestamp`, `EventType` or `User` (sorted by user name)."
+            },
+            "AuditLogAPIView": {
+                "type": "object",
+                "properties": {
+                    "timestamp": {
+                        "type": "string",
+                        "description": "The UTC timestamp of when the audit log event occurred.",
+                        "format": "date-time"
+                    },
+                    "eventType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eAuditLogEvent"
+                            }
+                        ],
+                        "description": "The type of event recorded in the audit log.\n\n`1 - LoginAttempt`\n\n`2 - LoginSuccessful`\n\n`10 - PublishPearl`\n\n`11 - PearlStatus`\n\n`12 - PearlRetention`\n\n`13 - PearlTotalAgents`\n\n`14 - PearlBudget`\n\n`15 - PearlPhoneNumber`\n\n`16 - CreatePearlVersion`\n\n`17 - DeletePearlVersion`\n\n`18 - TransferPearl`\n\n`19 - DeletePearl`\n\n`30 - CreateAPIKey`\n\n`31 - DeleteAPIKey`\n\n`32 - RevealAPIKey`\n\n`33 - UpdateAPIKey`\n\n`34 - RotateAPIKeySecret`\n\n`40 - PurchaseAgents`\n\n`41 - DeleteAgent`\n\n`50 - SetBillingDetails`\n\n`51 - SetPaymentMethod`\n\n`52 - SetSubscription`\n\n`59 - CancelSubscription`\n\n`60 - PurchaseCredits`\n\n`61 - SetAutoRecharge`\n\n`70 - InviteUser`\n\n`71 - UserJoin`\n\n`72 - InvitationCanceled`\n\n`73 - UpdateUserRole`\n\n`74 - UpdateAccountInformations`\n\n`75 - RemoveUserFromTheAccount`\n\n`76 - UserLeftAccount`\n\n`77 - CreateRole`\n\n`78 - UpdateRole`\n\n`79 - DeleteRole`\n\n`80 - UpdateSessionTTL`\n\n`81 - Set2FA`\n\n`82 - ChangePassword`\n\n`90 - DeleteAccount`\n\n`91 - AddToBlacklist`\n\n`92 - RemoveFromBlacklist`\n\n`100 - PurchasePhoneNumbers`\n\n`101 - ReleasePhoneNumber`\n\n`102 - AddPhoneNumber`\n\n`103 - UpdatePhoneNumber`\n\n`104 - UpdateSIPConfig`\n\n`105 - SetTwilioCredentials`\n\n`110 - CreateTextChannel`\n\n`111 - UpdateTextChannel`\n\n`112 - DeleteTextChannel`\n\n`113 - RotateChannelSecret`\n\n`114 - RevealChannelSecret`\n\n`115 - ConnectWhatsApp`\n\n`116 - AddWhatsAppNumber`\n\n`117 - DisconnectWhatsApp`\n\n`120 - SetEmailCredentials`\n\n`121 - DeleteEmailCredentials`\n\n`122 - ConnectSlack`\n\n`123 - ConnectCalendar`\n\n`130 - ImportLeads`\n\n`131 - DeleteLeads`\n\n`132 - DeleteCalls`\n\n`133 - ExportCalls`\n\n`134 - RefreshLeads`\n\n`140 - GroupRetention`\n\n`141 - DeleteContacts`\n\n`150 - CloneVoice`\n\n`151 - DeleteVoice`\n\n`152 - ShareVoice`\n\n`160 - VibePearlSideEffectRun`\n\n"
+                    },
+                    "user": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AuditLogUserInfo"
+                            }
+                        ],
+                        "description": "Information about the user who triggered the event.",
+                        "nullable": true
+                    },
+                    "additionalData": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Optional additional metadata associated with the event, as key-value pairs.",
                         "nullable": true
                     }
                 },
@@ -4152,39 +4008,6 @@
                             }
                         ],
                         "description": "The type/role of the user who triggered the audit log event.\n\n`1 - Platform`\n\n`3 - APIKey`\n\n`90 - Support`\n\n`99 - System`\n\n"
-                    }
-                },
-                "additionalProperties": false
-            },
-            "AuditLogView": {
-                "type": "object",
-                "properties": {
-                    "timestamp": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "eventType": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/eAuditLogEvent"
-                            }
-                        ],
-                        "description": "The type of event recorded in the audit log.\n\n`1 - LoginAttempt`\n\n`2 - LoginSuccessful`\n\n`10 - PublishPearl`\n\n`11 - PearlStatus`\n\n`12 - PearlRetention`\n\n`13 - PearlTotalAgents`\n\n`14 - PearlBudget`\n\n`15 - PearlPhoneNumber`\n\n`18 - TransferPearl`\n\n`19 - DeletePearl`\n\n`30 - CreateAPIKey`\n\n`31 - DeleteAPIKey`\n\n`32 - RevealAPIKey`\n\n`40 - PurchaseAgents`\n\n`41 - DeleteAgent`\n\n`50 - SetBillingDetails`\n\n`51 - SetPaymentMethod`\n\n`52 - SetSubscription`\n\n`59 - CancelSubscription`\n\n`60 - PurchaseCredits`\n\n`61 - SetAutoRecharge`\n\n`70 - InviteUser`\n\n`71 - UserJoin`\n\n`72 - InvitationCanceled`\n\n`73 - UpdateUserRole`\n\n`74 - UpdateAccountInformations`\n\n`75 - RemoveUserFromTheAccount`\n\n`76 - UserLeftAccount`\n\n`77 - CreateRole`\n\n`78 - UpdateRole`\n\n`79 - DeleteRole`\n\n`80 - UpdateSessionTTL`\n\n`81 - Set2FA`\n\n`82 - ChangePassword`\n\n`90 - DeleteAccount`\n\n`91 - AddToBlacklist`\n\n`92 - RemoveFromBlacklist`\n\n`100 - PurchasePhoneNumbers`\n\n`101 - ReleasePhoneNumber`\n\n`102 - AddPhoneNumber`\n\n`103 - UpdatePhoneNumber`\n\n`104 - UpdateSIPConfig`\n\n`105 - SetTwilioCredentials`\n\n`110 - CreateTextChannel`\n\n`111 - UpdateTextChannel`\n\n`112 - DeleteTextChannel`\n\n`113 - RotateChannelSecret`\n\n`114 - RevealChannelSecret`\n\n`115 - ConnectWhatsApp`\n\n`116 - AddWhatsAppNumber`\n\n`117 - DisconnectWhatsApp`\n\n`120 - SetEmailCredentials`\n\n`121 - DeleteEmailCredentials`\n\n`122 - ConnectSlack`\n\n`123 - ConnectCalendar`\n\n`130 - ImportLeads`\n\n`131 - DeleteLeads`\n\n`132 - DeleteCalls`\n\n`133 - ExportCalls`\n\n`140 - GroupRetention`\n\n`141 - DeleteContacts`\n\n"
-                    },
-                    "user": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/AuditLogUserInfo"
-                            }
-                        ],
-                        "nullable": true
-                    },
-                    "additionalData": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "string"
-                        },
-                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -4340,6 +4163,12 @@
                         "type": "integer",
                         "description": "The duration of the call in seconds.",
                         "format": "int32"
+                    },
+                    "transferCallDuration": {
+                        "type": "integer",
+                        "description": "The duration of the transferred call in seconds, if applicable.",
+                        "format": "int32",
+                        "nullable": true
                     },
                     "recording": {
                         "type": "string",
@@ -4530,6 +4359,12 @@
                         "format": "int32",
                         "nullable": true
                     },
+                    "transferCallDuration": {
+                        "type": "integer",
+                        "description": "The duration of the transferred call in seconds, if applicable.",
+                        "format": "int32",
+                        "nullable": true
+                    },
                     "creditDebited": {
                         "type": "integer",
                         "description": "The total amount of credits debited for the entire conversation.",
@@ -4570,28 +4405,6 @@
                             "$ref": "#/components/schemas/CallBulkApiView"
                         },
                         "description": "The list of results for the current page, based on the search criteria.",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false
-            },
-            "CallCollectedDataApiView": {
-                "type": "object",
-                "properties": {
-                    "transcript": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/AgentChatMessageApiView"
-                        },
-                        "description": "The transcript of the conversation.",
-                        "nullable": true
-                    },
-                    "collectedInfos": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/CollectedInfoView"
-                        },
-                        "description": "The information collected during the conversations.",
                         "nullable": true
                     }
                 },
@@ -4685,7 +4498,7 @@
                                 "$ref": "#/components/schemas/ePredefinedCallLabelColors"
                             }
                         ],
-                        "description": "`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`8 - gradient1`\n\n`9 - gradient2`\n\n"
+                        "description": "The color of the indicator tag.\n\n`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`8 - gradient1`\n\n`9 - gradient2`\n\n"
                     }
                 },
                 "additionalProperties": false
@@ -5057,6 +4870,7 @@
                     },
                     "answeredCalls": {
                         "type": "integer",
+                        "description": "The number of calls that reached a real conversation (completed, successful or unsuccessful calls).",
                         "format": "int32"
                     },
                     "error": {
@@ -5128,6 +4942,7 @@
                     },
                     "answeredCalls": {
                         "type": "integer",
+                        "description": "The number of calls that reached a real conversation (completed, successful or unsuccessful calls).",
                         "format": "int32"
                     },
                     "error": {
@@ -5342,39 +5157,6 @@
                 "additionalProperties": false,
                 "description": "A credential available to the Pearl. Reference it through APISettingsApi.CredentialId to authenticate API actions.\r\nNo secret material is ever included."
             },
-            "CustomVoipNumberRequestApi": {
-                "required": [
-                    "number"
-                ],
-                "type": "object",
-                "properties": {
-                    "number": {
-                        "minLength": 1,
-                        "type": "string",
-                        "description": "The phone number in E.164 format."
-                    },
-                    "sipConfig": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/SIPConfigApi"
-                            }
-                        ],
-                        "description": "Optional inbound SIP configuration. Provide it to receive calls on this number. On update, omitting it (null) removes the existing inbound configuration.",
-                        "nullable": true
-                    },
-                    "sipTrunkConfig": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/SIPTrunkConfigApi"
-                            }
-                        ],
-                        "description": "Optional outbound SIP trunk configuration. Provide it to place calls from this number. On update, omitting it (null) removes the existing outbound configuration.",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false,
-                "description": "Data used to create or update a custom VoIP phone number. The inbound (SipConfig) and outbound\r\n(SipTrunkConfig) configurations are independent and optional: provide one, the other, both, or none.\r\nOn update this is a full replacement: a configuration left null is removed."
-            },
             "DataSettingsApi": {
                 "type": "object",
                 "properties": {
@@ -5402,7 +5184,7 @@
                                 "$ref": "#/components/schemas/eStateDataType"
                             }
                         ],
-                        "description": "`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n"
+                        "description": "The data type of the value.\n\n`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n"
                     },
                     "isList": {
                         "type": "boolean",
@@ -5415,6 +5197,7 @@
                     },
                     "value": {
                         "type": "string",
+                        "description": "Optional preset (static) value of the variable.\r\nWhen set, the variable is already populated with this value and does not need to be collected or supplied.",
                         "nullable": true
                     },
                     "options": {
@@ -5424,6 +5207,10 @@
                         },
                         "description": "Optional predefined choices for this variable (allowed/preset values).\r\n            \r\nNotes:\r\n- Use Value for the human-readable label.\r\n- Use Code for an optional internal/normalized value to store or send to integrations.",
                         "nullable": true
+                    },
+                    "isSessionScoped": {
+                        "type": "boolean",
+                        "description": "Indicates whether the variable is reset for every interaction (\"Reset Every Interaction\" on the platform).\r\n            \r\nNotes:\r\n- If true, the variable starts empty in every new call or chat.\r\n- It is never pre-filled from outside the interaction: a value sent in `CallData` for this variable, or stored on the contact by a previous interaction, is ignored.\r\n- Defaults to false."
                     }
                 },
                 "additionalProperties": false
@@ -5455,15 +5242,11 @@
                                 "$ref": "#/components/schemas/eStateDataType"
                             }
                         ],
-                        "description": "`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n"
+                        "description": "The data type of the value.\n\n`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n"
                     },
                     "isList": {
                         "type": "boolean",
                         "description": "Indicates whether the variable holds multiple values (list) or a single value."
-                    },
-                    "isSessionScoped": {
-                        "type": "boolean",
-                        "description": "When true, this variable starts empty at the beginning of every interaction instead of carrying over its previous value."
                     },
                     "description": {
                         "type": "string",
@@ -5472,6 +5255,7 @@
                     },
                     "value": {
                         "type": "string",
+                        "description": "Preset (static) value of the variable, if one is configured.",
                         "nullable": true
                     },
                     "options": {
@@ -5489,10 +5273,13 @@
                     "readOnly": {
                         "type": "boolean",
                         "description": "Indicates whether the variable is a platform-built preset.\r\nIf true, the variable can be used but cannot be modified or overridden."
+                    },
+                    "isSessionScoped": {
+                        "type": "boolean",
+                        "description": "Indicates whether the variable is reset for every interaction (\"Reset Every Interaction\" on the platform).\r\nIf true, the variable starts empty in every new call or chat and is never pre-filled from outside the interaction."
                     }
                 },
-                "additionalProperties": false,
-                "description": "A variable returned in the Pearl settings. `agentPhoneNumber` is a built-in, read-only PreCall string containing the Pearl's own phone line for the current conversation. It is empty on channels without a phone number, including Telegram and browser Test Chat."
+                "additionalProperties": false
             },
             "DateSearch": {
                 "type": "object",
@@ -5659,7 +5446,7 @@
             },
             "EmailProvider": {
                 "type": "integer",
-                "description": "`1 - Gmail`\n\n`2 - Office365`\n\n`10 - Custom`\n\n",
+                "description": "The email provider used to send the emails.\n\n`1 - Gmail`\n\n`2 - Office365`\n\n`10 - Custom`\n\n",
                 "format": "int32"
             },
             "EmailTemplateApi": {
@@ -5740,7 +5527,7 @@
                                 "$ref": "#/components/schemas/eTranscriptOptions"
                             }
                         ],
-                        "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
+                        "description": "Defines how the conversation transcript is kept: in full, with sensitive information removed, or not at all.\n\n`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
                     },
                     "callWebhookUrl": {
                         "type": "string",
@@ -5770,6 +5557,12 @@
                             "$ref": "#/components/schemas/InactivityFollowUp"
                         },
                         "description": "Follow-up messages automatically sent when the customer stops responding.\r\nEach entry defines the delay (in minutes) and an optional custom message.",
+                        "nullable": true
+                    },
+                    "responseDelaySeconds": {
+                        "type": "integer",
+                        "description": "Number of seconds the agent waits after a customer message before replying, so that consecutive messages are answered together.\r\nBetween 0 and 300. If null or 0, the agent replies as soon as possible.",
+                        "format": "int32",
                         "nullable": true
                     }
                 },
@@ -5834,6 +5627,14 @@
                             }
                         ],
                         "description": "Follow-up messages automatically sent when the customer stops responding.\r\nEach entry defines the delay (in minutes) and an optional custom message."
+                    },
+                    "responseDelaySeconds": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Number of seconds the agent waits after a customer message before replying, so that consecutive messages are answered together.\r\nBetween 0 and 300. Set it to null or 0 to reply as soon as possible."
                     }
                 },
                 "additionalProperties": false,
@@ -5853,7 +5654,7 @@
                                 "$ref": "#/components/schemas/eTranscriptOptions"
                             }
                         ],
-                        "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
+                        "description": "Defines how the conversation transcript is kept: in full, with sensitive information removed, or not at all.\n\n`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
                     },
                     "callWebhookUrl": {
                         "type": "string",
@@ -6050,14 +5851,6 @@
                         "description": "The list of the ID's of all the calls this lead has received.",
                         "nullable": true
                     },
-                    "lastCall": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/LeadLastCallApiView"
-                            }
-                        ],
-                        "nullable": true
-                    },
                     "callData": {
                         "type": "object",
                         "additionalProperties": {
@@ -6070,77 +5863,6 @@
                         "type": "object",
                         "additionalProperties": {},
                         "description": "A dictionary containing all the information collected about the lead during the call.  \r\nThese values are the result of the conversation and reflect the answers or actions taken by the lead.  \r\nThe `key` represents the ID of the variable configured on the platform,  \r\nand the `value` corresponds to the collected data.  \r\n            \r\nThis information can be used to understand user intent, track specific responses, or power further automation.  \r\nFor more details on how variables work, see [Variables](/pages/variables).\r\n            \r\nHere is an example of the JSON format:\r\n`{ \"confirmBooking\": true, \"dropOffLocation\": \"Orly Airport\", \"rideTime\": \"Friday at 12:00\", \"userIntent\": \"Book a taxi to the airport\" }`",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false
-            },
-            "LeadLastCallApiView": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The unique identifier of the call.",
-                        "nullable": true
-                    },
-                    "startTime": {
-                        "type": "string",
-                        "description": "The date and time when the call processing started.",
-                        "format": "date-time"
-                    },
-                    "pearlId": {
-                        "type": "string",
-                        "description": "The ID of the Pearl Used in This Call.",
-                        "nullable": true
-                    },
-                    "status": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/eCallStatusView"
-                            }
-                        ],
-                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n`10 - OnGoingText`\n\n"
-                    },
-                    "from": {
-                        "type": "string",
-                        "description": "The phone number from which the call was made.",
-                        "nullable": true
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name associated with the call, if available.",
-                        "nullable": true
-                    },
-                    "collectedData": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/CallCollectedDataApiView"
-                            }
-                        ],
-                        "description": "The object including all the information collected during the call.",
-                        "nullable": true
-                    },
-                    "summary": {
-                        "type": "string",
-                        "description": "A summary of the conversation.",
-                        "nullable": true
-                    },
-                    "duration": {
-                        "type": "integer",
-                        "description": "The duration of the call in seconds.",
-                        "format": "int32"
-                    },
-                    "recording": {
-                        "type": "string",
-                        "description": "The URL of the recording of the call, if available.",
-                        "nullable": true
-                    },
-                    "tags": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "The tags or labels triggered during the conversation",
                         "nullable": true
                     }
                 },
@@ -6360,7 +6082,7 @@
                                 "$ref": "#/components/schemas/APIMethod"
                             }
                         ],
-                        "description": "`1 - GET`\n\n`2 - POST`\n\n`3 - PUT`\n\n`4 - DELETE`\n\n`5 - PATCH`\n\n"
+                        "description": "The HTTP method used for the API request.\n\n`1 - GET`\n\n`2 - POST`\n\n`3 - PUT`\n\n`4 - DELETE`\n\n`5 - PATCH`\n\n"
                     },
                     "endpointUrl": {
                         "type": "string",
@@ -6393,7 +6115,7 @@
                         "items": {
                             "$ref": "#/components/schemas/APIDataSchemaPropertyApi"
                         },
-                        "description": "Maps fields of the API response onto flow variables, so the values returned by the API can be used\r\nlater in the conversation.\r\n\r\nOn an output mapping, each entry's Key is the path to read from the response. A path supports filters, array indexes (including negative ones), slices, recursive descent, and {variableId} placeholders.",
+                        "description": "Maps fields of the API response onto flow variables, so the values returned by the API can be used\r\nlater in the conversation.",
                         "nullable": true
                     },
                     "credentialId": {
@@ -6601,7 +6323,7 @@
                                 "$ref": "#/components/schemas/eTranscriptOptions"
                             }
                         ],
-                        "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
+                        "description": "Defines how the conversation transcript is kept: in full, with sensitive information removed, or not at all.\n\n`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
                     },
                     "budgetTotal": {
                         "type": "integer",
@@ -6655,6 +6377,12 @@
                             "$ref": "#/components/schemas/InactivityFollowUp"
                         },
                         "description": "Follow-up messages automatically sent when the customer stops responding.\r\nEach entry defines the delay (in minutes) and an optional custom message.",
+                        "nullable": true
+                    },
+                    "responseDelaySeconds": {
+                        "type": "integer",
+                        "description": "Number of seconds the agent waits after a customer message before replying, so that consecutive messages are answered together.\r\nBetween 0 and 300. If null or 0, the agent replies as soon as possible.",
+                        "format": "int32",
                         "nullable": true
                     }
                 },
@@ -6751,6 +6479,14 @@
                             }
                         ],
                         "description": "Follow-up messages automatically sent when the customer stops responding. The provided list replaces the current one."
+                    },
+                    "responseDelaySeconds": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Number of seconds the agent waits after a customer message before replying, so that consecutive messages are answered together.\r\nBetween 0 and 300. Set it to null or 0 to reply as soon as possible."
                     }
                 },
                 "additionalProperties": false,
@@ -6770,7 +6506,7 @@
                                 "$ref": "#/components/schemas/eTranscriptOptions"
                             }
                         ],
-                        "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
+                        "description": "Defines how the conversation transcript is kept: in full, with sensitive information removed, or not at all.\n\n`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
                     },
                     "budgetTotal": {
                         "type": "integer",
@@ -6812,7 +6548,7 @@
                                 "$ref": "#/components/schemas/eRecordingTrack"
                             }
                         ],
-                        "description": "`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n"
+                        "description": "The audio tracks recorded during the call.\n\n`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n"
                     },
                     "isStopRecordingAfterTransferCall": {
                         "type": "boolean",
@@ -6830,7 +6566,7 @@
                                 "$ref": "#/components/schemas/eMinimumRetryIntervalHours"
                             }
                         ],
-                        "description": "`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n"
+                        "description": "The minimum interval between two call attempts to the same lead.\n\n`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n"
                     },
                     "voiceMail": {
                         "type": "string",
@@ -7020,7 +6756,7 @@
                                 "$ref": "#/components/schemas/eBrainModelType"
                             }
                         ],
-                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
+                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n",
                         "nullable": true
                     },
                     "companyName": {
@@ -7259,28 +6995,6 @@
                 },
                 "additionalProperties": false
             },
-            "SIPConfigApi": {
-                "required": [
-                    "authMethod"
-                ],
-                "type": "object",
-                "properties": {
-                    "authMethod": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/SipAuthMethodApi"
-                            }
-                        ],
-                        "description": "How incoming SIP calls are authenticated (username/password and/or IP allowlist). At least one method is required."
-                    },
-                    "isTLS": {
-                        "type": "boolean",
-                        "description": "Whether inbound SIP traffic uses TLS."
-                    }
-                },
-                "additionalProperties": false,
-                "description": "Inbound SIP configuration of a custom VoIP number: how incoming calls are authenticated and secured.\r\nThe SIP domain is generated by NLPearl and is not provided by the client."
-            },
             "SIPConfigApiView": {
                 "type": "object",
                 "properties": {
@@ -7305,49 +7019,6 @@
                 },
                 "additionalProperties": false,
                 "description": "Inbound SIP configuration as returned by the API for a custom VoIP number."
-            },
-            "SIPTrunkConfigApi": {
-                "required": [
-                    "from",
-                    "sipTrunk"
-                ],
-                "type": "object",
-                "properties": {
-                    "sipTrunk": {
-                        "minLength": 1,
-                        "type": "string",
-                        "description": "The host of your SIP trunk (IP address or domain) where outbound calls are sent."
-                    },
-                    "edge": {
-                        "type": "string",
-                        "description": "Optional edge/region of the SIP trunk.",
-                        "nullable": true
-                    },
-                    "authMethod": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/SipTrunkAuthMethodApi"
-                            }
-                        ],
-                        "description": "Optional authentication for the outbound trunk (credentials and/or custom SIP headers).",
-                        "nullable": true
-                    },
-                    "isTLS": {
-                        "type": "boolean",
-                        "description": "Whether outbound SIP traffic uses TLS."
-                    },
-                    "from": {
-                        "minLength": 1,
-                        "type": "string",
-                        "description": "The user part of the originating SIP URI (the caller identity presented on outbound calls)."
-                    },
-                    "isSipRefer": {
-                        "type": "boolean",
-                        "description": "Whether call transfers are performed using SIP REFER."
-                    }
-                },
-                "additionalProperties": false,
-                "description": "Outbound SIP trunk configuration of a custom VoIP number: where and how outgoing calls are placed\r\nthrough your own SIP trunk."
             },
             "SIPTrunkConfigApiView": {
                 "type": "object",
@@ -7441,7 +7112,7 @@
                                 "$ref": "#/components/schemas/eAgentInteractionType"
                             }
                         ],
-                        "description": "`1 - Voice`\n\n`2 - Text`\n\n"
+                        "description": "The channel of the Pearl: voice (phone calls) or text (messaging).\n\n`1 - Voice`\n\n`2 - Text`\n\n"
                     },
                     "variables": {
                         "type": "array",
@@ -7482,30 +7153,6 @@
                 "additionalProperties": false,
                 "description": "Settings of a Simple Pearl (AgentType = Voice): configuration driven by an opening sentence and a flow script."
             },
-            "SipAuthMethodApi": {
-                "type": "object",
-                "properties": {
-                    "userNamePassword": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/UserNamePasswordApi"
-                            }
-                        ],
-                        "description": "SIP credentials accepted for inbound calls.",
-                        "nullable": true
-                    },
-                    "ips": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "Allowlist of source IP addresses authorized to send inbound calls.",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false,
-                "description": "Inbound SIP authentication: by username/password and/or by an allowlist of source IP addresses.\r\nAt least one method must be provided."
-            },
             "SipAuthMethodApiView": {
                 "type": "object",
                 "properties": {
@@ -7525,30 +7172,6 @@
                 },
                 "additionalProperties": false,
                 "description": "Inbound SIP authentication as returned by the API. Passwords are never included."
-            },
-            "SipTrunkAuthMethodApi": {
-                "type": "object",
-                "properties": {
-                    "userNamePassword": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/UserNamePasswordApi"
-                            }
-                        ],
-                        "description": "SIP credentials sent when placing outbound calls.",
-                        "nullable": true
-                    },
-                    "headers": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "string"
-                        },
-                        "description": "Custom SIP headers added to the outbound INVITE.",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false,
-                "description": "Outbound SIP trunk authentication: optional credentials and/or custom SIP headers."
             },
             "SipTrunkAuthMethodApiView": {
                 "type": "object",
@@ -7584,7 +7207,7 @@
                                 "$ref": "#/components/schemas/EmailProvider"
                             }
                         ],
-                        "description": "`1 - Gmail`\n\n`2 - Office365`\n\n`10 - Custom`\n\n",
+                        "description": "The email provider used to send the emails.\n\n`1 - Gmail`\n\n`2 - Office365`\n\n`10 - Custom`\n\n",
                         "nullable": true
                     },
                     "smtpServer": {
@@ -7644,7 +7267,7 @@
                                 "$ref": "#/components/schemas/eTextMessageChannel"
                             }
                         ],
-                        "description": "`1 - TwilioSMS`\n\n`2 - WhatsApp`\n\n`3 - Telegram`\n\n`5 - TestBrowser`\n\n`6 - Generic`\n\n`7 - Glassix`\n\n"
+                        "description": "The messaging channel connected to the text Pearl.\n\n`1 - TwilioSMS`\n\n`2 - WhatsApp`\n\n`3 - Telegram`\n\n`5 - TestBrowser`\n\n`6 - Generic`\n\n`7 - Glassix`\n\n"
                     },
                     "channelId": {
                         "type": "string",
@@ -7677,6 +7300,10 @@
                         "type": "string",
                         "description": "`🧩 May support variables`\r\n            \r\nOptional warm transfer message spoken by the agent when the transfer starts.\r\nIf empty, warm transfer is disabled.\r\n            \r\nMax 2,000 characters only.",
                         "nullable": true
+                    },
+                    "isWhisper": {
+                        "type": "boolean",
+                        "description": "The warm transfer mode. Only applies when a warm transfer message is set.\r\n            \r\n- `true` (Whisper): only the recipient hears the warm transfer message, the caller stays on hold.\r\n- `false` (3-way): both the caller and the recipient hear the warm transfer message.\r\n            \r\nDefaults to `false` (3-way) when omitted.\r\n            \r\nSee [Transfer Call](/pages/transfer_call#transfer-types) for more information."
                     }
                 },
                 "additionalProperties": false
@@ -7853,27 +7480,6 @@
                 },
                 "additionalProperties": false
             },
-            "UserNamePasswordApi": {
-                "required": [
-                    "password",
-                    "username"
-                ],
-                "type": "object",
-                "properties": {
-                    "username": {
-                        "minLength": 1,
-                        "type": "string",
-                        "description": "The SIP username."
-                    },
-                    "password": {
-                        "minLength": 1,
-                        "type": "string",
-                        "description": "The SIP password. Write-only: it is accepted on input but never returned in responses."
-                    }
-                },
-                "additionalProperties": false,
-                "description": "A SIP username and password pair. The password is write-only and is never returned in responses."
-            },
             "ValidationProblemDetails": {
                 "type": "object",
                 "properties": {
@@ -7950,6 +7556,14 @@
                         },
                         "description": "Tags describing the voice (for example accent, style, or other voice characteristics).",
                         "nullable": true
+                    },
+                    "version": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/eVoiceVersion"
+                            }
+                        ],
+                        "description": "The version of the voice:\n\n`1 - V1`\n\n`2 - V2`\n\n"
                     }
                 },
                 "additionalProperties": false
@@ -7961,17 +7575,17 @@
             },
             "eAgentInteractionType": {
                 "type": "integer",
-                "description": "`1 - Voice`\n\n`2 - Text`\n\n",
+                "description": "The channel of the Pearl: voice (phone calls) or text (messaging).\n\n`1 - Voice`\n\n`2 - Text`\n\n",
                 "format": "int32"
             },
             "eAuditLogEvent": {
                 "type": "integer",
-                "description": "The type of event recorded in the audit log.\n\n`1 - LoginAttempt`\n\n`2 - LoginSuccessful`\n\n`10 - PublishPearl`\n\n`11 - PearlStatus`\n\n`12 - PearlRetention`\n\n`13 - PearlTotalAgents`\n\n`14 - PearlBudget`\n\n`15 - PearlPhoneNumber`\n\n`18 - TransferPearl`\n\n`19 - DeletePearl`\n\n`30 - CreateAPIKey`\n\n`31 - DeleteAPIKey`\n\n`32 - RevealAPIKey`\n\n`40 - PurchaseAgents`\n\n`41 - DeleteAgent`\n\n`50 - SetBillingDetails`\n\n`51 - SetPaymentMethod`\n\n`52 - SetSubscription`\n\n`59 - CancelSubscription`\n\n`60 - PurchaseCredits`\n\n`61 - SetAutoRecharge`\n\n`70 - InviteUser`\n\n`71 - UserJoin`\n\n`72 - InvitationCanceled`\n\n`73 - UpdateUserRole`\n\n`74 - UpdateAccountInformations`\n\n`75 - RemoveUserFromTheAccount`\n\n`76 - UserLeftAccount`\n\n`77 - CreateRole`\n\n`78 - UpdateRole`\n\n`79 - DeleteRole`\n\n`80 - UpdateSessionTTL`\n\n`81 - Set2FA`\n\n`82 - ChangePassword`\n\n`90 - DeleteAccount`\n\n`91 - AddToBlacklist`\n\n`92 - RemoveFromBlacklist`\n\n`100 - PurchasePhoneNumbers`\n\n`101 - ReleasePhoneNumber`\n\n`102 - AddPhoneNumber`\n\n`103 - UpdatePhoneNumber`\n\n`104 - UpdateSIPConfig`\n\n`105 - SetTwilioCredentials`\n\n`110 - CreateTextChannel`\n\n`111 - UpdateTextChannel`\n\n`112 - DeleteTextChannel`\n\n`113 - RotateChannelSecret`\n\n`114 - RevealChannelSecret`\n\n`115 - ConnectWhatsApp`\n\n`116 - AddWhatsAppNumber`\n\n`117 - DisconnectWhatsApp`\n\n`120 - SetEmailCredentials`\n\n`121 - DeleteEmailCredentials`\n\n`122 - ConnectSlack`\n\n`123 - ConnectCalendar`\n\n`130 - ImportLeads`\n\n`131 - DeleteLeads`\n\n`132 - DeleteCalls`\n\n`133 - ExportCalls`\n\n`140 - GroupRetention`\n\n`141 - DeleteContacts`\n\n",
+                "description": "The type of event recorded in the audit log.\n\n`1 - LoginAttempt`\n\n`2 - LoginSuccessful`\n\n`10 - PublishPearl`\n\n`11 - PearlStatus`\n\n`12 - PearlRetention`\n\n`13 - PearlTotalAgents`\n\n`14 - PearlBudget`\n\n`15 - PearlPhoneNumber`\n\n`16 - CreatePearlVersion`\n\n`17 - DeletePearlVersion`\n\n`18 - TransferPearl`\n\n`19 - DeletePearl`\n\n`30 - CreateAPIKey`\n\n`31 - DeleteAPIKey`\n\n`32 - RevealAPIKey`\n\n`33 - UpdateAPIKey`\n\n`34 - RotateAPIKeySecret`\n\n`40 - PurchaseAgents`\n\n`41 - DeleteAgent`\n\n`50 - SetBillingDetails`\n\n`51 - SetPaymentMethod`\n\n`52 - SetSubscription`\n\n`59 - CancelSubscription`\n\n`60 - PurchaseCredits`\n\n`61 - SetAutoRecharge`\n\n`70 - InviteUser`\n\n`71 - UserJoin`\n\n`72 - InvitationCanceled`\n\n`73 - UpdateUserRole`\n\n`74 - UpdateAccountInformations`\n\n`75 - RemoveUserFromTheAccount`\n\n`76 - UserLeftAccount`\n\n`77 - CreateRole`\n\n`78 - UpdateRole`\n\n`79 - DeleteRole`\n\n`80 - UpdateSessionTTL`\n\n`81 - Set2FA`\n\n`82 - ChangePassword`\n\n`90 - DeleteAccount`\n\n`91 - AddToBlacklist`\n\n`92 - RemoveFromBlacklist`\n\n`100 - PurchasePhoneNumbers`\n\n`101 - ReleasePhoneNumber`\n\n`102 - AddPhoneNumber`\n\n`103 - UpdatePhoneNumber`\n\n`104 - UpdateSIPConfig`\n\n`105 - SetTwilioCredentials`\n\n`110 - CreateTextChannel`\n\n`111 - UpdateTextChannel`\n\n`112 - DeleteTextChannel`\n\n`113 - RotateChannelSecret`\n\n`114 - RevealChannelSecret`\n\n`115 - ConnectWhatsApp`\n\n`116 - AddWhatsAppNumber`\n\n`117 - DisconnectWhatsApp`\n\n`120 - SetEmailCredentials`\n\n`121 - DeleteEmailCredentials`\n\n`122 - ConnectSlack`\n\n`123 - ConnectCalendar`\n\n`130 - ImportLeads`\n\n`131 - DeleteLeads`\n\n`132 - DeleteCalls`\n\n`133 - ExportCalls`\n\n`134 - RefreshLeads`\n\n`140 - GroupRetention`\n\n`141 - DeleteContacts`\n\n`150 - CloneVoice`\n\n`151 - DeleteVoice`\n\n`152 - ShareVoice`\n\n`160 - VibePearlSideEffectRun`\n\n",
                 "format": "int32"
             },
             "eBrainModelType": {
                 "type": "integer",
-                "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`11 - Swan`\n\n",
+                "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Default, highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n",
                 "format": "int32"
             },
             "eCallAuthorizationStatus": {
@@ -7986,7 +7600,7 @@
             },
             "eChatMessageRoleView": {
                 "type": "integer",
-                "description": "`2 - Pearl`\n\n`3 - Client`\n\n`4 - PlatformUser`\n\n",
+                "description": "The author of the message in the conversation.\n\n`2 - Pearl`\n\n`3 - Client`\n\n`4 - PlatformUser`\n\n",
                 "format": "int32"
             },
             "eConversationStatusView": {
@@ -8006,7 +7620,7 @@
             },
             "eLeadStatusInputView": {
                 "type": "integer",
-                "description": "`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
+                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eLeadStatusView": {
@@ -8016,7 +7630,7 @@
             },
             "eMinimumRetryIntervalHours": {
                 "type": "integer",
-                "description": "`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n",
+                "description": "The minimum interval between two call attempts to the same lead.\n\n`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n",
                 "format": "int32"
             },
             "eMinimumRetryIntervalHoursOptionalType": {
@@ -8032,7 +7646,7 @@
                                 "$ref": "#/components/schemas/eMinimumRetryIntervalHours"
                             }
                         ],
-                        "description": "`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n"
+                        "description": "The minimum interval between two call attempts to the same lead.\n\n`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n"
                     }
                 },
                 "additionalProperties": false
@@ -8059,7 +7673,7 @@
             },
             "ePredefinedCallLabelColors": {
                 "type": "integer",
-                "description": "`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`8 - gradient1`\n\n`9 - gradient2`\n\n",
+                "description": "The color of the indicator tag.\n\n`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`8 - gradient1`\n\n`9 - gradient2`\n\n",
                 "format": "int32"
             },
             "eProjectType": {
@@ -8069,7 +7683,7 @@
             },
             "eRecordingTrack": {
                 "type": "integer",
-                "description": "`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n",
+                "description": "The audio tracks recorded during the call.\n\n`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n",
                 "format": "int32"
             },
             "eRecordingTrackOptionalType": {
@@ -8085,24 +7699,24 @@
                                 "$ref": "#/components/schemas/eRecordingTrack"
                             }
                         ],
-                        "description": "`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n"
+                        "description": "The audio tracks recorded during the call.\n\n`1 - Pearl`\n\n`2 - Inbound`\n\n`3 - Both`\n\n`4 - None`\n\n"
                     }
                 },
                 "additionalProperties": false
             },
             "eStateDataType": {
                 "type": "integer",
-                "description": "`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n",
+                "description": "The data type of the value.\n\n`1 - String`\n\n`2 - Long`\n\n`3 - Double`\n\n`4 - Boolean`\n\n`5 - DateOnly`\n\n`6 - TimeOnly`\n\n`7 - DateTime`\n\n",
                 "format": "int32"
             },
             "eTextMessageChannel": {
                 "type": "integer",
-                "description": "`1 - TwilioSMS`\n\n`2 - WhatsApp`\n\n`3 - Telegram`\n\n`5 - TestBrowser`\n\n`6 - Generic`\n\n`7 - Glassix`\n\n",
+                "description": "The messaging channel connected to the text Pearl.\n\n`1 - TwilioSMS`\n\n`2 - WhatsApp`\n\n`3 - Telegram`\n\n`5 - TestBrowser`\n\n`6 - Generic`\n\n`7 - Glassix`\n\n",
                 "format": "int32"
             },
             "eTranscriptOptions": {
                 "type": "integer",
-                "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n",
+                "description": "Defines how the conversation transcript is kept: in full, with sensitive information removed, or not at all.\n\n`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n",
                 "format": "int32"
             },
             "eTranscriptOptionsOptionalType": {
@@ -8118,7 +7732,7 @@
                                 "$ref": "#/components/schemas/eTranscriptOptions"
                             }
                         ],
-                        "description": "`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
+                        "description": "Defines how the conversation transcript is kept: in full, with sensitive information removed, or not at all.\n\n`1 - FullTranscript`\n\n`2 - SensitiveInfoRemoved`\n\n`3 - NoTranscript`\n\n"
                     }
                 },
                 "additionalProperties": false
@@ -8132,32 +7746,38 @@
                 "type": "integer",
                 "description": "The type/role of the user who triggered the audit log event.\n\n`1 - Platform`\n\n`3 - APIKey`\n\n`90 - Support`\n\n`99 - System`\n\n",
                 "format": "int32"
+            },
+            "eVoiceVersion": {
+                "type": "integer",
+                "description": "The version of the voice:\n\n`1 - V1`\n\n`2 - V2`\n\n",
+                "format": "int32"
             }
         },
         "securitySchemes": {
             "bearer_auth": {
                 "type": "http",
-                "description": "Specify the authorization token in the form `AccountId:SecretKey`, or an OAuth 2.0 access token.\n\nFor more information, check out the [Authorization Guide](/api-reference/authorization) and the [OAuth 2.0 Guide](/api-reference/oauth).",
+                "description": "Specify the authorization token.\n\nFor more information, check out the [Authorization Guide](/api-reference/authorization).",
                 "scheme": "bearer"
             },
-            "oauth2": {
+            "oauth2_client_credentials": {
                 "type": "oauth2",
-                "description": "OAuth 2.0 client credentials, for scoped third-party access.\n\nFor more information, check out the [OAuth 2.0 Guide](/api-reference/oauth).",
+                "description": "OAuth2 client_credentials grant. Use the Id of an OAuth API key as `client_id` and its one-time secret as `client_secret`.",
                 "flows": {
                     "clientCredentials": {
-                        "tokenUrl": "https://api.nlpearl.ai/oauth/token",
+                        "tokenUrl": "/oauth/token",
                         "scopes": {
-                            "pearls:read": "View Pearls and their settings.",
-                            "pearls:write": "Create and edit Pearls, including access to PearlVibe.",
-                            "pearls:moderate": "Change a Pearl's activity status.",
-                            "pearls:analytics": "View Pearl analytics.",
-                            "pearls:leads": "View and moderate leads.",
-                            "pearls:calls": "View calls and post-call information.",
-                            "account:phone_numbers": "Manage phone numbers.",
-                            "account:users": "Manage users.",
-                            "account:advanced": "Manage advanced account settings, such as security and sessions.",
-                            "account:audit_log": "View the audit log.",
-                            "account:billing": "Manage account billing."
+                            "pearls:read": "List and view Pearls",
+                            "pearls:write": "Create and update Pearls (settings, conversation flows, voices); implies pearls:read",
+                            "pearls:moderate": "Run/pause Pearls and reset customer memory; implies pearls:read",
+                            "pearls:analytics": "Read Pearl analytics; implies pearls:read",
+                            "pearls:leads": "Manage and read outbound leads; implies pearls:read",
+                            "pearls:calls": "Read calls and recordings, make and delete calls; implies pearls:read",
+                            "account:phone_numbers": "Read account phone numbers and text channels",
+                            "account:users": "Read account users",
+                            "account:advanced": "Manage advanced account settings (blacklist)",
+                            "account:billing": "Read account information and credit balance",
+                            "account:audit_log": "Read the audit log",
+                            "tts": "Synthesise speech and clone voices"
                         }
                     }
                 }
@@ -8169,7 +7789,7 @@
             "bearer_auth": []
         },
         {
-            "oauth2": []
+            "oauth2_client_credentials": []
         }
     ],
     "tags": [
