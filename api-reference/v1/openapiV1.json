@@ -683,6 +683,114 @@
                 }
             }
         },
+        "/oauth/token": {
+            "post": {
+                "tags": [
+                    "OAuth"
+                ],
+                "summary": "Get Access Token",
+                "description": "OAuth2 token endpoint (RFC 6749, client_credentials grant).\n\nAuthenticate with your OAuth key credentials, either as HTTP Basic (`Authorization: Basic base64(client_id:client_secret)`) or as `client_id`/`client_secret` form fields.\n\nThe optional `scope` field (space separated scope names) must be a subset of the scopes of the key; omit it to receive all of them.",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "grant_type": {
+                                        "type": "string"
+                                    },
+                                    "client_id": {
+                                        "type": "string"
+                                    },
+                                    "client_secret": {
+                                        "type": "string"
+                                    },
+                                    "scope": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "encoding": {
+                                "grant_type": {
+                                    "style": "form"
+                                },
+                                "client_id": {
+                                    "style": "form"
+                                },
+                                "client_secret": {
+                                    "style": "form"
+                                },
+                                "scope": {
+                                    "style": "form"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The access token",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OAuthTokenResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OAuthTokenResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OAuthTokenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "OAuth error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OAuthErrorResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OAuthErrorResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OAuthErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid client credentials",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OAuthErrorResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OAuthErrorResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OAuthErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v1/Outbound": {
             "get": {
                 "tags": [
@@ -1366,7 +1474,7 @@
                     "Outbound"
                 ],
                 "summary": "Delete Leads",
-                "description": "Deletes one or more leads associated with a specific outbound campaign.",
+                "description": "Permanently deletes one or more leads associated with a specific outbound campaign. Deleted leads are removed and cannot be restored.",
                 "parameters": [
                     {
                         "name": "outboundId",
@@ -1605,7 +1713,7 @@
                     "Outbound"
                 ],
                 "summary": "Delete leads Via External",
-                "description": "Deletes one or more leads associated with a specific outbound campaign.",
+                "description": "Permanently deletes one or more leads associated with a specific outbound campaign. Deleted leads are removed and cannot be restored.",
                 "parameters": [
                     {
                         "name": "outboundId",
@@ -2135,7 +2243,7 @@
                                 "$ref": "#/components/schemas/eChatMessageRoleView"
                             }
                         ],
-                        "description": "`2 - Pearl`\n\n`3 - Client`\n\n`4 - PlatformUser`\n\n"
+                        "description": "The author of the message in the conversation.\n\n`2 - Pearl`\n\n`3 - Client`\n\n`4 - PlatformUser`\n\n"
                     },
                     "content": {
                         "type": "string",
@@ -2455,6 +2563,12 @@
                         "description": "The duration of the call in seconds.",
                         "format": "int32"
                     },
+                    "transferCallDuration": {
+                        "type": "integer",
+                        "description": "The duration of the transferred call in seconds, if applicable.",
+                        "format": "int32",
+                        "nullable": true
+                    },
                     "recording": {
                         "type": "string",
                         "description": "The URL of the recording of the call, if available.",
@@ -2522,28 +2636,6 @@
                         "type": "integer",
                         "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
                         "format": "int32",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false
-            },
-            "CallCollectedDataApiView": {
-                "type": "object",
-                "properties": {
-                    "transcript": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/AgentChatMessageApiView"
-                        },
-                        "description": "The transcript of the conversation.",
-                        "nullable": true
-                    },
-                    "collectedInfos": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/CollectedInfoView"
-                        },
-                        "description": "The information collected during the conversations.",
                         "nullable": true
                     }
                 },
@@ -2880,6 +2972,7 @@
                     },
                     "answeredCalls": {
                         "type": "integer",
+                        "description": "The number of calls that reached a real conversation (completed, successful or unsuccessful calls).",
                         "format": "int32"
                     },
                     "error": {
@@ -2951,6 +3044,7 @@
                     },
                     "answeredCalls": {
                         "type": "integer",
+                        "description": "The number of calls that reached a real conversation (completed, successful or unsuccessful calls).",
                         "format": "int32"
                     },
                     "error": {
@@ -3309,14 +3403,6 @@
                         "description": "The list of the ID's of all the calls this lead has received.",
                         "nullable": true
                     },
-                    "lastCall": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/LeadLastCallApiView"
-                            }
-                        ],
-                        "nullable": true
-                    },
                     "callData": {
                         "type": "object",
                         "additionalProperties": {
@@ -3329,77 +3415,6 @@
                         "type": "object",
                         "additionalProperties": {},
                         "description": "A dictionary containing all the information collected about the lead during the call.  \r\nThese values are the result of the conversation and reflect the answers or actions taken by the lead.  \r\nThe `key` represents the ID of the variable configured on the platform,  \r\nand the `value` corresponds to the collected data.  \r\n            \r\nThis information can be used to understand user intent, track specific responses, or power further automation.  \r\nFor more details on how variables work, see [Variables](/pages/variables).\r\n            \r\nHere is an example of the JSON format:\r\n`{ \"confirmBooking\": true, \"dropOffLocation\": \"Orly Airport\", \"rideTime\": \"Friday at 12:00\", \"userIntent\": \"Book a taxi to the airport\" }`",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false
-            },
-            "LeadLastCallApiView": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The unique identifier of the call.",
-                        "nullable": true
-                    },
-                    "startTime": {
-                        "type": "string",
-                        "description": "The date and time when the call processing started.",
-                        "format": "date-time"
-                    },
-                    "pearlId": {
-                        "type": "string",
-                        "description": "The ID of the Pearl Used in This Call.",
-                        "nullable": true
-                    },
-                    "status": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/eCallStatusView"
-                            }
-                        ],
-                        "description": "Represents the current status of a call.\n\n`3 - InProgress`\n\n`4 - Completed`\n\n`5 - Busy`\n\n`6 - Failed`\n\n`7 - NoAnswer`\n\n`8 - Canceled`\n\n`10 - OnGoingText`\n\n"
-                    },
-                    "from": {
-                        "type": "string",
-                        "description": "The phone number from which the call was made.",
-                        "nullable": true
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name associated with the call, if available.",
-                        "nullable": true
-                    },
-                    "collectedData": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/CallCollectedDataApiView"
-                            }
-                        ],
-                        "description": "The object including all the information collected during the call.",
-                        "nullable": true
-                    },
-                    "summary": {
-                        "type": "string",
-                        "description": "A summary of the conversation.",
-                        "nullable": true
-                    },
-                    "duration": {
-                        "type": "integer",
-                        "description": "The duration of the call in seconds.",
-                        "format": "int32"
-                    },
-                    "recording": {
-                        "type": "string",
-                        "description": "The URL of the recording of the call, if available.",
-                        "nullable": true
-                    },
-                    "tags": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "The tags or labels triggered during the conversation",
                         "nullable": true
                     }
                 },
@@ -3590,6 +3605,42 @@
                 },
                 "additionalProperties": false,
                 "description": "Represents the data used to update an existing lead in an outbound campaign.\r\nAll fields are optional; only the provided values will be updated."
+            },
+            "OAuthErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "error_description": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "OAuthTokenResponse": {
+                "type": "object",
+                "properties": {
+                    "access_token": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "token_type": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "expires_in": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "scope": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
             },
             "OngoingCallsApiView": {
                 "type": "object",
@@ -3900,7 +3951,7 @@
             },
             "eChatMessageRoleView": {
                 "type": "integer",
-                "description": "`2 - Pearl`\n\n`3 - Client`\n\n`4 - PlatformUser`\n\n",
+                "description": "The author of the message in the conversation.\n\n`2 - Pearl`\n\n`3 - Client`\n\n`4 - PlatformUser`\n\n",
                 "format": "int32"
             },
             "eConversationStatusView": {
@@ -3915,7 +3966,7 @@
             },
             "eLeadStatusInputView": {
                 "type": "integer",
-                "description": "`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
+                "description": "The Status of the lead is the status of the last conversation.\n\nTo determine the definition of 'Success' or 'Not Successful,' please refer to the [Create a Pearl](/pages/create_pearl#pearl-name) page at step 4.\n\n`1 - New`\n\n`10 - NeedRetry`\n\n`20 - InCallQueue`\n\n`30 - WrongCountryCode`\n\n`40 - OnCall`\n\n`70 - VoiceMailLeft`\n\n`100 - Success`\n\n`110 - NotSuccessful`\n\n`130 - Completed`\n\n`150 - Unreachable`\n\n`200 - Deleted`\n\n`220 - Blacklisted`\n\n`500 - Error`\n\n",
                 "format": "int32"
             },
             "eLeadStatusView": {
@@ -3934,12 +3985,38 @@
                 "type": "http",
                 "description": "Specify the authorization token.\n\nFor more information, check out the [Authorization Guide](/api-reference/authorization).",
                 "scheme": "bearer"
+            },
+            "oauth2_client_credentials": {
+                "type": "oauth2",
+                "description": "OAuth2 client_credentials grant. Use the Id of an OAuth API key as `client_id` and its one-time secret as `client_secret`.",
+                "flows": {
+                    "clientCredentials": {
+                        "tokenUrl": "/oauth/token",
+                        "scopes": {
+                            "pearls:read": "List and view Pearls",
+                            "pearls:write": "Create and update Pearls (settings, conversation flows, voices); implies pearls:read",
+                            "pearls:moderate": "Run/pause Pearls and reset customer memory; implies pearls:read",
+                            "pearls:analytics": "Read Pearl analytics; implies pearls:read",
+                            "pearls:leads": "Manage and read outbound leads; implies pearls:read",
+                            "pearls:calls": "Read calls and recordings, make and delete calls; implies pearls:read",
+                            "account:phone_numbers": "Read account phone numbers and text channels",
+                            "account:users": "Read account users",
+                            "account:advanced": "Manage advanced account settings (blacklist)",
+                            "account:billing": "Read account information and credit balance",
+                            "account:audit_log": "Read the audit log",
+                            "tts": "Synthesise speech and clone voices"
+                        }
+                    }
+                }
             }
         }
     },
     "security": [
         {
             "bearer_auth": []
+        },
+        {
+            "oauth2_client_credentials": []
         }
     ]
 }
