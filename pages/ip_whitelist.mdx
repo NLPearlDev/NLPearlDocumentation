@@ -1,6 +1,6 @@
 ---
 title: IP Whitelisting
-description: 'The IP addresses NLPearl.AI sends requests from, to allow through your firewall for webhooks, API nodes, and text channel events.'
+description: 'The IP addresses NLPearl sends requests from, to allow through your firewall for webhooks, API nodes, and text channel events.'
 icon: "shield-check"
 iconType: "light"
 ---
@@ -33,7 +33,7 @@ iconType: "light"
 
 ## Overview
 
-Every HTTP request that NLPearl.AI sends to your systems comes from a **fixed set of public IP addresses**. If your server is behind a firewall, a WAF, a cloud security group, or any policy that only accepts known sources, add these addresses to its allowlist so the requests reach your endpoint.
+Every HTTP request that NLPearl sends to your systems comes from a **fixed set of public IP addresses**. If your server is behind a firewall, a WAF, a cloud security group, or any policy that only accepts known sources, add these addresses to its allowlist so the requests reach your endpoint.
 
 ---
 
@@ -43,7 +43,7 @@ Every HTTP request that NLPearl.AI sends to your systems comes from a **fixed se
 Allow **all** the addresses below. A request can come from any of them, so allowing only some of them will make some deliveries fail.
 </Warning>
 
-```text NLPearl.AI outbound IP addresses
+```text NLPearl outbound IP addresses
 18.156.70.239
 63.186.166.125
 34.240.77.109
@@ -62,7 +62,7 @@ If your firewall expects CIDR notation, add each address as a single host with t
 
 ## Where It Applies
 
-These addresses cover every request NLPearl.AI sends to a URL you configured:
+These addresses cover every request NLPearl sends to a URL you configured:
 
 <CardGroup cols={2}>
   <Card title="Webhooks" icon="webhook" iconType="light" href="/pages/webhooks">
@@ -80,7 +80,7 @@ These addresses cover every request NLPearl.AI sends to a URL you configured:
 </CardGroup>
 
 <Note>
-This page covers the HTTP requests NLPearl.AI **sends** to you. To receive calls from your own SIP infrastructure, the SIP trunk has its own IP settings: see [Custom VoIP](/pages/custom_voip).
+This page covers the HTTP requests NLPearl **sends** to you. To receive calls from your own SIP infrastructure, the SIP trunk has its own IP settings: see [Custom VoIP](/pages/custom_voip).
 </Note>
 
 ---
@@ -92,7 +92,7 @@ This page covers the HTTP requests NLPearl.AI **sends** to you. To receive calls
     Identify the component that filters the traffic reaching your endpoint: a firewall, a reverse proxy, a WAF, or a cloud security group (AWS, Azure, GCP...).
   </Step>
 
-  <Step title="Add the NLPearl.AI addresses">
+  <Step title="Add the NLPearl addresses">
     Create an **allow** rule for each address listed [above](#ip-addresses-to-allow), on the port your endpoint listens on (usually `443` for HTTPS).
   </Step>
 
