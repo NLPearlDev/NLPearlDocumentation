@@ -1,0 +1,98 @@
+<svg width="1048" height="720" viewBox="0 0 1048 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sideL" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#1C1B1A"/>
+    <stop offset="1" stop-color="#252423" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="sideR" x1="1" y1="0" x2="0" y2="0">
+    <stop offset="0" stop-color="#1C1B1A"/>
+    <stop offset="1" stop-color="#252423" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#98BC5D" stop-opacity="0"/>
+    <stop offset="0.5" stop-color="#98BC5D"/>
+    <stop offset="1" stop-color="#98BC5D" stop-opacity="0.2"/>
+  </linearGradient>
+  <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#A9CC6E"/>
+    <stop offset="1" stop-color="#7FA046"/>
+  </linearGradient>
+  <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#98BC5D" stop-opacity="0.28"/>
+    <stop offset="1" stop-color="#98BC5D" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur stdDeviation="3"/>
+  </filter>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+    <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.45"/>
+  </filter>
+</defs>
+
+<rect width="1048" height="720" fill="#252423"/>
+
+<!-- background hexagons -->
+<g stroke="#524F4B" stroke-width="2">
+  <path d="M246 118l62 36v72l-62 36-62-36v-72z"/>
+  <path d="M120 470l54 31v62l-54 31-54-31v-62z" stroke-dasharray="4 4"/>
+  <path d="M905 96l58 33v67l-58 33-58-33v-67z" filter="url(#blur)"/>
+  <path d="M842 500l66 38v76l-66 38-66-38v-76z"/>
+  <path d="M960 330l40 23v46l-40 23-40-23v-46z" stroke-dasharray="4 4"/>
+  <path d="M520 590l44 25v51l-44 25-44-25v-51z" filter="url(#blur)"/>
+</g>
+
+<rect x="0" y="0" width="150" height="720" fill="url(#sideL)"/>
+<rect x="898" y="0" width="150" height="720" fill="url(#sideR)"/>
+
+<!-- flows: NLPearl egress -> shield -> customer server -->
+<g stroke-width="3" stroke-linecap="round">
+  <path d="M222 250C330 250 360 360 470 360" stroke="url(#flow)"/>
+  <path d="M222 360H470" stroke="url(#flow)"/>
+  <path d="M222 470C330 470 360 360 470 360" stroke="url(#flow)"/>
+</g>
+<path d="M578 360H672" stroke="#98BC5D" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 7"/>
+
+<!-- NLPearl egress nodes -->
+<g filter="url(#shadow)">
+  <g>
+    <rect x="96" y="226" width="126" height="48" rx="14" fill="#FFFCFB"/>
+    <circle cx="122" cy="250" r="7" fill="#98BC5D"/>
+    <text x="138" y="256" font-family="Roboto, Arial, sans-serif" font-size="16" font-weight="500" fill="#252423">NLPearl</text>
+  </g>
+  <g>
+    <rect x="96" y="336" width="126" height="48" rx="14" fill="#FFFCFB"/>
+    <circle cx="122" cy="360" r="7" fill="#98BC5D"/>
+    <text x="138" y="366" font-family="Roboto, Arial, sans-serif" font-size="16" font-weight="500" fill="#252423">NLPearl</text>
+  </g>
+  <g>
+    <rect x="96" y="446" width="126" height="48" rx="14" fill="#FFFCFB"/>
+    <circle cx="122" cy="470" r="7" fill="#98BC5D"/>
+    <text x="138" y="476" font-family="Roboto, Arial, sans-serif" font-size="16" font-weight="500" fill="#252423">NLPearl</text>
+  </g>
+</g>
+
+<!-- shield (firewall) -->
+<circle cx="524" cy="360" r="120" fill="url(#glow)"/>
+<path d="M606 386.5V333.5C606 328.5 603.3 323.9 599 321.4L531 282.1C526.7 279.6 521.3 279.6 517 282.1L449 321.4C444.7 323.9 442 328.5 442 333.5V386.5C442 391.5 444.7 396.1 449 398.6L517 437.9C521.3 440.4 526.7 440.4 531 437.9L599 398.6C603.3 396.1 606 391.5 606 386.5Z" stroke="#524F4B" stroke-width="2"/>
+<g filter="url(#shadow)">
+  <path d="M524 304L570 321V356C570 386 551 408 524 418C497 408 478 386 478 356V321Z" fill="url(#shield)" stroke="#515151" stroke-width="2"/>
+</g>
+<path d="M503 360L518 375L547 344" stroke="#FFFCFB" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- allowlist card (customer side) -->
+<g filter="url(#shadow)">
+  <rect x="672" y="222" width="262" height="276" rx="18" fill="#FFFCFB"/>
+</g>
+<text x="696" y="262" font-family="Roboto, Arial, sans-serif" font-size="17" font-weight="700" fill="#252423">IP Allowlist</text>
+<rect x="846" y="244" width="66" height="26" rx="13" fill="#98BC5D" fill-opacity="0.2"/>
+<text x="879" y="262" text-anchor="middle" font-family="Roboto, Arial, sans-serif" font-size="12" font-weight="700" fill="#5E7F2A">ALLOW</text>
+<line x1="696" y1="284" x2="910" y2="284" stroke="#E7E3DF" stroke-width="2"/>
+<g font-family="'Roboto Mono', Menlo, Consolas, monospace" font-size="15" fill="#3A3836">
+  <circle cx="704" cy="314" r="5" fill="#98BC5D"/><text x="720" y="319">18.156.70.239</text>
+  <circle cx="704" cy="350" r="5" fill="#98BC5D"/><text x="720" y="355">63.186.166.125</text>
+  <circle cx="704" cy="386" r="5" fill="#98BC5D"/><text x="720" y="391">34.240.77.109</text>
+  <circle cx="704" cy="422" r="5" fill="#98BC5D"/><text x="720" y="427">52.48.202.168</text>
+</g>
+<rect x="696" y="448" width="120" height="10" rx="5" fill="#E7E3DF"/>
+<rect x="696" y="468" width="84" height="10" rx="5" fill="#EFECE9"/>
+</svg>
