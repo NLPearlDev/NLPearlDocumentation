@@ -20,7 +20,7 @@
     "family": "Roboto"
   },
   "banner": {
-    "content": "💬 Pearl Text is now live! [Create text agents](/pages/text/pearl_text) and message your customers directly from the platform.",
+    "content": "🎙️ Pearl TTS is now live! [Turn text into speech](/pages/voice_studio) and clone your own voice in Voice Studio.",
     "dismissible": true
   },
   "topbarLinks": [
