@@ -781,6 +781,10 @@ You can configure it in two ways:
 | **Opening sentence** | A standard greeting and first question, for example: "Hi, you've reached [Company]. How can I help you today?" |
 | **Pre‑Call API** | Before the Pearl speaks, it can call an external API (for example to fetch order details, check account status, or pre‑qualify the caller). The API response can then change the opening sentence, route the caller toward different branches, or preload variables and context. On text Pearls this is labeled **Pre‑Chat API**. |
 
+<Info>
+**The Pearl says the opening sentence almost word for word.** In a Dialogue node, your text is only a guide: the Pearl adapts it to what the customer says.
+</Info>
+
 <Note>
 The Pre-Call API cannot be used to import leads into your Pearl. Its purpose is strictly to enrich or prepare contextual data before the call starts
 </Note>
