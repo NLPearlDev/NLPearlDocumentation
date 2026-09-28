@@ -397,6 +397,25 @@ Example: *"If you hear a menu, press 2 for the sales department, then press 1 to
 
 ---
 
+### Call Screening
+
+Pearl handles call screening automatically. There's nothing to configure.
+
+To cut down on spam, more and more phones answer calls from unknown numbers for their owner: **Call Screening** on iPhone since iOS 26, and similar features such as Google's **Call Screen** on many Android phones, often switched on by default. Instead of ringing, the phone's assistant asks the caller who they are and why they're calling, for example: *"If you record your name and reason for calling, I'll see if this person is available."* The owner reads the answer as live text, then picks up, declines, or sends the call to voicemail.
+
+Pearl recognizes the screening prompt and answers it: she says who is calling and why, based on your Pearl's flow, which gives the person a clear reason to pick up. She then waits on the line so the call can be put through:
+
+- If the person picks up, the conversation continues as normal.
+- If the screener says the person isn't available, the call ends.
+
+A screened call is not a voicemail or an IVR menu, so [Voicemail Drop](#voicemail-drop) and [IVR Bypass](#ivr-bypass) don't apply to it.
+
+<Note>
+The phone's assistant speaks in the phone's own language. Pearl recognizes its prompt in **English**, **French** and **German**.
+</Note>
+
+---
+
 ### Calling Hours
 
 Define the working hours during which Pearl is allowed to place calls. By default, calls run **Monday to Friday, 08:00–18:00**. Calling hours respect each lead's timezone, so everyone is contacted at an appropriate local time.
