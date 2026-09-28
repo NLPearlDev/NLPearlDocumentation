@@ -1,0 +1,121 @@
+---
+title: IP Whitelisting
+description: 'The IP addresses NLPearl sends requests from, to allow through your firewall for webhooks, API nodes, and text channel events.'
+icon: "shield-check"
+iconType: "light"
+---
+
+<div className="block dark:hidden">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/ip-whitelist-cover.svg"
+        alt="IP Whitelisting cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+<div className="hidden dark:block">
+  <Frame>
+    <div className="p-1">
+      <img
+        src="/images/dark_mode/ip-whitelist-cover.svg"
+        alt="IP Whitelisting cover"
+        className="rounded-[14px]"
+      />
+    </div>
+  </Frame>
+</div>
+
+---
+
+## Overview
+
+Every HTTP request that NLPearl sends to your systems comes from a **fixed set of public IP addresses**. If your server is behind a firewall, a WAF, a cloud security group, or any policy that only accepts known sources, add these addresses to its allowlist so the requests reach your endpoint.
+
+---
+
+## IP Addresses to Allow
+
+<Warning>
+Allow **all** the addresses below. A request can come from any of them, so allowing only some of them will make some deliveries fail.
+</Warning>
+
+```text NLPearl outbound IP addresses
+18.156.70.239
+63.186.166.125
+34.240.77.109
+52.48.202.168
+18.116.117.181
+3.147.60.253
+3.13.4.30
+3.12.110.101
+```
+
+<Tip>
+If your firewall expects CIDR notation, add each address as a single host with the `/32` suffix (for example `18.156.70.239/32`).
+</Tip>
+
+---
+
+## Where It Applies
+
+These addresses cover every request NLPearl sends to a URL you configured:
+
+<CardGroup cols={2}>
+  <Card title="Webhooks" icon="webhook" iconType="light" href="/pages/webhooks">
+    **Call**, **Lead**, and **Chat** webhooks, for both Inbound and Outbound Pearls.
+  </Card>
+  <Card title="API Node" icon="code" iconType="light" href="/pages/api_action">
+    **Pre-Call**, **In-Call**, and **Post-Call** API requests, plus the requests sent from the **Test API** panel.
+  </Card>
+  <Card title="Credentials" icon="key" iconType="light" href="/pages/api_action#credentials-authentication">
+    Token requests made for a **Refresh Token** credential, sent to your **Access Token URL**.
+  </Card>
+  <Card title="Generic Text Channel" icon="comments" iconType="light" href="/pages/text/channels/generic">
+    Pearl replies and conversation events sent to your **Outbound URL**.
+  </Card>
+</CardGroup>
+
+<Note>
+This page covers the HTTP requests NLPearl **sends** to you. To receive calls from your own SIP infrastructure, the SIP trunk has its own IP settings: see [Custom VoIP](/pages/custom_voip).
+</Note>
+
+---
+
+## Setting Up the Allowlist
+
+<Steps>
+  <Step title="Find where incoming traffic is filtered">
+    Identify the component that filters the traffic reaching your endpoint: a firewall, a reverse proxy, a WAF, or a cloud security group (AWS, Azure, GCP...).
+  </Step>
+
+  <Step title="Add the NLPearl addresses">
+    Create an **allow** rule for each address listed [above](#ip-addresses-to-allow), on the port your endpoint listens on (usually `443` for HTTPS).
+  </Step>
+
+  <Step title="Test the connection">
+    Send a test request to your endpoint from the platform, for example with the **Test API** panel of an [API node](/pages/api_action#testing-your-api), and check that your server receives it.
+
+    <Check>
+    If the request reaches your server, the allowlist is set up correctly.
+    </Check>
+  </Step>
+</Steps>
+
+<Tip>
+An IP allowlist works best **alongside** authentication, not instead of it. Keep verifying requests with [Credentials](/pages/api_action#credentials-authentication) on your webhooks and API nodes, or with the [webhook signatures](/pages/text/channels/generic#verify-webhook-signatures) of the Generic channel.
+</Tip>
+
+---
+
+<CardGroup cols={2}>
+  <Card title="Webhooks" icon="webhook" iconType="light" href="/pages/webhooks">
+    Learn how to configure webhooks and authenticate their requests.
+  </Card>
+  <Card title="Account Security Settings" icon="lock" iconType="light" href="/pages/security">
+    Manage session timeout, two-factor authentication, and audit logs.
+  </Card>
+</CardGroup>

@@ -83,6 +83,10 @@ The configuration form is the same in all three cases. Only the available variab
       - The **Body** section is shown only for **POST**, **PUT**, and **PATCH** (hidden for GET and DELETE).
       - The **Response Output Schema** is available for every method **except DELETE**.
     </Info>
+
+    <Note>
+      If your API is behind a firewall, allow the NLPearl IP addresses listed in [IP Whitelisting](/pages/ip_whitelist). This applies to Pre-Call, In-Call, and Post-Call requests alike.
+    </Note>
   </Step>
   <Step title="Headers">
     Add any header required by the API, such as `Content-Type` or `Authorization`. Header values are **static**.

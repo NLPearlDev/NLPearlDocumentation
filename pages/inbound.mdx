@@ -329,6 +329,10 @@ Send call lifecycle events to an external endpoint.
 - **Call Webhook URL**: fires at key points in the call lifecycle (when the call starts and when it ends), sending an object similar to the [Get Calls Endpoint](/api-reference/v2/call/get-call) with details like duration, outcome, and any data collected during the call.
 - **Credentials**: optional authentication token attached to the requests so your endpoint can verify they come from NLPearl.
 
+<Note>
+If your endpoint is behind a firewall, allow the NLPearl IP addresses listed in [IP Whitelisting](/pages/ip_whitelist).
+</Note>
+
 <Tip>
 Use Webhooks only if external tools need event notifications. For actual automations, rely on **Post-Call Actions** tied to how the call ended.
 </Tip>
