@@ -1872,7 +1872,7 @@
                     "Pearl"
                 ],
                 "summary": "Set Activity State",
-                "description": "Run or Pause a specific Pearl",
+                "description": "Run or Pause a specific Pearl.\n\nA text Pearl that runs outbound on WhatsApp can go live only when each of its opening sentences matches a WhatsApp template approved by Meta. Otherwise the request returns `400`. Templates are created in the platform, under **Settings > Text Channels > WhatsApp**. See [Outbound campaigns and templates](/pages/text/channels/whatsapp#outbound-campaigns-and-templates).",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2647,7 +2647,7 @@
                     "Pearl"
                 ],
                 "summary": "Create Text Pearl",
-                "description": "Creates a new text Pearl: the conversation is driven by a graph of nodes connected by transitions, and messages are exchanged over a text channel. Provide exactly one channel: inbound settings OR outbound settings, with the TextChannelId of the channel to use. To retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels). The Pearl is created already published: the configuration you send becomes its live (published) version. For more details, click [here](/api-reference/building_a_flow).",
+                "description": "Creates a new text Pearl: the conversation is driven by a graph of nodes connected by transitions, and messages are exchanged over a text channel. Provide exactly one channel: inbound settings OR outbound settings, with the TextChannelId of the channel to use. To retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels). The Pearl is created already published: the configuration you send becomes its live (published) version. For more details, click [here](/api-reference/building_a_flow).\n\nThe Pearl is created paused. For an outbound Pearl on WhatsApp, each opening sentence must match a WhatsApp template approved by Meta before the Pearl can go live. See [Outbound campaigns and templates](/pages/text/channels/whatsapp#outbound-campaigns-and-templates).",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -2821,7 +2821,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Text Pearl",
-                "description": "Updates a text Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied; when TextChannelId is omitted, the current channel is kept). Omitted parts are kept unchanged. The Pearl must be a text Pearl (AgentType = Text). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For more details, click [here](/api-reference/building_a_flow).",
+                "description": "Updates a text Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied; when TextChannelId is omitted, the current channel is kept). Omitted parts are kept unchanged. The Pearl must be a text Pearl (AgentType = Text). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For more details, click [here](/api-reference/building_a_flow).\n\nOn a live outbound Pearl that uses WhatsApp, the request returns `400` and nothing is saved when an opening sentence, or the new channel, has no matching WhatsApp template approved by Meta.",
                 "parameters": [
                     {
                         "name": "pearlId",

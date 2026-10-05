@@ -33,7 +33,11 @@ iconType: "light"
 
 ## Telegram Channel
 
-Connect your Pearl Text agent to **Telegram** through a Telegram bot. Pearl replies using the flow, knowledge, and actions defined in your Pearl, across both [inbound](/pages/text/inbound) conversations and [outbound](/pages/text/outbound) campaigns.
+Connect your Pearl Text agent to **Telegram** through a Telegram bot. Pearl replies using the flow, knowledge, and actions defined in your Pearl, in [inbound](/pages/text/inbound) conversations.
+
+<Note>
+Telegram is available for inbound only: a Telegram bot can't start a conversation, it can only answer users who message it first.
+</Note>
 
 To connect Telegram, you first create a bot directly inside the Telegram app using **BotFather**, then paste the bot token into the platform.
 
@@ -110,7 +114,7 @@ To connect Telegram, you first create a bot directly inside the Telegram app usi
     Save the connection, then message your bot on Telegram to confirm Pearl replies as expected.
   </Step>
   <Step title="Assign the channel to a Pearl">
-    Open the Pearl you want to use for [inbound](/pages/text/inbound) or [outbound](/pages/text/outbound) conversations, go to **Settings**, and set the connected Telegram bot as its **Text Channel**.
+    Open the Pearl you want to use for [inbound](/pages/text/inbound) conversations, go to **Settings**, and set the connected Telegram bot as its **Text Channel**.
 
     <Frame>
       <img src="/images/dark_mode/text-channel-assign-pearl.png" alt="Assign the Telegram channel to a Pearl from its settings" className="rounded-[14px] w-full" />
@@ -120,11 +124,6 @@ To connect Telegram, you first create a bot directly inside the Telegram app usi
 
 ---
 
-<CardGroup cols={2}>
-  <Card title="Inbound" icon="inbox-in" iconType="light" href="/pages/text/inbound">
-    Deploy your agent on inbound channels to answer incoming Telegram messages instantly.
-  </Card>
-  <Card title="Outbound" icon="paper-plane" iconType="light" href="/pages/text/outbound">
-    Launch outbound Telegram campaigns to reach customers proactively.
-  </Card>
-</CardGroup>
+<Card title="Inbound" icon="inbox-in" iconType="light" href="/pages/text/inbound">
+  Deploy your agent on inbound channels to answer incoming Telegram messages instantly.
+</Card>

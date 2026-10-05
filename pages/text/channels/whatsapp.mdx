@@ -33,11 +33,11 @@ iconType: "light"
 
 ## WhatsApp Channel
 
-Connect your Pearl Text agent to **WhatsApp** through your WhatsApp Business account. Pearl replies using the flow, knowledge, and actions defined in your Pearl, across both [inbound](/pages/text/inbound) conversations and [outbound](/pages/text/outbound) campaigns.
+Connect your Pearl Text agent to **WhatsApp** through your WhatsApp Business account. Pearl replies using the flow, knowledge, and actions defined in your Pearl, across both [inbound](/pages/text/inbound) conversations and [outbound](/pages/text/outbound) campaigns. Outbound campaigns open each conversation with a WhatsApp template approved by Meta (see [Outbound campaigns and templates](#outbound-campaigns-and-templates)).
 
 The connection runs through **Meta Embedded Signup**: a Meta window opens on the platform, you log in with the Facebook account that manages your business, and Meta links your WhatsApp Business account to NLPearl. You can start it from two places:
 
-- **Settings** → **Text Channels**, then click **Connect WhatsApp**.
+- **Settings** → **Text Channels**, then click **Connect Channel** and choose **WhatsApp**.
 
 <Frame>
   <img src="/images/dark_mode/whatsapp-channel-location.png" alt="Connect WhatsApp from the Text Channels settings page" className="rounded-[14px] w-full" />
@@ -248,7 +248,7 @@ Before you start, keep your number active in the **WhatsApp Business app** on yo
     </Frame>
   </Step>
   <Step title="Finish the signup">
-    Your account is connected. Meta reviews your business against [WhatsApp's Commerce Policy](https://whatsappbusiness.com/policy/) and reaches out within 24 hours if there's an issue. You can also add a payment method now or later - Meta bills the conversations your business initiates to the payment method on your WhatsApp Business account.
+    Your account is connected. Meta reviews your business against [WhatsApp's Commerce Policy](https://whatsappbusiness.com/policy/) and reaches out within 24 hours if there's an issue. You can also add a payment method now or later - Meta bills the template messages your business sends to the payment method on your WhatsApp Business account. Outbound campaigns need a valid payment method there.
 
     <Frame>
       <img src="/images/dark_mode/whatsapp-dedicated-connected.png" alt="Meta confirmation that the account is connected to NLPearl" className="rounded-[14px] w-full" />
@@ -282,6 +282,150 @@ To use the channel, open the Pearl you want for [inbound](/pages/text/inbound) o
   <img src="/images/dark_mode/text-channel-assign-pearl.png" alt="Assign the WhatsApp channel to a Pearl from its settings" className="rounded-[14px] w-full" />
 </Frame>
 
+<Note>
+A WhatsApp number can be used by only one live Pearl at a time.
+</Note>
+
+---
+
+### Outbound campaigns and templates
+
+WhatsApp only lets a business start a conversation with a **message template** approved by Meta. To run an outbound campaign on WhatsApp, the **opening sentence** of your Pearl must match an approved template, word for word. When a lead is contacted, NLPearl sends the matching template with its variables filled in. Once the lead replies, Pearl continues the conversation as usual.
+
+Inbound conversations don't need a template: the customer writes first.
+
+#### How the opening sentence matches a template
+
+- Letter case, spaces, punctuation, and emojis are ignored.
+- The words must be identical, accents included, and the template must use the same variables, in the same order.
+- The lead receives the text of the approved template, not the opening sentence of your Pearl.
+- If your Pearl calls a [Pre-Call API](/pages/api_action), it has two opening sentences (one when the request succeeds, one when it fails). Each one needs its own approved template.
+
+#### Manage your templates
+
+Templates live in **Settings** → **Text Channels**, under the **WhatsApp** tab. They are grouped by WhatsApp Business account: a template belongs to the account, so every number connected through that account can send it. Expand a template to read its message.
+
+<Frame>
+  <img src="/images/dark_mode/whatsapp-templates-tab.png" alt="WhatsApp templates listed under Settings, Text Channels, WhatsApp tab" className="rounded-[14px] w-full" />
+</Frame>
+
+Only **Approved** templates can be sent. The other statuses come from Meta:
+
+| Status | Meaning |
+|---|---|
+| **In review** | Meta is reviewing the template. |
+| **Approved** | The template can open conversations. |
+| **Rejected**, **Disabled**, **Paused**, **Limit exceeded** | The template can't be sent. Open WhatsApp Manager on Meta to see why. |
+| **In appeal** | You appealed Meta's decision and the appeal is under review. |
+| **Pending deletion**, **Deleted** | The template was deleted on Meta. |
+
+NLPearl reads the latest statuses from Meta each time you open the tab.
+
+#### Create a template
+
+<Steps>
+  <Step title="Open the template form">
+    Go to **Settings** → **Text Channels** → **WhatsApp**, then click **Create Template**.
+  </Step>
+  <Step title="Name and language">
+    - **Name**: lowercase letters, digits, and underscores only, with no spaces (for example `appointment_reminder`). The name can't be changed later.
+    - **Channel**: shown only when you have several WhatsApp numbers. The template is created on that number's WhatsApp Business account.
+    - **Language**: the language of the message. It can't be changed later.
+
+    <Frame>
+      <img src="/images/dark_mode/whatsapp-template-create-name.png" alt="New Template window with the template name, channel, and language" className="rounded-[14px] w-full" />
+    </Frame>
+  </Step>
+  <Step title="Message">
+    Write the message, up to **1,024 characters**. Click **Variable** to insert a variable such as `{firstName}`.
+
+    - The message must **start and end with words**, never with a variable. Punctuation alone doesn't count.
+    - Templates are text only: headers, footers, buttons, and media aren't supported.
+  </Step>
+  <Step title="Sample values">
+    Enter one example value per variable (for example `John` for `{firstName}`). Meta uses them to review the template, and realistic values get approved more easily.
+
+    <Frame>
+      <img src="/images/dark_mode/whatsapp-template-create-message.png" alt="Template message with variables and their sample values" className="rounded-[14px] w-full" />
+    </Frame>
+  </Step>
+  <Step title="Submit for review">
+    Click **Submit for Review**. The template shows as **In review** until Meta approves or rejects it. Review usually takes a few minutes, and can take up to 24 hours.
+  </Step>
+</Steps>
+
+<Note>
+NLPearl submits templates in Meta's **Marketing** category. Meta may move a template to another category, such as **Utility**, during review. Meta bills template messages to the payment method of your WhatsApp Business account, at its own rates.
+</Note>
+
+<Tip>
+The quickest way to get a matching template is from your Pearl itself: when you set it live, NLPearl offers to create a template with the exact text of each opening sentence (see [Go live](#go-live)).
+</Tip>
+
+#### Import existing templates
+
+If your WhatsApp Business account already has templates, click **Import** in the **WhatsApp** tab. Choose the channel when you have several numbers, select the templates you want, then click **Import**. The list shows every template of the account that isn't in NLPearl yet, whatever its status.
+
+<Frame>
+  <img src="/images/dark_mode/whatsapp-template-import.png" alt="Import Templates window with a template selected" className="rounded-[14px] w-full" />
+</Frame>
+
+<Warning>
+Once imported, editing or deleting a template in NLPearl also changes it on Meta. NLPearl only uses the message body: when you edit an imported template that has a header, footer, or buttons, they are removed on Meta.
+</Warning>
+
+#### Edit or delete a template
+
+- **Edit** is available for **Approved**, **Rejected**, and **Paused** templates. You can change the message and its sample values, not the name or language. The template goes back to **In review**. Meta allows editing an approved template once every 24 hours and up to 10 times per 30 days.
+- **Delete** removes the template from NLPearl and from Meta.
+
+<Warning>
+Deleting a template, or editing it so it no longer matches, doesn't pause the Pearls that use it. Their new leads fail until an approved template matches the opening sentence again.
+</Warning>
+
+#### Go live
+
+When you set a WhatsApp outbound Pearl **Live**, publish a new version of a live Pearl, or switch a live Pearl to a WhatsApp channel, NLPearl checks that every opening sentence matches an approved template on the number's WhatsApp Business account.
+
+If one doesn't, the **Approved template required** window opens:
+
+- Each opening sentence without a template has a **Create template** button. The message is pre-filled with the exact opening sentence and can't be edited there: to reword it, change the opening sentence first.
+- The templates already on the account are listed below with their status.
+
+<Frame>
+  <img src="/images/dark_mode/whatsapp-template-required.png" alt="Approved template required window with the Create template button" className="rounded-[14px] w-full" />
+</Frame>
+
+Once the new template shows as **Approved**, try again.
+
+#### Template variables
+
+Variables are filled by name, ignoring case. A template variable takes its value from:
+
+- the lead's data, such as the columns of your lead file or the `callData` of the [Add Lead](/api-reference/v2/outbound/add-lead) API;
+- the outputs of the Pre-Call API;
+- built-in variables such as `{phoneNumber}`;
+- `{agentName}`, which takes the **Agent Name** of your Pearl.
+
+<Warning>
+If a variable has no value for a lead, or its value contains a line break, nothing is sent: the conversation and the lead move to **Error**.
+</Warning>
+
+#### After the first message
+
+- When the lead replies, the conversation continues in the same thread and Pearl answers in free text.
+- WhatsApp only accepts free-text messages within **24 hours** of the lead's last message. [Inactivity follow-ups](/pages/text/outbound#inactivity-follow-up) are sent as free text, so they can't reach a lead who hasn't replied yet, or whose last reply is more than 24 hours old.
+
+#### When a message can't be sent
+
+The reason appears in a red banner on the conversation.
+
+| Cause | Result |
+|---|---|
+| A variable has no value, or no approved template matches the opening sentence | The conversation and the lead move to **Error**. The banner reports a template problem. |
+| A payment issue on your WhatsApp Business account | The conversation and the lead move to **Error**. Add or update the payment method in Meta Business Suite → **Billing & payments**. |
+| A temporary error on WhatsApp's side | The lead moves to **Need Retry** and is contacted again, then to **Unreachable** once the attempts run out. |
+
 ---
 
 ### Manage the connection
@@ -289,7 +433,7 @@ To use the channel, open the Pearl you want for [inbound](/pages/text/inbound) o
 Everything is managed from the WhatsApp Business account screen in **Settings** → **Text Channels**:
 
 - **Add a number from your WhatsApp app** - connect an additional number in coexistence mode at any time.
-- **Remove a number** - disconnects the number from NLPearl and deletes its text channel. Any Pearl using it is paused, and you can import the number again later.
+- **Remove a number** - disconnects the number from NLPearl and deletes its text channel. Any Pearl using it is paused, and you can import the number again later. Its templates stay in NLPearl while another number of the same WhatsApp Business account is connected; removing the last one removes them from NLPearl, but not from Meta.
 - **Disconnect** - disconnects your WhatsApp Business account from NLPearl. You can reconnect it at any time.
 
 ---
