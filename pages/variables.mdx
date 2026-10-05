@@ -664,7 +664,7 @@ To collect user input into a variable, open the node's configuration in the **Fl
 ---
 
 ## Populating Variables from External Data
-Call variables can be filled dynamically from CSV files or APIs to personalize outbound calls.
+Call variables can be filled dynamically from CSV files or APIs to personalize outbound calls, and from custom SIP headers on inbound calls.
 
 <Warning>
   Do not enable **Reset Every Interaction** on a variable you populate from a CSV import or the API: the value you provide is cleared before the call starts.
@@ -800,6 +800,27 @@ Authorization: Bearer <token>
   }
 }
 ```
+</Card>
+
+---
+
+### Passing Data on Inbound Calls with Custom SIP Headers
+
+External data can be passed to a Pearl on inbound calls using custom SIP headers. Include the values on the INVITE with an `X-` prefix (for example `X-CustomerId`), then create a **Pre-call** variable whose ID matches the header name exactly, including the prefix. The values are mapped to those variables on each call and are available to the agent and the workflow.
+
+<Note>
+This option is available only for numbers connected through [Custom VoIP](/pages/custom_voip).
+</Note>
+
+<Card title="Example">
+
+Your SIP trunk sends this header on the INVITE:
+
+```http
+X-CustomerId: 48213
+```
+
+Create a Pre-call variable with the ID `X-CustomerId`. On each call, it holds the value sent in the header, and you can use it like any other variable, for example `{X-CustomerId}` in a script or in an API request.
 </Card>
 
 ---

@@ -47,7 +47,7 @@ Outbound campaigns let your Pearl start conversations with a list of leads throu
 
 Unlike a voice campaign, an outbound text campaign isn't tied to a phone number, it's connected to a **messaging channel**. Once your Pearl is published, open its **overview** page and connect the channel your campaign will use.
 
-NLPearl supports channels such as **WhatsApp**, **Telegram**, **SMS**, and **Glassix**. Follow the dedicated guides to set one up:
+Outbound campaigns can run on **WhatsApp**, **SMS**, and your own system through a [Generic](/pages/text/channels/generic) channel. Follow the dedicated guides to set one up:
 
 <CardGroup cols={2}>
 
@@ -59,11 +59,15 @@ NLPearl supports channels such as **WhatsApp**, **Telegram**, **SMS**, and **Gla
   Connect your Pearl to SMS through Twilio to text with your customers.
 </Card>
 
-<Card title="Telegram" icon="telegram" iconType="light" href="/pages/text/channels/telegram">
-  Connect your Pearl to Telegram by linking a bot created with BotFather.
-</Card>
-
 </CardGroup>
+
+<Warning>
+**WhatsApp requires an approved template.** WhatsApp only lets a business start a conversation with a template approved by Meta: your Pearl's opening sentence must match one word for word before the campaign can go live. See [Outbound campaigns and templates](/pages/text/channels/whatsapp#outbound-campaigns-and-templates).
+</Warning>
+
+<Note>
+Telegram can't start conversations: a Telegram bot can only answer users who message it first, so Telegram is available for inbound only.
+</Note>
 
 ---
 
@@ -194,6 +198,10 @@ When enabled (on/off), Pearl sends follow-up messages when the lead stops replyi
 <Note>
 Follow-up messages can use **Pre-Call** variables (e.g. the lead's first name) to keep the re-engagement personal.
 </Note>
+
+<Warning>
+On **WhatsApp**, follow-ups are sent as free text, which WhatsApp only accepts within **24 hours** of the lead's last message. They can't reach a lead who hasn't replied to the opening template yet.
+</Warning>
 
 ---
 

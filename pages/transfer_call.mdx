@@ -126,9 +126,9 @@ Transfer Call is **terminal**: the call leaves Pearl, so the node has no outgoin
 <Card icon="circle-info" iconType="light">
 ### Important Considerations
 
-**Country Code Matching**: Your Pearl will be connected to an activity with a specific phone number assigned to it. 
-If the phone number you choose for the transfer call does not match the country code of the activity's assigned phone number, the Pearl cannot be linked to that activity. 
-Ensure that the phone numbers are compatible to be able to assign it to your Inbound/Outbound Activity.
+**Country restriction on NLPearl numbers**: when the call runs on a phone number purchased from NLPearl, the transfer destination must be a number from the same country. A transfer to another country is refused during the call: the caller stays with your Pearl, and the failed transfer appears in the call's Event Log. Numbers connected through [Twilio](/pages/twilio_integration) or [Custom VoIP](/pages/custom_voip) have no such restriction.
+
+**Test calls**: on a test call placed from an NLPearl number, the country restriction doesn't apply, but the transferred call is cut after 30 seconds.
 </Card>
 
 

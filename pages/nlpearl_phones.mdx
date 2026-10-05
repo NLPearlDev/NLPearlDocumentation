@@ -59,6 +59,14 @@ Each phone number is billed monthly, and the exact per-number price is shown in 
 **Outbound calling & spam risk:** If you plan to make outbound calls, we strongly recommend integrating and verifying your number with a VoIP provider. Otherwise, carriers may flag it as spam.
 </Warning>
 
+<Warning>
+**Calls stay within the number's country:** an NLPearl number can only call and transfer to phone numbers from its own country. For example, a US number can only reach US numbers.
+- **Outbound calls**: leads whose number is from another country are not called, and their status becomes **Wrong Country Code**.
+- **Call transfers**: on inbound and outbound calls, a [Transfer Call](/pages/transfer_call) to a number from another country is refused during the call. The caller stays with your Pearl, and the failed transfer appears in the call's Event Log.
+
+To call or transfer to other countries, use a [Twilio](/pages/twilio_integration) or [Custom VoIP](/pages/custom_voip) number instead.
+</Warning>
+
 ---
 
 ### How to Purchase a Phone Number
@@ -317,7 +325,7 @@ If your plan includes phone numbers and you haven't used your allowance yet, tho
 ### Important Considerations
 
 - **Monthly Billing Cycle**: Phone numbers are billed on a monthly cycle starting from the date of purchase.
-- **Country Code Limitations**: Currently, only US phone numbers are available for direct purchase. For other countries, consider alternative integration options.
+- **Country Code Limitations**: Currently, only US phone numbers are available for direct purchase. An NLPearl number can only call and transfer to numbers from its own country. For other countries, consider alternative integration options.
 - **Payment Method**: Keep a valid credit card on file to avoid interruptions in service.
 </Warning>
 

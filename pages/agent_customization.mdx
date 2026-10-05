@@ -60,7 +60,7 @@ Explore [Voice and Language](/pages/languages) to view all the language options 
 
 ## Pearl Model
 
-The **Pearl Model** defines the intelligence, speed, and cost profile of your agent. Voice agents can choose from four models.
+The **Pearl Model** defines the intelligence, speed, and cost profile of your agent. Voice agents can choose from five models.
 
 <Frame>
   <img
@@ -70,18 +70,38 @@ The **Pearl Model** defines the intelligence, speed, and cost profile of your ag
   />
 </Frame>
 
-| Model | Quality | Speed | Cost |
-|-------|---------|-------|------|
-| **Pearl Hydra** | Highest Quality | Higher latency | +2 credits/min |
-| **Pearl Arrow** | Best Quality | Fastest | +2 credits/min |
-| **Pearl Trident** | Best Quality | Standard | Standard Rate |
-| **Pearl Oyster** | Good Quality | Standard | -2 credits/min |
+| Model | Reasoning | Average latency | Cost |
+|-------|-----------|-----------------|------|
+| **Pearl Flame** | Medium | ~700 ms (fastest) | Standard Rate |
+| **Pearl Hydra** | High | ~1,250 ms | +2 credits/min |
+| **Pearl Arrow** | Medium | ~850 ms | +2 credits/min |
+| **Pearl Trident** | Medium | ~1,250 ms | Standard Rate |
+| **Pearl Oyster** | Low | ~1,400 ms | -2 credits/min |
+
+<Note>
+Pearl Flame is available only for Pearls built with the PearlVibe editor. On a legacy simple Pearl, it appears greyed out in the model list.
+</Note>
 
 <Card>
 <Tabs>
+  <Tab title="Pearl Flame">
+    <Info>
+    **Medium Reasoning · Fastest · Standard Rate**
+    </Info>
+    Our fastest model, with stronger reasoning than Pearl Arrow, optimized for ultra-low latency. It is the default model of every voice Pearl built with PearlVibe.
+
+    Use it when you need:
+    - The snappiest real-time experience for callers, at the standard rate.
+    - Natural, human-like conversations with solid reasoning.
+    - Your main production Pearl for most inbound and outbound flows.
+
+    <Note>
+    In most cases, Pearl Flame is the recommended default for production.
+    </Note>
+  </Tab>
   <Tab title="Pearl Hydra">
     <Info>
-    **Highest Quality · Higher latency · +2 credits/min**
+    **High Reasoning · Higher latency · +2 credits/min**
     </Info>
     Our smartest model, built for demanding use cases that require deeper reasoning, stronger understanding, and the highest-quality responses.
 
@@ -92,33 +112,27 @@ The **Pearl Model** defines the intelligence, speed, and cost profile of your ag
   </Tab>
   <Tab title="Pearl Arrow">
     <Info>
-    **Best Quality · Fastest · +2 credits/min**
+    **Medium Reasoning · Fast · +2 credits/min**
     </Info>
-    Our high-intelligence model, offering the same depth as Pearl Trident but tuned for ultra-low latency.
+    Our low-latency model, offering the same reasoning level as Pearl Trident but optimized for ultra-low latency.
 
     Use it when you need:
-    - The snappiest real-time experience for callers.
-    - Highly nuanced, human-like conversations.
-    - VIP lines, complex sales calls, or high-stakes negotiations where every second of silence matters.
+    - A fast real-time experience on a legacy simple Pearl, where Pearl Flame is not available.
+    - VIP lines or high-stakes calls where every second of silence matters.
   </Tab>
   <Tab title="Pearl Trident">
     <Info>
-    **Best Quality · Standard Rate**
+    **Medium Reasoning · Standard Rate**
     </Info>
-    Our most intelligent general-purpose model, designed for human-like conversations and handling complex use cases.
+    Our standard model, reliable for most conversations and everyday use cases that require solid understanding and natural responses.
 
     Use it when you want:
-    - A strong balance of quality vs cost.
-    - Rich dialogues with multi-step reasoning and edge-case handling.
-    - Your main production Pearl for most inbound and outbound flows.
-
-    <Note>
-    In most cases, Pearl Trident is the recommended default for production.
-    </Note>
+    - A dependable model at the standard rate.
+    - Everyday inbound and outbound flows where response speed is not critical.
   </Tab>
   <Tab title="Pearl Oyster">
     <Info>
-    **2 credits cheaper/min**
+    **Low Reasoning · 2 credits cheaper/min**
     </Info>
     Our most cost-effective model for straightforward cases, prioritizing simplicity and efficiency.
 
@@ -136,16 +150,16 @@ When selecting a model, consider three main dimensions:
 
 | Dimension | Recommendation |
 |-----------|----------------|
-| **Speed** | If the caller experience must feel instant (no awkward silences, rapid back-and-forth), prefer Pearl Arrow. For standard conversational latency, Pearl Trident and Pearl Oyster are usually enough. |
-| **Reasoning / intelligence** | For the most demanding use cases that need the deepest reasoning, choose Pearl Hydra. For complex qualification, multi-step troubleshooting, or situations where the agent needs to "think", Pearl Trident or Pearl Arrow are strong choices. For simple flows with clear scripts and few edge cases, Pearl Oyster is more than sufficient. |
-| **Cost** | Pearl Arrow delivers top experience at a higher per-minute cost (+2 credits/min vs Trident). Pearl Trident offers best quality at a standard rate. Pearl Oyster is cheaper per minute (–2 credits/min vs Trident), ideal when cost per call is the main constraint. |
+| **Speed** | If the caller experience must feel instant (no awkward silences, rapid back-and-forth), prefer Pearl Flame, or Pearl Arrow on a legacy simple Pearl. Pearl Trident, Pearl Hydra, and Pearl Oyster respond with standard conversational latency. |
+| **Reasoning / intelligence** | For the most demanding use cases that need the deepest reasoning, choose Pearl Hydra. For complex qualification, multi-step troubleshooting, or situations where the agent needs to "think", Pearl Flame is a strong choice. For simple flows with clear scripts and few edge cases, Pearl Oyster is more than sufficient. |
+| **Cost** | Pearl Flame and Pearl Trident run at the standard rate. Pearl Hydra and Pearl Arrow cost more per minute (+2 credits/min). Pearl Oyster is cheaper per minute (–2 credits/min), ideal when cost per call is the main constraint. |
 
 <Tip>
-You can use different models for different Pearls depending on their role, volume, and business impact (for example: Hydra for the most complex high-stakes calls, Arrow for VIP inbound support, Trident for main support, Oyster for large reminder campaigns).
+You can use different models for different Pearls depending on their role, volume, and business impact (for example: Hydra for the most complex high-stakes calls, Flame for main inbound and outbound support, Oyster for large reminder campaigns).
 </Tip>
 
 <Info>
-Start with Pearl Trident as a balanced default, then use Analytics to compare performance and cost. If you need more speed or nuance, move to Pearl Arrow; if you need to optimize budget for simple flows, switch to Pearl Oyster.
+Start with Pearl Flame as your default, then use Analytics to compare performance and cost. If you need deeper reasoning, move to Pearl Hydra; if you need to optimize budget for simple flows, switch to Pearl Oyster.
 </Info>
 
 ---
