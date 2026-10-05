@@ -404,7 +404,7 @@ The node logic above is identical for both channels. The differences are the nod
 | | Voice Pearl | Text Pearl |
 | --- | --- | --- |
 | Endpoint | [Create Voice Pearl](/api-reference/v2/pearlFlow/add-voice-pearl) | [Create Text Pearl](/api-reference/v2/pearlFlow/add-text-pearl) |
-| Model (`modelType`) | `1` Trident, `2` Oyster, `3` Arrow, `4` Hydra (defaults to Arrow) | `11` Swan only |
+| Model (`modelType`) | `1` Trident, `2` Oyster, `3` Arrow, `4` Hydra, `5` Flame (defaults to Arrow) | `11` Swan only |
 | Agent identity | `agents` (voice agents, one per language) + `speechRecognitionKeywords` | `agentName` (single text agent, all languages natively) |
 | Human escalation | TransferCall node (`60`) to a phone number | HandoffChatToHuman node (`31`) |
 | Voice-only nodes | SMS (`50`), TransferCall (`60`), StartCallRecording (`65`) | not available |
