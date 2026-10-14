@@ -129,7 +129,7 @@
                     "Account"
                 ],
                 "summary": "Get Phone Numbers",
-                "description": "Retrieves all active phone numbers of the account.",
+                "description": "Retrieves all active phone numbers of the account, with their type. A custom VoIP number also carries its inbound (`sipConfig`) and outbound (`sipTrunkConfig`) SIP configuration, passwords excluded. Use a returned `id` as the `phoneNumberId` of the Update Custom VoIP Number and Delete Phone Number endpoints.",
                 "responses": {
                     "200": {
                         "description": "The list of active phone numbers for the account.",
@@ -716,7 +716,7 @@
                     "Call"
                 ],
                 "summary": "Delete Calls",
-                "description": "Deletes one or more calls",
+                "description": "Deletes one or more calls. Without `purgeOption`, each call is fully deleted, recording included; with it, the calls are kept and only the parts flagged true are removed. The request is all or nothing: if any ID is invalid, already deleted, or belongs to a conversation still in progress (`conversationStatus` is `InQueue` or `OnGoing`), nothing is deleted or purged and the 400 lists every refused ID.",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1872,7 +1872,7 @@
                     "Pearl"
                 ],
                 "summary": "Set Activity State",
-                "description": "Run or Pause a specific Pearl.\n\nA text Pearl that runs outbound on WhatsApp can go live only when each of its opening sentences matches a WhatsApp template approved by Meta. Otherwise the request returns `400`. Templates are created in the platform, under **Settings > Text Channels > WhatsApp**. See [Outbound campaigns and templates](/pages/text/channels/whatsapp#outbound-campaigns-and-templates).",
+                "description": "Run or Pause a specific Pearl. To run an outbound text Pearl on a WhatsApp channel, every opening sentence of its flow must match an approved WhatsApp template (case, spacing and punctuation are ignored): otherwise the Pearl is not started and the 400 names each opening sentence that has no template. Templates are managed from the platform, in Settings > Text Channels > WhatsApp. Pausing a Pearl is never blocked by this check.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -2647,7 +2647,7 @@
                     "Pearl"
                 ],
                 "summary": "Create Text Pearl",
-                "description": "Creates a new text Pearl: the conversation is driven by a graph of nodes connected by transitions, and messages are exchanged over a text channel. Provide exactly one channel: inbound settings OR outbound settings, with the TextChannelId of the channel to use. To retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels). The Pearl is created already published: the configuration you send becomes its live (published) version. For more details, click [here](/api-reference/building_a_flow).\n\nThe Pearl is created paused. For an outbound Pearl on WhatsApp, each opening sentence must match a WhatsApp template approved by Meta before the Pearl can go live. See [Outbound campaigns and templates](/pages/text/channels/whatsapp#outbound-campaigns-and-templates).",
+                "description": "Creates a new text Pearl: the conversation is driven by a graph of nodes connected by transitions, and messages are exchanged over a text channel. Provide exactly one channel: inbound settings OR outbound settings, with the TextChannelId of the channel to use. To retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels). The Pearl is created already published: the configuration you send becomes its live (published) version. For more details, click [here](/api-reference/building_a_flow).",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -2821,7 +2821,7 @@
                     "Pearl"
                 ],
                 "summary": "Update Text Pearl",
-                "description": "Updates a text Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied; when TextChannelId is omitted, the current channel is kept). Omitted parts are kept unchanged. The Pearl must be a text Pearl (AgentType = Text). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. For more details, click [here](/api-reference/building_a_flow).\n\nOn a live outbound Pearl that uses WhatsApp, the request returns `400` and nothing is saved when an opening sentence, or the new channel, has no matching WhatsApp template approved by Meta.",
+                "description": "Updates a text Pearl. Only the provided parts are updated: pearl replaces the whole conversation flow (send the complete node graph), inbound/outbound partially update the channel settings (only the fields present in the JSON are applied; when TextChannelId is omitted, the current channel is kept). Omitted parts are kept unchanged. The Pearl must be a text Pearl (AgentType = Text). The update applies to the published version of the Pearl: if several versions exist on the platform, only the currently published one is modified. On an outbound Pearl that is not paused, when the update replaces the flow or sets the outbound TextChannelId and the channel the Pearl will send on is WhatsApp, every opening sentence must match an approved WhatsApp template (case, spacing and punctuation are ignored): otherwise nothing is updated and the 400 names each opening sentence that has no template. A paused Pearl is checked when it is run. For more details, click [here](/api-reference/building_a_flow).",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -3080,6 +3080,426 @@
                     },
                     "400": {
                         "description": "The request is invalid or the data is malformed.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/PhoneNumber/CustomVoip": {
+            "post": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "Create Custom VoIP Number",
+                "description": "Creates a custom VoIP phone number and, in the same call, optionally configures its inbound (`sipConfig`) and/or outbound (`sipTrunkConfig`). When an inbound configuration is provided, the generated SIP domain is returned in `sipConfig.domain`. A number that already exists as a custom VoIP number of the account is rejected with a 400 that gives its id. If the configuration fails, nothing is created and the call can be retried.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create a custom VoIP phone number. The inbound (`sipConfig`) and outbound\r\n(`sipTrunkConfig`) configurations are independent and optional: provide one, the other, both, or none."
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create a custom VoIP phone number. The inbound (`sipConfig`) and outbound\r\n(`sipTrunkConfig`) configurations are independent and optional: provide one, the other, both, or none."
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberRequestApi"
+                                    }
+                                ],
+                                "description": "Data used to create a custom VoIP phone number. The inbound (`sipConfig`) and outbound\r\n(`sipTrunkConfig`) configurations are independent and optional: provide one, the other, both, or none."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The created custom VoIP phone number, including the SIP domain when inbound is configured.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/PhoneNumber/CustomVoip/{phoneNumberId}": {
+            "put": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "Update Custom VoIP Number",
+                "description": "Patches a custom VoIP phone number: only the fields present in the body are updated, the others are left untouched. A provided inbound (`sipConfig`) or outbound (`sipTrunkConfig`) configuration replaces the current one as a whole; setting it to null removes it and the direction is recomputed. Removing the inbound configuration while a live inbound Pearl uses the number, or the outbound configuration while any live Pearl uses it, is rejected with a 400 and nothing is changed. The `phoneNumberId` is the `id` returned by Get Phone Numbers.",
+                "parameters": [
+                    {
+                        "name": "phoneNumberId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberPatchApi"
+                                    }
+                                ],
+                                "description": "Data used to update a custom VoIP phone number. Only the fields present in the body are applied: a field left out keeps its current value.\r\nA provided configuration replaces the current one as a whole, and `null` removes it."
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberPatchApi"
+                                    }
+                                ],
+                                "description": "Data used to update a custom VoIP phone number. Only the fields present in the body are applied: a field left out keeps its current value.\r\nA provided configuration replaces the current one as a whole, and `null` removes it."
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CustomVoipNumberPatchApi"
+                                    }
+                                ],
+                                "description": "Data used to update a custom VoIP phone number. Only the fields present in the body are applied: a field left out keeps its current value.\r\nA provided configuration replaces the current one as a whole, and `null` removes it."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated custom VoIP phone number, including the SIP domain when inbound is configured.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/PhoneNumber/{phoneNumberId}": {
+            "delete": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "Delete Phone Number",
+                "description": "Deletes a phone number you brought to the account: a custom VoIP number, whose SIP resources are released, or a number imported from Twilio, which stays in your Twilio account. The number is removed from the live Pearls that use it: an outbound Pearl is paused, and an inbound Pearl is paused only when this was its last number. You receive an email listing the paused Pearls. A number purchased from NLPearl cannot be deleted through the API: delete it from the platform. The `phoneNumberId` is the `id` returned by Get Phone Numbers.",
+                "parameters": [
+                    {
+                        "name": "phoneNumberId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a boolean indicating if the deletion was successful.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/PhoneNumber/Twilio/List": {
+            "post": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "List Twilio Phone Numbers",
+                "description": "Lists the phone numbers of your own Twilio account that can be imported: its active numbers and its verified caller IDs. Send the credentials of that Twilio account in the body: `accountSid` and `authToken`, or `accountSid`, `apiKeySid` and the API Key Secret in `authToken`. They must have full access (Auth Token or Standard API Key, not a Restricted one) and are not stored. A number already imported in your account carries its `phoneNumberId`.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/TwilioCredentialsApi"
+                                    }
+                                ],
+                                "description": "The credentials of your own Twilio account, sent with each Twilio request: the Account SID with the Auth Token,\r\nor the Account SID with the SID of a Standard API Key and its secret.\r\nThey are not saved as the Twilio integration of your account: listing the numbers does not store them, and an imported number keeps them only for its own calls."
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/TwilioCredentialsApi"
+                                    }
+                                ],
+                                "description": "The credentials of your own Twilio account, sent with each Twilio request: the Account SID with the Auth Token,\r\nor the Account SID with the SID of a Standard API Key and its secret.\r\nThey are not saved as the Twilio integration of your account: listing the numbers does not store them, and an imported number keeps them only for its own calls."
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/TwilioCredentialsApi"
+                                    }
+                                ],
+                                "description": "The credentials of your own Twilio account, sent with each Twilio request: the Account SID with the Auth Token,\r\nor the Account SID with the SID of a Standard API Key and its secret.\r\nThey are not saved as the Twilio integration of your account: listing the numbers does not store them, and an imported number keeps them only for its own calls."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The phone numbers of the Twilio account.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TwilioPhoneNumberApiView"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TwilioPhoneNumberApiView"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TwilioPhoneNumberApiView"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/PhoneNumber/Twilio/Import": {
+            "post": {
+                "tags": [
+                    "PhoneNumber"
+                ],
+                "summary": "Import Twilio Phone Number",
+                "description": "Imports a phone number of your own Twilio account. Send in the body its number in E.164 format (for example `+14155550123`) with the same credentials as for listing the numbers: they are checked again, then kept on the imported number, which uses them for its own calls. A verified caller ID is imported for outbound calls only. A number already imported in your account is rejected with a 400 that gives its id.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/TwilioNumberImportRequestApi"
+                                    }
+                                ],
+                                "description": "The data required to import a phone number of your own Twilio account: the credentials of that account and the number to import."
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/TwilioNumberImportRequestApi"
+                                    }
+                                ],
+                                "description": "The data required to import a phone number of your own Twilio account: the credentials of that account and the number to import."
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/TwilioNumberImportRequestApi"
+                                    }
+                                ],
+                                "description": "The data required to import a phone number of your own Twilio account: the credentials of that account and the number to import."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The imported phone number.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ClientPhoneNumberViewApi"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
                         "content": {
                             "text/plain": {
                                 "schema": {
@@ -3465,7 +3885,7 @@
                                 "$ref": "#/components/schemas/eBrainModelType"
                             }
                         ],
-                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Flame: Fastest model, with stronger reasoning than Arrow, built for ultra-low latency. Standard rate. Recommended for flow-based Pearls (Create Voice Pearl); not offered for simple Pearls.\n- Trident: Standard model with standard rate, reliable for most everyday conversations.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: Low-latency model with the same reasoning level as Trident. Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nIf `modelType` is omitted when creating or updating a voice Pearl, Arrow is used.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n",
+                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: Default for voice Pearls. High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls (chat and messaging conversations) use one of these models:\n- Orchid: Default for text Pearls. The most advanced text model, smarter than Swan, with high reasoning. Costs 1 credit more per message.\n- Swan: Text model with high reasoning and standard rate.\n\nOrchid and Swan are not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n`12 - Orchid`\n\n",
                         "nullable": true
                     },
                     "companyName": {
@@ -3606,7 +4026,7 @@
                                 "$ref": "#/components/schemas/eBrainModelType"
                             }
                         ],
-                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Flame: Fastest model, with stronger reasoning than Arrow, built for ultra-low latency. Standard rate. Recommended for flow-based Pearls (Create Voice Pearl); not offered for simple Pearls.\n- Trident: Standard model with standard rate, reliable for most everyday conversations.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: Low-latency model with the same reasoning level as Trident. Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nIf `modelType` is omitted when creating or updating a voice Pearl, Arrow is used.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n",
+                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: Default for voice Pearls. High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls (chat and messaging conversations) use one of these models:\n- Orchid: Default for text Pearls. The most advanced text model, smarter than Swan, with high reasoning. Costs 1 credit more per message.\n- Swan: Text model with high reasoning and standard rate.\n\nOrchid and Swan are not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n`12 - Orchid`\n\n",
                         "nullable": true
                     },
                     "companyName": {
@@ -3782,9 +4202,15 @@
                         "type": "string",
                         "description": "The ID of the voice to use for this agent.\r\nTo retrieve available voices, see: [Get Voices](/api-reference/v2/pearlSettings/get-voices)\r\n            \r\nConstraints:\r\n- Required: an agent without a voiceId is rejected.\r\n- The voice language must be unique across agents in the same Pearl (no two agents can use voices from the same language).",
                         "nullable": true
+                    },
+                    "clientVoiceId": {
+                        "type": "string",
+                        "description": "The ID of the copy of the voice to use, when your account holds several copies of the same voice (each with its own name and pace) in My voices on the platform.\r\nFor a voice of version `2`, the agent speaks at the pace of this copy. For a voice of version `1`, it has no effect on how the agent speaks.\r\nThis parameter is optional: when it is omitted, a voice of version `2` speaks at the pace of the first copy of the voice in your account, or at the default pace if your account has no copy of it.\r\nIt must refer to one of your account's copies of the voice given in `voiceId`, otherwise it is ignored, as if omitted.\r\nGet Pearl Settings returns it when a copy is set: when you update the agents of a Pearl, send it back unchanged to keep the same copy.",
+                        "nullable": true
                     }
                 },
-                "additionalProperties": false
+                "additionalProperties": false,
+                "description": "An agent of the Pearl: its display name and the voice it speaks with."
             },
             "AnalyticsApi": {
                 "type": "object",
@@ -5074,7 +5500,7 @@
                     },
                     "number": {
                         "type": "string",
-                        "description": "The phone number in E.164 format.",
+                        "description": "The phone number, in E.164 format (a custom VoIP number is returned as it was entered).",
                         "nullable": true
                     },
                     "displayName": {
@@ -5118,7 +5544,7 @@
                     }
                 },
                 "additionalProperties": false,
-                "description": "A phone number of the account as exposed by the API. For custom VoIP numbers it also carries the\r\nconfigured inbound and/or outbound SIP setup (with passwords masked)."
+                "description": "A phone number of the account as exposed by the API. For custom VoIP numbers it also carries the\r\nconfigured inbound and/or outbound SIP setup (passwords are never returned)."
             },
             "CollectedInfoView": {
                 "type": "object",
@@ -5156,6 +5582,83 @@
                 },
                 "additionalProperties": false,
                 "description": "A credential available to the Pearl. Reference it through APISettingsApi.CredentialId to authenticate API actions.\r\nNo secret material is ever included."
+            },
+            "CustomVoipNumberPatchApi": {
+                "type": "object",
+                "properties": {
+                    "number": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "The phone number, preferably in E.164 format (for example `+14155550123`). Max 100 characters."
+                    },
+                    "displayName": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOptionalType"
+                            }
+                        ],
+                        "description": "The display name of the phone number (max 100 characters). Send null or an empty value to clear it: the raw number is then displayed instead."
+                    },
+                    "sipConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPConfigApiOptionalType"
+                            }
+                        ],
+                        "description": "The inbound SIP configuration. A provided configuration replaces the current one as a whole.\r\nSend null to remove the inbound configuration and release its SIP domain. This is rejected while a live inbound Pearl uses the number."
+                    },
+                    "sipTrunkConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPTrunkConfigApiOptionalType"
+                            }
+                        ],
+                        "description": "The outbound SIP trunk configuration. A provided configuration replaces the current one as a whole.\r\nSend null to remove the outbound configuration. This is rejected while a live Pearl uses the number, because outbound calls and call transfers go through it."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Data used to update a custom VoIP phone number. Only the fields present in the body are applied: a field left out keeps its current value.\r\nA provided configuration replaces the current one as a whole, and `null` removes it."
+            },
+            "CustomVoipNumberRequestApi": {
+                "required": [
+                    "number"
+                ],
+                "type": "object",
+                "properties": {
+                    "number": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The phone number, preferably in E.164 format (for example `+14155550123`). Max 100 characters."
+                    },
+                    "displayName": {
+                        "type": "string",
+                        "description": "Optional display name of the phone number (max 100 characters). When omitted, the raw number is displayed instead.",
+                        "nullable": true
+                    },
+                    "sipConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPConfigApi"
+                            }
+                        ],
+                        "description": "Optional inbound SIP configuration. Provide it to receive calls on this number: a SIP domain is then generated and returned in `sipConfig.domain`.",
+                        "nullable": true
+                    },
+                    "sipTrunkConfig": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPTrunkConfigApi"
+                            }
+                        ],
+                        "description": "Optional outbound SIP trunk configuration. Provide it to place calls from this number.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Data used to create a custom VoIP phone number. The inbound (`sipConfig`) and outbound\r\n(`sipTrunkConfig`) configurations are independent and optional: provide one, the other, both, or none."
             },
             "DataSettingsApi": {
                 "type": "object",
@@ -5352,7 +5855,7 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "The list of unique identifiers of the calls to delete.",
+                        "description": "The list of unique identifiers of the calls to delete (at least one). The request is all or nothing: if any identifier is invalid, already deleted, or belongs to a conversation still in progress (conversation status `InQueue` or `OnGoing`), no call is deleted or purged and the error lists each rejected identifier. End a conversation before deleting it.",
                         "nullable": true
                     },
                     "purgeOption": {
@@ -6454,7 +6957,7 @@
                                 "$ref": "#/components/schemas/StringOptionalType"
                             }
                         ],
-                        "description": "The text channel ID to use for this Pearl. When omitted, the current channel is kept.\r\nTo retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels)."
+                        "description": "The text channel ID to use for this Pearl. When omitted, the current channel is kept.\r\nTo retrieve available text channels, use the Get Text Channels endpoint (GET /v2/Account/TextChannels).\r\nOn a Pearl that is not paused, a WhatsApp channel is accepted only if every opening sentence of the flow matches an approved WhatsApp template."
                     },
                     "maxTurns": {
                         "allOf": [
@@ -6756,7 +7259,7 @@
                                 "$ref": "#/components/schemas/eBrainModelType"
                             }
                         ],
-                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Flame: Fastest model, with stronger reasoning than Arrow, built for ultra-low latency. Standard rate. Recommended for flow-based Pearls (Create Voice Pearl); not offered for simple Pearls.\n- Trident: Standard model with standard rate, reliable for most everyday conversations.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: Low-latency model with the same reasoning level as Trident. Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nIf `modelType` is omitted when creating or updating a voice Pearl, Arrow is used.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n",
+                        "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: Default for voice Pearls. High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls (chat and messaging conversations) use one of these models:\n- Orchid: Default for text Pearls. The most advanced text model, smarter than Swan, with high reasoning. Costs 1 credit more per message.\n- Swan: Text model with high reasoning and standard rate.\n\nOrchid and Swan are not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n`12 - Orchid`\n\n",
                         "nullable": true
                     },
                     "companyName": {
@@ -6995,6 +7498,47 @@
                 },
                 "additionalProperties": false
             },
+            "SIPConfigApi": {
+                "required": [
+                    "authMethod"
+                ],
+                "type": "object",
+                "properties": {
+                    "authMethod": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SipAuthMethodApi"
+                            }
+                        ],
+                        "description": "How incoming SIP calls are authenticated (username/password or IP allowlist). Exactly one method is required."
+                    },
+                    "isTLS": {
+                        "type": "boolean",
+                        "description": "Whether inbound SIP traffic uses TLS."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound SIP configuration of a custom VoIP number: how incoming calls are authenticated and secured.\r\nThe SIP domain is generated by NLPearl and is not provided by the client."
+            },
+            "SIPConfigApiOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPConfigApi"
+                            }
+                        ],
+                        "description": "Inbound SIP configuration of a custom VoIP number: how incoming calls are authenticated and secured.\r\nThe SIP domain is generated by NLPearl and is not provided by the client.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "SIPConfigApiView": {
                 "type": "object",
                 "properties": {
@@ -7013,12 +7557,74 @@
                                 "$ref": "#/components/schemas/SipAuthMethodApiView"
                             }
                         ],
-                        "description": "How incoming calls are authenticated (username and/or IP allowlist). Passwords are never returned.",
+                        "description": "How incoming calls are authenticated (username or IP allowlist). Passwords are never returned.",
                         "nullable": true
                     }
                 },
                 "additionalProperties": false,
                 "description": "Inbound SIP configuration as returned by the API for a custom VoIP number."
+            },
+            "SIPTrunkConfigApi": {
+                "required": [
+                    "from",
+                    "sipTrunk"
+                ],
+                "type": "object",
+                "properties": {
+                    "sipTrunk": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The host of your SIP trunk (IP address or domain) where outbound calls are sent."
+                    },
+                    "edge": {
+                        "type": "string",
+                        "description": "Optional edge location through which outbound calls are sent to your SIP trunk. Allowed values: `ashburn`, `umatilla`, `dublin`, `frankfurt`, `sao-paulo`, `singapore`, `sydney`, `tokyo`.",
+                        "nullable": true
+                    },
+                    "authMethod": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SipTrunkAuthMethodApi"
+                            }
+                        ],
+                        "description": "Optional authentication for the outbound trunk (credentials or custom SIP headers).",
+                        "nullable": true
+                    },
+                    "isTLS": {
+                        "type": "boolean",
+                        "description": "Whether outbound SIP traffic uses TLS."
+                    },
+                    "from": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The user part of the originating SIP URI (the caller identity presented on outbound calls). Max 50 characters: only letters, digits and `+ - _ .`."
+                    },
+                    "isSipRefer": {
+                        "type": "boolean",
+                        "description": "Whether call transfers are performed using SIP REFER."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound SIP trunk configuration of a custom VoIP number: where and how outgoing calls are placed\r\nthrough your own SIP trunk."
+            },
+            "SIPTrunkConfigApiOptionalType": {
+                "type": "object",
+                "properties": {
+                    "hasValue": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "value": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SIPTrunkConfigApi"
+                            }
+                        ],
+                        "description": "Outbound SIP trunk configuration of a custom VoIP number: where and how outgoing calls are placed\r\nthrough your own SIP trunk.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
             },
             "SIPTrunkConfigApiView": {
                 "type": "object",
@@ -7030,7 +7636,7 @@
                     },
                     "edge": {
                         "type": "string",
-                        "description": "The edge/region of the SIP trunk, if set.",
+                        "description": "The edge location through which outbound calls are sent to your SIP trunk, if set.",
                         "nullable": true
                     },
                     "isTLS": {
@@ -7052,7 +7658,7 @@
                                 "$ref": "#/components/schemas/SipTrunkAuthMethodApiView"
                             }
                         ],
-                        "description": "The outbound trunk authentication (username and/or custom headers). Passwords are never returned.",
+                        "description": "The outbound trunk authentication (username or custom headers). Passwords are never returned.",
                         "nullable": true
                     }
                 },
@@ -7153,12 +7759,40 @@
                 "additionalProperties": false,
                 "description": "Settings of a Simple Pearl (AgentType = Voice): configuration driven by an opening sentence and a flow script."
             },
+            "SipAuthMethodApi": {
+                "type": "object",
+                "properties": {
+                    "userNamePassword": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UserNamePasswordApi"
+                            }
+                        ],
+                        "description": "SIP credentials accepted for inbound calls. The username must be 2 to 32 letters or digits; the password 12 to 72 letters and digits, with at least one uppercase letter, one lowercase letter and one digit. Cannot be combined with `ips`.",
+                        "nullable": true
+                    },
+                    "ips": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Allowlist of source IP addresses authorized to send inbound calls: 1 to 100 distinct IPv4 addresses, written without leading zeros (for example `203.0.113.10`). Cannot be combined with `userNamePassword`.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Inbound SIP authentication: either a username/password or an allowlist of source IP addresses.\r\nExactly one method must be provided."
+            },
             "SipAuthMethodApiView": {
                 "type": "object",
                 "properties": {
-                    "username": {
-                        "type": "string",
-                        "description": "The SIP username accepted for inbound calls.",
+                    "userNamePassword": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UserNamePasswordApiView"
+                            }
+                        ],
+                        "description": "The SIP credentials accepted for inbound calls. Only the username is returned.",
                         "nullable": true
                     },
                     "ips": {
@@ -7173,12 +7807,40 @@
                 "additionalProperties": false,
                 "description": "Inbound SIP authentication as returned by the API. Passwords are never included."
             },
+            "SipTrunkAuthMethodApi": {
+                "type": "object",
+                "properties": {
+                    "userNamePassword": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UserNamePasswordApi"
+                            }
+                        ],
+                        "description": "SIP credentials sent when placing outbound calls (username and password of up to 200 characters each). Cannot be combined with `headers`.",
+                        "nullable": true
+                    },
+                    "headers": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Custom SIP headers added to the outbound INVITE, up to 15. Each name must start with `X-` and contain only letters, digits and hyphens (max 100 characters). Each value is required and may contain only letters, digits and `- _ . ! ~ * ' ( ) [ ] / : + $` (max 500 characters). Names and values together, counting 2 extra characters per header, must stay under 1024 characters. Cannot be combined with `userNamePassword`.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Outbound SIP trunk authentication: either credentials or custom SIP headers, not both."
+            },
             "SipTrunkAuthMethodApiView": {
                 "type": "object",
                 "properties": {
-                    "username": {
-                        "type": "string",
-                        "description": "The SIP username used for outbound calls.",
+                    "userNamePassword": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UserNamePasswordApiView"
+                            }
+                        ],
+                        "description": "The SIP credentials sent when placing outbound calls. Only the username is returned.",
                         "nullable": true
                     },
                     "headers": {
@@ -7334,6 +7996,95 @@
                 "additionalProperties": false,
                 "description": "A transition between two nodes of the conversation graph."
             },
+            "TwilioCredentialsApi": {
+                "required": [
+                    "accountSid",
+                    "authToken"
+                ],
+                "type": "object",
+                "properties": {
+                    "accountSid": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The Account SID of your Twilio account (starts with `AC`)."
+                    },
+                    "authToken": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The Auth Token of your Twilio account, or the API Key Secret when `apiKeySid` is provided. The credentials must have full access: a Restricted API Key is rejected."
+                    },
+                    "apiKeySid": {
+                        "type": "string",
+                        "description": "Optional SID of a Standard API Key of your Twilio account (starts with `SK`). Leave it empty to authenticate with the Auth Token.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "The credentials of your own Twilio account, sent with each Twilio request: the Account SID with the Auth Token,\r\nor the Account SID with the SID of a Standard API Key and its secret.\r\nThey are not saved as the Twilio integration of your account: listing the numbers does not store them, and an imported number keeps them only for its own calls."
+            },
+            "TwilioNumberImportRequestApi": {
+                "required": [
+                    "accountSid",
+                    "authToken",
+                    "number"
+                ],
+                "type": "object",
+                "properties": {
+                    "accountSid": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The Account SID of your Twilio account (starts with `AC`)."
+                    },
+                    "authToken": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The Auth Token of your Twilio account, or the API Key Secret when `apiKeySid` is provided. The credentials must have full access: a Restricted API Key is rejected."
+                    },
+                    "apiKeySid": {
+                        "type": "string",
+                        "description": "Optional SID of a Standard API Key of your Twilio account (starts with `SK`). Leave it empty to authenticate with the Auth Token.",
+                        "nullable": true
+                    },
+                    "number": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The phone number to import, in E.164 format (for example `+14155550123`), as returned when listing the numbers of the Twilio account."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "The data required to import a phone number of your own Twilio account: the credentials of that account and the number to import."
+            },
+            "TwilioPhoneNumberApiView": {
+                "type": "object",
+                "properties": {
+                    "number": {
+                        "type": "string",
+                        "description": "The phone number in E.164 format: the `number` to send to import it.",
+                        "nullable": true
+                    },
+                    "sid": {
+                        "type": "string",
+                        "description": "The Twilio SID of the phone number, as shown in the Twilio console.",
+                        "nullable": true
+                    },
+                    "friendlyName": {
+                        "type": "string",
+                        "description": "The friendly name of the phone number in Twilio, if any.",
+                        "nullable": true
+                    },
+                    "isVerifiedCallerId": {
+                        "type": "boolean",
+                        "description": "Whether the number is a verified caller ID: a number hosted outside Twilio and only verified on it as a caller ID. Such a number is imported for outbound calls only."
+                    },
+                    "phoneNumberId": {
+                        "type": "string",
+                        "description": "The ID of the phone number in your account when this number is already imported. Omitted otherwise.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "A phone number found in your own Twilio account, which can be imported."
+            },
             "UpdateProjectApiRequest": {
                 "type": "object",
                 "properties": {
@@ -7480,6 +8231,39 @@
                 },
                 "additionalProperties": false
             },
+            "UserNamePasswordApi": {
+                "required": [
+                    "password",
+                    "username"
+                ],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The SIP username."
+                    },
+                    "password": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The SIP password. Write-only: it is accepted on input but never returned in responses."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "A SIP username and password pair. The password is write-only and is never returned in responses."
+            },
+            "UserNamePasswordApiView": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "The SIP username.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "A SIP username as returned by the API. The password is write-only and is never returned."
+            },
             "ValidationProblemDetails": {
                 "type": "object",
                 "properties": {
@@ -7585,7 +8369,7 @@
             },
             "eBrainModelType": {
                 "type": "integer",
-                "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Flame: Fastest model, with stronger reasoning than Arrow, built for ultra-low latency. Standard rate. Recommended for flow-based Pearls (Create Voice Pearl); not offered for simple Pearls.\n- Trident: Standard model with standard rate, reliable for most everyday conversations.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: Low-latency model with the same reasoning level as Trident. Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nIf `modelType` is omitted when creating or updating a voice Pearl, Arrow is used.\n\nText Pearls use:\n- Swan: the model dedicated to text agents (chat and messaging conversations). It is the only model available for text Pearls.\n\nSwan is not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n",
+                "description": "Agent model type.\n\nVoice Pearls use one of these models:\n- Trident: Highest-quality model with standard rate. Optimized for natural, human-like interactions.\n- Oyster: Most cost-effective model (2 credits cheaper per minute). Straightforward, prioritizes simplicity and efficiency.\n- Arrow: Default for voice Pearls. High-intelligence model with the same depth as Trident, built for ultra-low latency (fastest). Costs 2 credits more per minute.\n- Hydra: Smartest model, built for demanding tasks that need deeper reasoning. Costs 2 credits more per minute.\n\nText Pearls (chat and messaging conversations) use one of these models:\n- Orchid: Default for text Pearls. The most advanced text model, smarter than Swan, with high reasoning. Costs 1 credit more per message.\n- Swan: Text model with high reasoning and standard rate.\n\nOrchid and Swan are not available for voice Pearls, and the voice models are not available for text Pearls.\n\n`1 - Trident`\n\n`2 - Oyster`\n\n`3 - Arrow`\n\n`4 - Hydra`\n\n`5 - Flame`\n\n`11 - Swan`\n\n`12 - Orchid`\n\n",
                 "format": "int32"
             },
             "eCallAuthorizationStatus": {
@@ -7772,7 +8556,7 @@
                             "pearls:analytics": "Read Pearl analytics; implies pearls:read",
                             "pearls:leads": "Manage and read outbound leads; implies pearls:read",
                             "pearls:calls": "Read calls and recordings, make and delete calls; implies pearls:read",
-                            "account:phone_numbers": "Read account phone numbers and text channels",
+                            "account:phone_numbers": "Read account phone numbers and text channels, manage custom VoIP numbers, import Twilio numbers and delete phone numbers",
                             "account:users": "Read account users",
                             "account:advanced": "Manage advanced account settings (blacklist)",
                             "account:billing": "Read account information and credit balance",

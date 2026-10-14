@@ -215,6 +215,17 @@
                 ]
               },
               {
+                "group": "Phone Number",
+                "expanded": true,
+                "pages": [
+                  "api-reference/v2/phoneNumber/create-custom-voip",
+                  "api-reference/v2/phoneNumber/update-custom-voip",
+                  "api-reference/v2/phoneNumber/list-twilio-phone-numbers",
+                  "api-reference/v2/phoneNumber/import-twilio-phone-number",
+                  "api-reference/v2/phoneNumber/delete-phone-number"
+                ]
+              },
+              {
                 "group": "Call",
                             "expanded": true, 
                 "pages": [
