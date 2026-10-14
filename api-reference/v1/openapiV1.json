@@ -131,7 +131,7 @@
                     "Call"
                 ],
                 "summary": "Delete Calls",
-                "description": "Deletes one or more calls",
+                "description": "Deletes one or more calls. Without `purgeOption`, each call is fully deleted, recording included; with it, the calls are kept and only the parts flagged true are removed. The request is all or nothing: if any ID is invalid, already deleted, or belongs to a conversation still in progress (`conversationStatus` is `InQueue` or `OnGoing`), nothing is deleted or purged and the 400 lists every refused ID.",
                 "requestBody": {
                     "description": "The request object containing the list of call IDs to be deleted.",
                     "content": {
@@ -919,7 +919,7 @@
                     "Outbound"
                 ],
                 "summary": "Set Activity State",
-                "description": "Activates or deactivates a specified outbound",
+                "description": "Activates or deactivates a specified outbound. To activate a text outbound on a WhatsApp channel, every opening sentence of its flow must match an approved WhatsApp template (case, spacing and punctuation are ignored): otherwise the outbound is not activated and the 400 names each opening sentence that has no template. Templates are managed from the platform, in Settings > Text Channels > WhatsApp.",
                 "parameters": [
                     {
                         "name": "outboundId",
@@ -3216,7 +3216,7 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "The list of unique identifiers of the calls to delete.",
+                        "description": "The list of unique identifiers of the calls to delete (at least one). The request is all or nothing: if any identifier is invalid, already deleted, or belongs to a conversation still in progress (conversation status `InQueue` or `OnGoing`), no call is deleted or purged and the error lists each rejected identifier. End a conversation before deleting it.",
                         "nullable": true
                     },
                     "purgeOption": {
@@ -3999,7 +3999,7 @@
                             "pearls:analytics": "Read Pearl analytics; implies pearls:read",
                             "pearls:leads": "Manage and read outbound leads; implies pearls:read",
                             "pearls:calls": "Read calls and recordings, make and delete calls; implies pearls:read",
-                            "account:phone_numbers": "Read account phone numbers and text channels",
+                            "account:phone_numbers": "Read account phone numbers and text channels, manage custom VoIP numbers, import Twilio numbers and delete phone numbers",
                             "account:users": "Read account users",
                             "account:advanced": "Manage advanced account settings (blacklist)",
                             "account:billing": "Read account information and credit balance",
