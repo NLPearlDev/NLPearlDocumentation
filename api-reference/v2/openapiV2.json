@@ -3243,7 +3243,7 @@
                                 }
                             },
                             "X-Tier-Charged": {
-                                "description": "The tier you were charged for. See [Tiers](/api-reference/text_to_speech#tiers).",
+                                "description": "The tier you were charged for: `priority` only when the request went ahead of waiting requests, otherwise `standard`.",
                                 "schema": {
                                     "type": "string"
                                 }
@@ -3463,7 +3463,7 @@
                                 }
                             },
                             "X-Tier-Charged": {
-                                "description": "The tier you were charged for. See [Tiers](/api-reference/text_to_speech#tiers).",
+                                "description": "The tier you were charged for: `priority` only when the request went ahead of waiting requests, otherwise `standard`.",
                                 "schema": {
                                     "type": "string"
                                 }
@@ -8308,7 +8308,7 @@
                             "priority"
                         ],
                         "default": "standard",
-                        "description": "Your place in the queue when the service is busy. See [Tiers](/api-reference/text_to_speech#tiers)."
+                        "description": "Your place in the queue when the service is busy. `priority` goes ahead of waiting `standard` requests and is charged at the Priority rate only when it did."
                     },
                     "addressee": {
                         "type": "string",
@@ -8350,7 +8350,7 @@
                             "opus_48000_192"
                         ],
                         "default": "mp3_44100_128",
-                        "description": "Codec, sample rate and bitrate of the audio. See [Output formats](/api-reference/text_to_speech#output-formats)."
+                        "description": "Codec, sample rate and bitrate of the audio, for example `mp3_44100_128`, `pcm_16000` or `ulaw_8000`."
                     }
                 },
                 "additionalProperties": false
@@ -8360,7 +8360,7 @@
                 "properties": {
                     "code": {
                         "type": "string",
-                        "description": "The error code. See [Errors](/api-reference/text_to_speech#errors)."
+                        "description": "The error code, for example `voice_not_found`."
                     },
                     "message": {
                         "type": "string",
@@ -8389,7 +8389,7 @@
                     "language": {
                         "type": "string",
                         "example": "en-US",
-                        "description": "The language of the recording, as a BCP-47 tag such as `en-US`. See [Clone languages](/api-reference/text_to_speech#clone-languages)."
+                        "description": "The language of the recording, as a BCP-47 tag. English and Spanish need the region, which sets the accent.\n\n- English: `en-US`, `en-GB`, `en-AU`, `en-CA`, `en-IE`, `en-IN`\n- Spanish: `es-ES`, `es-MX`, `es-AR`, `es-CO`, `es-VE`\n- French: `fr-FR`\n- German: `de-DE`\n- Italian: `it-IT`"
                     },
                     "gender": {
                         "type": "string",
