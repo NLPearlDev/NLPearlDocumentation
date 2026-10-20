@@ -3205,8 +3205,8 @@
                             "example": {
                                 "text": "Your appointment is confirmed for Thursday at ten.",
                                 "voiceId": "1cf704d389adfc067d749a51",
-                                "speed": 3,
-                                "tier": 1,
+                                "pace": "medium",
+                                "tier": "standard",
                                 "outputFormat": "mp3_44100_128"
                             }
                         }
@@ -3235,13 +3235,13 @@
                                 }
                             },
                             "X-Tier": {
-                                "description": "The tier you asked for: `Standard` or `Priority`.",
+                                "description": "The tier you asked for: `standard` or `priority`.",
                                 "schema": {
                                     "type": "string"
                                 }
                             },
                             "X-Tier-Charged": {
-                                "description": "The rate this request was charged at: `Priority` only when the request actually went ahead of waiting requests, otherwise `Standard`.",
+                                "description": "The rate this request was charged at: `priority` only when the request actually went ahead of waiting requests, otherwise `standard`.",
                                 "schema": {
                                     "type": "string"
                                 }
@@ -3293,18 +3293,11 @@
                         }
                     },
                     "400": {
-                        "description": "Invalid request: `text` missing or over 5,000 characters, an unknown `model`, or an undefined `speed`, `tier` or `addressee` (validation problem details); or an unknown `outputFormat` (`invalid_request`, whose message lists every supported format).",
+                        "description": "`invalid_request`. The message names the field and, for a choice, its valid values: `text` missing or over 5,000 characters, an unknown `modelId`, a `pace`, `tier` or `addressee` value not in its list, a field the API does not know, an unknown `outputFormat` (the message lists every supported format), or a body that is not valid JSON.",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "oneOf": [
-                                        {
-                                            "$ref": "#/components/schemas/ValidationProblemDetails"
-                                        },
-                                        {
-                                            "$ref": "#/components/schemas/SpeechErrorApi"
-                                        }
-                                    ]
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
                                 }
                             }
                         }
@@ -3430,7 +3423,9 @@
                             "example": {
                                 "text": "Your appointment is confirmed for Thursday at ten.",
                                 "voiceId": "1cf704d389adfc067d749a51",
-                                "outputFormat": "pcm_16000"
+                                "pace": "medium",
+                                "tier": "standard",
+                                "outputFormat": "mp3_44100_128"
                             }
                         }
                     }
@@ -3458,13 +3453,13 @@
                                 }
                             },
                             "X-Tier": {
-                                "description": "The tier you asked for: `Standard` or `Priority`.",
+                                "description": "The tier you asked for: `standard` or `priority`.",
                                 "schema": {
                                     "type": "string"
                                 }
                             },
                             "X-Tier-Charged": {
-                                "description": "The rate this request is charged at: `Priority` only when the request actually went ahead of waiting requests, otherwise `Standard`.",
+                                "description": "The rate this request was charged at: `priority` only when the request actually went ahead of waiting requests, otherwise `standard`.",
                                 "schema": {
                                     "type": "string"
                                 }
@@ -3510,18 +3505,11 @@
                         }
                     },
                     "400": {
-                        "description": "Invalid request: `text` missing or over 5,000 characters, an unknown `model`, or an undefined `speed`, `tier` or `addressee` (validation problem details); or an unknown `outputFormat` (`invalid_request`, whose message lists every supported format).",
+                        "description": "`invalid_request`. The message names the field and, for a choice, its valid values: `text` missing or over 5,000 characters, an unknown `modelId`, a `pace`, `tier` or `addressee` value not in its list, a field the API does not know, an unknown `outputFormat` (the message lists every supported format), or a body that is not valid JSON.",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "oneOf": [
-                                        {
-                                            "$ref": "#/components/schemas/ValidationProblemDetails"
-                                        },
-                                        {
-                                            "$ref": "#/components/schemas/SpeechErrorApi"
-                                        }
-                                    ]
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
                                 }
                             }
                         }
@@ -3634,12 +3622,32 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/CloneVoiceResponseApi"
+                                },
+                                "example": {
+                                    "voiceId": "6a2f41c9e8b7d3a15c0f9e42",
+                                    "name": "Support - Dana",
+                                    "language": "en-US"
+                                }
+                            }
+                        },
+                        "headers": {
+                            "X-Credits-Charged": {
+                                "description": "Credits charged for the clone. Cloning is currently free, so this is `0`.",
+                                "schema": {
+                                    "type": "integer"
                                 }
                             }
                         }
                     },
                     "400": {
-                        "description": "`audio` or `name` is missing, the file is over 20 MB, or a field is not valid."
+                        "description": "`invalid_request`: `audio`, `name` or `consent` missing, `consent` not `true`, a `language` that is not supported or lacks its region, a `gender` other than `female` or `male`, or a file over 20 MB.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "Missing, malformed or unknown credentials."
@@ -3656,6 +3664,16 @@
                     },
                     "403": {
                         "description": "`insufficient_scope`, `account_suspended`, or `clone_limit_reached`: your account has created as many voices as its plan allows in the last 30 days. Deleting a voice does not free one.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "`invalid_audio`: the recording cannot be used, for example too little speech. Nothing is charged.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -8261,7 +8279,7 @@
                         "type": "string",
                         "description": "The voice to speak with: one of your own voices or a voice from the shared library, as listed by [Get Voices](/api-reference/v2/pearlSettings/get-voices). An unknown id, or another account's private voice, returns `404 voice_not_found`."
                     },
-                    "model": {
+                    "modelId": {
                         "type": "string",
                         "description": "The speech model. Omit it for the default. Any other name returns `400`.",
                         "default": "nlpearl-v2-preview",
@@ -8269,14 +8287,14 @@
                             "nlpearl-v2-preview"
                         ]
                     },
-                    "speed": {
+                    "pace": {
                         "allOf": [
                             {
-                                "$ref": "#/components/schemas/eSpeechSpeed"
+                                "$ref": "#/components/schemas/eSpeechPace"
                             }
                         ],
-                        "description": "Reading pace, as a number:\n\n`1 - VerySlow`\n\n`2 - Slow`\n\n`3 - Mid`\n\n`4 - Fast`\n\n`5 - VeryFast`\n\nAny other value, including a name such as `\"Mid\"`, returns `400`.",
-                        "default": 3
+                        "description": "Reading pace: `very_slow`, `slow`, `medium`, `fast` or `very_fast`. Any other value, including a number, returns `400`.",
+                        "default": "medium"
                     },
                     "tier": {
                         "allOf": [
@@ -8284,8 +8302,8 @@
                                 "$ref": "#/components/schemas/eSpeechTier"
                             }
                         ],
-                        "description": "Queue tier:\n\n`1 - Standard`\n\n`2 - Priority`\n\nPriority goes ahead of waiting Standard requests when the service is busy. It is charged at the Priority rate only when it actually went ahead; on an idle service it pays the Standard rate. The `X-Tier-Charged` response header says which rate applied.",
-                        "default": 1
+                        "description": "Queue tier: `standard` or `priority`. Priority goes ahead of waiting Standard requests when the service is busy. It is charged at the Priority rate only when it actually went ahead; on an idle service it pays the Standard rate. The `X-Tier-Charged` response header says which rate applied.",
+                        "default": "standard"
                     },
                     "addressee": {
                         "allOf": [
@@ -8293,8 +8311,8 @@
                                 "$ref": "#/components/schemas/eSpeechAddressee"
                             }
                         ],
-                        "description": "The gender of the person **being spoken to**, not of the voice:\n\n`1 - Unknown`\n\n`2 - Female`\n\n`3 - Male`\n\nOnly Hebrew uses it, to inflect the second person. A pronoun already in the text takes precedence. Other languages ignore it.",
-                        "default": 1
+                        "description": "Hebrew only: the gender of the person being spoken to (`unknown`, `female` or `male`), not of the voice. A pronoun already in the text wins. Other languages ignore it.",
+                        "default": "unknown"
                     },
                     "outputFormat": {
                         "allOf": [
@@ -8306,22 +8324,36 @@
                         "default": "mp3_44100_128"
                     }
                 },
-                "additionalProperties": false
+                "additionalProperties": false,
+                "description": "Field names are camelCase. A field the API does not know (for example `speed` or `model_id`) returns `400`."
             },
-            "eSpeechSpeed": {
-                "type": "integer",
-                "description": "Reading pace:\n\n`1 - VerySlow`\n\n`2 - Slow`\n\n`3 - Mid`\n\n`4 - Fast`\n\n`5 - VeryFast`\n\n",
-                "format": "int32"
+            "eSpeechPace": {
+                "type": "string",
+                "description": "Reading pace. Names only; a number returns `400`.",
+                "enum": [
+                    "very_slow",
+                    "slow",
+                    "medium",
+                    "fast",
+                    "very_fast"
+                ]
             },
             "eSpeechTier": {
-                "type": "integer",
-                "description": "Queue tier:\n\n`1 - Standard`\n\n`2 - Priority`\n\n",
-                "format": "int32"
+                "type": "string",
+                "description": "Queue tier. Names only; a number returns `400`.",
+                "enum": [
+                    "standard",
+                    "priority"
+                ]
             },
             "eSpeechAddressee": {
-                "type": "integer",
-                "description": "Gender of the person being spoken to:\n\n`1 - Unknown`\n\n`2 - Female`\n\n`3 - Male`\n\n",
-                "format": "int32"
+                "type": "string",
+                "description": "Gender of the person being spoken to. Names only; a number returns `400`.",
+                "enum": [
+                    "unknown",
+                    "female",
+                    "male"
+                ]
             },
             "eSpeechOutputFormat": {
                 "type": "string",
@@ -8371,7 +8403,8 @@
                 "required": [
                     "audio",
                     "name",
-                    "language"
+                    "language",
+                    "consent"
                 ],
                 "type": "object",
                 "properties": {
@@ -8390,19 +8423,15 @@
                                 "$ref": "#/components/schemas/eCloneLanguage"
                             }
                         ],
-                        "description": "The language the speaker is speaking. The voice is built for it, and speaks only that language:\n\n`0 - English`\n\n`1 - French`\n\n`2 - Italian`\n\n`3 - Spanish`\n\n`5 - German`\n\n`26 - Hebrew`\n\n"
-                    },
-                    "accent": {
-                        "type": "string",
-                        "description": "Optional, for English and Spanish: the speaker's accent as a locale code, for example `en-US` or `es-MX`."
+                        "description": "The language the speaker is speaking, as one BCP-47 tag. The voice is built for it and speaks only that language. English and Spanish need the region, which is the accent: `en-US`, `en-GB`, `en-AU`, `en-CA`, `en-IE`, `en-IN`, `es-ES`, `es-MX`, `es-AR`, `es-CO`, `es-VE`. Other languages: `he-IL`, `fr-FR`, `de-DE`, `it-IT` (a bare `he`, `fr`, `de` or `it` is accepted). A bare `en` or `es` returns `400` with the regions to choose from."
                     },
                     "gender": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/eSpeechAddressee"
-                            }
+                        "type": "string",
+                        "enum": [
+                            "female",
+                            "male"
                         ],
-                        "description": "Optional. The speaker's gender, used only to filter the library:\n\n`1 - Unknown`\n\n`2 - Female`\n\n`3 - Male`\n\n"
+                        "description": "Optional. The speaker's gender, `female` or `male`, used only to filter the library."
                     },
                     "tags": {
                         "type": "array",
@@ -8410,13 +8439,33 @@
                             "type": "string"
                         },
                         "description": "Optional labels that make the voice easier to find, for example `warm` or `support`. Up to 3 are kept."
+                    },
+                    "consent": {
+                        "type": "boolean",
+                        "description": "Required, and must be `true`: you confirm that you have the speaker's permission to clone their voice. Anything else returns `400`."
                     }
                 }
             },
             "eCloneLanguage": {
-                "type": "integer",
-                "description": "Languages a voice can be cloned in:\n\n`0 - English`\n\n`1 - French`\n\n`2 - Italian`\n\n`3 - Spanish`\n\n`5 - German`\n\n`26 - Hebrew`\n\n",
-                "format": "int32"
+                "type": "string",
+                "description": "A BCP-47 language tag. English and Spanish need the region, which is the accent; a bare `he`, `fr`, `de` or `it` is accepted. Case-insensitive.",
+                "enum": [
+                    "en-US",
+                    "en-GB",
+                    "en-AU",
+                    "en-CA",
+                    "en-IE",
+                    "en-IN",
+                    "es-ES",
+                    "es-MX",
+                    "es-AR",
+                    "es-CO",
+                    "es-VE",
+                    "he-IL",
+                    "fr-FR",
+                    "de-DE",
+                    "it-IT"
+                ]
             },
             "CloneVoiceResponseApi": {
                 "type": "object",
@@ -8430,12 +8479,8 @@
                         "description": "The voice's name."
                     },
                     "language": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/eCloneLanguage"
-                            }
-                        ],
-                        "description": "The language the voice speaks."
+                        "type": "string",
+                        "description": "The language the voice speaks, as a BCP-47 tag, for example `en-GB` or `he-IL`."
                     }
                 }
             }

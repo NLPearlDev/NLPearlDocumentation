@@ -52,10 +52,10 @@ The response body is the audio itself, an mp3 by default. With every option set:
 {
   "text": "Your appointment is confirmed for Thursday at ten.",
   "voiceId": "1cf704d389adfc067d749a51",
-  "model": "nlpearl-v2-preview",
-  "speed": 3,
-  "tier": 2,
-  "addressee": 2,
+  "modelId": "nlpearl-v2-preview",
+  "pace": "medium",
+  "tier": "priority",
+  "addressee": "female",
   "outputFormat": "pcm_16000"
 }
 ```
@@ -70,13 +70,13 @@ The response body is the audio itself, an mp3 by default. With every option set:
 | --- | --- | --- | --- |
 | `text` | string | required | What to say, 1 to 5,000 characters. Longer texts are generated in parts and joined into one continuous clip. |
 | `voiceId` | string | required | One of your voices or a voice from the shared library. An unknown id, or another account's private voice, returns `404 voice_not_found`. |
-| `model` | string | `nlpearl-v2-preview` | The speech model. It is the only one today; any other name returns `400`. |
-| `speed` | number | `3` | Reading pace: `1` VerySlow, `2` Slow, `3` Mid, `4` Fast, `5` VeryFast. Numbers only: a name such as `"Mid"` returns `400`. |
-| `tier` | number | `1` | `1` Standard or `2` Priority. See [Tiers](#tiers). |
-| `addressee` | number | `1` | Who is being spoken to: `1` Unknown, `2` Female, `3` Male. Hebrew only. See below. |
+| `modelId` | string | `nlpearl-v2-preview` | The speech model. It is the only one today; any other name returns `400`. |
+| `pace` | string | `medium` | Reading pace: `very_slow`, `slow`, `medium`, `fast` or `very_fast`. |
+| `tier` | string | `standard` | `standard` or `priority`. See [Tiers](#tiers). |
+| `addressee` | string | `unknown` | Who is being spoken to: `unknown`, `female` or `male`. Hebrew only. See below. |
 | `outputFormat` | string | `mp3_44100_128` | See [Output formats](#output-formats). |
 
-An undefined value is always refused with a `400`, never silently replaced by a default.
+Field names are camelCase, and choices are written as lowercase names. A value outside its list, including a number such as `"pace": 3`, returns `400` with the valid values in the message. A field the API does not know, such as `speed` or `model_id`, also returns `400`, so a misspelled option is never silently ignored.
 
 ### Voices and languages
 
@@ -84,9 +84,27 @@ A voice **is** a speaker in a language, so there is no language field: the voice
 
 The [speech markers](/pages/voice_studio#speech-markers) work in `text` too: `[laughs]` and `[breath]` are performed, not read. Any other bracketed tag is read out loud.
 
+### Numbers, dates and abbreviations
+
+Write text the way you would show it on screen: digits, prices and abbreviations are read the way a person says them. In English:
+
+| You write | It is read |
+| --- | --- |
+| `$4,100.50` · `a $25 credit` | four thousand one hundred dollars and fifty cents · a twenty-five dollar credit |
+| `July 4, 2026` · `on 5/12` · `in 1846` | July fourth, twenty twenty-six · on May twelfth · in eighteen forty-six |
+| `9am-5pm` · `Mon-Fri` · `at 3:30 pm` | nine a.m. to five p.m. · Monday to Friday · at three thirty p.m. |
+| `(555) 123-4567` · `1-800-555-0199` | digit by digit, in groups |
+| `extension 4-4-7` · `SN-40922-C` · `code 4521` | one character at a time |
+| `221B Baker St` · `Dr. Smith` · `zip 19123` | two twenty-one B Baker Street · Doctor Smith · zip one nine one two three |
+| `12 GB` · `72°F` · `2 1/2 miles` · `24/7` | twelve gigabytes · seventy-two degrees Fahrenheit · two and a half miles · twenty-four seven |
+
+<Tip>
+To have a number read digit by digit, put it after a word such as *code*, *PIN*, *order*, *account* or *card ending*, or spell it with dashes (`4-4-7`). A number written in words is never changed.
+</Tip>
+
 ### Speaking to a man or a woman
 
-Hebrew inflects the second person, so the same written sentence is spoken differently to a man and to a woman. Set `addressee` to the gender of **the person being spoken to**, not of the voice. Left at `1` Unknown, the sentence is not marked and the model picks an inflection.
+Hebrew inflects the second person, so the same written sentence is spoken differently to a man and to a woman. Set `addressee` to the gender of **the person being spoken to**, not of the voice. Left at `unknown`, the sentence is not marked and the model picks an inflection.
 
 A pronoun already in the text wins over `addressee`. Other languages ignore it.
 
@@ -133,8 +151,8 @@ Every successful response carries:
 | `X-Generation-Id` | The id of this generation, 24 hexadecimal characters, different on every request. Keep it: it is how support finds a specific generation. |
 | `X-Output-Format` | The format the audio is in. |
 | `X-Model` | The model that generated the audio. |
-| `X-Tier` | The tier you asked for, `Standard` or `Priority`. |
-| `X-Tier-Charged` | The rate you were charged, `Standard` or `Priority`. See [Tiers](#tiers). |
+| `X-Tier` | The tier you asked for, `standard` or `priority`. |
+| `X-Tier-Charged` | The rate you were charged, `standard` or `priority`. See [Tiers](#tiers). |
 | `X-Characters` | The number of characters billed. Not sent on Streaming. |
 
 ---
@@ -143,8 +161,8 @@ Every successful response carries:
 
 `tier` decides your place in line when the speech service is busy.
 
-- **Standard** (`1`, the default) is served in order of arrival.
-- **Priority** (`2`) goes ahead of Standard requests that are waiting. It is not a guarantee of zero wait, and Priority traffic never stops Standard requests from being served.
+- **Standard** (`standard`, the default) is served in order of arrival.
+- **Priority** (`priority`) goes ahead of Standard requests that are waiting. It is not a guarantee of zero wait, and Priority traffic never stops Standard requests from being served.
 
 Priority costs more only when it was **used**: when your request actually went ahead of waiting requests. On an idle service there is nothing to skip, and a Priority request pays the Standard rate. `X-Tier-Charged` tells you which rate applied.
 
@@ -173,7 +191,7 @@ A `429` always means **your own account** is at its limit. When the speech servi
 Speech is billed **per character of `text`**, at your plan's text-to-speech rate, from your credit balance.
 
 - **The format doesn't matter.** The same text costs the same in every output format.
-- **Priority** is charged at the Priority rate only when `X-Tier-Charged` is `Priority`.
+- **Priority** is charged at the Priority rate only when `X-Tier-Charged` is `priority`.
 - **Refused requests are free.** A `4xx` or `503` never charges anything.
 - **Started means charged.** Once generation has started, the whole text is charged, even if you disconnect or close a stream early.
 - **Engine failures are free.** A `502 engine_error`, or a stream cut short by a failure on our side, charges nothing.
@@ -185,7 +203,14 @@ Charges are fractions of a credit, so the balance shown by [Get Account](/api-re
 
 ## Errors
 
-Validation errors (`400` on a missing `text`, an undefined `speed`…) use the standard problem details format, with the details in `errors`. Every other refusal is a JSON object with a machine-readable `code` and a human-readable `message`:
+Every refusal is a JSON object with a machine-readable `code` and a human-readable `message`, validation errors included:
+
+```json
+{
+  "code": "invalid_request",
+  "message": "pace must be one of: very_slow, slow, medium, fast, very_fast."
+}
+```
 
 ```json
 {
@@ -196,8 +221,7 @@ Validation errors (`400` on a missing `text`, an undefined `speed`…) use the s
 
 | Status | `code` | When | Retry? |
 | --- | --- | --- | --- |
-| `400` | — | `text` missing or over 5,000 characters, unknown `model`, undefined `speed`, `tier` or `addressee` | No, fix the request |
-| `400` | `invalid_request` | Unknown `outputFormat` | No |
+| `400` | `invalid_request` | `text` missing or over 5,000 characters, an unknown `modelId` or `outputFormat`, a `pace`, `tier` or `addressee` value not in its list, a field the API does not know, or a body that is not valid JSON. The message says which. | No, fix the request |
 | `401` | — | Missing, malformed or unknown credentials | No |
 | `402` | `insufficient_credits` | The account has no credits left | After topping up |
 | `402` | `debt_limit_reached` | The account has reached its debt limit | After topping up |
@@ -222,9 +246,9 @@ None of these charges credits.
 | --- | --- | --- |
 | `audio` | Yes | One recording: 5 to 60 seconds of clear, continuous speech, one person, no music or background noise. Up to 20 MB, as WAV, MP3, M4A, OGG or WEBM. |
 | `name` | Yes | How the voice appears in your library. |
-| `language` | Yes | The language the speaker is speaking: `0` English, `1` French, `2` Italian, `3` Spanish, `5` German, `26` Hebrew. The voice speaks only this language. |
-| `accent` | No | For English and Spanish, a locale code such as `en-US` or `es-MX`. |
-| `gender` | No | `1` Unknown, `2` Female, `3` Male. Used only to filter the library. |
+| `language` | Yes | The language the speaker is speaking, as one BCP-47 tag. The voice speaks only this language. English and Spanish need the region, which is the accent: `en-US`, `en-GB`, `en-AU`, `en-CA`, `en-IE`, `en-IN`, `es-ES`, `es-MX`, `es-AR`, `es-CO`, `es-VE`. Other languages: `he-IL`, `fr-FR`, `de-DE`, `it-IT` (a bare `he`, `fr`, `de` or `it` is accepted). |
+| `consent` | Yes | Must be `true`: you confirm you have the speaker's permission to clone their voice. |
+| `gender` | No | `female` or `male`. Used only to filter the library. |
 | `tags` | No | Up to 3 labels, for example `warm` or `support`. |
 
 ```bash
@@ -232,12 +256,23 @@ curl -X POST https://api.nlpearl.ai/v2/Speech/Clone \
   -H "Authorization: Bearer <AccountId>:<SecretKey>" \
   -F "audio=@speaker.wav" \
   -F "name=Support - Dana" \
-  -F "language=0" \
-  -F "accent=en-US"
+  -F "language=en-US" \
+  -F "consent=true"
+```
+
+The response is the new voice:
+
+```json
+{
+  "voiceId": "6a2f41c9e8b7d3a15c0f9e42",
+  "name": "Support - Dana",
+  "language": "en-US"
+}
 ```
 
 - A voice cloned through the API is always **private** to your account. Publishing it to the shared library is done from [Voice Studio](/pages/voice_studio#publishing-a-voice).
-- Cloning is currently free and limited to **20 attempts per hour** per account. Your plan also caps how many voices you can hold (`429 voice_limit_reached`) and create in 30 days (`403 clone_limit_reached`).
+- A recording that cannot be used, for example one with too little speech, returns `422 invalid_audio`, and nothing is charged.
+- Cloning is currently free (`X-Credits-Charged: 0`) and limited to **20 attempts per hour** per account. Your plan also caps how many voices you can hold (`429 voice_limit_reached`) and create in 30 days (`403 clone_limit_reached`).
 
 <Warning>
 Only clone a voice that is your own, or one you hold documented written permission to use. Cloning someone's voice without their explicit permission is not permitted.
