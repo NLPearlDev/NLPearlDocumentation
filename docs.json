@@ -278,6 +278,15 @@
                   "api-reference/v2/outbound/delete-leads",
                   "api-reference/v2/outbound/delete-leads-external-id"
                 ]
+              },
+              {
+                "group": "Speech",
+                "expanded": true,
+                "pages": [
+                  "api-reference/v2/speech/text-to-speech",
+                  "api-reference/v2/speech/text-to-speech-stream",
+                  "api-reference/v2/speech/clone-voice"
+                ]
               }
             ]
           },

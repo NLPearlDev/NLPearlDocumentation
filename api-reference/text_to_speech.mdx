@@ -1,0 +1,215 @@
+---
+title: "Text to Speech"
+sidebarTitle: "Overview"
+description: "Turn text into speech with your voices over the API, as one clip or as a stream, and clone new voices from a recording."
+icon: "waveform-lines"
+iconType: "light"
+---
+
+The Speech API turns text into audio with the same voices and the same speech model as [Voice Studio](/pages/voice_studio). Use it to pre-render prompts, voice your own application, or feed audio straight into a phone line.
+
+<CardGroup cols={3}>
+  <Card title="Text to Speech" icon="file-audio" iconType="light" href="/api-reference/v2/speech/text-to-speech">
+    The whole clip in one response.
+  </Card>
+  <Card title="Streaming" icon="waveform-lines" iconType="light" href="/api-reference/v2/speech/text-to-speech-stream">
+    The audio as it is produced, so playback starts right away.
+  </Card>
+  <Card title="Clone a Voice" icon="clone" iconType="light" href="/api-reference/v2/speech/clone-voice">
+    A new private voice from one recording.
+  </Card>
+</CardGroup>
+
+---
+
+## Authentication
+
+The Speech API takes the same credentials as every other `/v2` endpoint (see [API Authorization](/api-reference/authorization)), and every call needs the **`tts` scope**.
+
+- An **API secret key** carries every scope, `tts` included.
+- An **OAuth app** carries only the scopes you granted it. An app created before the `tts` scope existed doesn't have it and gets `403 insufficient_scope` until you grant it. See [OAuth 2.0](/api-reference/oauth).
+
+---
+
+## Your first request
+
+Only `text` and `voiceId` are required. Pick a voice from [Get Voices](/api-reference/v2/pearlSettings/get-voices), then:
+
+```bash
+curl -X POST https://api.nlpearl.ai/v2/Speech \
+  -H "Authorization: Bearer <AccountId>:<SecretKey>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Your appointment is confirmed for Thursday at ten.",
+    "voiceId": "<voiceId>"
+  }' \
+  --output speech.mp3
+```
+
+The response body is the audio itself, an mp3 by default. [Text to Speech](/api-reference/v2/speech/text-to-speech) lists every field, and [Streaming](/api-reference/v2/speech/text-to-speech-stream) takes the same body.
+
+---
+
+## Voices and languages
+
+A voice **is** a speaker in a language, so there is no language field: the voice decides it. Write `text` in the voice's language. See [Supported languages](/pages/voice_studio#supported-languages) for the languages the speech model serves.
+
+The [speech markers](/pages/voice_studio#speech-markers) work in `text` too: `[laughs]` and `[breath]` are performed, not read. Any other bracketed tag is read out loud.
+
+---
+
+## Output formats
+
+`outputFormat` names the codec, the sample rate and, for compressed formats, the bitrate, in one value: `<codec>_<sample rate in Hz>_<bitrate in kbps>`.
+
+| Codec | Formats | Content-Type | Extension |
+| --- | --- | --- | --- |
+| **MP3**, constant bitrate | `mp3_22050_32`, `mp3_44100_32`, `mp3_44100_64`, `mp3_44100_96`, `mp3_44100_128`, `mp3_44100_192` | `audio/mpeg` | `.mp3` |
+| **Opus**, in an Ogg container | `opus_48000_32`, `opus_48000_64`, `opus_48000_96`, `opus_48000_128`, `opus_48000_192` | `audio/ogg` | `.ogg` |
+| **WAV** | `wav_8000`, `wav_16000`, `wav_22050`, `wav_24000`, `wav_44100`, `wav_48000` | `audio/wav` | `.wav` |
+| **Raw PCM**, 16-bit signed little-endian mono, no header | `pcm_8000`, `pcm_16000`, `pcm_22050`, `pcm_24000`, `pcm_44100`, `pcm_48000` | `audio/L16; rate=<rate>; channels=1` | `.pcm` |
+| **G.711 μ-law**, telephony | `ulaw_8000` | `audio/basic` | `.ulaw` |
+| **G.711 A-law**, telephony | `alaw_8000` | `audio/x-alaw-basic` | `.alaw` |
+
+<Note>
+The speech model generates **24 kHz** audio. `pcm_24000` and `wav_24000` are its output untouched; every other rate is converted on our side. Rates above 24 kHz are there for compatibility with your player or pipeline: they add no detail.
+</Note>
+
+The format never changes the price.
+
+---
+
+## Streaming
+
+[Streaming](/api-reference/v2/speech/text-to-speech-stream) takes the same body and writes the audio to the response as it is produced, so you can start playing before the whole clip exists.
+
+- **Refusals come first.** Every error (`400`, `402`, `429`…) arrives as a normal status code before any audio. Once audio has started there is no status left to send: if generation fails midway, the body simply ends early.
+- **WAV headers.** A `wav_*` stream starts with a header whose sizes are placeholders, because the length isn't known yet. Players may show a wrong duration but play to the real end. Use `pcm_*` if your pipeline reads the header.
+- **Time to first audio.** Raw PCM, μ-law and A-law start fastest. MP3 adds a few tens of milliseconds; Opus adds around 150 to 200 ms, because its first Ogg page is only sent once full.
+- **Read promptly.** A stream counts against your [concurrency](#concurrency) until its body has been fully read or the connection is closed.
+
+---
+
+## Tiers
+
+`tier` decides your place in line when the speech service is busy.
+
+- **Standard** (`standard`, the default) is served in order of arrival.
+- **Priority** (`priority`) goes ahead of Standard requests that are waiting. It is not a guarantee of zero wait, and Priority traffic never stops Standard requests from being served.
+
+Priority costs more only when it was **used**: when your request actually went ahead of waiting requests. On an idle service there is nothing to skip, and a Priority request pays the Standard rate. `X-Tier-Charged` tells you which rate applied.
+
+---
+
+## Concurrency
+
+Your account may have a set number of speech requests in flight at once, depending on your plan. The limit is shared by all your API keys, and both tiers and voice cloning count against it.
+
+A request over the limit is refused at once with `429 concurrency_limit_exceeded`. It is never queued. The response tells you where you stand:
+
+| Header | |
+| --- | --- |
+| `X-Concurrency-Limit` | How many speech requests your account may have in flight. |
+| `X-Concurrency-In-Use` | How many were in flight when this request was refused. |
+| `Retry-After` | Seconds to wait before retrying. |
+
+<Tip>
+A `429` always means **your own account** is at its limit. When the speech service itself is at capacity, you get `503 system_busy` instead. Contact us if you need a higher limit.
+</Tip>
+
+---
+
+## Billing
+
+Speech is billed **per character of `text`**, at your plan's text-to-speech rate, from your credit balance.
+
+- **The format doesn't matter.** The same text costs the same in every output format.
+- **Priority** is charged at the Priority rate only when `X-Tier-Charged` is `priority`.
+- **Refused requests are free.** A `4xx` or `503` never charges anything.
+- **Started means charged.** Once generation has started, the whole text is charged, even if you disconnect or close a stream early.
+- **Engine failures are free.** A `502 engine_error`, or a stream cut short by a failure on our side, charges nothing.
+- **A retry is a new generation**, charged again. There is no idempotency key: keep `X-Generation-Id` to reference a generation with support.
+
+Charges are fractions of a credit, so the balance shown by [Get Account](/api-reference/v2/account/get-account) moves in whole credits and a short request may not change it right away.
+
+---
+
+## Errors
+
+Every error is a JSON object with a machine-readable `code` and a human-readable `message`:
+
+```json
+{
+  "code": "invalid_request",
+  "message": "pace must be one of: very_slow, slow, medium, fast, very_fast."
+}
+```
+
+| Status | `code` | When | Retry? |
+| --- | --- | --- | --- |
+| `400` | `invalid_request` | A missing or invalid field, a field the API does not know, or a body that is not valid JSON. The message says which. | No, fix the request |
+| `401` | — | Missing, malformed or unknown credentials | No |
+| `402` | `insufficient_credits` | The account has no credits left | After topping up |
+| `402` | `debt_limit_reached` | The account has reached its debt limit | After topping up |
+| `403` | `insufficient_scope` | The credential lacks the `tts` scope | No |
+| `403` | `account_suspended` | The account is suspended or payment-restricted | No |
+| `404` | `voice_not_found` | The voice does not exist or is not available to your account | No |
+| `429` | `concurrency_limit_exceeded` | Your account is at its concurrency limit | Yes, once one of your requests finishes |
+| `500` | `output_format_failed` | The audio could not be rendered in the requested format | Report it to support |
+| `502` | `engine_error` | The speech service did not answer or returned no audio | Yes |
+| `503` | `system_busy` | The speech service is at capacity | Yes, after `Retry-After` |
+| `503` | `account_unverified` | The account could not be verified | Yes, after `Retry-After` |
+
+None of these charges credits.
+
+---
+
+## Cloning a voice
+
+[Clone a Voice](/api-reference/v2/speech/clone-voice) builds a voice from one recording, sent as `multipart/form-data`, and returns its `voiceId`, ready for Text to Speech.
+
+Record one person speaking clearly, with no music or background noise. Set `language` to the language of the recording: the voice speaks only that language, and for English and Spanish the region (`en-GB`, `es-MX`) is the voice's accent. See [Clone languages](#clone-languages).
+
+```bash
+curl -X POST https://api.nlpearl.ai/v2/Speech/Clone \
+  -H "Authorization: Bearer <AccountId>:<SecretKey>" \
+  -F "audio=@speaker.wav" \
+  -F "name=Support - Dana" \
+  -F "language=en-US" \
+  -F "consent=true"
+```
+
+The response is the new voice's id:
+
+```json
+{
+  "voiceId": "6a2f41c9e8b7d3a15c0f9e42"
+}
+```
+
+- A voice cloned through the API is always **private** to your account. Publishing it to the shared library is done from [Voice Studio](/pages/voice_studio#publishing-a-voice).
+- A recording that cannot be used, for example one with too little speech, returns `422 invalid_audio`, and nothing is charged.
+- Cloning is currently free (`X-Credits-Charged: 0`) and limited to **20 attempts per hour** per account (`429 rate_limit_exceeded`). Your plan also caps how many voices you can hold (`429 voice_limit_reached`) and create in 30 days (`403 clone_limit_reached`).
+
+<Warning>
+Only clone a voice that is your own, or one you hold documented written permission to use. Cloning someone's voice without their explicit permission is not permitted.
+</Warning>
+
+### Clone languages
+
+| Language | `language` |
+| --- | --- |
+| English (United States) | `en-US` |
+| English (United Kingdom) | `en-GB` |
+| English (Australia) | `en-AU` |
+| English (Canada) | `en-CA` |
+| English (Ireland) | `en-IE` |
+| English (India) | `en-IN` |
+| Spanish (Spain) | `es-ES` |
+| Spanish (Mexico) | `es-MX` |
+| Spanish (Argentina) | `es-AR` |
+| Spanish (Colombia) | `es-CO` |
+| Spanish (Venezuela) | `es-VE` |
+| French | `fr-FR` |
+| German | `de-DE` |
+| Italian | `it-IT` |

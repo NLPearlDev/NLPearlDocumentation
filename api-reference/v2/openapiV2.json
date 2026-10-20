@@ -3607,6 +3607,516 @@
                     }
                 }
             }
+        },
+        "/v2/Speech": {
+            "post": {
+                "tags": [
+                    "Speech"
+                ],
+                "summary": "Text to Speech",
+                "description": "Generates speech from text with one of your voices and returns the whole clip in a single response.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SpeechRequestApi"
+                            },
+                            "example": {
+                                "text": "Your appointment is confirmed for Thursday at ten.",
+                                "voiceId": "1cf704d389adfc067d749a51",
+                                "modelId": "nlpearl-v2-preview",
+                                "pace": "medium",
+                                "tier": "standard",
+                                "outputFormat": "mp3_44100_128"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The audio file.",
+                        "headers": {
+                            "X-Generation-Id": {
+                                "description": "The id of this generation.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "X-Output-Format": {
+                                "description": "The audio format, for example `mp3_44100_128`.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "X-Model": {
+                                "description": "The model used.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "X-Tier": {
+                                "description": "The tier you asked for.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "X-Tier-Charged": {
+                                "description": "The tier you were charged for: `priority` only when the request went ahead of waiting requests, otherwise `standard`.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "X-Characters": {
+                                "description": "The number of characters billed.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "content": {
+                            "audio/mpeg": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "audio/wav": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "audio/ogg": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "audio/L16": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "audio/basic": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "audio/x-alaw-basic": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "`invalid_request`. The message names the field.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Missing or invalid credentials."
+                    },
+                    "402": {
+                        "description": "`insufficient_credits` or `debt_limit_reached`.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "`insufficient_scope` or `account_suspended`.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "`voice_not_found`.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "`concurrency_limit_exceeded`.",
+                        "headers": {
+                            "Retry-After": {
+                                "description": "Seconds to wait before retrying.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            },
+                            "X-Concurrency-Limit": {
+                                "description": "Speech requests your account may have in flight.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            },
+                            "X-Concurrency-In-Use": {
+                                "description": "Speech requests in flight when this one was refused.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "`output_format_failed`.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "502": {
+                        "description": "`engine_error`. Nothing is charged.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "`system_busy` or `account_unverified`.",
+                        "headers": {
+                            "Retry-After": {
+                                "description": "Seconds to wait before retrying.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Speech/Stream": {
+            "post": {
+                "tags": [
+                    "Speech"
+                ],
+                "summary": "Text to Speech (Streaming)",
+                "description": "Generates speech from text with one of your voices and streams the audio as it is produced.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SpeechRequestApi"
+                            },
+                            "example": {
+                                "text": "Your appointment is confirmed for Thursday at ten.",
+                                "voiceId": "1cf704d389adfc067d749a51",
+                                "modelId": "nlpearl-v2-preview",
+                                "pace": "medium",
+                                "tier": "standard",
+                                "outputFormat": "mp3_44100_128"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The audio, streamed as it is generated.",
+                        "headers": {
+                            "X-Generation-Id": {
+                                "description": "The id of this generation.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "X-Output-Format": {
+                                "description": "The audio format, for example `mp3_44100_128`.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "X-Model": {
+                                "description": "The model used.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "X-Tier": {
+                                "description": "The tier you asked for.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "X-Tier-Charged": {
+                                "description": "The tier you were charged for: `priority` only when the request went ahead of waiting requests, otherwise `standard`.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "content": {
+                            "audio/mpeg": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "audio/wav": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "audio/ogg": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "audio/L16": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "audio/basic": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            },
+                            "audio/x-alaw-basic": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "`invalid_request`. The message names the field.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Missing or invalid credentials."
+                    },
+                    "402": {
+                        "description": "`insufficient_credits` or `debt_limit_reached`.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "`insufficient_scope` or `account_suspended`.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "`voice_not_found`.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "`concurrency_limit_exceeded`.",
+                        "headers": {
+                            "Retry-After": {
+                                "description": "Seconds to wait before retrying.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            },
+                            "X-Concurrency-Limit": {
+                                "description": "Speech requests your account may have in flight.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            },
+                            "X-Concurrency-In-Use": {
+                                "description": "Speech requests in flight when this one was refused.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "`system_busy` or `account_unverified`.",
+                        "headers": {
+                            "Retry-After": {
+                                "description": "Seconds to wait before retrying.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/Speech/Clone": {
+            "post": {
+                "tags": [
+                    "Speech"
+                ],
+                "summary": "Clone a Voice",
+                "description": "Creates a private voice from a recording and adds it to your voices.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CloneVoiceRequestApi"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The new voice's id.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CloneVoiceResponseApi"
+                                },
+                                "example": {
+                                    "voiceId": "6a2f41c9e8b7d3a15c0f9e42"
+                                }
+                            }
+                        },
+                        "headers": {
+                            "X-Credits-Charged": {
+                                "description": "Credits charged for the clone.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "`invalid_request`. The message names the field.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Missing or invalid credentials."
+                    },
+                    "402": {
+                        "description": "`insufficient_credits` or `debt_limit_reached`.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "`insufficient_scope`, `account_suspended` or `clone_limit_reached`.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "`invalid_audio`: the recording can't be used.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "`concurrency_limit_exceeded`, `voice_limit_reached` or `rate_limit_exceeded` (too many clone attempts in the last hour).",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpeechErrorApi"
+                                }
+                            }
+                        }
+                    },
+                    "502": {
+                        "description": "The voice could not be created. Nothing is charged."
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -8535,6 +9045,153 @@
                 "type": "integer",
                 "description": "The version of the voice:\n\n`1 - V1`\n\n`2 - V2`\n\n",
                 "format": "int32"
+            },
+            "SpeechRequestApi": {
+                "required": [
+                    "text",
+                    "voiceId"
+                ],
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "maxLength": 5000,
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The text to speak, in the voice's language."
+                    },
+                    "voiceId": {
+                        "type": "string",
+                        "description": "The voice to use. List your voices with [Get Voices](/api-reference/v2/pearlSettings/get-voices)."
+                    },
+                    "modelId": {
+                        "type": "string",
+                        "enum": [
+                            "nlpearl-v2-preview"
+                        ],
+                        "default": "nlpearl-v2-preview",
+                        "description": "The speech model."
+                    },
+                    "pace": {
+                        "type": "string",
+                        "enum": [
+                            "very_slow",
+                            "slow",
+                            "medium",
+                            "fast",
+                            "very_fast"
+                        ],
+                        "default": "medium",
+                        "description": "How fast the voice speaks."
+                    },
+                    "tier": {
+                        "type": "string",
+                        "enum": [
+                            "standard",
+                            "priority"
+                        ],
+                        "default": "standard",
+                        "description": "Your place in the queue when the service is busy. `priority` goes ahead of waiting `standard` requests and is charged at the Priority rate only when it did."
+                    },
+                    "outputFormat": {
+                        "type": "string",
+                        "enum": [
+                            "pcm_8000",
+                            "pcm_16000",
+                            "pcm_22050",
+                            "pcm_24000",
+                            "pcm_44100",
+                            "pcm_48000",
+                            "wav_8000",
+                            "wav_16000",
+                            "wav_22050",
+                            "wav_24000",
+                            "wav_44100",
+                            "wav_48000",
+                            "ulaw_8000",
+                            "alaw_8000",
+                            "mp3_22050_32",
+                            "mp3_44100_32",
+                            "mp3_44100_64",
+                            "mp3_44100_96",
+                            "mp3_44100_128",
+                            "mp3_44100_192",
+                            "opus_48000_32",
+                            "opus_48000_64",
+                            "opus_48000_96",
+                            "opus_48000_128",
+                            "opus_48000_192"
+                        ],
+                        "default": "mp3_44100_128",
+                        "description": "Codec, sample rate and bitrate of the audio, for example `mp3_44100_128`, `pcm_16000` or `ulaw_8000`."
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SpeechErrorApi": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "The error code, for example `voice_not_found`."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "What went wrong."
+                    }
+                }
+            },
+            "CloneVoiceRequestApi": {
+                "required": [
+                    "audio",
+                    "name",
+                    "language",
+                    "consent"
+                ],
+                "type": "object",
+                "properties": {
+                    "audio": {
+                        "type": "string",
+                        "format": "binary",
+                        "description": "A recording of one speaker: 5 to 60 seconds of clear speech with no background noise. WAV, MP3, M4A, OGG or WEBM, up to 20 MB."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The voice's name."
+                    },
+                    "language": {
+                        "type": "string",
+                        "example": "en-US",
+                        "description": "The language of the recording, as a BCP-47 tag. English and Spanish need the region, which sets the accent.\n\n- English: `en-US`, `en-GB`, `en-AU`, `en-CA`, `en-IE`, `en-IN`\n- Spanish: `es-ES`, `es-MX`, `es-AR`, `es-CO`, `es-VE`\n- French: `fr-FR`\n- German: `de-DE`\n- Italian: `it-IT`"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "enum": [
+                            "female",
+                            "male"
+                        ],
+                        "description": "The speaker's gender."
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Up to 3 labels, such as `warm` or `support`."
+                    },
+                    "consent": {
+                        "type": "boolean",
+                        "description": "Must be `true`, confirming you have the speaker's permission to clone their voice."
+                    }
+                }
+            },
+            "CloneVoiceResponseApi": {
+                "type": "object",
+                "properties": {
+                    "voiceId": {
+                        "type": "string",
+                        "description": "The new voice's id."
+                    }
+                }
             }
         },
         "securitySchemes": {
@@ -8580,6 +9237,10 @@
         {
             "name": "Pearl",
             "description": "Manage your Pearls, the AI agents that handle your inbound and outbound calls. Create and configure Pearls, retrieve their details and settings, run or pause them, list and bulk-export their calls, monitor calls in progress, get analytics, and reset a customer's conversation memory."
+        },
+        {
+            "name": "Speech",
+            "description": "Turn text into speech with your voices, as a single clip or as a stream, and clone new voices from a recording."
         }
     ]
 }
