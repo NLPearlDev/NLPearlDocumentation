@@ -3208,7 +3208,6 @@
                                 "modelId": "nlpearl-v2-preview",
                                 "pace": "medium",
                                 "tier": "standard",
-                                "addressee": "unknown",
                                 "outputFormat": "mp3_44100_128"
                             }
                         }
@@ -3428,7 +3427,6 @@
                                 "modelId": "nlpearl-v2-preview",
                                 "pace": "medium",
                                 "tier": "standard",
-                                "addressee": "unknown",
                                 "outputFormat": "mp3_44100_128"
                             }
                         }
@@ -8309,16 +8307,6 @@
                         ],
                         "default": "standard",
                         "description": "Your place in the queue when the service is busy. `priority` goes ahead of waiting `standard` requests and is charged at the Priority rate only when it did."
-                    },
-                    "addressee": {
-                        "type": "string",
-                        "enum": [
-                            "unknown",
-                            "female",
-                            "male"
-                        ],
-                        "default": "unknown",
-                        "description": "Hebrew only: the gender of the person being spoken to, not of the voice."
                     },
                     "outputFormat": {
                         "type": "string",
