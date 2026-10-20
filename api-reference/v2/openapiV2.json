@@ -3621,16 +3621,14 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "The new voice.",
+                        "description": "The new voice's id.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/CloneVoiceResponseApi"
                                 },
                                 "example": {
-                                    "voiceId": "6a2f41c9e8b7d3a15c0f9e42",
-                                    "name": "Support - Dana",
-                                    "language": "en-US"
+                                    "voiceId": "6a2f41c9e8b7d3a15c0f9e42"
                                 }
                             }
                         },
@@ -8277,7 +8275,7 @@
                         "maxLength": 5000,
                         "minLength": 1,
                         "type": "string",
-                        "description": "The text to speak. Numbers, dates and abbreviations are read the way a person says them; see [Numbers, dates and abbreviations](/api-reference/text_to_speech#numbers-dates-and-abbreviations)."
+                        "description": "The text to speak, in the voice's language."
                     },
                     "voiceId": {
                         "type": "string",
@@ -8320,7 +8318,7 @@
                             "male"
                         ],
                         "default": "unknown",
-                        "description": "Hebrew only: the gender of the person being spoken to. See [Speaking to a man or a woman](/api-reference/text_to_speech#speaking-to-a-man-or-a-woman)."
+                        "description": "Hebrew only: the gender of the person being spoken to, not of the voice."
                     },
                     "outputFormat": {
                         "type": "string",
@@ -8420,14 +8418,6 @@
                     "voiceId": {
                         "type": "string",
                         "description": "The new voice's id."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The voice's name."
-                    },
-                    "language": {
-                        "type": "string",
-                        "description": "The voice's language, as a BCP-47 tag."
                     }
                 }
             }

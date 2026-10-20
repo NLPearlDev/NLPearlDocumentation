@@ -50,37 +50,11 @@ The response body is the audio itself, an mp3 by default. [Text to Speech](/api-
 
 ---
 
-## Writing the text
-
-### Voices and languages
+## Voices and languages
 
 A voice **is** a speaker in a language, so there is no language field: the voice decides it. Write `text` in the voice's language. See [Supported languages](/pages/voice_studio#supported-languages) for the languages the speech model serves.
 
 The [speech markers](/pages/voice_studio#speech-markers) work in `text` too: `[laughs]` and `[breath]` are performed, not read. Any other bracketed tag is read out loud.
-
-### Numbers, dates and abbreviations
-
-Write text the way you would show it on screen: digits, prices and abbreviations are read the way a person says them. In English:
-
-| You write | It is read |
-| --- | --- |
-| `$4,100.50` · `a $25 credit` | four thousand one hundred dollars and fifty cents · a twenty-five dollar credit |
-| `July 4, 2026` · `on 5/12` · `in 1846` | July fourth, twenty twenty-six · on May twelfth · in eighteen forty-six |
-| `9am-5pm` · `Mon-Fri` · `at 3:30 pm` | nine a.m. to five p.m. · Monday to Friday · at three thirty p.m. |
-| `(555) 123-4567` · `1-800-555-0199` | digit by digit, in groups |
-| `extension 4-4-7` · `SN-40922-C` · `code 4521` | one character at a time |
-| `221B Baker St` · `Dr. Smith` · `zip 19123` | two twenty-one B Baker Street · Doctor Smith · zip one nine one two three |
-| `12 GB` · `72°F` · `2 1/2 miles` · `24/7` | twelve gigabytes · seventy-two degrees Fahrenheit · two and a half miles · twenty-four seven |
-
-<Tip>
-To have a number read digit by digit, put it after a word such as *code*, *PIN*, *order*, *account* or *card ending*, or spell it with dashes (`4-4-7`). A number written in words is never changed.
-</Tip>
-
-### Speaking to a man or a woman
-
-Hebrew inflects the second person, so the same written sentence is spoken differently to a man and to a woman. Set `addressee` to the gender of **the person being spoken to**, not of the voice. Left at `unknown`, the sentence is not marked and the model picks an inflection.
-
-A pronoun already in the text wins over `addressee`. Other languages ignore it.
 
 ---
 
@@ -205,13 +179,11 @@ curl -X POST https://api.nlpearl.ai/v2/Speech/Clone \
   -F "consent=true"
 ```
 
-The response is the new voice:
+The response is the new voice's id:
 
 ```json
 {
-  "voiceId": "6a2f41c9e8b7d3a15c0f9e42",
-  "name": "Support - Dana",
-  "language": "en-US"
+  "voiceId": "6a2f41c9e8b7d3a15c0f9e42"
 }
 ```
 
