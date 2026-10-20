@@ -194,7 +194,7 @@ None of these charges credits.
 
 [Clone a Voice](/api-reference/v2/speech/clone-voice) builds a voice from one recording, sent as `multipart/form-data`, and returns its `voiceId`, ready for Text to Speech.
 
-Record one person speaking clearly, with no music or background noise. Set `language` to the language of the recording: the voice speaks only that language, and for English and Spanish the region (`en-GB`, `es-MX`) is the voice's accent.
+Record one person speaking clearly, with no music or background noise. Set `language` to the language of the recording: the voice speaks only that language, and for English and Spanish the region (`en-GB`, `es-MX`) is the voice's accent. See [Clone languages](#clone-languages).
 
 ```bash
 curl -X POST https://api.nlpearl.ai/v2/Speech/Clone \
@@ -222,3 +222,22 @@ The response is the new voice:
 <Warning>
 Only clone a voice that is your own, or one you hold documented written permission to use. Cloning someone's voice without their explicit permission is not permitted.
 </Warning>
+
+### Clone languages
+
+| Language | `language` |
+| --- | --- |
+| English (United States) | `en-US` |
+| English (United Kingdom) | `en-GB` |
+| English (Australia) | `en-AU` |
+| English (Canada) | `en-CA` |
+| English (Ireland) | `en-IE` |
+| English (India) | `en-IN` |
+| Spanish (Spain) | `es-ES` |
+| Spanish (Mexico) | `es-MX` |
+| Spanish (Argentina) | `es-AR` |
+| Spanish (Colombia) | `es-CO` |
+| Spanish (Venezuela) | `es-VE` |
+| French | `fr-FR` |
+| German | `de-DE` |
+| Italian | `it-IT` |

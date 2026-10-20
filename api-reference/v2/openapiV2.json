@@ -8391,7 +8391,7 @@
                     "language": {
                         "type": "string",
                         "example": "en-US",
-                        "description": "The language of the recording, as a BCP-47 tag. English and Spanish need the region, which sets the accent. One of `en-US`, `en-GB`, `en-AU`, `en-CA`, `en-IE`, `en-IN`, `es-ES`, `es-MX`, `es-AR`, `es-CO`, `es-VE`, `he-IL`, `fr-FR`, `de-DE`, `it-IT`."
+                        "description": "The language of the recording, as a BCP-47 tag such as `en-US`. See [Clone languages](/api-reference/text_to_speech#clone-languages)."
                     },
                     "gender": {
                         "type": "string",
