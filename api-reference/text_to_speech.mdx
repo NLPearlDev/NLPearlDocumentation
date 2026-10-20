@@ -46,37 +46,11 @@ curl -X POST https://api.nlpearl.ai/v2/Speech \
   --output speech.mp3
 ```
 
-The response body is the audio itself, an mp3 by default. With every option set:
-
-```json
-{
-  "text": "Your appointment is confirmed for Thursday at ten.",
-  "voiceId": "1cf704d389adfc067d749a51",
-  "modelId": "nlpearl-v2-preview",
-  "pace": "medium",
-  "tier": "priority",
-  "addressee": "female",
-  "outputFormat": "pcm_16000"
-}
-```
+The response body is the audio itself, an mp3 by default. [Text to Speech](/api-reference/v2/speech/text-to-speech) lists every field, and [Streaming](/api-reference/v2/speech/text-to-speech-stream) takes the same body.
 
 ---
 
-## Request body
-
-[Text to Speech](/api-reference/v2/speech/text-to-speech) and [Streaming](/api-reference/v2/speech/text-to-speech-stream) take the same body.
-
-| Field | Type | Default | |
-| --- | --- | --- | --- |
-| `text` | string | required | What to say, 1 to 5,000 characters. Longer texts are generated in parts and joined into one continuous clip. |
-| `voiceId` | string | required | One of your voices or a voice from the shared library. An unknown id, or another account's private voice, returns `404 voice_not_found`. |
-| `modelId` | string | `nlpearl-v2-preview` | The speech model. It is the only one today; any other name returns `400`. |
-| `pace` | string | `medium` | Reading pace: `very_slow`, `slow`, `medium`, `fast` or `very_fast`. |
-| `tier` | string | `standard` | `standard` or `priority`. See [Tiers](#tiers). |
-| `addressee` | string | `unknown` | Who is being spoken to: `unknown`, `female` or `male`. Hebrew only. See below. |
-| `outputFormat` | string | `mp3_44100_128` | See [Output formats](#output-formats). |
-
-Field names are camelCase, and choices are written as lowercase names. A value outside its list, including a number such as `"pace": 3`, returns `400` with the valid values in the message. A field the API does not know, such as `speed` or `model_id`, also returns `400`, so a misspelled option is never silently ignored.
+## Writing the text
 
 ### Voices and languages
 
@@ -112,7 +86,7 @@ A pronoun already in the text wins over `addressee`. Other languages ignore it.
 
 ## Output formats
 
-`outputFormat` names the codec, the sample rate and, for compressed formats, the bitrate, in one value: `<codec>_<sample rate in Hz>_<bitrate in kbps>`. It is case-insensitive, and an unknown name returns `400 invalid_request` with the list of supported formats in its message.
+`outputFormat` names the codec, the sample rate and, for compressed formats, the bitrate, in one value: `<codec>_<sample rate in Hz>_<bitrate in kbps>`.
 
 | Codec | Formats | Content-Type | Extension |
 | --- | --- | --- | --- |
@@ -139,21 +113,6 @@ The format never changes the price.
 - **WAV headers.** A `wav_*` stream starts with a header whose sizes are placeholders, because the length isn't known yet. Players may show a wrong duration but play to the real end. Use `pcm_*` if your pipeline reads the header.
 - **Time to first audio.** Raw PCM, μ-law and A-law start fastest. MP3 adds a few tens of milliseconds; Opus adds around 150 to 200 ms, because its first Ogg page is only sent once full.
 - **Read promptly.** A stream counts against your [concurrency](#concurrency) until its body has been fully read or the connection is closed.
-
----
-
-## Response headers
-
-Every successful response carries:
-
-| Header | |
-| --- | --- |
-| `X-Generation-Id` | The id of this generation, 24 hexadecimal characters, different on every request. Keep it: it is how support finds a specific generation. |
-| `X-Output-Format` | The format the audio is in. |
-| `X-Model` | The model that generated the audio. |
-| `X-Tier` | The tier you asked for, `standard` or `priority`. |
-| `X-Tier-Charged` | The rate you were charged, `standard` or `priority`. See [Tiers](#tiers). |
-| `X-Characters` | The number of characters billed. Not sent on Streaming. |
 
 ---
 
@@ -203,7 +162,7 @@ Charges are fractions of a credit, so the balance shown by [Get Account](/api-re
 
 ## Errors
 
-Every refusal is a JSON object with a machine-readable `code` and a human-readable `message`, validation errors included:
+Every error is a JSON object with a machine-readable `code` and a human-readable `message`:
 
 ```json
 {
@@ -212,16 +171,9 @@ Every refusal is a JSON object with a machine-readable `code` and a human-readab
 }
 ```
 
-```json
-{
-  "code": "concurrency_limit_exceeded",
-  "message": "Too many concurrent requests: 2 of 2 allowed for this account are in flight. Wait for one to finish, then retry."
-}
-```
-
 | Status | `code` | When | Retry? |
 | --- | --- | --- | --- |
-| `400` | `invalid_request` | `text` missing or over 5,000 characters, an unknown `modelId` or `outputFormat`, a `pace`, `tier` or `addressee` value not in its list, a field the API does not know, or a body that is not valid JSON. The message says which. | No, fix the request |
+| `400` | `invalid_request` | A missing or invalid field, a field the API does not know, or a body that is not valid JSON. The message says which. | No, fix the request |
 | `401` | — | Missing, malformed or unknown credentials | No |
 | `402` | `insufficient_credits` | The account has no credits left | After topping up |
 | `402` | `debt_limit_reached` | The account has reached its debt limit | After topping up |
@@ -242,14 +194,7 @@ None of these charges credits.
 
 [Clone a Voice](/api-reference/v2/speech/clone-voice) builds a voice from one recording, sent as `multipart/form-data`, and returns its `voiceId`, ready for Text to Speech.
 
-| Field | Required | |
-| --- | --- | --- |
-| `audio` | Yes | One recording: 5 to 60 seconds of clear, continuous speech, one person, no music or background noise. Up to 20 MB, as WAV, MP3, M4A, OGG or WEBM. |
-| `name` | Yes | How the voice appears in your library. |
-| `language` | Yes | The language the speaker is speaking, as one BCP-47 tag. The voice speaks only this language. English and Spanish need the region, which is the accent: `en-US`, `en-GB`, `en-AU`, `en-CA`, `en-IE`, `en-IN`, `es-ES`, `es-MX`, `es-AR`, `es-CO`, `es-VE`. Other languages: `he-IL`, `fr-FR`, `de-DE`, `it-IT` (a bare `he`, `fr`, `de` or `it` is accepted). |
-| `consent` | Yes | Must be `true`: you confirm you have the speaker's permission to clone their voice. |
-| `gender` | No | `female` or `male`. Used only to filter the library. |
-| `tags` | No | Up to 3 labels, for example `warm` or `support`. |
+Record one person speaking clearly, with no music or background noise. Set `language` to the language of the recording: the voice speaks only that language, and for English and Spanish the region (`en-GB`, `es-MX`) is the voice's accent.
 
 ```bash
 curl -X POST https://api.nlpearl.ai/v2/Speech/Clone \
@@ -272,7 +217,7 @@ The response is the new voice:
 
 - A voice cloned through the API is always **private** to your account. Publishing it to the shared library is done from [Voice Studio](/pages/voice_studio#publishing-a-voice).
 - A recording that cannot be used, for example one with too little speech, returns `422 invalid_audio`, and nothing is charged.
-- Cloning is currently free (`X-Credits-Charged: 0`) and limited to **20 attempts per hour** per account. Your plan also caps how many voices you can hold (`429 voice_limit_reached`) and create in 30 days (`403 clone_limit_reached`).
+- Cloning is currently free (`X-Credits-Charged: 0`) and limited to **20 attempts per hour** per account (`429 rate_limit_exceeded`). Your plan also caps how many voices you can hold (`429 voice_limit_reached`) and create in 30 days (`403 clone_limit_reached`).
 
 <Warning>
 Only clone a voice that is your own, or one you hold documented written permission to use. Cloning someone's voice without their explicit permission is not permitted.
