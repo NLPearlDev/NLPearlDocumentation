@@ -1570,6 +1570,110 @@
                 }
             }
         },
+        "/v2/Pearl/{pearlId}/WebCall": {
+            "post": {
+                "tags": [
+                    "Pearl"
+                ],
+                "summary": "Create a Web Call",
+                "description": "Creates a call whose audio your server streams to the agent over a WebSocket. The response carries the WebSocket url, a single-use ticket (valid 60 seconds) and the audio format to send. endUserId is your identifier for the person on the call and is searchable like a phone number.",
+                "parameters": [
+                    {
+                        "name": "pearlId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "endUserId"
+                                ],
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/WebCallCreateRequest"
+                                    }
+                                ],
+                                "description": "Represents the data required to create a web call."
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "required": [
+                                    "endUserId"
+                                ],
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/WebCallCreateRequest"
+                                    }
+                                ],
+                                "description": "Represents the data required to create a web call."
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "required": [
+                                    "endUserId"
+                                ],
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/WebCallCreateRequest"
+                                    }
+                                ],
+                                "description": "Represents the data required to create a web call."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The call was created; connect with the ticket before it expires.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WebCallCreated"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WebCallCreated"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WebCallCreated"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v2/Pearl": {
             "get": {
                 "tags": [
@@ -3616,7 +3720,6 @@
                 "summary": "Text to Speech",
                 "description": "Generates speech from text with one of your voices and returns the whole clip in a single response.",
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -3631,7 +3734,8 @@
                                 "outputFormat": "mp3_44100_128"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "responses": {
                     "200": {
@@ -3835,7 +3939,6 @@
                 "summary": "Text to Speech (Streaming)",
                 "description": "Generates speech from text with one of your voices and streams the audio as it is produced.",
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -3850,7 +3953,8 @@
                                 "outputFormat": "mp3_44100_128"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "responses": {
                     "200": {
@@ -4028,18 +4132,26 @@
                 "summary": "Clone a Voice",
                 "description": "Creates a private voice from a recording and adds it to your voices.",
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "multipart/form-data": {
                             "schema": {
                                 "$ref": "#/components/schemas/CloneVoiceRequestApi"
                             }
                         }
-                    }
+                    },
+                    "required": true
                 },
                 "responses": {
                     "200": {
                         "description": "The new voice's id.",
+                        "headers": {
+                            "X-Credits-Charged": {
+                                "description": "Credits charged for the clone.",
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -4047,14 +4159,6 @@
                                 },
                                 "example": {
                                     "voiceId": "6a2f41c9e8b7d3a15c0f9e42"
-                                }
-                            }
-                        },
-                        "headers": {
-                            "X-Credits-Charged": {
-                                "description": "Credits charged for the clone.",
-                                "schema": {
-                                    "type": "integer"
                                 }
                             }
                         }
@@ -5174,6 +5278,16 @@
                         "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
                         "format": "int32",
                         "nullable": true
+                    },
+                    "channel": {
+                        "type": "string",
+                        "description": "How the call was connected: `phone` for a phone call, `web` for a web call streamed by your server over a WebSocket.",
+                        "nullable": true
+                    },
+                    "audioQuality": {
+                        "type": "string",
+                        "description": "The audio quality of the call: `phone` for telephone quality (8 kHz), `hd` for high-definition audio (24 kHz). Always `phone` for phone calls.",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -5234,6 +5348,16 @@
                         "type": "integer",
                         "description": "The duration of the call in seconds.",
                         "format": "int32",
+                        "nullable": true
+                    },
+                    "channel": {
+                        "type": "string",
+                        "description": "How the call was connected: `phone` for a phone call, `web` for a web call streamed by your server over a WebSocket.",
+                        "nullable": true
+                    },
+                    "audioQuality": {
+                        "type": "string",
+                        "description": "The audio quality of the call: `phone` for telephone quality (8 kHz), `hd` for high-definition audio (24 kHz). Always `phone` for phone calls.",
                         "nullable": true
                     },
                     "tags": {
@@ -5415,7 +5539,7 @@
                 "properties": {
                     "id": {
                         "type": "string",
-                        "description": "Identifier of the label.\r\n            \r\nIf not provided, it will be generated automatically.\r\n            \r\nImportant:\r\n- The ID is the stable identifier of the label.\r\n- Changing the ID creates a new label.\r\n- Keeping the same ID while updating the name/description updates the existing label.\r\n            \r\nConstraints:\r\n- Exactly 6 characters.\r\n- Letters only (A–Z, a–z).",
+                        "description": "Identifier of the label.\r\n            \r\nIf not provided, it will be generated automatically.\r\n            \r\nImportant:\r\n- The ID is the stable identifier of the label.\r\n- Changing the ID creates a new label.\r\n- Keeping the same ID while updating the name/description updates the existing label.\r\n            \r\nConstraints:\r\n- Max 30 characters.",
                         "nullable": true
                     },
                     "name": {
@@ -5434,7 +5558,7 @@
                                 "$ref": "#/components/schemas/ePredefinedCallLabelColors"
                             }
                         ],
-                        "description": "The color of the indicator tag.\n\n`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`8 - gradient1`\n\n`9 - gradient2`\n\n"
+                        "description": "The color of the indicator tag.\n\n`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`10 - gradient1`\n\n`9 - gradient2`\n\n"
                     }
                 },
                 "additionalProperties": false
@@ -5522,6 +5646,16 @@
                         "type": "integer",
                         "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
                         "format": "int32",
+                        "nullable": true
+                    },
+                    "channel": {
+                        "type": "string",
+                        "description": "How the call was connected: `phone` for a phone call, `web` for a web call streamed by your server over a WebSocket.",
+                        "nullable": true
+                    },
+                    "audioQuality": {
+                        "type": "string",
+                        "description": "The audio quality of the call: `phone` for telephone quality (8 kHz), `hd` for high-definition audio (24 kHz). Always `phone` for phone calls.",
                         "nullable": true
                     }
                 },
@@ -6055,6 +6189,55 @@
                 },
                 "additionalProperties": false,
                 "description": "A phone number of the account as exposed by the API. For custom VoIP numbers it also carries the\r\nconfigured inbound and/or outbound SIP setup (passwords are never returned)."
+            },
+            "CloneVoiceRequestApi": {
+                "required": [
+                    "audio",
+                    "name",
+                    "language",
+                    "consent"
+                ],
+                "type": "object",
+                "properties": {
+                    "audio": {
+                        "type": "string",
+                        "description": "A recording of one speaker: 5 to 60 seconds of clear speech with no background noise. WAV, MP3, M4A, OGG or WEBM, up to 20 MB.",
+                        "format": "binary"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The voice's name."
+                    },
+                    "language": {
+                        "type": "string",
+                        "description": "The language of the recording, as a BCP-47 tag. English and Spanish need the region, which sets the accent.\n\n- English: `en-US`, `en-GB`, `en-AU`, `en-CA`, `en-IE`, `en-IN`\n- Spanish: `es-ES`, `es-MX`, `es-AR`, `es-CO`, `es-VE`\n- French: `fr-FR`\n- German: `de-DE`\n- Italian: `it-IT`",
+                        "example": "en-US"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "The speaker's gender.\n\n`female`\n\n`male`\n\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Up to 3 labels, such as `warm` or `support`."
+                    },
+                    "consent": {
+                        "type": "boolean",
+                        "description": "Must be `true`, confirming you have the speaker's permission to clone their voice."
+                    }
+                }
+            },
+            "CloneVoiceResponseApi": {
+                "type": "object",
+                "properties": {
+                    "voiceId": {
+                        "type": "string",
+                        "description": "The new voice's id."
+                    }
+                }
             },
             "CollectedInfoView": {
                 "type": "object",
@@ -6696,6 +6879,12 @@
                     "isSayQueueDetails": {
                         "type": "boolean",
                         "description": "When enabled, the caller is informed about queue details (for example how many callers are ahead) while waiting."
+                    },
+                    "callTimeout": {
+                        "type": "integer",
+                        "description": "Maximum call duration (in minutes). The call is ended when this limit is reached.\r\n            \r\nConstraints:\r\n- Min 1 minute.\r\n- Max 120 minutes.",
+                        "format": "int32",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false,
@@ -6767,6 +6956,14 @@
                             }
                         ],
                         "description": "When enabled, the caller is informed about queue details (for example how many callers are ahead) while waiting."
+                    },
+                    "callTimeout": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Int32NullableOptionalType"
+                            }
+                        ],
+                        "description": "Maximum call duration (in minutes). The call is ended when this limit is reached.\r\n            \r\nConstraints:\r\n- Min 1 minute.\r\n- Max 120 minutes."
                     }
                 },
                 "additionalProperties": false,
@@ -8416,6 +8613,59 @@
                 },
                 "additionalProperties": false
             },
+            "SpeechErrorApi": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "The error code, for example `voice_not_found`."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "What went wrong."
+                    }
+                }
+            },
+            "SpeechRequestApi": {
+                "required": [
+                    "text",
+                    "voiceId"
+                ],
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "maxLength": 5000,
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The text to speak, in the voice's language."
+                    },
+                    "voiceId": {
+                        "type": "string",
+                        "description": "The voice to use. List your voices with [Get Voices](/api-reference/v2/pearlSettings/get-voices)."
+                    },
+                    "modelId": {
+                        "type": "string",
+                        "description": "The speech model.\n\n`nlpearl-v2-preview`\n\n",
+                        "default": "nlpearl-v2-preview"
+                    },
+                    "pace": {
+                        "type": "string",
+                        "description": "How fast the voice speaks.\n\n`very_slow`\n\n`slow`\n\n`medium`\n\n`fast`\n\n`very_fast`\n\n",
+                        "default": "medium"
+                    },
+                    "tier": {
+                        "type": "string",
+                        "description": "Your place in the queue when the service is busy. `priority` goes ahead of waiting `standard` requests and is charged at the Priority rate only when it did.\n\n`standard`\n\n`priority`\n\n",
+                        "default": "standard"
+                    },
+                    "outputFormat": {
+                        "type": "string",
+                        "description": "Codec, sample rate and bitrate of the audio, for example `mp3_44100_128`, `pcm_16000` or `ulaw_8000`.\n\n`pcm_8000`\n\n`pcm_16000`\n\n`pcm_22050`\n\n`pcm_24000`\n\n`pcm_44100`\n\n`pcm_48000`\n\n`wav_8000`\n\n`wav_16000`\n\n`wav_22050`\n\n`wav_24000`\n\n`wav_44100`\n\n`wav_48000`\n\n`ulaw_8000`\n\n`alaw_8000`\n\n`mp3_22050_32`\n\n`mp3_44100_32`\n\n`mp3_44100_64`\n\n`mp3_44100_96`\n\n`mp3_44100_128`\n\n`mp3_44100_192`\n\n`opus_48000_32`\n\n`opus_48000_64`\n\n`opus_48000_96`\n\n`opus_48000_128`\n\n`opus_48000_192`\n\n",
+                        "default": "mp3_44100_128"
+                    }
+                },
+                "additionalProperties": false
+            },
             "StringOptionalType": {
                 "type": "object",
                 "properties": {
@@ -8862,6 +9112,97 @@
                 },
                 "additionalProperties": false
             },
+            "WebCallAudioFormat": {
+                "type": "object",
+                "properties": {
+                    "encoding": {
+                        "type": "string",
+                        "description": "The audio encoding: `mulaw` (8-bit mu-law) or `pcm_s16le` (16-bit little-endian PCM).",
+                        "nullable": true
+                    },
+                    "sampleRate": {
+                        "type": "integer",
+                        "description": "The sample rate, in hertz: `8000` or `24000`.",
+                        "format": "int32"
+                    },
+                    "channels": {
+                        "type": "integer",
+                        "description": "The number of audio channels: always `1` (mono).",
+                        "format": "int32"
+                    },
+                    "frameMs": {
+                        "type": "integer",
+                        "description": "The duration of each audio frame, in milliseconds.",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents the audio format of a web call, the same in both directions."
+            },
+            "WebCallCreateRequest": {
+                "required": [
+                    "endUserId"
+                ],
+                "type": "object",
+                "properties": {
+                    "endUserId": {
+                        "type": "string",
+                        "description": "Your identifier for the person on the call, up to 200 characters. It stands where a phone number would: the call shows it as its number, and you can search calls by it.",
+                        "nullable": true
+                    },
+                    "callData": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\n            \r\nSee [Variables](/pages/variables) for more information.\r\nHere is an example of the json to send:\r\n            \r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
+                        "nullable": true
+                    },
+                    "quality": {
+                        "type": "string",
+                        "description": "The audio format of the call, the same in both directions: `ulaw_8000` (8 kHz mu-law, the default) or `pcm_24000` (24 kHz 16-bit PCM).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents the data required to create a web call."
+            },
+            "WebCallCreated": {
+                "type": "object",
+                "properties": {
+                    "callId": {
+                        "type": "string",
+                        "description": "The id of the call, to follow it like any other call, for example with [Get Call](/api-reference/v2/call/get-call).",
+                        "nullable": true
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "The WebSocket URL to connect to.",
+                        "nullable": true
+                    },
+                    "ticket": {
+                        "type": "string",
+                        "description": "A single-use ticket that admits one connection to `url`. Send it in the `Authorization: Bearer` header of the WebSocket request, or as the `ticket` query parameter when connecting from a browser.",
+                        "nullable": true
+                    },
+                    "expiresAt": {
+                        "type": "string",
+                        "description": "When the ticket expires (UTC), 60 seconds after it was issued. Connect before then.",
+                        "format": "date-time"
+                    },
+                    "audio": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/WebCallAudioFormat"
+                            }
+                        ],
+                        "description": "The audio format to stream, the same in both directions.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents what your server needs to connect a web call."
+            },
             "eActivityStatus": {
                 "type": "integer",
                 "description": "Here is the activity status\n\n`1 - Running`\n\n`2 - Paused`\n\n`3 - Suspended`\n\n`10 - TemporaryMaintenance`\n\n",
@@ -8967,7 +9308,7 @@
             },
             "ePredefinedCallLabelColors": {
                 "type": "integer",
-                "description": "The color of the indicator tag.\n\n`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`8 - gradient1`\n\n`9 - gradient2`\n\n",
+                "description": "The color of the indicator tag.\n\n`1 - purple`\n\n`2 - red`\n\n`3 - yellow`\n\n`4 - green`\n\n`5 - blue`\n\n`6 - pink`\n\n`7 - teal`\n\n`8 - lime`\n\n`10 - gradient1`\n\n`9 - gradient2`\n\n",
                 "format": "int32"
             },
             "eProjectType": {
@@ -9045,153 +9386,6 @@
                 "type": "integer",
                 "description": "The version of the voice:\n\n`1 - V1`\n\n`2 - V2`\n\n",
                 "format": "int32"
-            },
-            "SpeechRequestApi": {
-                "required": [
-                    "text",
-                    "voiceId"
-                ],
-                "type": "object",
-                "properties": {
-                    "text": {
-                        "maxLength": 5000,
-                        "minLength": 1,
-                        "type": "string",
-                        "description": "The text to speak, in the voice's language."
-                    },
-                    "voiceId": {
-                        "type": "string",
-                        "description": "The voice to use. List your voices with [Get Voices](/api-reference/v2/pearlSettings/get-voices)."
-                    },
-                    "modelId": {
-                        "type": "string",
-                        "enum": [
-                            "nlpearl-v2-preview"
-                        ],
-                        "default": "nlpearl-v2-preview",
-                        "description": "The speech model."
-                    },
-                    "pace": {
-                        "type": "string",
-                        "enum": [
-                            "very_slow",
-                            "slow",
-                            "medium",
-                            "fast",
-                            "very_fast"
-                        ],
-                        "default": "medium",
-                        "description": "How fast the voice speaks."
-                    },
-                    "tier": {
-                        "type": "string",
-                        "enum": [
-                            "standard",
-                            "priority"
-                        ],
-                        "default": "standard",
-                        "description": "Your place in the queue when the service is busy. `priority` goes ahead of waiting `standard` requests and is charged at the Priority rate only when it did."
-                    },
-                    "outputFormat": {
-                        "type": "string",
-                        "enum": [
-                            "pcm_8000",
-                            "pcm_16000",
-                            "pcm_22050",
-                            "pcm_24000",
-                            "pcm_44100",
-                            "pcm_48000",
-                            "wav_8000",
-                            "wav_16000",
-                            "wav_22050",
-                            "wav_24000",
-                            "wav_44100",
-                            "wav_48000",
-                            "ulaw_8000",
-                            "alaw_8000",
-                            "mp3_22050_32",
-                            "mp3_44100_32",
-                            "mp3_44100_64",
-                            "mp3_44100_96",
-                            "mp3_44100_128",
-                            "mp3_44100_192",
-                            "opus_48000_32",
-                            "opus_48000_64",
-                            "opus_48000_96",
-                            "opus_48000_128",
-                            "opus_48000_192"
-                        ],
-                        "default": "mp3_44100_128",
-                        "description": "Codec, sample rate and bitrate of the audio, for example `mp3_44100_128`, `pcm_16000` or `ulaw_8000`."
-                    }
-                },
-                "additionalProperties": false
-            },
-            "SpeechErrorApi": {
-                "type": "object",
-                "properties": {
-                    "code": {
-                        "type": "string",
-                        "description": "The error code, for example `voice_not_found`."
-                    },
-                    "message": {
-                        "type": "string",
-                        "description": "What went wrong."
-                    }
-                }
-            },
-            "CloneVoiceRequestApi": {
-                "required": [
-                    "audio",
-                    "name",
-                    "language",
-                    "consent"
-                ],
-                "type": "object",
-                "properties": {
-                    "audio": {
-                        "type": "string",
-                        "format": "binary",
-                        "description": "A recording of one speaker: 5 to 60 seconds of clear speech with no background noise. WAV, MP3, M4A, OGG or WEBM, up to 20 MB."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The voice's name."
-                    },
-                    "language": {
-                        "type": "string",
-                        "example": "en-US",
-                        "description": "The language of the recording, as a BCP-47 tag. English and Spanish need the region, which sets the accent.\n\n- English: `en-US`, `en-GB`, `en-AU`, `en-CA`, `en-IE`, `en-IN`\n- Spanish: `es-ES`, `es-MX`, `es-AR`, `es-CO`, `es-VE`\n- French: `fr-FR`\n- German: `de-DE`\n- Italian: `it-IT`"
-                    },
-                    "gender": {
-                        "type": "string",
-                        "enum": [
-                            "female",
-                            "male"
-                        ],
-                        "description": "The speaker's gender."
-                    },
-                    "tags": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "Up to 3 labels, such as `warm` or `support`."
-                    },
-                    "consent": {
-                        "type": "boolean",
-                        "description": "Must be `true`, confirming you have the speaker's permission to clone their voice."
-                    }
-                }
-            },
-            "CloneVoiceResponseApi": {
-                "type": "object",
-                "properties": {
-                    "voiceId": {
-                        "type": "string",
-                        "description": "The new voice's id."
-                    }
-                }
             }
         },
         "securitySchemes": {
@@ -9213,6 +9407,7 @@
                             "pearls:analytics": "Read Pearl analytics; implies pearls:read",
                             "pearls:leads": "Manage and read outbound leads; implies pearls:read",
                             "pearls:calls": "Read calls and recordings, make and delete calls; implies pearls:read",
+                            "pearls:web_calls": "Create web calls (audio over WebSocket from your server); implies pearls:read",
                             "account:phone_numbers": "Read account phone numbers and text channels, manage custom VoIP numbers, import Twilio numbers and delete phone numbers",
                             "account:users": "Read account users",
                             "account:advanced": "Manage advanced account settings (blacklist)",

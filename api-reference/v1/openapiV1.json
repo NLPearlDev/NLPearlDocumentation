@@ -2637,6 +2637,14 @@
                         "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
                         "format": "int32",
                         "nullable": true
+                    },
+                    "channel": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "audioQuality": {
+                        "type": "string",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -2756,6 +2764,14 @@
                         "type": "integer",
                         "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
                         "format": "int32",
+                        "nullable": true
+                    },
+                    "channel": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "audioQuality": {
+                        "type": "string",
                         "nullable": true
                     }
                 },
@@ -3999,6 +4015,7 @@
                             "pearls:analytics": "Read Pearl analytics; implies pearls:read",
                             "pearls:leads": "Manage and read outbound leads; implies pearls:read",
                             "pearls:calls": "Read calls and recordings, make and delete calls; implies pearls:read",
+                            "pearls:web_calls": "Create web calls (audio over WebSocket from your server); implies pearls:read",
                             "account:phone_numbers": "Read account phone numbers and text channels, manage custom VoIP numbers, import Twilio numbers and delete phone numbers",
                             "account:users": "Read account users",
                             "account:advanced": "Manage advanced account settings (blacklist)",
