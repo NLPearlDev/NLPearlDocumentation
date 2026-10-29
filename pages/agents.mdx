@@ -43,6 +43,8 @@ The more agents you own, the more activity you can run in parallel. What a singl
 <CardGroup cols={2}>
   <Card title="Voice calls" icon="phone" iconType="light">
     Each agent handles **one call at a time**. With 5 agents, you can run **5 calls simultaneously** — a 6th call waits until one frees up.
+
+    Phone calls and [Realtime API](/pages/realtime/overview) calls share the same agents. A Realtime API call that finds no free agent is **refused**, not queued.
   </Card>
   <Card title="Text conversations" icon="comments" iconType="light">
     Each agent adds **3 messages per minute** of throughput. With 10 agents, that's up to **30 messages per minute**, spread across all your open chats.

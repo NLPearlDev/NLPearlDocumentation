@@ -113,10 +113,10 @@ The **Call Webhook** is triggered at the start and at the end of every call. It 
 | `startTime` | `datetime` | The date and time when the call processing started. |
 | `conversationStatus` | `int (enum)` | The status of the conversation. See [Conversation Statuses](#conversation-statuses) below. |
 | `status` | `int (enum)` | The overall technical status of the call. See [Call Statuses](#call-statuses) below. |
-| `from` | `string` | The phone number from which the call was made. On a [web call](/api-reference/web_calls), the `endUserId` on an inbound Pearl, `PearlWeb` on an outbound one. |
-| `to` | `string` | The phone number to which the call was made. On a web call, `PearlWeb` on an inbound Pearl, the `endUserId` on an outbound one. |
-| `channel` | `string` | `phone` for a phone call, `web` for a [web call](/api-reference/web_calls). |
-| `audioQuality` | `string` | `hd` for a web call made in `pcm_24000`, `phone` for every other call. |
+| `from` | `string` | The phone number from which the call was made. On a [Realtime API](/pages/realtime/overview) call, the `endUserId` on an inbound Pearl, `PearlWeb` on an outbound one. |
+| `to` | `string` | The phone number to which the call was made. On a Realtime API call, `PearlWeb` on an inbound Pearl, the `endUserId` on an outbound one. |
+| `channel` | `string` | `phone` for a phone call, `websocket` for a [Realtime API](/pages/realtime/overview) call. |
+| `audioQuality` | `string` | `hd` for a Realtime API call made in `pcm_24000`, `phone` for every other call. |
 | `name` | `string` | The name associated with the call, if available. |
 | `duration` | `integer` | The duration of the conversation with Pearl, in seconds (queue and transfer time excluded). |
 | `queueDuration` | `integer` | The time in seconds the caller waited in the inbound queue before Pearl picked up (the whole wait if they hung up while still queued). `null` if the call did not go through the queue. |
@@ -356,10 +356,10 @@ The **Call Webhook** is triggered at the start and at the end of every call.
 | `StartTime` | `datetime` | The date and time when the call processing started. |
 | `ConversationStatus` | `int (enum)` | The status of the conversation. See [Conversation Statuses](#conversation-statuses-v1) below. |
 | `Status` | `int (enum)` | The overall technical status of the call. See [Call Statuses](#call-statuses-v1) below. |
-| `From` | `string` | The phone number from which the call was made. On a [web call](/api-reference/web_calls), the `endUserId` on an inbound Pearl, `PearlWeb` on an outbound one. |
-| `To` | `string` | The phone number to which the call was made. On a web call, `PearlWeb` on an inbound Pearl, the `endUserId` on an outbound one. |
-| `Channel` | `string` | `phone` for a phone call, `web` for a [web call](/api-reference/web_calls). |
-| `AudioQuality` | `string` | `hd` for a web call made in `pcm_24000`, `phone` for every other call. |
+| `From` | `string` | The phone number from which the call was made. On a [Realtime API](/pages/realtime/overview) call, the `endUserId` on an inbound Pearl, `PearlWeb` on an outbound one. |
+| `To` | `string` | The phone number to which the call was made. On a Realtime API call, `PearlWeb` on an inbound Pearl, the `endUserId` on an outbound one. |
+| `Channel` | `string` | `phone` for a phone call, `websocket` for a [Realtime API](/pages/realtime/overview) call. |
+| `AudioQuality` | `string` | `hd` for a Realtime API call made in `pcm_24000`, `phone` for every other call. |
 | `Name` | `string` | The name associated with the call, if available. |
 | `Duration` | `integer` | The duration of the conversation with Pearl, in seconds (queue and transfer time excluded). |
 | `QueueDuration` | `integer` | The time in seconds the caller waited in the inbound queue before Pearl picked up (the whole wait if they hung up while still queued). `null` if the call did not go through the queue. |

@@ -1,0 +1,204 @@
+---
+title: "Browser App"
+description: "Talk to your Pearl from a web page: the microphone in, the Pearl's voice out."
+icon: "browser"
+iconType: "light"
+---
+
+A web page that talks to your Pearl, in four small files. Your server creates the connection and keeps the API key; the page connects with the ticket, streams the microphone and plays the Pearl through a small jitter buffer, all at 24 kHz HD.
+
+```text
+server.mjs            creates the connection (your API key stays here)
+public/index.html     two buttons
+public/app.js         the WebSocket
+public/pearl-audio.js the microphone and the speaker, in an AudioWorklet
+```
+
+## The server
+
+Node.js 18 or later: `npm install express`.
+
+```javascript server.mjs
+// server.mjs: serves the page and creates the connection. Your API key stays here.
+import express from "express";
+
+const app = express();
+app.use(express.static("public"));
+
+app.post("/pearl-call", async (req, res) => {
+  const response = await fetch(`https://api.nlpearl.ai/v2/Pearl/${process.env.NLPEARL_PEARL_ID}/WebSocket`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${process.env.NLPEARL_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ endUserId: "visitor-123", audioFormat: "pcm_24000" }),   // your own id for the visitor
+  });
+  res.status(response.status).json(await response.json());   // { callId, url, ticket, expiresAt, audio }
+});
+
+app.listen(3000, () => console.log("http://localhost:3000"));
+```
+
+Use your own id for the visitor as `endUserId`, so the Pearl remembers them and their calls are grouped in the call history.
+
+## The page
+
+```html public/index.html
+<!doctype html>
+<html>
+  <body>
+    <button id="talk">Talk to the Pearl</button>
+    <button id="hang-up">Hang up</button>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
+```
+
+```javascript public/app.js
+// app.js: asks your server for a connection, then streams the microphone to the Pearl and plays its voice.
+const talk = document.querySelector("#talk");
+const hangUp = document.querySelector("#hang-up");
+
+talk.onclick = async () => {
+  talk.disabled = true;
+  const call = await (await fetch("/pearl-call", { method: "POST" })).json();   // { url, ticket, audio, ... }
+
+  const microphone = await navigator.mediaDevices.getUserMedia({
+    audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true },
+  });
+  const context = new AudioContext({ sampleRate: 24000 });   // the browser resamples the microphone to 24 kHz
+  await context.audioWorklet.addModule("pearl-audio.js");
+  const audio = new AudioWorkletNode(context, "pearl-audio", { outputChannelCount: [1] });
+  context.createMediaStreamSource(microphone).connect(audio).connect(context.destination);
+
+  const ws = new WebSocket(`${call.url}?ticket=${call.ticket}`);
+  ws.binaryType = "arraybuffer";
+  let ready = false;
+
+  // The end user: one 960-byte frame every 20 ms, from the worklet
+  audio.port.onmessage = (event) => {
+    if (ready && ws.readyState === WebSocket.OPEN) ws.send(event.data);
+  };
+
+  ws.onmessage = (message) => {
+    if (typeof message.data !== "string") {
+      // The Pearl: 20 ms of 16-bit PCM, to the worklet's jitter buffer
+      const pcm = new Int16Array(message.data);
+      const samples = Float32Array.from(pcm, (sample) => sample / 0x8000);
+      audio.port.postMessage(samples, [samples.buffer]);
+      return;
+    }
+    const event = JSON.parse(message.data);
+    if (event.type === "ready") ready = true;
+    if (event.type === "transfer") console.log("transfer to", event.target);
+    if (event.type === "ended") console.log("ended:", event.reason);
+  };
+
+  ws.onclose = (event) => {
+    console.log("closed", event.code);   // 1006 at once: the ticket was refused
+    microphone.getTracks().forEach((track) => track.stop());
+    context.close();
+    talk.disabled = false;
+  };
+
+  hangUp.onclick = () => ws.send(JSON.stringify({ type: "hangup" }));
+};
+```
+
+## The audio
+
+An [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) runs in real time, which gives the pacing the protocol asks for without any timer: it sends one 20 ms frame of the microphone every 20 ms, silence included when the end user is muted, and plays the Pearl's frames once 80 ms are buffered.
+
+```javascript public/pearl-audio.js
+// pearl-audio.js: one AudioWorklet that records the microphone and plays the Pearl, both at 24 kHz.
+const FRAME = 480;        // 20 ms at 24 kHz
+const CUSHION = 1920;     // start playing with 80 ms buffered
+const MAX_BEHIND = 7200;  // past 300 ms buffered, drop the oldest audio
+
+class PearlAudio extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.mic = new Int16Array(FRAME);
+    this.micLength = 0;
+    this.queue = [];      // the Pearl's audio, as Float32Array chunks
+    this.offset = 0;      // read position in queue[0]
+    this.queued = 0;      // samples not played yet
+    this.playing = false;
+    this.port.onmessage = (event) => {
+      this.queue.push(event.data);
+      this.queued += event.data.length;
+    };
+  }
+
+  process(inputs, outputs) {
+    // The microphone: 20 ms frames of 16-bit PCM, in real time, silence included when muted.
+    const input = inputs[0][0];
+    if (input) {
+      for (let i = 0; i < input.length; i++) {
+        this.mic[this.micLength++] = Math.max(-1, Math.min(1, input[i])) * 0x7fff;
+        if (this.micLength === FRAME) {
+          this.port.postMessage(this.mic.buffer.slice(0));
+          this.micLength = 0;
+        }
+      }
+    }
+
+    // The Pearl: played through a small jitter buffer.
+    while (this.queued > MAX_BEHIND && this.queue.length > 1) {
+      this.queued -= this.queue.shift().length - this.offset;
+      this.offset = 0;
+    }
+    if (!this.playing && this.queued >= CUSHION) this.playing = true;
+    const output = outputs[0][0];
+    for (let i = 0; i < output.length; i++) {
+      if (!this.playing || this.queue.length === 0) {
+        output[i] = 0;
+        this.playing = false;   // ran dry after a stall: buffer again before playing
+        continue;
+      }
+      const chunk = this.queue[0];
+      output[i] = chunk[this.offset++];
+      this.queued--;
+      if (this.offset === chunk.length) {
+        this.queue.shift();
+        this.offset = 0;
+      }
+    }
+    return true;
+  }
+}
+
+registerProcessor("pearl-audio", PearlAudio);
+```
+
+## Run it
+
+```bash
+export NLPEARL_API_KEY="<AccountId>:<SecretKey>"
+export NLPEARL_PEARL_ID="<pearlId>"
+node server.mjs
+```
+
+Open `http://localhost:3000`, click **Talk to the Pearl** and allow the microphone.
+
+<Note>
+- Browsers allow the microphone only on `https://` pages and on `localhost`.
+- `AudioContext({ sampleRate: 24000 })` makes the browser resample the microphone to 24 kHz. Chrome, Edge and Safari do this; check your other target browsers.
+- On a laptop, test with headphones: browser echo cancellation does not always cover audio played through Web Audio, and the Pearl would hear itself.
+</Note>
+
+## Going further
+
+- **Phone quality:** with `audioFormat: "ulaw_8000"`, create the context at 8000 Hz, use 160-sample frames, and encode and decode μ-law in the worklet. HD needs no codec at all, which is why this page uses it.
+- **Hang-up button:** `hangup` is answered by `ended`, then the socket closes and `onclose` releases the microphone.
+- **Transfers:** a `transfer` event carries the target set on the Pearl. In a browser there is usually no phone line to pass on, so show the end user the next step instead, or let your server act on it.
+
+<CardGroup cols={2}>
+
+<Card title="Stream Call" icon="plug" iconType="light" href="/api-reference/v2/realtime/stream-call">
+  Every message, audio format, event and limit.
+</Card>
+
+<Card title="Twilio Media Streams" icon="arrows-left-right" iconType="light" href="/pages/realtime/twilio_media_streams">
+  Keep your own server in the middle of your Twilio calls.
+</Card>
+
+</CardGroup>

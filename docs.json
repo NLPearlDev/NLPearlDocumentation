@@ -91,6 +91,16 @@
                   "pages/custom_voip"
                 ]
               },
+              {
+                "group": "Realtime API",
+                "icon": "waveform-lines",
+                "pages": [
+                  "pages/realtime/overview",
+                  "pages/realtime/quickstart",
+                  "pages/realtime/browser",
+                  "pages/realtime/twilio_media_streams"
+                ]
+              },
               "pages/languages",
               {
                 "group": "Pearl Configurations",
@@ -190,8 +200,7 @@
                 ]
               },
               "api-reference/flow_variables",
-              "api-reference/building_a_flow",
-              "api-reference/python_wrapper"
+              "api-reference/building_a_flow"
             ]
           },
           {
@@ -289,11 +298,11 @@
                 ]
               },
               {
-                "group": "Web Calls",
+                "group": "Realtime API",
                 "expanded": true,
                 "pages": [
-                  "api-reference/v2/webCall/create-web-call",
-                  "api-reference/web_calls"
+                  "api-reference/v2/realtime/create-call",
+                  "api-reference/v2/realtime/stream-call"
                 ]
               }
             ]

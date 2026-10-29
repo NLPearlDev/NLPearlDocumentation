@@ -1570,12 +1570,12 @@
                 }
             }
         },
-        "/v2/Pearl/{pearlId}/WebCall": {
+        "/v2/Pearl/{pearlId}/WebSocket": {
             "post": {
                 "tags": [
                     "Pearl"
                 ],
-                "summary": "Create a Web Call",
+                "summary": "Create Realtime Call",
                 "description": "Creates a call whose audio your server streams to the agent over a WebSocket. The response carries the WebSocket url, a single-use ticket (valid 60 seconds) and the audio format to send. endUserId is your identifier for the person on the call and is searchable like a phone number.",
                 "parameters": [
                     {
@@ -1599,7 +1599,7 @@
                                         "$ref": "#/components/schemas/WebCallCreateRequest"
                                     }
                                 ],
-                                "description": "Represents the data required to create a web call."
+                                "description": "Represents the data required to create a WebSocket connection."
                             }
                         },
                         "text/json": {
@@ -1612,7 +1612,7 @@
                                         "$ref": "#/components/schemas/WebCallCreateRequest"
                                     }
                                 ],
-                                "description": "Represents the data required to create a web call."
+                                "description": "Represents the data required to create a WebSocket connection."
                             }
                         },
                         "application/*+json": {
@@ -1625,7 +1625,7 @@
                                         "$ref": "#/components/schemas/WebCallCreateRequest"
                                     }
                                 ],
-                                "description": "Represents the data required to create a web call."
+                                "description": "Represents the data required to create a WebSocket connection."
                             }
                         }
                     }
@@ -5281,7 +5281,7 @@
                     },
                     "channel": {
                         "type": "string",
-                        "description": "How the call was connected: `phone` for a phone call, `web` for a web call streamed by your server over a WebSocket.",
+                        "description": "How the call was connected: `phone` for a phone call, `websocket` for a Realtime API call.",
                         "nullable": true
                     },
                     "audioQuality": {
@@ -5352,7 +5352,7 @@
                     },
                     "channel": {
                         "type": "string",
-                        "description": "How the call was connected: `phone` for a phone call, `web` for a web call streamed by your server over a WebSocket.",
+                        "description": "How the call was connected: `phone` for a phone call, `websocket` for a Realtime API call.",
                         "nullable": true
                     },
                     "audioQuality": {
@@ -5650,7 +5650,7 @@
                     },
                     "channel": {
                         "type": "string",
-                        "description": "How the call was connected: `phone` for a phone call, `web` for a web call streamed by your server over a WebSocket.",
+                        "description": "How the call was connected: `phone` for a phone call, `websocket` for a Realtime API call.",
                         "nullable": true
                     },
                     "audioQuality": {
@@ -9137,7 +9137,7 @@
                     }
                 },
                 "additionalProperties": false,
-                "description": "Represents the audio format of a web call, the same in both directions."
+                "description": "Represents the audio format of a call over WebSocket, the same in both directions."
             },
             "WebCallCreateRequest": {
                 "required": [
@@ -9147,7 +9147,7 @@
                 "properties": {
                     "endUserId": {
                         "type": "string",
-                        "description": "Your identifier for the person on the call, up to 200 characters. It stands where a phone number would: the call shows it as its number, and you can search calls by it.",
+                        "description": "Your own id for the person on the call, up to 200 characters. It takes the place of a phone number: the call history shows it as the call's from or to and you can search calls by it, the Pearl remembers the person by it, and the flow gets it wherever it uses the caller's number. Send one value per person: never the same value for different people.",
                         "nullable": true
                     },
                     "callData": {
@@ -9158,14 +9158,14 @@
                         "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\n            \r\nSee [Variables](/pages/variables) for more information.\r\nHere is an example of the json to send:\r\n            \r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
                         "nullable": true
                     },
-                    "quality": {
+                    "audioFormat": {
                         "type": "string",
                         "description": "The audio format of the call, the same in both directions: `ulaw_8000` (8 kHz mu-law, the default) or `pcm_24000` (24 kHz 16-bit PCM).",
                         "nullable": true
                     }
                 },
                 "additionalProperties": false,
-                "description": "Represents the data required to create a web call."
+                "description": "Represents the data required to create a WebSocket connection."
             },
             "WebCallCreated": {
                 "type": "object",
@@ -9201,7 +9201,7 @@
                     }
                 },
                 "additionalProperties": false,
-                "description": "Represents what your server needs to connect a web call."
+                "description": "Represents what your server needs to connect over the WebSocket."
             },
             "eActivityStatus": {
                 "type": "integer",
@@ -9407,7 +9407,7 @@
                             "pearls:analytics": "Read Pearl analytics; implies pearls:read",
                             "pearls:leads": "Manage and read outbound leads; implies pearls:read",
                             "pearls:calls": "Read calls and recordings, make and delete calls; implies pearls:read",
-                            "pearls:web_calls": "Create web calls (audio over WebSocket from your server); implies pearls:read",
+                            "pearls:websocket": "Make Realtime API calls (audio streamed over a WebSocket); implies pearls:read",
                             "account:phone_numbers": "Read account phone numbers and text channels, manage custom VoIP numbers, import Twilio numbers and delete phone numbers",
                             "account:users": "Read account users",
                             "account:advanced": "Manage advanced account settings (blacklist)",

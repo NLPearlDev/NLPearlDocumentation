@@ -1,0 +1,222 @@
+---
+title: "Stream Realtime Call"
+sidebarTitle: "Stream Call"
+api: "GET wss://agents.nlpearl.ai/WebCall"
+playground: "simple"
+description: "The WebSocket of a Realtime API call: send the end user's audio, receive the Pearl's voice and the call's events."
+---
+
+The second step of a Realtime API call. [Create Call](/api-reference/v2/realtime/create-call) returns the `url` and a `ticket`: open `url?ticket=<ticket>`, for example `wss://agents.nlpearl.ai/WebCall?ticket=wct_...`, within 60 seconds, and the conversation runs on this connection until the call ends.
+
+## Connection
+
+<ParamField query="ticket" type="string" required>
+  The `ticket` from Create Call, starting with `wct_`. It is single use and valid for 60 seconds. From a server you can send it in the `Authorization: Bearer wct_...` header instead.
+</ParamField>
+
+Always open the `url` that Create Call returns rather than a fixed address. No subprotocol is needed.
+
+| Status | Meaning |
+| --- | --- |
+| `101` | Connected. The Pearl sends `ready` at once. |
+| `400` | Not a WebSocket upgrade request. |
+| `401` | The ticket is missing, unknown, expired or already used. Create a new call. |
+| `410` | The call was ended before anyone connected, for example from the NLPearl platform. Create a new call. |
+
+A browser does not show the status of a refused connection: the socket closes at once with code `1006`.
+
+---
+
+## Send
+
+What your app sends. Audio is binary, everything else is a JSON text message.
+
+### Audio
+
+20 ms of the end user's audio, as a binary message, **every 20 ms for the whole call**. Start after `ready`.
+
+- Raw bytes in the call's [audio format](#audio-formats): 160 bytes in `ulaw_8000`, 960 bytes in `pcm_24000`.
+- When the end user is quiet or muted, send silence frames, not nothing.
+- Other frame lengths are accepted when they hold whole samples. A message may be up to 16 KB.
+
+### `hangup`
+
+```json
+{ "type": "hangup" }
+```
+
+Ends the call. The Pearl answers with `ended` (`client_hangup`), then closes the connection.
+
+### `ping`
+
+```json
+{ "type": "ping" }
+```
+
+Optional, and not answered. It only counts as activity for the 60-second `no_audio` timer, which a client that streams audio never needs.
+
+Unknown event types, and text that is not a JSON object with a string `type`, are ignored.
+
+---
+
+## Receive
+
+What the Pearl sends: `ready` first, then audio, then at the end an optional `transfer` and one `ended`.
+
+### `ready`
+
+Sent once, right after you connect.
+
+```json
+{
+  "type": "ready",
+  "protocol": 1,
+  "callId": "6720f3c1a8b4e5d6f7a8b9c0",
+  "audio": { "encoding": "pcm_s16le", "sampleRate": 24000, "channels": 1, "frameMs": 20 }
+}
+```
+
+<ResponseField name="protocol" type="integer">
+  The protocol version: `1`.
+</ResponseField>
+<ResponseField name="callId" type="string">
+  The call's id, as in the Create Call response.
+</ResponseField>
+<ResponseField name="audio" type="object">
+  The format of every binary message, in both directions: the same object as in the Create Call response.
+</ResponseField>
+
+### Audio
+
+20 ms of the Pearl's voice, as a binary message, **every 20 ms for the whole call**, with silence while it listens.
+
+- Play the frames through a small jitter buffer of 60 to 100 ms. If it grows past about 300 ms, after a network stall, drop the oldest audio.
+- There is no "clear" or interruption event, and you need none: when the end user talks over the Pearl, it stops speaking and the next frames are already silence.
+
+### `transfer`
+
+The flow transferred the call. It is sent once the Pearl has finished its transfer announcement, and is followed at once by `ended` (`transfer`). Carrying the call on, to a person, a queue or a phone number, is up to you.
+
+```json
+{
+  "type": "transfer",
+  "target": "+14155550123",
+  "triggerDescription": "The caller asks for a human agent",
+  "warmTransferMessage": "Dana is calling about order A-1234",
+  "sipHeaders": {},
+  "variables": { "firstName": "Dana", "orderId": "A-1234" }
+}
+```
+
+<ResponseField name="target" type="string">
+  The destination set on the Pearl's transfer, as entered: usually a phone number or a SIP address.
+</ResponseField>
+<ResponseField name="triggerDescription" type="string">
+  Why the flow transferred.
+</ResponseField>
+<ResponseField name="warmTransferMessage" type="string | null">
+  The warm-transfer message set for the receiving side.
+</ResponseField>
+<ResponseField name="sipHeaders" type="object">
+  SIP headers, only when the transfer is set to forward them.
+</ResponseField>
+<ResponseField name="variables" type="object">
+  The data the Pearl has collected so far, by variable name.
+</ResponseField>
+
+### `ended`
+
+The call is over. The Pearl then closes the connection with code `1000` and the reason as the close description.
+
+```json
+{ "type": "ended", "reason": "agent_hangup", "durationSec": 94 }
+```
+
+<ResponseField name="reason" type="string">
+  Why the call ended:
+
+  | `reason` | Meaning |
+  | --- | --- |
+  | `client_hangup` | You sent `hangup`, closed the connection, or it dropped. |
+  | `agent_hangup` | The Pearl ended the call: end of the flow, its silence handling, and so on. |
+  | `operator_hangup` | The call was hung up from the NLPearl platform. |
+  | `transfer` | The flow transferred the call, right after `transfer`. |
+  | `max_duration` | The Pearl's maximum call duration was reached. |
+  | `no_audio` | No message from you for 60 seconds. |
+  | `error` | The call failed on NLPearl's side. |
+</ResponseField>
+<ResponseField name="durationSec" type="integer">
+  Whole seconds the call ran, from connection to end.
+</ResponseField>
+
+If you close the connection yourself, or it drops, nothing more arrives: the call is recorded as `client_hangup`.
+
+---
+
+## Audio formats
+
+`audioFormat`, chosen in Create Call, sets the format of every frame, the same in both directions. The same format has a name in each place it appears:
+
+| `audioFormat` (Create Call) | `audio.encoding` (response and `ready`) | Sample rate | Samples | One 20 ms frame | Silence byte | `audioQuality` (call history) |
+| --- | --- | --- | --- | --- | --- | --- |
+| `ulaw_8000` (default) | `mulaw` | 8000 Hz | G.711 μ-law, 8-bit, mono | 160 bytes | `0xFF` | `phone` |
+| `pcm_24000` | `pcm_s16le` | 24000 Hz | Signed 16-bit PCM, little-endian, mono | 960 bytes (480 samples) | `0x00` | `hd` |
+
+## Limits
+
+| Item | Limit |
+| --- | --- |
+| Ticket | Single use, valid 60 seconds |
+| Connections per call | 1 |
+| Concurrent calls | The Pearl's [agents](/pages/agents), shared with its phone calls. One is taken when the call is created. |
+| Call duration | The Pearl's **Max Call Duration**, from 1 to 120 minutes; 30 minutes when it is not set. Reaching it ends the call with `max_duration`. |
+| Silence from your side | 60 seconds without any message ends the call with `no_audio` |
+| Message size | 16 KB |
+
+## Versioning
+
+`ready.protocol` is `1`. New event types may be added within a version, which is why unknown types are ignored. A change to the frame format would raise the version.
+
+<RequestExample>
+```javascript JavaScript
+const ws = new WebSocket(`${call.url}?ticket=${call.ticket}`);
+ws.binaryType = "arraybuffer";
+
+ws.onmessage = (message) => {
+  if (typeof message.data !== "string") {
+    play(message.data);                      // 20 ms of the Pearl's voice
+    return;
+  }
+  const event = JSON.parse(message.data);    // ready, transfer, ended
+};
+
+// After ready, every 20 ms: ws.send(frame) with 20 ms of the end user's audio.
+// To hang up: ws.send(JSON.stringify({ type: "hangup" }));
+```
+
+```python Python
+async with websockets.connect(f"{call['url']}?ticket={call['ticket']}") as ws:
+    ready = json.loads(await ws.recv())      # always the first message
+    # every 20 ms: await ws.send(frame) with 20 ms of the end user's audio
+    async for message in ws:
+        if isinstance(message, bytes):
+            play(message)                    # 20 ms of the Pearl's voice
+        else:
+            print(json.loads(message))       # transfer, ended
+```
+</RequestExample>
+
+<ResponseExample>
+```json ready
+{
+  "type": "ready",
+  "protocol": 1,
+  "callId": "6720f3c1a8b4e5d6f7a8b9c0",
+  "audio": { "encoding": "pcm_s16le", "sampleRate": 24000, "channels": 1, "frameMs": 20 }
+}
+```
+
+```json ended
+{ "type": "ended", "reason": "agent_hangup", "durationSec": 94 }
+```
+</ResponseExample>
