@@ -301,7 +301,12 @@ Define how many times Pearl retries a lead when the initial call fails (default 
 
 | Interval | Description |
 | --- | --- |
+| **As soon as possible** | Retries about a minute after the failed call. |
+| **Every hour** | Very fast retry cycle for time-critical contacts. |
+| **Every 2 hours** | Fast retries within a few hours. |
 | **Every 3 hours** | Fast retry cycle for urgent contact needs. |
+| **Every 4 hours** | Several retries within the same day. |
+| **Every 5 hours** | Spaced retries within the same day. |
 | **Every 6 hours** | Moderate retry pace during the same day. |
 | **Once a day** | Standard daily follow-up. |
 | **Once every 3 days** | More spaced follow-up. |
