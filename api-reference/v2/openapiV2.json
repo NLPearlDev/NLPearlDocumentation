@@ -7776,7 +7776,7 @@
                                 "$ref": "#/components/schemas/eMinimumRetryIntervalHours"
                             }
                         ],
-                        "description": "The minimum interval between two call attempts to the same lead.\n\n`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n"
+                        "description": "The minimum interval between two call attempts to the same lead.\n\n`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n`7 - EveryHour`\n\n`8 - Every2Hours`\n\n`9 - Every4Hours`\n\n`10 - Every5Hours`\n\n`11 - AsSoonAsPossible`\n\n"
                     },
                     "voiceMail": {
                         "type": "string",
@@ -9265,7 +9265,7 @@
             },
             "eMinimumRetryIntervalHours": {
                 "type": "integer",
-                "description": "The minimum interval between two call attempts to the same lead.\n\n`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n",
+                "description": "The minimum interval between two call attempts to the same lead.\n\n`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n`7 - EveryHour`\n\n`8 - Every2Hours`\n\n`9 - Every4Hours`\n\n`10 - Every5Hours`\n\n`11 - AsSoonAsPossible`\n\n",
                 "format": "int32"
             },
             "eMinimumRetryIntervalHoursOptionalType": {
@@ -9281,7 +9281,7 @@
                                 "$ref": "#/components/schemas/eMinimumRetryIntervalHours"
                             }
                         ],
-                        "description": "The minimum interval between two call attempts to the same lead.\n\n`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n"
+                        "description": "The minimum interval between two call attempts to the same lead.\n\n`1 - Every6Hours`\n\n`2 - OnceADay`\n\n`3 - OnceEvery3Days`\n\n`4 - OnceAWeek`\n\n`5 - OnceAMonth`\n\n`6 - Every3Hours`\n\n`7 - EveryHour`\n\n`8 - Every2Hours`\n\n`9 - Every4Hours`\n\n`10 - Every5Hours`\n\n`11 - AsSoonAsPossible`\n\n"
                     }
                 },
                 "additionalProperties": false
