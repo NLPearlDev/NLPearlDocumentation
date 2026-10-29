@@ -2637,6 +2637,16 @@
                         "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
                         "format": "int32",
                         "nullable": true
+                    },
+                    "channel": {
+                        "type": "string",
+                        "description": "How the call was connected: `phone` for a phone call, `web` for a web call streamed by your server over a WebSocket.",
+                        "nullable": true
+                    },
+                    "audioQuality": {
+                        "type": "string",
+                        "description": "The audio quality of the call: `phone` for telephone quality (8 kHz), `hd` for high-definition audio (24 kHz). Always `phone` for phone calls.",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -2756,6 +2766,16 @@
                         "type": "integer",
                         "description": "The published version of the Pearl that handled this call. This value is null when no version was recorded for the call.",
                         "format": "int32",
+                        "nullable": true
+                    },
+                    "channel": {
+                        "type": "string",
+                        "description": "How the call was connected: `phone` for a phone call, `web` for a web call streamed by your server over a WebSocket.",
+                        "nullable": true
+                    },
+                    "audioQuality": {
+                        "type": "string",
+                        "description": "The audio quality of the call: `phone` for telephone quality (8 kHz), `hd` for high-definition audio (24 kHz). Always `phone` for phone calls.",
                         "nullable": true
                     }
                 },
@@ -3999,6 +4019,7 @@
                             "pearls:analytics": "Read Pearl analytics; implies pearls:read",
                             "pearls:leads": "Manage and read outbound leads; implies pearls:read",
                             "pearls:calls": "Read calls and recordings, make and delete calls; implies pearls:read",
+                            "pearls:web_calls": "Create web calls (audio over WebSocket from your server); implies pearls:read",
                             "account:phone_numbers": "Read account phone numbers and text channels, manage custom VoIP numbers, import Twilio numbers and delete phone numbers",
                             "account:users": "Read account users",
                             "account:advanced": "Manage advanced account settings (blacklist)",
