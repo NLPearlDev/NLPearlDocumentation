@@ -1,0 +1,377 @@
+---
+title: "WebSocket Protocol"
+description: "Connect to a web call with its ticket, stream the audio both ways, and follow the call's events until it ends."
+icon: "plug"
+iconType: "light"
+---
+
+A web call is a voice call with a Pearl whose audio travels over a **WebSocket** instead of a phone line. Use it to put a Pearl in your website, your app, your softphone or your contact-centre bridge.
+
+Apart from the audio path, a web call is an ordinary call of that Pearl: it runs the Pearl's published flow, appears in the call history, fires the same webhooks, and is transcribed, recorded and billed like a phone call.
+
+<Steps>
+  <Step title="Create the call">
+    Your backend sends [Create a Web Call](/api-reference/v2/webCall/create-web-call) with your API credentials. The response holds the WebSocket `url`, a single-use `ticket` valid for 60 seconds, and the `audio` format.
+  </Step>
+  <Step title="Connect">
+    Open a WebSocket to `url` with the `ticket`. The server sends `ready`, the audio flows both ways as binary frames, and the call ends with an `ended` event before the server closes the socket.
+  </Step>
+</Steps>
+
+---
+
+## Requirements
+
+- A **voice** Pearl that is **active**. Text Pearls are refused, and the call runs the Pearl's **published** version.
+- Client API credentials, as for every other `/v2` endpoint (see [API Authorization](/api-reference/authorization)), with the **`pearls:web_calls` scope**:
+  - An **API secret key** carries every scope, `pearls:web_calls` included.
+  - An **OAuth app** carries only the scopes you granted it.
+- Credits on the account, and an account that is not suspended.
+
+Web calls exist in the `/v2` API only.
+
+---
+
+## Create the call
+
+Only `endUserId` is required: your identifier for the person on the call, such as a customer id, a session id, an e-mail or a phone number.
+
+```bash
+curl -X POST "https://api.nlpearl.ai/v2/Pearl/<pearlId>/WebCall" \
+  -H "Authorization: Bearer <AccountId>:<SecretKey>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "endUserId": "crm-77812",
+    "callData": { "firstName": "Dana" },
+    "quality": "ulaw_8000"
+  }'
+```
+
+```json
+{
+  "callId": "6720f3c1a8b4e5d6f7a8b9c0",
+  "url": "wss://agents.nlpearl.ai/WebCall",
+  "ticket": "wct_kX9vQ2...",
+  "expiresAt": "2026-10-28T09:01:00Z",
+  "audio": { "encoding": "mulaw", "sampleRate": 8000, "channels": 1, "frameMs": 20 }
+}
+```
+
+[Create a Web Call](/api-reference/v2/webCall/create-web-call) lists every field and every error.
+
+Creating the call:
+
+- **Reserves one of the Pearl's agents**, from the same pool as its phone calls: the inbound agent count on an inbound Pearl, the outbound one on an outbound Pearl. The agent is released when the call ends. A call that is never connected keeps it until it is settled, about 90 seconds after creation. There is no endpoint to cancel a created call.
+- **Adds the call to the call history** and issues the ticket.
+- **Takes its direction from the Pearl.** On an inbound Pearl the person is the caller, on an outbound Pearl the callee. Nothing is dialled: the call starts when the WebSocket connects.
+
+---
+
+## Connect
+
+### URL and ticket
+
+Open a WebSocket to the returned `url` within 60 seconds, before `expiresAt`, and present the ticket in one of two ways:
+
+- **Header**, from a server: `Authorization: Bearer wct_...`. It is used when present.
+- **Query string**, from a browser, which cannot set WebSocket headers: `wss://agents.nlpearl.ai/WebCall?ticket=wct_...`
+
+Always connect to the `url` the response returns rather than a fixed address. The ticket is checked during the HTTP upgrade, before the WebSocket exists, and it is **single-use**: the first successful upgrade consumes it. No subprotocol is needed.
+
+### Upgrade responses
+
+| Status | Meaning |
+| --- | --- |
+| `101` | Accepted. The server sends `ready` at once. |
+| `400` | Not a WebSocket upgrade request. |
+| `401` | The ticket is missing, malformed, unknown, expired or already used. Create a new call. |
+| `410` | The call was ended before anyone connected, for example hung up from the NLPearl platform. Create a new call. |
+
+A browser does not expose the status of a refused upgrade: the socket just closes with code `1006`.
+
+### Where to connect from
+
+- **From your server** (the usual case): your backend creates the call, connects with the header, and relays the audio between the Pearl and your own front end.
+- **From your own app**: your backend creates the call and hands `url`, `ticket` and `audio` to your web or mobile app, which connects directly, with the ticket in the query string in a browser. Tickets are not tied to an origin, so any domain works.
+
+<Warning>
+Either way, your **API key stays on your backend**, never in a browser or an app. The ticket may leave it: it opens only this one call, once, within 60 seconds. Don't log it.
+</Warning>
+
+---
+
+## Audio
+
+### Frames
+
+- **Binary messages are audio**, in both directions: raw bytes, with no base64 and no JSON envelope.
+- **Text messages are JSON events**, each with a `type`. Field names are camelCase.
+- The server sends exactly one `ready` first, then only audio, then at the end an optional `transfer` and one `ended`, then closes the socket. No other text message comes mid-call.
+
+### Format
+
+`quality`, chosen when you create the call, sets the format of every frame, the same in both directions:
+
+| `quality` | `audio.encoding` | Sample rate | Samples | Channels | One 20 ms frame | Silence byte |
+| --- | --- | --- | --- | --- | --- | --- |
+| `ulaw_8000` (default) | `mulaw` | 8000 Hz | G.711 μ-law, 8-bit | 1 | 160 bytes | `0xFF` |
+| `pcm_24000` | `pcm_s16le` | 24000 Hz | Signed 16-bit PCM, little-endian | 1 | 960 bytes (480 samples) | `0x00` |
+
+`ulaw_8000` is phone quality. With `pcm_24000` (HD), the Pearl's voice is rendered at 24 kHz and speech recognition hears the caller in wideband.
+
+### Sending audio
+
+- Start after `ready`.
+- Send **one frame every 20 ms**, in real time, for the whole call. When the caller is quiet or muted, send silence frames, not nothing.
+- 20 ms frames are recommended. Other lengths are accepted when they hold whole samples: with PCM, an even number of bytes, and a trailing odd byte is discarded. Empty messages are ignored.
+- A message may be up to **16 KB** (16,384 bytes) once its fragments are joined. A larger message is dropped and the call goes on.
+- **60 seconds without any message** from you, audio or text, ends the call with reason `no_audio`.
+
+### Receiving audio
+
+- The server sends **one 20 ms frame every 20 ms**, in real time, for the whole call, with silence while the Pearl listens.
+- There is no "clear" or interruption event. When the caller interrupts, the Pearl stops speaking and the frames turn to silence.
+- Play frames as they arrive, through a small jitter buffer of 60 to 100 ms. If the buffer grows past about 300 ms, after a network stall, drop the oldest audio.
+
+---
+
+## Events
+
+### From the server
+
+#### `ready`
+
+Sent once, right after the upgrade.
+
+```json
+{
+  "type": "ready",
+  "protocol": 1,
+  "callId": "6720f3c1a8b4e5d6f7a8b9c0",
+  "audio": { "encoding": "pcm_s16le", "sampleRate": 24000, "channels": 1, "frameMs": 20 }
+}
+```
+
+| Field | Description |
+| --- | --- |
+| `protocol` | The protocol version: `1`. |
+| `callId` | The call's id, as in the create response. |
+| `audio` | The format of every binary frame, in both directions. The same object as in the create response. |
+
+#### `transfer`
+
+The flow transferred the call. It is sent once the Pearl has finished its transfer announcement, and is followed at once by `ended` with reason `transfer`. Carrying the call on, to a person, a queue or a phone number, is up to you.
+
+```json
+{
+  "type": "transfer",
+  "target": "+14155550123",
+  "triggerDescription": "The caller asks for a human agent",
+  "warmTransferMessage": "Dana is calling about order A-1234",
+  "sipHeaders": {},
+  "variables": { "firstName": "Dana", "orderId": "A-1234" }
+}
+```
+
+| Field | Description |
+| --- | --- |
+| `target` | The destination set on the Pearl's transfer, as entered: usually a phone number or a SIP address. |
+| `triggerDescription` | The transfer's trigger: why the flow transferred. |
+| `warmTransferMessage` | The warm-transfer message set for the receiving side, or `null`. |
+| `sipHeaders` | SIP headers, only when the transfer is set to forward them. Usually empty on a web call. |
+| `variables` | The data the Pearl has collected so far, by variable name. |
+
+#### `ended`
+
+The call is over. The server then closes the socket with close code `1000` and the reason as the close description.
+
+```json
+{ "type": "ended", "reason": "agent_hangup", "durationSec": 94 }
+```
+
+| Field | Description |
+| --- | --- |
+| `reason` | One of the reasons below. |
+| `durationSec` | Whole seconds the call ran, from connection to end. |
+
+| `reason` | Meaning |
+| --- | --- |
+| `client_hangup` | You sent `hangup`, closed the socket, or the connection dropped. |
+| `agent_hangup` | The Pearl ended the call: end of the flow, its silence handling, and so on. |
+| `operator_hangup` | The call was hung up from the NLPearl platform. |
+| `transfer` | The flow transferred the call, right after `transfer`. |
+| `max_duration` | The Pearl's maximum call duration was reached. There is no spoken warning. |
+| `no_audio` | No message from you for 60 seconds. |
+| `error` | The call failed on NLPearl's side, either before it could start or mid-call. |
+
+<Note>
+There is no separate error event: a failure arrives as `ended` with reason `error`.
+</Note>
+
+### From your side
+
+| Event | Effect |
+| --- | --- |
+| `{"type":"hangup"}` | Ends the call. The server answers `ended` with reason `client_hangup`, then closes. |
+| `{"type":"ping"}` | Optional, and not answered: there is no pong. It only counts as activity for the 60-second `no_audio` timer, which a client that streams audio never needs. |
+
+Unknown event types and text that is not valid JSON are ignored, for forward compatibility.
+
+### How a call ends
+
+| What happened | What you receive |
+| --- | --- |
+| You send `hangup` | `ended` (`client_hangup`), close `1000` |
+| You close the socket, or the connection drops | Nothing, the socket is already gone. The call is recorded as `client_hangup`. |
+| The Pearl hangs up | `ended` (`agent_hangup`), close `1000` |
+| The Pearl transfers | `transfer`, then `ended` (`transfer`), close `1000` |
+| The call is hung up from the platform | `ended` (`operator_hangup`) within about 5 seconds, close `1000` |
+| The maximum duration is reached | `ended` (`max_duration`), close `1000` |
+| 60 seconds without a message from you | `ended` (`no_audio`), close `1000` |
+| A failure on NLPearl's side | `ended` (`error`), close `1000` |
+
+### Versioning
+
+`ready.protocol` is `1`. New event types may be added within a version, which is why clients ignore unknown types. A change to the frame format would raise the version.
+
+---
+
+## After the call
+
+### In the call history
+
+[Get Call](/api-reference/v2/call/get-call), [Get Calls](/api-reference/v2/pearl/get-calls), [Get Calls Bulk](/api-reference/v2/pearl/get-calls-bulk) and the [call webhooks](/pages/webhooks) carry two fields for every call:
+
+- `channel`: `"web"` for a web call, `"phone"` for a phone call.
+- `audioQuality`: `"phone"` for `ulaw_8000`, `"hd"` for `pcm_24000`. Phone calls are always `"phone"`.
+
+| Pearl | `from` | `to` |
+| --- | --- | --- |
+| Inbound | The `endUserId` | `PearlWeb` |
+| Outbound | `PearlWeb` | The `endUserId` |
+
+The transcript, the summary and the collected info are filled as for a phone call, and the `endUserId` can be searched in the call list like a phone number.
+
+### `endUserId` in place of a phone number
+
+NLPearl uses the `endUserId` wherever a phone call uses the person's number: the call's `from` or `to`, the Pearl's memory of the person, and the flow's phone-number variable. If your flow looks people up by phone number, for example in an API step that sends it, send the person's number in E.164 form (`+14155550123`) as the `endUserId`.
+
+`endUserId` is not unique: send the same value for the same person to group their calls.
+
+### Memory
+
+A Pearl with memory recognises a returning person by `endUserId`. To clear it, call [Reset Customer Memory](/api-reference/v2/pearl/reset-memory) with the `endUserId` as `phoneNumber`.
+
+### Recording
+
+NLPearl records web calls itself, following the Pearl's recording settings. The call's `recording` link works as for a phone call.
+
+### Billing
+
+- A web call is billed **like a phone call of the same Pearl**: the same per-minute rate, billing interval and minimum per call, for the time from connection to end.
+- **`pcm_24000` (HD)** calls use your plan's HD per-minute rate when it has one, and the phone rate otherwise.
+- **A call that is never connected costs nothing.** It is settled as not answered about 90 seconds after creation, with a duration of 0.
+
+### Blacklist
+
+The account's blacklist does not apply to web calls: there is no phone number to block.
+
+---
+
+## Limits
+
+| Item | Limit |
+| --- | --- |
+| Ticket | Single use, valid 60 seconds |
+| Connections per call | 1 |
+| Concurrent calls | The Pearl's agent count, shared with its phone calls. An agent is taken when the call is created. |
+| Call duration | The Pearl's **Max Call Duration**: the outbound setting on an outbound Pearl, the inbound setting on an inbound Pearl, from 1 to 120 minutes. 30 minutes when it is not set. Reaching it ends the call with reason `max_duration`. |
+| Silence from your side | 60 seconds without any message ends the call with reason `no_audio` |
+| WebSocket message | 16 KB (16,384 bytes) |
+| `endUserId` | 1 to 200 characters |
+| `callData` | Keys up to 40 characters (letters, digits, `_` and `-`), values up to 200 characters |
+
+---
+
+## Examples
+
+### Node.js: your server connects and relays
+
+Node.js 18 or later, with the [`ws`](https://www.npmjs.com/package/ws) package (`npm install ws`). Save it as `webcall.mjs`.
+
+```javascript
+import WebSocket from "ws";
+
+const API_KEY = process.env.NLPEARL_API_KEY;   // "<AccountId>:<SecretKey>"
+const PEARL_ID = process.env.NLPEARL_PEARL_ID;
+
+// 1. Create the call
+const res = await fetch(`https://api.nlpearl.ai/v2/Pearl/${PEARL_ID}/WebCall`, {
+  method: "POST",
+  headers: { Authorization: `Bearer ${API_KEY}`, "Content-Type": "application/json" },
+  body: JSON.stringify({ endUserId: "crm-77812", callData: { firstName: "Dana" }, quality: "ulaw_8000" }),
+});
+if (!res.ok) throw new Error(`create failed ${res.status}: ${await res.text()}`);
+const call = await res.json();   // { callId, url, ticket, expiresAt, audio }
+
+// 2. Connect within 60 seconds, ticket in the header
+const ws = new WebSocket(call.url, { headers: { Authorization: `Bearer ${call.ticket}` } });
+
+const mulaw = call.audio.encoding === "mulaw";
+const FRAME_BYTES = mulaw ? 160 : 960;   // 20 ms
+const SILENCE = Buffer.alloc(FRAME_BYTES, mulaw ? 0xff : 0x00);
+let pacer;
+
+ws.on("message", (data, isBinary) => {
+  if (isBinary) {
+    playToCaller(data);   // 20 ms of the Pearl's audio (silence included)
+    return;
+  }
+  const event = JSON.parse(data.toString());
+  if (event.type === "ready") {
+    // 3. Stream the caller: one frame every 20 ms by the clock, silence when there is nothing to send
+    const start = Date.now();
+    let sent = 0;
+    pacer = setInterval(() => {
+      const due = Math.floor((Date.now() - start) / 20);
+      for (; sent < due; sent++) ws.send(nextCallerFrame() ?? SILENCE);
+    }, 10);
+  } else if (event.type === "transfer") {
+    console.log("transfer to", event.target, event.variables);
+  } else if (event.type === "ended") {
+    console.log("ended:", event.reason, `${event.durationSec}s`);
+  }
+});
+
+ws.on("close", (code, reason) => {
+  clearInterval(pacer);
+  console.log("closed", code, reason.toString());
+});
+ws.on("error", (err) => console.error(err.message));   // a refused upgrade: "Unexpected server response: 401"
+
+// To hang up from your side:
+//   ws.send(JSON.stringify({ type: "hangup" }));
+
+function playToCaller(frame) { /* hand the frame to your caller's audio output */ }
+function nextCallerFrame() { return null; /* the caller's next 20 ms frame, or null */ }
+```
+
+### Browser: your page connects with the ticket
+
+Your backend created the call and passed `url`, `ticket` and `audio` to the page.
+
+```javascript
+const ws = new WebSocket(`${url}?ticket=${encodeURIComponent(ticket)}`);
+ws.binaryType = "arraybuffer";
+
+ws.onmessage = (msg) => {
+  if (typeof msg.data !== "string") {
+    playFrame(new Uint8Array(msg.data));   // 20 ms in audio.encoding at audio.sampleRate
+    return;
+  }
+  const event = JSON.parse(msg.data);
+  if (event.type === "ready") startMicrophone((frame) => ws.send(frame));   // 20 ms frames, same format
+  if (event.type === "ended") stopMicrophone();
+};
+ws.onclose = (e) => console.log("closed", e.code, e.reason);   // 1006 = refused at the upgrade, or dropped
+```

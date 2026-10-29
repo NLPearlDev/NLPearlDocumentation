@@ -287,6 +287,14 @@
                   "api-reference/v2/speech/text-to-speech-stream",
                   "api-reference/v2/speech/clone-voice"
                 ]
+              },
+              {
+                "group": "Web Calls",
+                "expanded": true,
+                "pages": [
+                  "api-reference/v2/webCall/create-web-call",
+                  "api-reference/web_calls"
+                ]
               }
             ]
           },
