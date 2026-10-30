@@ -3,7 +3,7 @@ title: "Stream Realtime Call"
 sidebarTitle: "Stream Call"
 api: "GET wss://agents.nlpearl.ai/WebCall"
 playground: "simple"
-description: "The WebSocket of a Realtime API call: send the end user's audio, receive the Pearl's voice and the call's events."
+description: "The WebSocket of a Realtime API call: send the end user's audio, receive Pearl's voice and the call's events."
 ---
 
 The second step of a Realtime API call. [Create Call](/api-reference/v2/realtime/create-call) returns the `url` and a `ticket`: open `url?ticket=<ticket>`, for example `wss://agents.nlpearl.ai/WebCall?ticket=wct_...`, within 60 seconds, and the conversation runs on this connection until the call ends.
@@ -18,7 +18,7 @@ Always open the `url` that Create Call returns rather than a fixed address. No s
 
 | Status | Meaning |
 | --- | --- |
-| `101` | Connected. The Pearl sends `ready` at once. |
+| `101` | Connected. Pearl sends `ready` at once. |
 | `400` | Not a WebSocket upgrade request. |
 | `401` | The ticket is missing, unknown, expired or already used. Create a new call. |
 | `410` | The call was ended before anyone connected, for example from the NLPearl platform. Create a new call. |
@@ -45,7 +45,7 @@ What your app sends. Audio is binary, everything else is a JSON text message.
 { "type": "hangup" }
 ```
 
-Ends the call. The Pearl answers with `ended` (`client_hangup`), then closes the connection.
+Ends the call. Pearl answers with `ended` (`client_hangup`), then closes the connection.
 
 ### `ping`
 
@@ -61,7 +61,7 @@ Unknown event types, and text that is not a JSON object with a string `type`, ar
 
 ## Receive
 
-What the Pearl sends: `ready` first, then audio, then at the end an optional `transfer` and one `ended`.
+What Pearl sends: `ready` first, then audio, then at the end an optional `transfer` and one `ended`.
 
 ### `ready`
 
@@ -88,14 +88,14 @@ Sent once, right after you connect.
 
 ### Audio
 
-20 ms of the Pearl's voice, as a binary message, **every 20 ms for the whole call**, with silence while it listens.
+20 ms of Pearl's voice, as a binary message, **every 20 ms for the whole call**, with silence while it listens.
 
 - Play the frames through a small jitter buffer of 60 to 100 ms. If it grows past about 300 ms, after a network stall, drop the oldest audio.
-- There is no "clear" or interruption event, and you need none: when the end user talks over the Pearl, it stops speaking and the next frames are already silence.
+- There is no "clear" or interruption event, and you need none: when the end user talks over Pearl, it stops speaking and the next frames are already silence.
 
 ### `transfer`
 
-The flow transferred the call. It is sent once the Pearl has finished its transfer announcement, and is followed at once by `ended` (`transfer`). Carrying the call on, to a person, a queue or a phone number, is up to you.
+The flow's [Transfer Call](/pages/transfer_call) node transferred the call. It is sent once Pearl has finished its transfer announcement, and is followed at once by `ended` (`transfer`). Carrying the call on, to a person, a queue or a phone number, is up to you.
 
 ```json
 {
@@ -109,7 +109,7 @@ The flow transferred the call. It is sent once the Pearl has finished its transf
 ```
 
 <ResponseField name="target" type="string">
-  The destination set on the Pearl's transfer, as entered: usually a phone number or a SIP address.
+  The destination set on your Pearl's transfer, as entered: usually a phone number or a SIP address.
 </ResponseField>
 <ResponseField name="triggerDescription" type="string">
   Why the flow transferred.
@@ -121,12 +121,12 @@ The flow transferred the call. It is sent once the Pearl has finished its transf
   SIP headers, only when the transfer is set to forward them.
 </ResponseField>
 <ResponseField name="variables" type="object">
-  The data the Pearl has collected so far, by variable name.
+  The data Pearl has collected so far, by [variable](/pages/variables) name.
 </ResponseField>
 
 ### `ended`
 
-The call is over. The Pearl then closes the connection with code `1000` and the reason as the close description.
+The call is over. Pearl then closes the connection with code `1000` and the reason as the close description.
 
 ```json
 { "type": "ended", "reason": "agent_hangup", "durationSec": 94 }
@@ -138,10 +138,10 @@ The call is over. The Pearl then closes the connection with code `1000` and the 
   | `reason` | Meaning |
   | --- | --- |
   | `client_hangup` | You sent `hangup`, closed the connection, or it dropped. |
-  | `agent_hangup` | The Pearl ended the call: end of the flow, its silence handling, and so on. |
+  | `agent_hangup` | Pearl ended the call: end of the flow, its silence handling, and so on. |
   | `operator_hangup` | The call was hung up from the NLPearl platform. |
   | `transfer` | The flow transferred the call, right after `transfer`. |
-  | `max_duration` | The Pearl's maximum call duration was reached. |
+  | `max_duration` | Your Pearl's maximum call duration was reached. |
   | `no_audio` | No message from you for 60 seconds. |
   | `error` | The call failed on NLPearl's side. |
 </ResponseField>
@@ -168,8 +168,8 @@ If you close the connection yourself, or it drops, nothing more arrives: the cal
 | --- | --- |
 | Ticket | Single use, valid 60 seconds |
 | Connections per call | 1 |
-| Concurrent calls | The Pearl's [agents](/pages/agents), shared with its phone calls. One is taken when the call is created. |
-| Call duration | The Pearl's **Max Call Duration**, from 1 to 120 minutes; 30 minutes when it is not set. Reaching it ends the call with `max_duration`. |
+| Concurrent calls | Your Pearl's [agents](/pages/agents), shared with its phone calls. One is taken when the call is created. |
+| Call duration | Your Pearl's **Max Call Duration**, from 1 to 120 minutes; 30 minutes when it is not set. Reaching it ends the call with `max_duration`. |
 | Silence from your side | 60 seconds without any message ends the call with `no_audio` |
 | Message size | 16 KB |
 
@@ -184,7 +184,7 @@ ws.binaryType = "arraybuffer";
 
 ws.onmessage = (message) => {
   if (typeof message.data !== "string") {
-    play(message.data);                      // 20 ms of the Pearl's voice
+    play(message.data);                      // 20 ms of Pearl's voice
     return;
   }
   const event = JSON.parse(message.data);    // ready, transfer, ended
@@ -200,7 +200,7 @@ async with websockets.connect(f"{call['url']}?ticket={call['ticket']}") as ws:
     # every 20 ms: await ws.send(frame) with 20 ms of the end user's audio
     async for message in ws:
         if isinstance(message, bytes):
-            play(message)                    # 20 ms of the Pearl's voice
+            play(message)                    # 20 ms of Pearl's voice
         else:
             print(json.loads(message))       # transfer, ended
 ```

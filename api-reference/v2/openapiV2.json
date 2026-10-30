@@ -9147,7 +9147,7 @@
                 "properties": {
                     "endUserId": {
                         "type": "string",
-                        "description": "Your own id for the person on the call, up to 200 characters. It takes the place of a phone number: the call history shows it as the call's from or to and you can search calls by it, the Pearl remembers the person by it, and the flow gets it wherever it uses the caller's number. Send one value per person: never the same value for different people.",
+                        "description": "Your own id for the person on the call, up to 200 characters. It takes the place of a phone number: the call history shows it as the call's from or to and you can search calls by it, Pearl remembers the person by it, and the flow gets it wherever it uses the caller's number. Send one value per person: never the same value for different people.",
                         "nullable": true
                     },
                     "callData": {

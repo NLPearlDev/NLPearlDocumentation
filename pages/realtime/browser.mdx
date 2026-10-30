@@ -1,11 +1,11 @@
 ---
 title: "Browser App"
-description: "Talk to your Pearl from a web page: the microphone in, the Pearl's voice out."
+description: "Talk to your Pearl from a web page: the microphone in, Pearl's voice out."
 icon: "browser"
 iconType: "light"
 ---
 
-A web page that talks to your Pearl, in four small files. Your server creates the connection and keeps the API key; the page connects with the ticket, streams the microphone and plays the Pearl through a small jitter buffer, all at 24 kHz HD.
+A web page that talks to your Pearl, in four small files. Your server creates the connection and keeps the [API key](/api-reference/authorization); the page connects with the ticket, streams the microphone and plays Pearl's voice through a small jitter buffer, all at 24 kHz HD.
 
 ```text
 server.mjs            creates the connection (your API key stays here)
@@ -37,7 +37,7 @@ app.post("/pearl-call", async (req, res) => {
 app.listen(3000, () => console.log("http://localhost:3000"));
 ```
 
-Use your own id for the visitor as `endUserId`, so the Pearl remembers them and their calls are grouped in the call history.
+Use your own id for the visitor as `endUserId`, so Pearl remembers them and their calls are grouped in the call history.
 
 ## The page
 
@@ -45,7 +45,7 @@ Use your own id for the visitor as `endUserId`, so the Pearl remembers them and 
 <!doctype html>
 <html>
   <body>
-    <button id="talk">Talk to the Pearl</button>
+    <button id="talk">Talk to Pearl</button>
     <button id="hang-up">Hang up</button>
     <script type="module" src="app.js"></script>
   </body>
@@ -53,7 +53,7 @@ Use your own id for the visitor as `endUserId`, so the Pearl remembers them and 
 ```
 
 ```javascript public/app.js
-// app.js: asks your server for a connection, then streams the microphone to the Pearl and plays its voice.
+// app.js: asks your server for a connection, then streams the microphone to Pearl and plays its voice.
 const talk = document.querySelector("#talk");
 const hangUp = document.querySelector("#hang-up");
 
@@ -80,7 +80,7 @@ talk.onclick = async () => {
 
   ws.onmessage = (message) => {
     if (typeof message.data !== "string") {
-      // The Pearl: 20 ms of 16-bit PCM, to the worklet's jitter buffer
+      // Pearl's voice: 20 ms of 16-bit PCM, to the worklet's jitter buffer
       const pcm = new Int16Array(message.data);
       const samples = Float32Array.from(pcm, (sample) => sample / 0x8000);
       audio.port.postMessage(samples, [samples.buffer]);
@@ -105,10 +105,10 @@ talk.onclick = async () => {
 
 ## The audio
 
-An [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) runs in real time, which gives the pacing the protocol asks for without any timer: it sends one 20 ms frame of the microphone every 20 ms, silence included when the end user is muted, and plays the Pearl's frames once 80 ms are buffered.
+An [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) runs in real time, which gives the pacing the protocol asks for without any timer: it sends one 20 ms frame of the microphone every 20 ms, silence included when the end user is muted, and plays Pearl's frames once 80 ms are buffered.
 
 ```javascript public/pearl-audio.js
-// pearl-audio.js: one AudioWorklet that records the microphone and plays the Pearl, both at 24 kHz.
+// pearl-audio.js: one AudioWorklet that records the microphone and plays Pearl's voice, both at 24 kHz.
 const FRAME = 480;        // 20 ms at 24 kHz
 const CUSHION = 1920;     // start playing with 80 ms buffered
 const MAX_BEHIND = 7200;  // past 300 ms buffered, drop the oldest audio
@@ -118,7 +118,7 @@ class PearlAudio extends AudioWorkletProcessor {
     super();
     this.mic = new Int16Array(FRAME);
     this.micLength = 0;
-    this.queue = [];      // the Pearl's audio, as Float32Array chunks
+    this.queue = [];      // Pearl's audio, as Float32Array chunks
     this.offset = 0;      // read position in queue[0]
     this.queued = 0;      // samples not played yet
     this.playing = false;
@@ -141,7 +141,7 @@ class PearlAudio extends AudioWorkletProcessor {
       }
     }
 
-    // The Pearl: played through a small jitter buffer.
+    // Pearl's voice: played through a small jitter buffer.
     while (this.queued > MAX_BEHIND && this.queue.length > 1) {
       this.queued -= this.queue.shift().length - this.offset;
       this.offset = 0;
@@ -177,28 +177,20 @@ export NLPEARL_PEARL_ID="<pearlId>"
 node server.mjs
 ```
 
-Open `http://localhost:3000`, click **Talk to the Pearl** and allow the microphone.
+Open `http://localhost:3000`, click **Talk to Pearl** and allow the microphone.
 
 <Note>
 - Browsers allow the microphone only on `https://` pages and on `localhost`.
 - `AudioContext({ sampleRate: 24000 })` makes the browser resample the microphone to 24 kHz. Chrome, Edge and Safari do this; check your other target browsers.
-- On a laptop, test with headphones: browser echo cancellation does not always cover audio played through Web Audio, and the Pearl would hear itself.
+- On a laptop, test with headphones: browser echo cancellation does not always cover audio played through Web Audio, and Pearl would hear itself.
 </Note>
 
 ## Going further
 
 - **Phone quality:** with `audioFormat: "ulaw_8000"`, create the context at 8000 Hz, use 160-sample frames, and encode and decode μ-law in the worklet. HD needs no codec at all, which is why this page uses it.
 - **Hang-up button:** `hangup` is answered by `ended`, then the socket closes and `onclose` releases the microphone.
-- **Transfers:** a `transfer` event carries the target set on the Pearl. In a browser there is usually no phone line to pass on, so show the end user the next step instead, or let your server act on it.
-
-<CardGroup cols={2}>
+- **Transfers:** a `transfer` event carries the target set on your Pearl's [Transfer Call](/pages/transfer_call) node. In a browser there is usually no phone line to pass on, so show the end user the next step instead, or let your server act on it.
 
 <Card title="Stream Call" icon="plug" iconType="light" href="/api-reference/v2/realtime/stream-call">
   Every message, audio format, event and limit.
 </Card>
-
-<Card title="Twilio Media Streams" icon="arrows-left-right" iconType="light" href="/pages/realtime/twilio_media_streams">
-  Keep your own server in the middle of your Twilio calls.
-</Card>
-
-</CardGroup>

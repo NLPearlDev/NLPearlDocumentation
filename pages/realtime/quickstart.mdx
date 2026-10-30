@@ -1,11 +1,11 @@
 ---
 title: "Quickstart"
-description: "Talk to your Pearl from your terminal in five minutes: your microphone in, the Pearl through your speakers."
+description: "Talk to your Pearl from your terminal in five minutes: your microphone in, Pearl's voice through your speakers."
 icon: "rocket"
 iconType: "light"
 ---
 
-One Python script that creates a call, streams your microphone to the Pearl and plays its voice through your speakers. Press Ctrl+C to hang up.
+One Python script that creates a call, streams your microphone to Pearl and plays its voice through your speakers. Press Ctrl+C to hang up.
 
 <Steps>
   <Step title="Install">
@@ -21,7 +21,7 @@ One Python script that creates a call, streams your microphone to the Pearl and 
     Save it as `pearl_quickstart.py`.
 
     ```python pearl_quickstart.py
-    """Talk to your Pearl from the terminal: your microphone in, the Pearl through your speakers. Ctrl+C hangs up."""
+    """Talk to your Pearl from the terminal: your microphone in, Pearl's voice through your speakers. Ctrl+C hangs up."""
     import asyncio
     import json
     import os
@@ -55,11 +55,11 @@ One Python script that creates a call, streams your microphone to the Pearl and 
 
         loop = asyncio.get_running_loop()
         microphone = asyncio.Queue()    # the end user's 20 ms frames, to send
-        speaker = queue.Queue()         # the Pearl's 20 ms frames, to play
+        speaker = queue.Queue()         # Pearl's 20 ms frames, to play
         playing = False
 
         def on_microphone(data, frames, time, status):
-            # Called every 20 ms by the sound card: the pacing the Pearl expects, silence included.
+            # Called every 20 ms by the sound card: the pacing Pearl expects, silence included.
             loop.call_soon_threadsafe(microphone.put_nowait, bytes(data))
 
         def on_speaker(out, frames, time, status):
@@ -88,7 +88,7 @@ One Python script that creates a call, streams your microphone to the Pearl and 
                 try:
                     async for message in ws:
                         if isinstance(message, bytes):
-                            speaker.put(message)          # the Pearl's voice
+                            speaker.put(message)          # Pearl's voice
                         else:
                             print(json.loads(message))    # transfer, ended
                 except asyncio.CancelledError:            # Ctrl+C: hang up, then wait for ended
@@ -107,7 +107,7 @@ One Python script that creates a call, streams your microphone to the Pearl and 
     ```
   </Step>
   <Step title="Run it and talk">
-    Use headphones: a terminal has no echo cancellation, and the Pearl would hear itself through your speakers.
+    Use headphones: a terminal has no echo cancellation, and Pearl would hear itself through your speakers.
 
     ```bash
     export NLPEARL_API_KEY="<AccountId>:<SecretKey>"
@@ -115,7 +115,9 @@ One Python script that creates a call, streams your microphone to the Pearl and 
     python pearl_quickstart.py
     ```
 
-    The Pearl greets you; answer it. On macOS, allow the terminal to use the microphone the first time.
+    Your `<AccountId>:<SecretKey>` is on the **API Access** page of your workspace settings ([API Authorization](/api-reference/authorization)). Your `<pearlId>` is on your Pearl's overview page, in the **Settings** popover.
+
+    Pearl greets you; answer it. On macOS, allow the terminal to use the microphone the first time.
 
     ```text Output
     call 6720f3c1a8b4e5d6f7a8b9c0
@@ -126,14 +128,14 @@ One Python script that creates a call, streams your microphone to the Pearl and 
   </Step>
 </Steps>
 
-The call is in your call history with its transcript and recording, like any other call of the Pearl.
+The call is in your call history with its transcript and recording, like any other call of your Pearl.
 
 ## How the script works
 
 - **The order:** create the call, open `url?ticket=…`, wait for `ready`, then stream.
-- **The pacing:** the sound card hands over 20 ms of the microphone every 20 ms, silence included, which is exactly what the Pearl expects.
-- **The playback:** the Pearl's frames go through an 80 ms buffer, which absorbs network jitter.
-- **The ending:** Ctrl+C sends `hangup`, answered by `ended`. If the Pearl ends the call first, the script prints its `ended` and stops.
+- **The pacing:** the sound card hands over 20 ms of the microphone every 20 ms, silence included, which is exactly what Pearl expects.
+- **The playback:** Pearl's frames go through an 80 ms buffer, which absorbs network jitter.
+- **The ending:** Ctrl+C sends `hangup`, answered by `ended`. If Pearl ends the call first, the script prints its `ended` and stops.
 
 ## Next steps
 

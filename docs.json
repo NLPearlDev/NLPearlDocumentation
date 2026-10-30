@@ -97,8 +97,7 @@
                 "pages": [
                   "pages/realtime/overview",
                   "pages/realtime/quickstart",
-                  "pages/realtime/browser",
-                  "pages/realtime/twilio_media_streams"
+                  "pages/realtime/browser"
                 ]
               },
               "pages/languages",

@@ -11,26 +11,17 @@ Requires the **`pearls:websocket` scope**. Then open `url?ticket=<ticket>` withi
 ## Path parameters
 
 <ParamField path="pearlId" type="string" required>
-  The Pearl's id. It must be an active voice Pearl.
+  Your Pearl's id. It must be an active voice Pearl. Find it on your Pearl's overview page, in the **Settings** popover.
 </ParamField>
 
 ## Body
 
 <ParamField body="endUserId" type="string" required>
-  Who the call is with: your own id for the person, such as a customer id, an e-mail or a phone number. 1 to 200 characters, surrounding spaces trimmed.
-
-  A Realtime API call has no phone number, so `endUserId` takes its place:
-  - The call history shows it as the call's `from` or `to`, and you can search calls by it.
-  - The Pearl remembers the person by it: send the same value for the same person every time.
-  - The flow gets it wherever it uses the caller's phone number. If your flow looks people up by phone number, for example in your CRM, send their number in E.164 form (`+14155550123`).
-
-  **Never send the same value for different people:** the Pearl would treat them as one person and share its memory between them. If you have no id for the person, send one that is unique to the session, such as your session id.
-
-  To clear the Pearl's memory of the person, call [Reset Customer Memory](/api-reference/v2/pearl/reset-memory) with the `endUserId` as `phoneNumber`.
+  Your own id for the person on the call, such as a customer id, an e-mail or a phone number (1 to 200 characters). A Realtime API call has no phone number, so this takes its place: in the call history, in your Pearl's [memory](/pages/knowledge_base#memory), and in the flow's [Phone Number](/pages/variables) variable. Send the same value for the same person every time, and never one value for different people; if you have no id for the person, send a session id.
 </ParamField>
 
 <ParamField body="callData" type="object">
-  The flow's pre-call variables, by variable name: the same dictionary as a phone call's `callData`.
+  The flow's [pre-call variables](/api-reference/flow_variables), by variable name: the same dictionary as a phone call's `callData`.
 
   **Required entries:** every variable used in the opening sentence, and every input of a pre-call API, present and not blank. Other variables are optional.
 
@@ -105,17 +96,17 @@ A `400` lists its messages in `errors.validation`. Several `callData` problems a
 
 | Message in `errors.validation` | Cause |
 | --- | --- |
-| `Realtime API calls are available for voice Pearls only.` | The Pearl is a text Pearl. |
-| `The Pearl is not active.` | The Pearl is paused. |
+| `Realtime API calls are available for voice Pearls only.` | Your Pearl is a text Pearl. |
+| `The Pearl is not active.` | Your Pearl is paused. Activate it with [Set Activity State](/api-reference/v2/pearl/set-activity-state). |
 | `endUserId is required (up to 200 characters).` | `endUserId` is longer than 200 characters. |
 | `audioFormat 'X' is not supported. Valid: ulaw_8000, pcm_24000.` | `audioFormat` is not one of the two formats. |
 | `callData key cannot be null or whitespace.`<br/>`callData key 'K' must not exceed 40 characters.`<br/>`callData key 'K' contains invalid characters. Only letters, digits, underscores (_) and hyphens (-) are allowed.`<br/>`callData value for key 'K' must not exceed 200 characters.` | A `callData` entry is invalid. |
 | `Missing pre-call variables: firstName, orderId.` | Required `callData` entries are absent or blank. |
 | `Call cannot be completed: The client has no remaining credits. Please recharge to continue.` | The account has no credits left. |
 | `Call cannot be completed: Account Suspended! Please contact support.` | The account is suspended. |
-| `The Pearl has no flow yet.`<br/>`Invalid Conversation Flow` | The Pearl has no usable flow. |
-| `The Pearl has no inbound settings.`<br/>`The Pearl has no outbound settings.` | The Pearl's direction settings are missing. |
-| `No agent is available for this Pearl right now, try again later.` | All the Pearl's [agents](/pages/agents) are busy, phone calls and Realtime API calls together, or it has none. Retry later. |
+| `The Pearl has no flow yet.`<br/>`Invalid Conversation Flow` | Your Pearl has no usable flow. |
+| `The Pearl has no inbound settings.`<br/>`The Pearl has no outbound settings.` | Your Pearl's direction settings are missing. |
+| `No agent is available for this Pearl right now, try again later.` | All your Pearl's [agents](/pages/agents) are busy, phone calls and Realtime API calls together, or it has none. Retry later. |
 | `Could not start the call.` | An internal failure. The agent it reserved stays taken for about 90 seconds, so a retry may get `No agent is available…` until then. |
 
 Two cases answer with a `title` and a `detail` instead:
@@ -123,12 +114,12 @@ Two cases answer with a `title` and a `detail` instead:
 | `title` | `detail` | Cause |
 | --- | --- | --- |
 | `Invalid Pearl ID` | `The Pearl ID is not valid.` | `pearlId` is not a valid id. |
-| `Pearl not found` | `No Pearl found for the provided ID.` | The Pearl does not exist or was deleted. |
+| `Pearl not found` | `No Pearl found for the provided ID.` | No Pearl has this id, or it was deleted. |
 
 Malformed JSON, a field of the wrong type (a number as `audioFormat`, for example) or a missing or blank `endUserId` get the standard `400`, with the error under the field name: `The EndUserId field is required.` for `endUserId`.
 
 <Note>
-A successful create reserves one of the Pearl's [agents](/pages/agents) until the call ends. A call that is never connected keeps it for about 90 seconds and costs nothing. There is no endpoint to cancel a created call.
+A successful create reserves one of your Pearl's [agents](/pages/agents) until the call ends. A call that is never connected keeps it for about 90 seconds and costs nothing. There is no endpoint to cancel a created call.
 
 A create refused with `No agent is available…` or `Could not start the call.` still appears in the call history, as a call that never started.
 </Note>
