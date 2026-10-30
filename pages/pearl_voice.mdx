@@ -1,7 +1,7 @@
 ---
 title: "Pearl Voice"
 sidebarTitle: "Overview"
-description: "Build AI voice agents that handle real, natural phone conversations - inbound and outbound - in 20+ languages."
+description: "Build AI voice agents that handle real, natural conversations - inbound, outbound, or streamed from your own app - in 20+ languages."
 icon: "phone-volume"
 iconType: "light"
 ---
@@ -143,9 +143,9 @@ Pearl Voice response time can vary based on the selected language, conversation 
 
 ---
 
-## Phone Numbers & VoIP
+## Connect your Pearl
 
-Every voice activity needs a phone number. You can buy numbers directly from NLPearl, bring your own Twilio numbers, or connect your own SIP-compatible VoIP provider.
+A Pearl is your agent, and each conversation with it is a call. A call reaches your Pearl in one of two ways: through a phone number, or through the **Realtime API**, where your own app starts the call, with no number. Either way, it runs the same Pearl.
 
 <CardGroup cols={2}>
 
@@ -163,6 +163,10 @@ Every voice activity needs a phone number. You can buy numbers directly from NLP
 
 <Card title="Custom VoIP" icon="code-branch" iconType="light" href="/pages/custom_voip">
   Integrate your own SIP-compatible VoIP provider to route calls through your existing telephony infrastructure.
+</Card>
+
+<Card title="Realtime API" icon="waveform-lines" iconType="light" href="/pages/realtime/overview">
+  Talk to your Pearl in real time from your own app, website or phone system.
 </Card>
 
 </CardGroup>

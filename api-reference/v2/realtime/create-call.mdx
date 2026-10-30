@@ -1,0 +1,159 @@
+---
+title: "Create Realtime Call"
+sidebarTitle: "Create Call"
+api: "POST https://api.nlpearl.ai/v2/Pearl/{pearlId}/WebSocket"
+description: "The first step of a Realtime API call: creates the call and returns the WebSocket url, a single-use ticket valid 60 seconds, and the audio format."
+authMethod: "bearer"
+---
+
+Requires the **`pearls:websocket` scope**. Then open `url?ticket=<ticket>` within 60 seconds: [Stream Call](/api-reference/v2/realtime/stream-call) describes the connection, the audio and the events.
+
+## Path parameters
+
+<ParamField path="pearlId" type="string" required>
+  Your Pearl's id. It must be an active voice Pearl. Find it on your Pearl's overview page, in the **Settings** popover.
+</ParamField>
+
+## Body
+
+<ParamField body="endUserId" type="string" required>
+  Your own id for the person on the call, such as a customer id, an e-mail or a phone number (1 to 200 characters). A Realtime API call has no phone number, so this takes its place: in the call history, in your Pearl's [memory](/pages/knowledge_base#memory), and in the flow's [Phone Number](/pages/variables) variable. Send the same value for the same person every time, and never one value for different people; if you have no id for the person, send a session id.
+</ParamField>
+
+<ParamField body="callData" type="object">
+  The flow's [pre-call variables](/api-reference/flow_variables), by variable name: the same dictionary as a phone call's `callData`.
+
+  **Required entries:** every variable used in the opening sentence, and every input of a pre-call API, present and not blank. Other variables are optional.
+
+  Keys are letters (any script), digits, `_` and `-`, up to 40 characters. Values are strings, up to 200 characters.
+</ParamField>
+
+<ParamField body="audioFormat" type="string" default="ulaw_8000">
+  The audio format of the call, the same in both directions:
+
+  - `ulaw_8000`: 8 kHz G.711 μ-law, phone quality.
+  - `pcm_24000`: 24 kHz 16-bit little-endian PCM, HD.
+
+  Case-insensitive. Absent, `null` or empty means `ulaw_8000`, and any other value is refused.
+</ParamField>
+
+## Response
+
+<ResponseField name="callId" type="string">
+  The call's id: the same id as in [Get Call](/api-reference/v2/call/get-call), the call list and the webhooks.
+</ResponseField>
+
+<ResponseField name="url" type="string">
+  The WebSocket URL. Open it with the ticket: `url?ticket=<ticket>`. Always use the returned value rather than a fixed address.
+</ResponseField>
+
+<ResponseField name="ticket" type="string">
+  The single-use ticket for the connection, starting with `wct_`. It is valid for 60 seconds and is consumed by the first successful connection. Treat it as a secret.
+</ResponseField>
+
+<ResponseField name="expiresAt" type="string">
+  When the ticket stops being accepted, in ISO 8601 UTC: creation plus 60 seconds.
+</ResponseField>
+
+<ResponseField name="audio" type="object">
+  The format of every audio frame, in both directions.
+
+  <Expandable title="properties">
+    <ResponseField name="encoding" type="string">
+      `mulaw` or `pcm_s16le`.
+    </ResponseField>
+    <ResponseField name="sampleRate" type="integer">
+      `8000` or `24000`.
+    </ResponseField>
+    <ResponseField name="channels" type="integer">
+      Always `1`.
+    </ResponseField>
+    <ResponseField name="frameMs" type="integer">
+      Always `20`.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Errors
+
+| Status | When |
+| --- | --- |
+| `400` | A validation or business rule failed. See the messages below. |
+| `401` | The credentials are missing or invalid. |
+| `403` | The key or token lacks the `pearls:websocket` scope. |
+| `500` | An unexpected server error. |
+
+A `400` lists its messages in `errors.validation`. Several `callData` problems are reported together.
+
+```json
+{
+  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "errors": { "validation": ["Missing pre-call variables: firstName."] }
+}
+```
+
+| Message in `errors.validation` | Cause |
+| --- | --- |
+| `Realtime API calls are available for voice Pearls only.` | Your Pearl is a text Pearl. |
+| `The Pearl is not active.` | Your Pearl is paused. Activate it with [Set Activity State](/api-reference/v2/pearl/set-activity-state). |
+| `endUserId is required (up to 200 characters).` | `endUserId` is longer than 200 characters. |
+| `audioFormat 'X' is not supported. Valid: ulaw_8000, pcm_24000.` | `audioFormat` is not one of the two formats. |
+| `callData key cannot be null or whitespace.`<br/>`callData key 'K' must not exceed 40 characters.`<br/>`callData key 'K' contains invalid characters. Only letters, digits, underscores (_) and hyphens (-) are allowed.`<br/>`callData value for key 'K' must not exceed 200 characters.` | A `callData` entry is invalid. |
+| `Missing pre-call variables: firstName, orderId.` | Required `callData` entries are absent or blank. |
+| `Call cannot be completed: The client has no remaining credits. Please recharge to continue.` | The account has no credits left. |
+| `Call cannot be completed: Account Suspended! Please contact support.` | The account is suspended. |
+| `The Pearl has no flow yet.`<br/>`Invalid Conversation Flow` | Your Pearl has no usable flow. |
+| `The Pearl has no inbound settings.`<br/>`The Pearl has no outbound settings.` | Your Pearl's direction settings are missing. |
+| `No agent is available for this Pearl right now, try again later.` | All your Pearl's [agents](/pages/agents) are busy, phone calls and Realtime API calls together, or it has none. Retry later. |
+| `Could not start the call.` | An internal failure. The agent it reserved stays taken for about 90 seconds, so a retry may get `No agent is available…` until then. |
+
+Two cases answer with a `title` and a `detail` instead:
+
+| `title` | `detail` | Cause |
+| --- | --- | --- |
+| `Invalid Pearl ID` | `The Pearl ID is not valid.` | `pearlId` is not a valid id. |
+| `Pearl not found` | `No Pearl found for the provided ID.` | No Pearl has this id, or it was deleted. |
+
+Malformed JSON, a field of the wrong type (a number as `audioFormat`, for example) or a missing or blank `endUserId` get the standard `400`, with the error under the field name: `The EndUserId field is required.` for `endUserId`.
+
+<Note>
+A successful create reserves one of your Pearl's [agents](/pages/agents) until the call ends. A call that is never connected keeps it for about 90 seconds and costs nothing. There is no endpoint to cancel a created call.
+
+A create refused with `No agent is available…` or `Could not start the call.` still appears in the call history, as a call that never started.
+</Note>
+
+<RequestExample>
+```bash cURL
+curl -X POST "https://api.nlpearl.ai/v2/Pearl/<pearlId>/WebSocket" \
+  -H "Authorization: Bearer <AccountId>:<SecretKey>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "endUserId": "crm-77812",
+    "callData": { "firstName": "Dana", "orderId": "A-1234" },
+    "audioFormat": "pcm_24000"
+  }'
+```
+</RequestExample>
+
+<ResponseExample>
+```json 200
+{
+  "callId": "6720f3c1a8b4e5d6f7a8b9c0",
+  "url": "wss://agents.nlpearl.ai/WebCall",
+  "ticket": "wct_kX9vQ2...",
+  "expiresAt": "2026-10-28T09:01:00Z",
+  "audio": { "encoding": "pcm_s16le", "sampleRate": 24000, "channels": 1, "frameMs": 20 }
+}
+```
+
+```json 400
+{
+  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "errors": { "validation": ["No agent is available for this Pearl right now, try again later."] }
+}
+```
+</ResponseExample>

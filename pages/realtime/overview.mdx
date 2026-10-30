@@ -1,0 +1,93 @@
+---
+title: "Realtime API"
+sidebarTitle: "Overview"
+description: "Talk to your Pearl in real time from your own app or website."
+icon: "waveform-lines"
+iconType: "light"
+---
+
+The Realtime API gives your app a live, speech-to-speech conversation with your Pearl: you stream the end user's voice in and play Pearl's voice back as it speaks. It is the same Pearl as on your phone numbers, with the same flow, call history, webhooks, recordings and billing. Only the start differs: your app starts the call through the API, with no phone number.
+
+## Before you start
+
+- A [voice Pearl](/pages/getting_started#2-create-your-agent-with-pearlvibe) that is **active**. The call runs its [published](/pages/getting_started#5-publish-your-agent) version.
+- Its **Pearl ID**: on your Pearl's overview page, in the **Settings** popover.
+- An API key, or an OAuth app with the **`pearls:websocket`** scope (**Make Realtime API calls** in the platform). See [API Authorization](/api-reference/authorization).
+- One of the two audio formats, the same in both directions:
+
+| `audioFormat` | Audio | Use it for |
+| --- | --- | --- |
+| `ulaw_8000` (default) | 8 kHz μ-law | Phone quality. The format of Twilio and most phone systems |
+| `pcm_24000` | 24 kHz 16-bit PCM | HD. Websites and apps |
+
+## Connect
+
+<Steps>
+  <Step title="Create the call">
+    From your backend, call [Create Call](/api-reference/v2/realtime/create-call). It returns the `url` to open and a `ticket` valid for 60 seconds.
+
+    ```bash
+    curl -X POST "https://api.nlpearl.ai/v2/Pearl/<pearlId>/WebSocket" \
+      -H "Authorization: Bearer <AccountId>:<SecretKey>" \
+      -H "Content-Type: application/json" \
+      -d '{ "endUserId": "crm-77812", "audioFormat": "pcm_24000" }'
+    ```
+
+    `endUserId` is [your own id for the person on the call](/api-reference/v2/realtime/create-call#param-end-user-id), such as a customer id: send the same value for the same person every time.
+  </Step>
+  <Step title="Open the WebSocket">
+    Open the `url` with the ticket, within 60 seconds. Pearl sends `ready`, then you stream.
+
+    ```javascript
+    const ws = new WebSocket(`${call.url}?ticket=${call.ticket}`);
+    ```
+  </Step>
+</Steps>
+
+<Warning>
+Your API key stays on your backend. A browser or an app gets only the `url` and the `ticket`, which open this one call, once.
+</Warning>
+
+## Stream audio
+
+- **Audio is binary**, in both directions: raw bytes in the call's format, with no base64 and no JSON.
+- **Send one 20 ms frame every 20 ms**, in real time, for the whole call. When the end user is quiet or muted, send silence, not nothing.
+- **Pearl sends one 20 ms frame every 20 ms** too, with silence while it listens. Play the frames through a small jitter buffer of 60 to 100 ms.
+- **Interruptions need no code.** When the end user talks over Pearl, it stops speaking and the next frames are already silence: there is nothing to clear on your side.
+
+## Events
+
+Text messages are JSON events. Pearl sends three:
+
+| Event | When |
+| --- | --- |
+| `ready` | Once, right after you connect |
+| `transfer` | The flow [transferred](/pages/transfer_call) the call. It carries the target and the data collected so far; carrying the call on is up to you |
+| `ended` | The call is over, with the `reason`. Pearl then closes the connection |
+
+To hang up, send `{"type":"hangup"}`. After the call, the call history and the [webhooks](/pages/webhooks) show it with `channel: "websocket"`.
+
+## Errors and limits
+
+| What happens | Why | What to do |
+| --- | --- | --- |
+| The create is refused with `No agent is available…` | Every one of your Pearl's [agents](/pages/agents) is on a call, phone calls included | Retry later, or give your Pearl more agents |
+| The connection is refused with `401` | The ticket expired, was already used, or is missing | Create a new call and connect right away |
+| The call ends with `no_audio` | 60 seconds without a message from you | Keep sending silence frames |
+| The call ends with `max_duration` | Your Pearl's Max Call Duration was reached | Set a longer duration on your Pearl |
+
+A message is at most 16 KB. [Stream Call](/api-reference/v2/realtime/stream-call) has every message, end reason and limit.
+
+## Examples
+
+<CardGroup cols={2}>
+
+<Card title="Quickstart" icon="rocket" iconType="light" href="/pages/realtime/quickstart">
+  Talk to your Pearl from your terminal, with your microphone.
+</Card>
+
+<Card title="Browser App" icon="browser" iconType="light" href="/pages/realtime/browser">
+  A web page with the microphone and Pearl's voice.
+</Card>
+
+</CardGroup>
