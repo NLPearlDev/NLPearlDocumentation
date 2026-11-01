@@ -185,7 +185,7 @@ These settings apply to **voice** Pearls only. A Text Pearl has a different set 
 
 ### Recording Options
 
-Record the conversation (on/off). When enabled, the call audio is saved and available afterwards from your **call logs** for quality reviews, training, and analytics. When disabled, no audio is captured or stored.
+Choose whether the call audio is recorded. Recordings are available afterwards from your **call logs** for quality reviews, training, and analytics.
 
 <Frame>
   <img
@@ -195,50 +195,43 @@ Record the conversation (on/off). When enabled, the call audio is saved and avai
   />
 </Frame>
 
+| Option | Description |
+| --- | --- |
+| **Full call** | Records Pearl, then the person the call is transferred to. |
+| **Until transfer** | Records Pearl, and stops when Pearl hands the call over to a person. |
+| **Off** | Nothing is recorded. |
+
 <Warning>
 Call recording laws vary by region and often require informing or getting consent from callers. Make sure your Pearl's flow discloses recording where required.
 </Warning>
 
----
-
-### Recording After Transfer Call
-
-If enabled, the call keeps recording after Pearl transfers it and leaves the line, so you capture the full conversation with the human agent. Turn it off if you don't want to record the person or third party the call is transferred to.
-
-<Frame>
-  <img
-    src="/images/dark_mode/inbound-recording-after-transfer.png"
-    alt="Recording After Transfer Call setting"
-    className="rounded-[14px]"
-  />
-</Frame>
-
 <Note>
-This option only appears when **Recording Options** is enabled. See the [Transfer Call Node](/pages/transfer_call) to learn how call transfers work.
+See the [Transfer Call Node](/pages/transfer_call) to learn how call transfers work.
 </Note>
 
 ---
 
-### Transcript Options
+### Mask Sensitive Info
 
-Choose what is kept from the call transcript. Transcripts appear in your call logs alongside the recording.
+Replace personal details with `****` in everything that is kept after the call. The transcript is always kept: **Off** stores it as-is, **On** masks it and opens the masking settings below.
 
 <Frame>
   <img
     src="/images/dark_mode/inbound-transcript-options.png"
-    alt="Transcript Options setting"
+    alt="Mask Sensitive Info setting"
     className="rounded-[14px]"
   />
 </Frame>
 
-| Option | Description | When to use |
-| --- | --- | --- |
-| **Full Transcript** | Keeps the entire conversation as-is. | Complete analysis, QA, and training. |
-| **Sensitive Info Removed** | Automatically masks sensitive data (credit card numbers, Social Security numbers, personal identifiers) while keeping the conversation readable. | Compliance and PII protection. |
-| **No Transcript** | No transcript is stored for the call. | Maximum privacy. |
+| Setting | Description |
+| --- | --- |
+| **PII Detection** | **Auto** lets the AI decide what is personal information, such as names, phone numbers, or card numbers. **Manual** masks only the variables you pick, the same way on every call. |
+| **Variables to mask** | *Manual only.* The variables whose values are masked. Their values are replaced with `****` wherever they appear, including inside other variables. |
+| **Mask personal details in** | Where masking applies: **Transcript**, **Summary**, **Variables**, and **Action logs**. Unchecked parts keep the original values. In Manual mode, this setting reads **Mask the variables in**. |
+| **Send Masked Payloads** | **On**: webhooks and post-call actions receive the masked values (`****`). **Off**: they receive the original values. |
 
 <Info>
-With **Sensitive Info Removed**, if a customer says *"My credit card number is 1234-5678-9012-3456"*, the transcript stores it as *"My credit card number is \*\*\*\*-3456"*, so you can review interactions safely without exposing sensitive data.
+With **Auto** detection, if a customer says *"My credit card number is 1234-5678-9012-3456"*, the transcript stores it as *"My credit card number is \*\*\*\*"*, so you can review interactions safely without exposing sensitive data.
 </Info>
 
 ---

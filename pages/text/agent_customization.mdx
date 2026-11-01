@@ -50,25 +50,43 @@ To define your agent's identity:
 
 ## Pearl Model
 
-The **Pearl Model** defines the intelligence, speed, and cost profile of your agent. Chat agents run on a single model, **Pearl Swan**.
+The **Pearl Model** defines the intelligence, speed, and cost profile of your agent. Chat agents can run on two models: **Pearl Orchid** and **Pearl Swan**.
 
 <Frame>
   <img
     src="/images/dark_mode/text-agent-customization-model.png"
-    alt="Pearl Model (Pearl Swan) in Pearl Settings"
+    alt="Pearl Model in Pearl Settings"
     className="rounded-[14px]"
   />
 </Frame>
 
 <Card>
-  <Info>
-  **High Reasoning · Higher Latency · Standard Rate**
-  </Info>
-  Our standard model for chat agents, built to handle any text-based use case with reliable reasoning and natural responses.
+<Tabs>
+  <Tab title="Pearl Orchid">
+    <Info>
+    **High Reasoning · Higher Latency · +1 credit/message**
+    </Info>
+    Our most advanced text agent model, surpassing Pearl Swan in intelligence and built to excel across any use case. It is the default model of every text Pearl built with PearlVibe.
+
+    Use it when you need:
+    - The best answer quality on complex or open-ended conversations.
+    - Reliable reasoning across many steps, tools, and integrations.
+  </Tab>
+  <Tab title="Pearl Swan">
+    <Info>
+    **Medium Reasoning · Higher Latency · Standard Rate**
+    </Info>
+    Our standard model for chat agents, built to handle any text-based use case with reliable reasoning and natural responses.
+
+    Use it when you want:
+    - A dependable model at the standard rate.
+    - High-volume conversations with clear, predictable flows.
+  </Tab>
+</Tabs>
 </Card>
 
 <Note>
-Since Pearl Swan is the only model available for chat agents, the selector is fixed on it.
+Pearl Orchid and Pearl Swan are available only for chat agents. Voice models (Flame, Hydra, Arrow, Trident, Oyster) cannot be selected on a text Pearl.
 </Note>
 
 ---

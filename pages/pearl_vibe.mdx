@@ -191,6 +191,24 @@ In the **Create New Version** dialog, pick the existing version to use as the ba
 Editing a version that is already **Published** automatically creates a new version for your changes, so the live configuration keeps running untouched while you iterate.
 </Tip>
 
+**Copying a version to another Pearl**
+
+To reuse a flow in another Pearl, open the version history, hover the version you want, and click its **copy** icon (*Copy to paste into another Pearl*). Then open the version history of the other Pearl: a **Copied version** row appears at the bottom of the list, with a **Paste** button.
+
+<Frame>
+  <img
+    src="/images/dark_mode/version-paste.png"
+    alt="Copied version row with the Paste button in the version history"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+**Paste** creates a new version of that Pearl with the copied flow and its credentials, and opens it. The Published version keeps handling calls until you publish the new one.
+
+<Note>
+You can paste only into another Pearl of the same account and of the same type (voice or text). A copy is pasted once: to reuse the same version in a third Pearl, copy it again.
+</Note>
+
 ---
 
 **Publishing**
@@ -352,6 +370,29 @@ In the **Test Call** panel, choose the **From** and **To** phone numbers, option
     className="rounded-[14px]"
   />
 </Frame>
+
+**Testing from your browser (Web Phone)**
+
+You don't need a phone to test a voice Pearl. In **From**, pick **Web Phone (this browser)**: you talk to Pearl through your computer's microphone and speakers. The phone number becomes optional, and you choose the microphone next to **Call Now**.
+
+<Frame>
+  <img
+    src="/images/dark_mode/test-call-web-phone.png"
+    alt="Test Call panel with Web Phone selected, the microphone picker, and the HD audio option"
+    className="rounded-[14px]"
+  />
+</Frame>
+
+| Option | Description |
+| --- | --- |
+| **HD audio** checked | High-definition audio (24 kHz) in both directions. |
+| **HD audio** unchecked | Phone-line audio (8 kHz), as a real caller hears Pearl. Use it to judge how your Pearl really sounds on the phone. |
+
+Once connected, the call continues in a small floating window that stays on screen while you move around the platform, with the call duration and controls to mute your microphone or hang up. The call then appears in **Past Calls** like any other test call.
+
+<Note>
+Your browser asks for microphone access the first time. If no microphone is found, **Call Now** stays disabled.
+</Note>
 
 ---
 

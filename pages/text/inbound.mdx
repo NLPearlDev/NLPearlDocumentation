@@ -149,26 +149,27 @@ Follow-up messages can use **Pre-Call** variables (e.g. the customer's first nam
 
 ---
 
-### Transcript Options
+### Mask Sensitive Info
 
-Choose what is kept from the conversation transcript. Transcripts appear in your conversation logs.
+Replace personal details with `****` in everything that is kept after the conversation. The transcript is always kept: **Off** stores it as-is, **On** masks it and opens the masking settings below.
 
 <Frame>
   <img
     src="/images/dark_mode/text-inbound-transcript-option.png"
-    alt="Transcript Options setting"
+    alt="Mask Sensitive Info setting"
     className="rounded-[14px]"
   />
 </Frame>
 
-| Option | Description | When to use |
-| --- | --- | --- |
-| **Full Transcript** | Keeps the entire conversation as-is. | Complete analysis, QA, and training. |
-| **Sensitive Info Removed** | Automatically masks sensitive data (credit card numbers, Social Security numbers, personal identifiers) while keeping the conversation readable. | Compliance and PII protection. |
-| **No Transcript** | No transcript is stored for the conversation. | Maximum privacy. |
+| Setting | Description |
+| --- | --- |
+| **PII Detection** | **Auto** lets the AI decide what is personal information, such as names, phone numbers, or card numbers. **Manual** masks only the variables you pick, the same way in every conversation. |
+| **Variables to mask** | *Manual only.* The variables whose values are masked. Their values are replaced with `****` wherever they appear, including inside other variables. |
+| **Mask personal details in** | Where masking applies: **Transcript**, **Summary**, **Variables**, and **Action logs**. Unchecked parts keep the original values. In Manual mode, this setting reads **Mask the variables in**. |
+| **Send Masked Payloads** | **On**: webhooks and post-chat actions receive the masked values (`****`). **Off**: they receive the original values. |
 
 <Info>
-With **Sensitive Info Removed**, if a customer writes *"My credit card number is 1234-5678-9012-3456"*, the transcript stores it as *"My credit card number is \*\*\*\*-3456"*, so you can review interactions safely without exposing sensitive data.
+With **Auto** detection, if a customer writes *"My credit card number is 1234-5678-9012-3456"*, the transcript stores it as *"My credit card number is \*\*\*\*"*, so you can review interactions safely without exposing sensitive data.
 </Info>
 
 ---

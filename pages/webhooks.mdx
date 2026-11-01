@@ -602,7 +602,7 @@ Toggle the **Webhooks** setting to **On**. Webhooks are off by default, and the 
 </Step>
 
 <Step title="Enter Your Webhook URLs">
-Provide the endpoint URLs for the webhooks you want to receive. Your server must respond with an HTTP `200 OK` to acknowledge receipt.
+Provide the endpoint URLs for the webhooks you want to receive. Your server must respond with any HTTP `2xx` status to acknowledge receipt.
 
 <Info>
 - **Call Webhook** - available for **Inbound** and **Outbound** Pearls.
@@ -625,12 +625,20 @@ Credentials work the same way as in the [API Node](/pages/api_action#credentials
 </Steps>
 
 <Note>
-Make sure your webhook endpoint is publicly accessible and responds within a reasonable timeout. NLPearl.AI does not retry failed webhook deliveries by default.
+Make sure your webhook endpoint is publicly accessible and responds within **10 seconds**. When a delivery fails (a non-`2xx` response, an error, or a timeout), NLPearl.AI tries again up to **3 attempts** in total, **30 seconds** apart. Since a delivery can arrive more than once, make your endpoint idempotent.
 </Note>
 
 <Info>
 If your endpoint is behind a firewall, allow the NLPearl IP addresses listed in [IP Whitelisting](/pages/ip_whitelist).
 </Info>
+
+---
+
+## Checking Webhook Deliveries
+
+Every webhook sent for a call appears in that call's event timeline, in the call details. Each **Call Webhook** or **Lead Webhook** event shows the endpoint URL, the number of attempts, and the final status code, or **Not sent** when the delivery could not leave (for example, when its credential was deleted).
+
+Expand the event to see each attempt: its time, its status code, the response time, and the error returned by your server, if any. Use it to check that your endpoint received the data, or to find out why it did not.
 
 ---
 
