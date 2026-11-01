@@ -72,7 +72,7 @@ The **Pearl Model** defines the intelligence, speed, and cost profile of your ag
 
 | Model | Reasoning | Average latency | Cost |
 |-------|-----------|-----------------|------|
-| **Pearl Flame** | Medium | ~700 ms (fastest) | Standard Rate |
+| **Pearl Flame** | Medium | ~700 ms (fastest) | +1 credit/min |
 | **Pearl Hydra** | High | ~1,250 ms | +2 credits/min |
 | **Pearl Arrow** | Medium | ~850 ms | +2 credits/min |
 | **Pearl Trident** | Medium | ~1,250 ms | Standard Rate |
@@ -86,12 +86,12 @@ Pearl Flame is available only for Pearls built with the PearlVibe editor. On a l
 <Tabs>
   <Tab title="Pearl Flame">
     <Info>
-    **Medium Reasoning · Fastest · Standard Rate**
+    **Medium Reasoning · Fastest · +1 credit/min**
     </Info>
     Our fastest model, with stronger reasoning than Pearl Arrow, optimized for ultra-low latency. It is the default model of every voice Pearl built with PearlVibe.
 
     Use it when you need:
-    - The snappiest real-time experience for callers, at the standard rate.
+    - The snappiest real-time experience for callers, for only one extra credit per minute.
     - Natural, human-like conversations with solid reasoning.
     - Your main production Pearl for most inbound and outbound flows.
 
@@ -152,7 +152,7 @@ When selecting a model, consider three main dimensions:
 |-----------|----------------|
 | **Speed** | If the caller experience must feel instant (no awkward silences, rapid back-and-forth), prefer Pearl Flame, or Pearl Arrow on a legacy simple Pearl. Pearl Trident, Pearl Hydra, and Pearl Oyster respond with standard conversational latency. |
 | **Reasoning / intelligence** | For the most demanding use cases that need the deepest reasoning, choose Pearl Hydra. For complex qualification, multi-step troubleshooting, or situations where the agent needs to "think", Pearl Flame is a strong choice. For simple flows with clear scripts and few edge cases, Pearl Oyster is more than sufficient. |
-| **Cost** | Pearl Flame and Pearl Trident run at the standard rate. Pearl Hydra and Pearl Arrow cost more per minute (+2 credits/min). Pearl Oyster is cheaper per minute (–2 credits/min), ideal when cost per call is the main constraint. |
+| **Cost** | Pearl Trident runs at the standard rate. Pearl Flame costs one extra credit per minute (+1 credit/min), Pearl Hydra and Pearl Arrow two (+2 credits/min). Pearl Oyster is cheaper per minute (–2 credits/min), ideal when cost per call is the main constraint. |
 
 <Tip>
 You can use different models for different Pearls depending on their role, volume, and business impact (for example: Hydra for the most complex high-stakes calls, Flame for main inbound and outbound support, Oyster for large reminder campaigns).

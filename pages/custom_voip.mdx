@@ -134,7 +134,7 @@ Secures your VoIP traffic by encrypting both the signaling (via TLS) and media (
 </Step>
 <Step title="Authentication Methods">
 <Info>
-Inbound calls require **at least one** authentication method. Enable **IP Address** and/or **Credentials** authentication (you can use both).
+Inbound calls require an authentication method. Choose **one**: **IP Address** or **Credentials** — the two cannot be combined. A new inbound configuration starts on **Credentials**.
 </Info>
 
 **IP Address Authentication:**  
@@ -142,7 +142,7 @@ Inbound calls require **at least one** authentication method. Enable **IP Addres
 Allow traffic from specific IP addresses, ideal if your VoIP infrastructure has a static IP.
 
 IP Address:
-Enter the public IP address(es) of your SIP servers so we can accept and process requests from them.
+Enter the public IP address(es) of your SIP servers so we can accept and process requests from them. Use **IPv4** addresses only, without leading zeros, and no duplicates — up to **100** addresses.
 
 <Frame>
   <img
@@ -158,7 +158,9 @@ Enter the public IP address(es) of your SIP servers so we can accept and process
 
 Use a username and password to authenticate each incoming SIP request.
 
-Username: 2–32 characters, using letters, digits, hyphens (`-`) and underscores (`_`) only. <br/>
+NLPearl proposes a username and a password for you. Keep them, edit them, or click **Regenerate** for a new pair.
+
+Username: 2–32 characters, letters and digits only. <br/>
 Password: At least 12 characters, with at least one uppercase letter, one lowercase letter, and one digit. Letters and digits only — **special characters are not allowed**.
 
 <Tip>
@@ -177,10 +179,10 @@ This method is useful if your infrastructure is cloud-based and IPs can change, 
 
 <Step title="Copy Your SIP Domain">
 
-After you save the inbound configuration, NLPearl generates a **SIP Domain** for this number. This is what tells your provider where to send incoming calls so they reach the platform.
+NLPearl generates a **SIP Domain** for this number as soon as you add it. This is what tells your provider where to send incoming calls so they reach the platform.
 
 <Info>
-The SIP Domain isn't something you type. It's created automatically and shown **read-only** at the top of the **Inbound Configuration** card, with a **Copy** button. It only appears **once the inbound configuration has been saved**, so reopen the card afterward to retrieve it.
+The SIP Domain isn't something you type. It's created automatically and shown **read-only** at the top of the **Inbound Configuration** card, with a **Copy** button.
 </Info>
 
 <Frame>
@@ -194,10 +196,10 @@ The SIP Domain isn't something you type. It's created automatically and shown **
 <Warning>
 **To finish connecting inbound calls:**
 
-1. Save the inbound configuration, then reopen the **Inbound Configuration** card.
-2. Copy the generated **SIP Domain**.
-3. Add it to your VoIP provider / PBX as the **destination for inbound calls**, so your operator routes incoming calls to NLPearl.
-4. If you enabled **Credentials Authentication**, also add the **username and password** you defined here to your VoIP settings so authentication succeeds.
+1. Copy the generated **SIP Domain** from the **Inbound Configuration** card.
+2. Add it to your VoIP provider / PBX as the **destination for inbound calls**, so your operator routes incoming calls to NLPearl.
+3. If you chose **Credentials Authentication**, also add the **username and password** set here to your VoIP settings so authentication succeeds.
+4. Save the inbound configuration.
 </Warning>
 
 </Step>
@@ -252,7 +254,8 @@ You can use one of the following formats depending on your provider:
 - A SIP username (e.g. `caller01`)
 - A DID or phone number in `E.164` format (e.g. `+1234567890`)
 - An extension (e.g. `201`)
-- A SIP URI (e.g. `caller01@example.com`), less common
+
+Up to 50 characters: letters, digits, and `+ - _ .` only. A full SIP URI such as `caller01@example.com` is not accepted.
 
 <Frame>
   <img
@@ -310,6 +313,8 @@ If you **disable** SIP REFER, NLPearl's servers stay in the media path during tr
 
 <Step title="Authentication Methods (optional based on your VoIP)"> 
 
+If your provider requires authentication, choose **one** method: **Credentials** or **Headers** — the two cannot be combined.
+
 **Credentials Authentication:**  
 
 Use this method if your VoIP provider requires username/password credentials to authenticate outbound calls.
@@ -334,7 +339,7 @@ Make sure it meets your provider’s security requirements (e.g. minimum 12 char
 Use this method if your VoIP provider requires custom headers for SIP request authentication.
 
 Header Key:
-This is the name of the custom SIP header field expected by your provider (e.g., X-Custom-Auth, X-Access-Token, etc.).
+This is the name of the custom SIP header field expected by your provider (e.g., X-Custom-Auth, X-Access-Token, etc.). It must start with `X-`.
 
 Header Value:
 The corresponding value used to validate the request (e.g., a token, API key, or static secret).
@@ -346,7 +351,7 @@ Ensure this matches exactly what your provider expects, as even small typos (lik
 </Note>
 
 <Info>
-You can add several key-value pairs if needed, for example, to meet multi-token security policies.
+You can add up to **15** key-value pairs if needed, for example, to meet multi-token security policies.
 </Info>
 
 <Frame>

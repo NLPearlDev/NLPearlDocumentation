@@ -32,6 +32,12 @@ a[href="https://platform.nlpearl.ai/"]:hover::before {
   max-width: 48rem !important;
 }
 
+/* Mintlify now sizes the content column with this variable (36rem, 42rem on 2xl):
+   the class rule above no longer matches anything. */
+:root {
+  --content-width: 48rem;
+}
+
 a.nav-tabs-item[href*="api-reference"] {
   color: #2DBE73 !important;
   font-weight: 600 !important;

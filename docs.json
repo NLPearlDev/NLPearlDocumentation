@@ -73,8 +73,7 @@
               "pages/variables",
               "pages/webhooks",
               "pages/ip_whitelist",
-              "pages/pearl_groups",
-              "pages/payout"
+              "pages/pearl_groups"
             ]
           },
           {
