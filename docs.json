@@ -91,6 +91,15 @@
                   "pages/custom_voip"
                 ]
               },
+              {
+                "group": "Realtime API",
+                "icon": "waveform-lines",
+                "pages": [
+                  "pages/realtime/overview",
+                  "pages/realtime/quickstart",
+                  "pages/realtime/browser"
+                ]
+              },
               "pages/languages",
               {
                 "group": "Pearl Configurations",
@@ -190,8 +199,7 @@
                 ]
               },
               "api-reference/flow_variables",
-              "api-reference/building_a_flow",
-              "api-reference/python_wrapper"
+              "api-reference/building_a_flow"
             ]
           },
           {
@@ -287,6 +295,14 @@
                   "api-reference/v2/speech/text-to-speech-stream",
                   "api-reference/v2/speech/clone-voice"
                 ]
+              },
+              {
+                "group": "Realtime API",
+                "expanded": true,
+                "pages": [
+                  "api-reference/v2/realtime/create-call",
+                  "api-reference/v2/realtime/stream-call"
+                ]
               }
             ]
           },
@@ -357,6 +373,9 @@
     "youtube": "https://www.youtube.com/@NLPearl",
     "instagram": "https://www.instagram.com/nlpearl/"
   },
-  "customCss": "css/custom.css"
+  "customCss": "css/custom.css",
+  "contextual": {
+    "options": ["copy", "view", "chatgpt", "claude", "cursor"]
+  }
 
 }

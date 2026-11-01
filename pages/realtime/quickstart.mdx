@@ -1,0 +1,152 @@
+---
+title: "Quickstart"
+description: "Talk to your Pearl from your terminal in five minutes: your microphone in, Pearl's voice through your speakers."
+icon: "rocket"
+iconType: "light"
+---
+
+One Python script that creates a call, streams your microphone to Pearl and plays its voice through your speakers. Press Ctrl+C to hang up.
+
+<Steps>
+  <Step title="Install">
+    Python 3.11 or later, then:
+
+    ```bash
+    pip install websockets sounddevice
+    ```
+
+    On Linux, also install PortAudio: `sudo apt install libportaudio2`. On macOS and Windows it comes with `sounddevice`.
+  </Step>
+  <Step title="Save the script">
+    Save it as `pearl_quickstart.py`.
+
+    ```python pearl_quickstart.py
+    """Talk to your Pearl from the terminal: your microphone in, Pearl's voice through your speakers. Ctrl+C hangs up."""
+    import asyncio
+    import json
+    import os
+    import queue
+    import urllib.request
+
+    import sounddevice as sd    # pip install websockets sounddevice
+    import websockets
+
+    API_KEY = os.environ["NLPEARL_API_KEY"]    # "<AccountId>:<SecretKey>"
+    PEARL_ID = os.environ["NLPEARL_PEARL_ID"]
+
+    RATE = 24000    # pcm_24000: 24 kHz, 16-bit, mono
+    FRAME = 480     # 20 ms
+
+
+    def create_call():
+        request = urllib.request.Request(
+            f"https://api.nlpearl.ai/v2/Pearl/{PEARL_ID}/WebSocket",
+            method="POST",
+            headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+            data=json.dumps({"endUserId": "quickstart", "audioFormat": "pcm_24000"}).encode(),
+        )
+        with urllib.request.urlopen(request) as response:
+            return json.load(response)    # callId, url, ticket, expiresAt, audio
+
+
+    async def main():
+        call = create_call()
+        print("call", call["callId"])
+
+        loop = asyncio.get_running_loop()
+        microphone = asyncio.Queue()    # the end user's 20 ms frames, to send
+        speaker = queue.Queue()         # Pearl's 20 ms frames, to play
+        playing = False
+
+        def on_microphone(data, frames, time, status):
+            # Called every 20 ms by the sound card: the pacing Pearl expects, silence included.
+            loop.call_soon_threadsafe(microphone.put_nowait, bytes(data))
+
+        def on_speaker(out, frames, time, status):
+            nonlocal playing
+            while speaker.qsize() > 15:                    # more than 300 ms behind: drop the oldest
+                speaker.get_nowait()
+            if not playing and speaker.qsize() >= 4:       # start with 80 ms buffered
+                playing = True
+            try:
+                out[:] = speaker.get_nowait() if playing else bytes(len(out))
+            except queue.Empty:
+                out[:] = bytes(len(out))
+                playing = False                            # ran dry: buffer again
+
+        async with websockets.connect(f"{call['url']}?ticket={call['ticket']}") as ws:
+            print(json.loads(await ws.recv()))    # ready: always the first message
+            print("Talking. Press Ctrl+C to hang up.")
+
+            async def send_microphone():
+                while True:
+                    await ws.send(await microphone.get())
+
+            with sd.RawInputStream(samplerate=RATE, channels=1, dtype="int16", blocksize=FRAME, callback=on_microphone), \
+                 sd.RawOutputStream(samplerate=RATE, channels=1, dtype="int16", blocksize=FRAME, callback=on_speaker):
+                sender = asyncio.create_task(send_microphone())
+                try:
+                    async for message in ws:
+                        if isinstance(message, bytes):
+                            speaker.put(message)          # Pearl's voice
+                        else:
+                            print(json.loads(message))    # transfer, ended
+                except asyncio.CancelledError:            # Ctrl+C: hang up, then wait for ended
+                    await ws.send(json.dumps({"type": "hangup"}))
+                    async for message in ws:
+                        if isinstance(message, str):
+                            print(json.loads(message))
+                finally:
+                    sender.cancel()
+
+
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        pass
+    ```
+  </Step>
+  <Step title="Run it and talk">
+    Use headphones: a terminal has no echo cancellation, and Pearl would hear itself through your speakers.
+
+    ```bash
+    export NLPEARL_API_KEY="<AccountId>:<SecretKey>"
+    export NLPEARL_PEARL_ID="<pearlId>"
+    python pearl_quickstart.py
+    ```
+
+    Your `<AccountId>:<SecretKey>` is on the **API Access** page of your workspace settings ([API Authorization](/api-reference/authorization)). Your `<pearlId>` is on your Pearl's overview page, in the **Settings** popover.
+
+    Pearl greets you; answer it. On macOS, allow the terminal to use the microphone the first time.
+
+    ```text Output
+    call 6720f3c1a8b4e5d6f7a8b9c0
+    {'type': 'ready', 'protocol': 1, 'callId': '6720f3c1a8b4e5d6f7a8b9c0', 'audio': {'encoding': 'pcm_s16le', 'sampleRate': 24000, 'channels': 1, 'frameMs': 20}}
+    Talking. Press Ctrl+C to hang up.
+    {'type': 'ended', 'reason': 'client_hangup', 'durationSec': 26}
+    ```
+  </Step>
+</Steps>
+
+The call is in your call history with its transcript and recording, like any other call of your Pearl.
+
+## How the script works
+
+- **The order:** create the call, open `url?ticket=…`, wait for `ready`, then stream.
+- **The pacing:** the sound card hands over 20 ms of the microphone every 20 ms, silence included, which is exactly what Pearl expects.
+- **The playback:** Pearl's frames go through an 80 ms buffer, which absorbs network jitter.
+- **The ending:** Ctrl+C sends `hangup`, answered by `ended`. If Pearl ends the call first, the script prints its `ended` and stops.
+
+## Next steps
+
+<CardGroup cols={2}>
+
+<Card title="Browser App" icon="browser" iconType="light" href="/pages/realtime/browser">
+  The same conversation from a web page.
+</Card>
+
+<Card title="Stream Call" icon="plug" iconType="light" href="/api-reference/v2/realtime/stream-call">
+  Every message, audio format, event and limit.
+</Card>
+
+</CardGroup>
