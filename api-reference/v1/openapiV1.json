@@ -2640,7 +2640,7 @@
                     },
                     "channel": {
                         "type": "string",
-                        "description": "How the call was connected: `phone` for a phone call, `web` for a web call streamed by your server over a WebSocket.",
+                        "description": "How the call was connected: `phone` for a phone call, `stream` for a stream call, its audio streamed by your server over a WebSocket.",
                         "nullable": true
                     },
                     "audioQuality": {
@@ -2770,7 +2770,7 @@
                     },
                     "channel": {
                         "type": "string",
-                        "description": "How the call was connected: `phone` for a phone call, `web` for a web call streamed by your server over a WebSocket.",
+                        "description": "How the call was connected: `phone` for a phone call, `stream` for a stream call, its audio streamed by your server over a WebSocket.",
                         "nullable": true
                     },
                     "audioQuality": {
@@ -4019,7 +4019,7 @@
                             "pearls:analytics": "Read Pearl analytics; implies pearls:read",
                             "pearls:leads": "Manage and read outbound leads; implies pearls:read",
                             "pearls:calls": "Read calls and recordings, make and delete calls; implies pearls:read",
-                            "pearls:web_calls": "Create web calls (audio over WebSocket from your server); implies pearls:read",
+                            "pearls:stream": "Create stream tokens and run calls over a WebSocket; implies pearls:read",
                             "account:phone_numbers": "Read account phone numbers and text channels, manage custom VoIP numbers, import Twilio numbers and delete phone numbers",
                             "account:users": "Read account users",
                             "account:advanced": "Manage advanced account settings (blacklist)",

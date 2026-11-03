@@ -1570,13 +1570,13 @@
                 }
             }
         },
-        "/v2/Pearl/{pearlId}/WebSocket": {
+        "/v2/Pearl/{pearlId}/Stream/Token": {
             "post": {
                 "tags": [
                     "Pearl"
                 ],
-                "summary": "Create Realtime Call",
-                "description": "Creates a call whose audio your server streams to the agent over a WebSocket. The response carries the WebSocket url, a single-use ticket (valid 60 seconds) and the audio format to send. endUserId is your identifier for the person on the call and is searchable like a phone number.",
+                "summary": "Create Stream Token",
+                "description": "Creates a call whose audio your server streams to the agent over a WebSocket. The response carries the stream url, a single-use token (valid 60 seconds) and the audio format to send. endUserId is your identifier for the person on the call and is searchable like a phone number.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -1596,10 +1596,10 @@
                                 ],
                                 "allOf": [
                                     {
-                                        "$ref": "#/components/schemas/WebCallCreateRequest"
+                                        "$ref": "#/components/schemas/StreamCallCreateRequest"
                                     }
                                 ],
-                                "description": "Represents the data required to create a WebSocket connection."
+                                "description": "Represents the data required to create a stream token."
                             }
                         },
                         "text/json": {
@@ -1609,10 +1609,10 @@
                                 ],
                                 "allOf": [
                                     {
-                                        "$ref": "#/components/schemas/WebCallCreateRequest"
+                                        "$ref": "#/components/schemas/StreamCallCreateRequest"
                                     }
                                 ],
-                                "description": "Represents the data required to create a WebSocket connection."
+                                "description": "Represents the data required to create a stream token."
                             }
                         },
                         "application/*+json": {
@@ -1622,31 +1622,31 @@
                                 ],
                                 "allOf": [
                                     {
-                                        "$ref": "#/components/schemas/WebCallCreateRequest"
+                                        "$ref": "#/components/schemas/StreamCallCreateRequest"
                                     }
                                 ],
-                                "description": "Represents the data required to create a WebSocket connection."
+                                "description": "Represents the data required to create a stream token."
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "The call was created; connect with the ticket before it expires.",
+                        "description": "The call was created; connect with the token before it expires.",
                         "content": {
                             "text/plain": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/WebCallCreated"
+                                    "$ref": "#/components/schemas/StreamCallCreated"
                                 }
                             },
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/WebCallCreated"
+                                    "$ref": "#/components/schemas/StreamCallCreated"
                                 }
                             },
                             "text/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/WebCallCreated"
+                                    "$ref": "#/components/schemas/StreamCallCreated"
                                 }
                             }
                         }
@@ -5281,7 +5281,7 @@
                     },
                     "channel": {
                         "type": "string",
-                        "description": "How the call was connected: `phone` for a phone call, `websocket` for a Realtime API call.",
+                        "description": "How the call was connected: `phone` for a phone call, `stream` for a stream call, its audio streamed by your server over a WebSocket.",
                         "nullable": true
                     },
                     "audioQuality": {
@@ -5352,7 +5352,7 @@
                     },
                     "channel": {
                         "type": "string",
-                        "description": "How the call was connected: `phone` for a phone call, `websocket` for a Realtime API call.",
+                        "description": "How the call was connected: `phone` for a phone call, `stream` for a stream call, its audio streamed by your server over a WebSocket.",
                         "nullable": true
                     },
                     "audioQuality": {
@@ -5650,7 +5650,7 @@
                     },
                     "channel": {
                         "type": "string",
-                        "description": "How the call was connected: `phone` for a phone call, `websocket` for a Realtime API call.",
+                        "description": "How the call was connected: `phone` for a phone call, `stream` for a stream call, its audio streamed by your server over a WebSocket.",
                         "nullable": true
                     },
                     "audioQuality": {
@@ -6372,7 +6372,7 @@
                                 "$ref": "#/components/schemas/eDataSettingsGroup"
                             }
                         ],
-                        "description": "Variable group.\n\n- PreCall: Variables available before the call (used in pre-call contexts such as opening sentence or pre-call API).\n- InCall: Variables collected or updated during the call.\n- PostCall: Variables generated after the call by the platform (cannot be created via the API).\n\n`1 - PreCall`\n\n`2 - InCall`\n\n`3 - PostCall`\n\n"
+                        "description": "Variable group.\n\n- PreCall: Variables available before the call (used in pre-call contexts such as opening sentence or pre-call API).\n- InCall: Variables collected or updated during the call.\n- PostCall: Variables generated after the call by the platform (cannot be created via the API).\n\n`1 - PreCall`\n\n`2 - InCall`\n\n`3 - PostCall`\n\n`4 - Environment`\n\n"
                     },
                     "type": {
                         "allOf": [
@@ -6430,7 +6430,7 @@
                                 "$ref": "#/components/schemas/eDataSettingsGroup"
                             }
                         ],
-                        "description": "Variable group.\n\n- PreCall: Variables available before the call (used in pre-call contexts such as opening sentence or pre-call API).\n- InCall: Variables collected or updated during the call.\n- PostCall: Variables generated after the call by the platform (cannot be created via the API).\n\n`1 - PreCall`\n\n`2 - InCall`\n\n`3 - PostCall`\n\n"
+                        "description": "Variable group.\n\n- PreCall: Variables available before the call (used in pre-call contexts such as opening sentence or pre-call API).\n- InCall: Variables collected or updated during the call.\n- PostCall: Variables generated after the call by the platform (cannot be created via the API).\n\n`1 - PreCall`\n\n`2 - InCall`\n\n`3 - PostCall`\n\n`4 - Environment`\n\n"
                     },
                     "type": {
                         "allOf": [
@@ -8666,6 +8666,97 @@
                 },
                 "additionalProperties": false
             },
+            "StreamCallAudioFormat": {
+                "type": "object",
+                "properties": {
+                    "encoding": {
+                        "type": "string",
+                        "description": "The audio encoding: `mulaw` (8-bit mu-law), `pcm_s16le` (16-bit little-endian PCM) or `opus` (one Opus packet per frame).",
+                        "nullable": true
+                    },
+                    "sampleRate": {
+                        "type": "integer",
+                        "description": "The sample rate, in hertz: `8000` or `24000`.",
+                        "format": "int32"
+                    },
+                    "channels": {
+                        "type": "integer",
+                        "description": "The number of audio channels: always `1` (mono).",
+                        "format": "int32"
+                    },
+                    "frameMs": {
+                        "type": "integer",
+                        "description": "The duration of each audio frame, in milliseconds.",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents the audio format of a stream call, the same in both directions."
+            },
+            "StreamCallCreateRequest": {
+                "required": [
+                    "endUserId"
+                ],
+                "type": "object",
+                "properties": {
+                    "endUserId": {
+                        "type": "string",
+                        "description": "Your identifier for the person on the call, up to 200 characters. It stands where a phone number would: the call shows it as its number, and you can search calls by it.",
+                        "nullable": true
+                    },
+                    "callData": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\n            \r\nSee [Variables](/pages/variables) for more information.\r\nHere is an example of the json to send:\r\n            \r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
+                        "nullable": true
+                    },
+                    "audioFormat": {
+                        "type": "string",
+                        "description": "The audio format of the call, the same in both directions: `ulaw_8000` (8 kHz mu-law, the default), `pcm_24000` (24 kHz 16-bit PCM), `opus_8000` (Opus at 8 kHz) or `opus_24000` (Opus at 24 kHz).",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents the data required to create a stream token."
+            },
+            "StreamCallCreated": {
+                "type": "object",
+                "properties": {
+                    "callId": {
+                        "type": "string",
+                        "description": "The id of the call, to follow it like any other call, for example with [Get Call](/api-reference/v2/call/get-call).",
+                        "nullable": true
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "The WebSocket URL to connect to.",
+                        "nullable": true
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "A single-use token that admits one connection to `url`. Send it in the `Authorization: Bearer` header of the WebSocket request, or as the `token` query parameter when connecting from a browser.",
+                        "nullable": true
+                    },
+                    "expiresAt": {
+                        "type": "string",
+                        "description": "When the token expires (UTC), 60 seconds after it was issued. Connect before then.",
+                        "format": "date-time"
+                    },
+                    "audio": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StreamCallAudioFormat"
+                            }
+                        ],
+                        "description": "The audio format to stream, the same in both directions.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Represents what your server needs to connect a stream call."
+            },
             "StringOptionalType": {
                 "type": "object",
                 "properties": {
@@ -9112,97 +9203,6 @@
                 },
                 "additionalProperties": false
             },
-            "WebCallAudioFormat": {
-                "type": "object",
-                "properties": {
-                    "encoding": {
-                        "type": "string",
-                        "description": "The audio encoding: `mulaw` (8-bit mu-law) or `pcm_s16le` (16-bit little-endian PCM).",
-                        "nullable": true
-                    },
-                    "sampleRate": {
-                        "type": "integer",
-                        "description": "The sample rate, in hertz: `8000` or `24000`.",
-                        "format": "int32"
-                    },
-                    "channels": {
-                        "type": "integer",
-                        "description": "The number of audio channels: always `1` (mono).",
-                        "format": "int32"
-                    },
-                    "frameMs": {
-                        "type": "integer",
-                        "description": "The duration of each audio frame, in milliseconds.",
-                        "format": "int32"
-                    }
-                },
-                "additionalProperties": false,
-                "description": "Represents the audio format of a call over WebSocket, the same in both directions."
-            },
-            "WebCallCreateRequest": {
-                "required": [
-                    "endUserId"
-                ],
-                "type": "object",
-                "properties": {
-                    "endUserId": {
-                        "type": "string",
-                        "description": "Your own id for the person on the call, up to 200 characters. It takes the place of a phone number: the call history shows it as the call's from or to and you can search calls by it, Pearl remembers the person by it, and the flow gets it wherever it uses the caller's number. Send one value per person: never the same value for different people.",
-                        "nullable": true
-                    },
-                    "callData": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "string"
-                        },
-                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\n            \r\nSee [Variables](/pages/variables) for more information.\r\nHere is an example of the json to send:\r\n            \r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
-                        "nullable": true
-                    },
-                    "audioFormat": {
-                        "type": "string",
-                        "description": "The audio format of the call, the same in both directions: `ulaw_8000` (8 kHz mu-law, the default) or `pcm_24000` (24 kHz 16-bit PCM).",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false,
-                "description": "Represents the data required to create a WebSocket connection."
-            },
-            "WebCallCreated": {
-                "type": "object",
-                "properties": {
-                    "callId": {
-                        "type": "string",
-                        "description": "The id of the call, to follow it like any other call, for example with [Get Call](/api-reference/v2/call/get-call).",
-                        "nullable": true
-                    },
-                    "url": {
-                        "type": "string",
-                        "description": "The WebSocket URL to connect to.",
-                        "nullable": true
-                    },
-                    "ticket": {
-                        "type": "string",
-                        "description": "A single-use ticket that admits one connection to `url`. Send it in the `Authorization: Bearer` header of the WebSocket request, or as the `ticket` query parameter when connecting from a browser.",
-                        "nullable": true
-                    },
-                    "expiresAt": {
-                        "type": "string",
-                        "description": "When the ticket expires (UTC), 60 seconds after it was issued. Connect before then.",
-                        "format": "date-time"
-                    },
-                    "audio": {
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/WebCallAudioFormat"
-                            }
-                        ],
-                        "description": "The audio format to stream, the same in both directions.",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false,
-                "description": "Represents what your server needs to connect over the WebSocket."
-            },
             "eActivityStatus": {
                 "type": "integer",
                 "description": "Here is the activity status\n\n`1 - Running`\n\n`2 - Paused`\n\n`3 - Suspended`\n\n`10 - TemporaryMaintenance`\n\n",
@@ -9245,7 +9245,7 @@
             },
             "eDataSettingsGroup": {
                 "type": "integer",
-                "description": "Variable group.\n\n- PreCall: Variables available before the call (used in pre-call contexts such as opening sentence or pre-call API).\n- InCall: Variables collected or updated during the call.\n- PostCall: Variables generated after the call by the platform (cannot be created via the API).\n\n`1 - PreCall`\n\n`2 - InCall`\n\n`3 - PostCall`\n\n",
+                "description": "Variable group.\n\n- PreCall: Variables available before the call (used in pre-call contexts such as opening sentence or pre-call API).\n- InCall: Variables collected or updated during the call.\n- PostCall: Variables generated after the call by the platform (cannot be created via the API).\n\n`1 - PreCall`\n\n`2 - InCall`\n\n`3 - PostCall`\n\n`4 - Environment`\n\n",
                 "format": "int32"
             },
             "eLeadStatusInputApi": {
@@ -9407,7 +9407,7 @@
                             "pearls:analytics": "Read Pearl analytics; implies pearls:read",
                             "pearls:leads": "Manage and read outbound leads; implies pearls:read",
                             "pearls:calls": "Read calls and recordings, make and delete calls; implies pearls:read",
-                            "pearls:websocket": "Make Realtime API calls (audio streamed over a WebSocket); implies pearls:read",
+                            "pearls:stream": "Create stream tokens and run calls over a WebSocket; implies pearls:read",
                             "account:phone_numbers": "Read account phone numbers and text channels, manage custom VoIP numbers, import Twilio numbers and delete phone numbers",
                             "account:users": "Read account users",
                             "account:advanced": "Manage advanced account settings (blacklist)",

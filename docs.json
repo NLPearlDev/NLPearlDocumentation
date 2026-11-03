@@ -91,12 +91,12 @@
                 ]
               },
               {
-                "group": "Realtime API",
+                "group": "Stream Calls",
                 "icon": "waveform-lines",
                 "pages": [
-                  "pages/realtime/overview",
-                  "pages/realtime/quickstart",
-                  "pages/realtime/browser"
+                  "pages/stream/overview",
+                  "pages/stream/quickstart",
+                  "pages/stream/browser"
                 ]
               },
               "pages/languages",
@@ -296,11 +296,11 @@
                 ]
               },
               {
-                "group": "Realtime API",
+                "group": "Stream Calls",
                 "expanded": true,
                 "pages": [
-                  "api-reference/v2/realtime/create-call",
-                  "api-reference/v2/realtime/stream-call"
+                  "api-reference/v2/stream/create-token",
+                  "api-reference/v2/stream/websocket"
                 ]
               }
             ]
@@ -375,6 +375,13 @@
   "customCss": "css/custom.css",
   "contextual": {
     "options": ["copy", "view", "chatgpt", "claude", "cursor"]
-  }
+  },
+  "redirects": [
+    { "source": "/pages/realtime/overview", "destination": "/pages/stream/overview" },
+    { "source": "/pages/realtime/quickstart", "destination": "/pages/stream/quickstart" },
+    { "source": "/pages/realtime/browser", "destination": "/pages/stream/browser" },
+    { "source": "/api-reference/v2/realtime/create-call", "destination": "/api-reference/v2/stream/create-token" },
+    { "source": "/api-reference/v2/realtime/stream-call", "destination": "/api-reference/v2/stream/websocket" }
+  ]
 
 }
