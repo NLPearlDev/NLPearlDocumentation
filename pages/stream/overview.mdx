@@ -41,7 +41,7 @@ To make your first stream call, you need:
       -d '{ "endUserId": "crm-77812", "audioFormat": "opus_24000" }'
     ```
 
-    `endUserId` is [your own id for the person on the call](/api-reference/v2/stream/create-token#body-end-user-id), such as a customer id: send the same value for the same person every time.
+    `endUserId` is [your own id for the person on the call](/api-reference/v2/stream/create-token#body-end-user-id-one-of-0), such as a customer id: send the same value for the same person every time. It is optional: without it, Pearl does not remember the person.
   </Step>
   <Step title="Open the WebSocket">
     Open the `url` with the token, within 60 seconds. Pearl sends `ready`, then you stream.
@@ -79,7 +79,7 @@ Text messages are JSON events, such as `{"type":"hangup"}`, in both directions:
 
 ## After the call
 
-The call appears in your call history and [webhooks](/pages/webhooks) like any other call of your Pearl, with `channel: "stream"` and your `endUserId` where the end user's phone number would be.
+The call appears in your call history and [webhooks](/pages/webhooks) like any other call of your Pearl, with `channel: "stream"` and your `endUserId` where the end user's phone number would be (empty without one).
 
 ## Errors and limits
 

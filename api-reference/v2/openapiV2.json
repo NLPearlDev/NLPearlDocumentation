@@ -1638,7 +1638,7 @@
                     "Pearl"
                 ],
                 "summary": "Create Stream Token",
-                "description": "The first step of a stream call: creates the call and returns the WebSocket `url`, a single-use `token` valid 60 seconds, and the audio format. Requires the `pearls:stream` scope.\r\n\r\nThen open `url?token=<token>` within 60 seconds: [Stream WebSocket](/api-reference/v2/stream/websocket) describes the connection, the audio and the events.\r\n\r\n## Errors\r\n\r\nA `400` lists its messages in `errors.validation`. Several `callData` problems are reported together.\r\n\r\n| Message in `errors.validation` | Cause |\r\n| --- | --- |\r\n| `Pearl not found` | `pearlId` is not a valid id, none of your Pearls has it, or the Pearl was deleted. |\r\n| `Stream calls are available for voice Pearls only.` | Your Pearl is a text Pearl. |\r\n| `The Pearl is not active.` | Your Pearl is paused. Activate it with [Set Activity State](/api-reference/v2/pearl/set-activity-state). |\r\n| `endUserId is required (up to 200 characters).` | `endUserId` is longer than 200 characters. |\r\n| `audioFormat 'X' is not supported. Valid: ulaw_8000, pcm_24000, opus_8000, opus_24000.` | `audioFormat` is not one of the four formats. |\r\n| `callData key cannot be null or whitespace.`<br/>`callData key 'K' must not exceed 40 characters.`<br/>`callData key 'K' contains invalid characters. Only letters, digits, underscores (_) and hyphens (-) are allowed.`<br/>`callData value for key 'K' must not exceed 200 characters.` | A `callData` entry is invalid. |\r\n| `Missing pre-call variables: firstName, orderId.` | Required `callData` entries are absent or blank. |\r\n| `Call cannot be completed: The client has no remaining credits. Please recharge to continue.` | The account has no credits left. |\r\n| `Call cannot be completed: Account Suspended! Please contact support.` | The account is suspended. |\r\n| `The Pearl has no flow yet.`<br/>`Invalid Conversation Flow` | Your Pearl has no usable flow. |\r\n| `The Pearl has no inbound settings.`<br/>`The Pearl has no outbound settings.` | Your Pearl's direction settings are missing. |\r\n| `No agent is available for this Pearl right now, try again later.` | All your Pearl's [agents](/pages/agents) are busy, phone calls and stream calls together, or it has none. Retry later. |\r\n| `Could not start the call.` | An internal failure. The agent it reserved stays taken for about 90 seconds, so a retry may get `No agent is available…` until then. |\r\n\r\nMalformed JSON, a field of the wrong type (a number as `audioFormat`, for example) or a missing or blank `endUserId` get the standard `400`, with the error under the field name: `The EndUserId field is required.` for `endUserId`.\r\n\r\n## Agents and cancelling\r\n\r\nA successful create reserves one of your Pearl's [agents](/pages/agents) until the call ends. To cancel the call, before or during it, use [Hang Up Call](/api-reference/v2/call/hangup-call): a token that was never used is then refused, and its agent is freed. A token that is never used and never cancelled keeps the agent for about 90 seconds, and costs nothing.\r\n\r\nA create refused with `No agent is available…` or `Could not start the call.` still appears in the call history, as a call that never started.",
+                "description": "The first step of a stream call: creates the call and returns the WebSocket `url`, a single-use `token` valid 60 seconds, and the audio format. Requires the `pearls:stream` scope.\r\n\r\nThen open `url?token=<token>` within 60 seconds: [Stream WebSocket](/api-reference/v2/stream/websocket) describes the connection, the audio and the events.\r\n\r\n## Errors\r\n\r\nA `400` lists its messages in `errors.validation`. Several `callData` problems are reported together.\r\n\r\n| Message in `errors.validation` | Cause |\r\n| --- | --- |\r\n| `Pearl not found` | `pearlId` is not a valid id, none of your Pearls has it, or the Pearl was deleted. |\r\n| `Stream calls are available for voice Pearls only.` | Your Pearl is a text Pearl. |\r\n| `The Pearl is not active.` | Your Pearl is paused. Activate it with [Set Activity State](/api-reference/v2/pearl/set-activity-state). |\r\n| `endUserId must not exceed 200 characters.` | `endUserId` is longer than 200 characters. |\r\n| `audioFormat 'X' is not supported. Valid: ulaw_8000, pcm_24000, opus_8000, opus_24000.` | `audioFormat` is not one of the four formats. |\r\n| `callData key cannot be null or whitespace.`<br/>`callData key 'K' must not exceed 40 characters.`<br/>`callData key 'K' contains invalid characters. Only letters, digits, underscores (_) and hyphens (-) are allowed.`<br/>`callData value for key 'K' must not exceed 200 characters.` | A `callData` entry is invalid. |\r\n| `Missing pre-call variables: firstName, orderId.` | Required `callData` entries are absent or blank. |\r\n| `Call cannot be completed: The client has no remaining credits. Please recharge to continue.` | The account has no credits left. |\r\n| `Call cannot be completed: Account Suspended! Please contact support.` | The account is suspended. |\r\n| `The Pearl has no flow yet.`<br/>`Invalid Conversation Flow` | Your Pearl has no usable flow. |\r\n| `The Pearl has no inbound settings.`<br/>`The Pearl has no outbound settings.` | Your Pearl's direction settings are missing. |\r\n| `No agent is available for this Pearl right now, try again later.` | All your Pearl's [agents](/pages/agents) are busy, phone calls and stream calls together, or it has none. Retry later. |\r\n| `Could not start the call.` | An internal failure. The agent it reserved stays taken for about 90 seconds, so a retry may get `No agent is available…` until then. |\r\n\r\nMalformed JSON or a field of the wrong type (a number as `audioFormat`, for example) get the standard `400`, with the error under the field name.\r\n\r\n## Agents and cancelling\r\n\r\nA successful create reserves one of your Pearl's [agents](/pages/agents) until the call ends. To cancel the call, before or during it, use [Hang Up Call](/api-reference/v2/call/hangup-call): a token that was never used is then refused, and its agent is freed. A token that is never used and never cancelled keeps the agent for about 90 seconds, and costs nothing.\r\n\r\nA create refused with `No agent is available…` or `Could not start the call.` still appears in the call history, as a call that never started.",
                 "parameters": [
                     {
                         "name": "pearlId",
@@ -1654,9 +1654,6 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "endUserId"
-                                ],
                                 "allOf": [
                                     {
                                         "$ref": "#/components/schemas/StreamCallCreateRequest"
@@ -1675,9 +1672,6 @@
                         },
                         "text/json": {
                             "schema": {
-                                "required": [
-                                    "endUserId"
-                                ],
                                 "allOf": [
                                     {
                                         "$ref": "#/components/schemas/StreamCallCreateRequest"
@@ -1696,9 +1690,6 @@
                         },
                         "application/*+json": {
                             "schema": {
-                                "required": [
-                                    "endUserId"
-                                ],
                                 "allOf": [
                                     {
                                         "$ref": "#/components/schemas/StreamCallCreateRequest"
@@ -8911,16 +8902,13 @@
                 "description": "Represents the audio format of a stream call, the same in both directions."
             },
             "StreamCallCreateRequest": {
-                "required": [
-                    "endUserId"
-                ],
                 "type": "object",
                 "properties": {
                     "endUserId": {
                         "maxLength": 200,
-                        "minLength": 1,
                         "type": "string",
-                        "description": "Your own id for the person on the call, such as a customer id, an e-mail or a phone number (1 to 200 characters). A stream call has no phone number, so this takes its place: in the call history, in your Pearl's [memory](/pages/knowledge_base#memory), and in the flow's [Phone Number](/pages/variables) variable. Send the same value for the same person every time, and never one value for different people; if you have no id for the person, send a session id."
+                        "description": "Your own id for the person on the call, such as a customer id, an e-mail or a phone number, up to 200 characters. A stream call has no phone number, so this takes its place: in the call history, in your Pearl's [memory](/pages/knowledge_base#memory), and in the flow's [Phone Number](/pages/variables) variable. Send the same value for the same person every time, and never one value for different people.\r\n            \r\n             Optional. Absent, `null` or blank, the call has no end user: the Phone Number variable is empty, and the Pearl neither recalls an earlier call nor remembers this one.",
+                        "nullable": true
                     },
                     "callData": {
                         "type": "object",
