@@ -41,7 +41,7 @@ To make your first stream call, you need:
       -d '{ "endUserId": "crm-77812", "audioFormat": "opus_24000" }'
     ```
 
-    `endUserId` is [your own id for the person on the call](/api-reference/v2/stream/create-token#param-end-user-id), such as a customer id: send the same value for the same person every time.
+    `endUserId` is [your own id for the person on the call](/api-reference/v2/stream/create-token#body-end-user-id), such as a customer id: send the same value for the same person every time.
   </Step>
   <Step title="Open the WebSocket">
     Open the `url` with the token, within 60 seconds. Pearl sends `ready`, then you stream.
@@ -74,7 +74,7 @@ Text messages are JSON events, such as `{"type":"hangup"}`, in both directions:
 | `transfer` | Pearl | The flow [transferred](/pages/transfer_call) the call. It carries the target and the data collected so far; carrying the call on is up to you |
 | `ended` | Pearl | The call is over, with the `reason`. Pearl then closes the connection |
 | `pong` | Pearl | The answer to your `ping` |
-| `hangup` | You | Ends the call. Pearl answers with `ended` |
+| `hangup` | You | Ends the call. Pearl answers with `ended`. From your backend, [Hang Up Call](/api-reference/v2/call/hangup-call) ends it too |
 | `ping` | You | Optional, to time the round trip |
 
 ## After the call

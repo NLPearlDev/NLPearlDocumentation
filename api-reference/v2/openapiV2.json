@@ -795,6 +795,68 @@
                 }
             }
         },
+        "/v2/Call/{callId}/Hangup": {
+            "post": {
+                "tags": [
+                    "Call"
+                ],
+                "summary": "Hang Up Call",
+                "description": "Ends a call that is in progress or waiting in the inbound queue, as the Hangup button of the platform does. Requires the `pearls:moderate` scope.\n\n- **A phone call** is hung up.\n- **A stream call nobody has connected to yet** is cancelled, and its agent is freed. Connecting with its token is then refused with `410`.\n- **A connected stream call** ends: its WebSocket receives `ended` with the reason `operator_hangup`, then closes.\n\nThe call then gets its final status, like any other call. A call that has already ended, or a text conversation, is refused with a `400` that says why.",
+                "parameters": [
+                    {
+                        "name": "callId",
+                        "in": "path",
+                        "description": "The id of the call to hang up: the `callId` returned by Create Stream Token, or the id from Get Calls and the webhooks.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`true`: the hang-up was sent, and the call ends within moments.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The call was not found or cannot be hung up: `Call not found.`, `Conversation is not ongoing or waiting in queue.`, or `Only ongoing phone calls can be hung up.` for a text conversation.",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationProblemDetails"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/v2/Outbound/{pearlId}/Lead": {
             "post": {
                 "tags": [
@@ -1576,11 +1638,12 @@
                     "Pearl"
                 ],
                 "summary": "Create Stream Token",
-                "description": "Creates a call whose audio your server streams to the agent over a WebSocket. The response carries the stream url, a single-use token (valid 60 seconds) and the audio format to send. endUserId is your identifier for the person on the call and is searchable like a phone number.",
+                "description": "The first step of a stream call: creates the call and returns the WebSocket `url`, a single-use `token` valid 60 seconds, and the audio format. Requires the `pearls:stream` scope.\r\n\r\nThen open `url?token=<token>` within 60 seconds: [Stream WebSocket](/api-reference/v2/stream/websocket) describes the connection, the audio and the events.\r\n\r\n## Errors\r\n\r\nA `400` lists its messages in `errors.validation`. Several `callData` problems are reported together.\r\n\r\n| Message in `errors.validation` | Cause |\r\n| --- | --- |\r\n| `Pearl not found` | `pearlId` is not a valid id, none of your Pearls has it, or the Pearl was deleted. |\r\n| `Stream calls are available for voice Pearls only.` | Your Pearl is a text Pearl. |\r\n| `The Pearl is not active.` | Your Pearl is paused. Activate it with [Set Activity State](/api-reference/v2/pearl/set-activity-state). |\r\n| `endUserId is required (up to 200 characters).` | `endUserId` is longer than 200 characters. |\r\n| `audioFormat 'X' is not supported. Valid: ulaw_8000, pcm_24000, opus_8000, opus_24000.` | `audioFormat` is not one of the four formats. |\r\n| `callData key cannot be null or whitespace.`<br/>`callData key 'K' must not exceed 40 characters.`<br/>`callData key 'K' contains invalid characters. Only letters, digits, underscores (_) and hyphens (-) are allowed.`<br/>`callData value for key 'K' must not exceed 200 characters.` | A `callData` entry is invalid. |\r\n| `Missing pre-call variables: firstName, orderId.` | Required `callData` entries are absent or blank. |\r\n| `Call cannot be completed: The client has no remaining credits. Please recharge to continue.` | The account has no credits left. |\r\n| `Call cannot be completed: Account Suspended! Please contact support.` | The account is suspended. |\r\n| `The Pearl has no flow yet.`<br/>`Invalid Conversation Flow` | Your Pearl has no usable flow. |\r\n| `The Pearl has no inbound settings.`<br/>`The Pearl has no outbound settings.` | Your Pearl's direction settings are missing. |\r\n| `No agent is available for this Pearl right now, try again later.` | All your Pearl's [agents](/pages/agents) are busy, phone calls and stream calls together, or it has none. Retry later. |\r\n| `Could not start the call.` | An internal failure. The agent it reserved stays taken for about 90 seconds, so a retry may get `No agent is available…` until then. |\r\n\r\nMalformed JSON, a field of the wrong type (a number as `audioFormat`, for example) or a missing or blank `endUserId` get the standard `400`, with the error under the field name: `The EndUserId field is required.` for `endUserId`.\r\n\r\n## Agents and cancelling\r\n\r\nA successful create reserves one of your Pearl's [agents](/pages/agents) until the call ends. To cancel the call, before or during it, use [Hang Up Call](/api-reference/v2/call/hangup-call): a token that was never used is then refused, and its agent is freed. A token that is never used and never cancelled keeps the agent for about 90 seconds, and costs nothing.\r\n\r\nA create refused with `No agent is available…` or `Could not start the call.` still appears in the call history, as a call that never started.",
                 "parameters": [
                     {
                         "name": "pearlId",
                         "in": "path",
+                        "description": "Your Pearl's id. It must be an active voice Pearl. Find it on your Pearl's overview page, in the **Settings** popover.",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -1600,6 +1663,14 @@
                                     }
                                 ],
                                 "description": "Represents the data required to create a stream token."
+                            },
+                            "example": {
+                                "endUserId": "crm-77812",
+                                "callData": {
+                                    "firstName": "Dana",
+                                    "orderId": "A-1234"
+                                },
+                                "audioFormat": "opus_24000"
                             }
                         },
                         "text/json": {
@@ -1613,6 +1684,14 @@
                                     }
                                 ],
                                 "description": "Represents the data required to create a stream token."
+                            },
+                            "example": {
+                                "endUserId": "crm-77812",
+                                "callData": {
+                                    "firstName": "Dana",
+                                    "orderId": "A-1234"
+                                },
+                                "audioFormat": "opus_24000"
                             }
                         },
                         "application/*+json": {
@@ -1626,50 +1705,133 @@
                                     }
                                 ],
                                 "description": "Represents the data required to create a stream token."
+                            },
+                            "example": {
+                                "endUserId": "crm-77812",
+                                "callData": {
+                                    "firstName": "Dana",
+                                    "orderId": "A-1234"
+                                },
+                                "audioFormat": "opus_24000"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "The call was created; connect with the token before it expires.",
+                        "description": "The call was created: connect with the `token` before it expires.",
                         "content": {
                             "text/plain": {
                                 "schema": {
                                     "$ref": "#/components/schemas/StreamCallCreated"
+                                },
+                                "example": {
+                                    "callId": "6720f3c1a8b4e5d6f7a8b9c0",
+                                    "url": "wss://agents.nlpearl.ai/Stream/WebSocket",
+                                    "token": "wst_kX9vQ2...",
+                                    "expiresAt": "2026-10-28T09:01:00Z",
+                                    "audio": {
+                                        "encoding": "opus",
+                                        "sampleRate": 24000,
+                                        "channels": 1,
+                                        "frameMs": 20
+                                    }
                                 }
                             },
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/StreamCallCreated"
+                                },
+                                "example": {
+                                    "callId": "6720f3c1a8b4e5d6f7a8b9c0",
+                                    "url": "wss://agents.nlpearl.ai/Stream/WebSocket",
+                                    "token": "wst_kX9vQ2...",
+                                    "expiresAt": "2026-10-28T09:01:00Z",
+                                    "audio": {
+                                        "encoding": "opus",
+                                        "sampleRate": 24000,
+                                        "channels": 1,
+                                        "frameMs": 20
+                                    }
                                 }
                             },
                             "text/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/StreamCallCreated"
+                                },
+                                "example": {
+                                    "callId": "6720f3c1a8b4e5d6f7a8b9c0",
+                                    "url": "wss://agents.nlpearl.ai/Stream/WebSocket",
+                                    "token": "wst_kX9vQ2...",
+                                    "expiresAt": "2026-10-28T09:01:00Z",
+                                    "audio": {
+                                        "encoding": "opus",
+                                        "sampleRate": 24000,
+                                        "channels": 1,
+                                        "frameMs": 20
+                                    }
                                 }
                             }
                         }
                     },
                     "400": {
-                        "description": "Error",
+                        "description": "A validation or business rule failed. `errors.validation` lists the messages: see Errors above.",
                         "content": {
                             "text/plain": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ValidationProblemDetails"
+                                },
+                                "example": {
+                                    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                                    "title": "One or more validation errors occurred.",
+                                    "status": 400,
+                                    "errors": {
+                                        "validation": [
+                                            "Missing pre-call variables: firstName."
+                                        ]
+                                    }
                                 }
                             },
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ValidationProblemDetails"
+                                },
+                                "example": {
+                                    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                                    "title": "One or more validation errors occurred.",
+                                    "status": 400,
+                                    "errors": {
+                                        "validation": [
+                                            "Missing pre-call variables: firstName."
+                                        ]
+                                    }
                                 }
                             },
                             "text/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ValidationProblemDetails"
+                                },
+                                "example": {
+                                    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                                    "title": "One or more validation errors occurred.",
+                                    "status": 400,
+                                    "errors": {
+                                        "validation": [
+                                            "Missing pre-call variables: firstName."
+                                        ]
+                                    }
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "The credentials are missing or invalid."
+                    },
+                    "403": {
+                        "description": "The key or token lacks the `pearls:stream` scope."
+                    },
+                    "500": {
+                        "description": "An unexpected server error."
                     }
                 }
             }
@@ -4220,6 +4382,61 @@
                         "description": "The voice could not be created. Nothing is charged."
                     }
                 }
+            }
+        },
+        "/Stream/WebSocket": {
+            "get": {
+                "tags": [
+                    "Stream"
+                ],
+                "summary": "Stream WebSocket",
+                "description": "The second step of a stream call. [Create Stream Token](/api-reference/v2/stream/create-token) returns the `url` and a `token`: open `url?token=<token>`, for example `wss://agents.nlpearl.ai/Stream/WebSocket?token=wst_...`, within 60 seconds, and the conversation runs on this connection until the call ends.\r\n\r\nAlways open the `url` that Create Stream Token returns rather than a fixed address. No subprotocol is needed. From a server you can send the token in the `Authorization: Bearer wst_...` header instead of the query. A browser does not show the status of a refused connection: the socket closes at once with code `1006`.\r\n\r\n## Send\r\n\r\nYour app sends two kinds of messages: **binary** messages with the end user's audio, and **text** messages with JSON events.\r\n\r\n| Message | Kind | When |\r\n| --- | --- | --- |\r\n| Audio frame | Binary | Every 20 ms, from `ready` until the call ends |\r\n| `hangup` | Text (JSON) | To end the call |\r\n| `ping` | Text (JSON) | Optional, to time the round trip |\r\n\r\n### Audio frames\r\n\r\nSend 20 ms of the end user's audio in each binary message, one message every 20 ms, from `ready` until the call ends. Keep sending while the end user is quiet or muted: send silence, not nothing.\r\n\r\nWhat one message holds depends on the call's `audioFormat`:\r\n\r\n| `audioFormat` | One message |\r\n| --- | --- |\r\n| `opus_24000`, `opus_8000` | One Opus packet, mono, encoded at the call's sample rate. Turn discontinuous transmission (DTX) off, so silence is encoded too. Packets of up to 120 ms are accepted. |\r\n| `ulaw_8000` | 160 bytes of μ-law: 160 samples. |\r\n| `pcm_24000` | 960 bytes of 16-bit little-endian PCM: 480 samples. |\r\n\r\nThe raw formats also accept other frame lengths, as long as they hold whole samples. A message is at most 16 KB. Audio formats, below, gives each format's encoding, sample rate and silence.\r\n\r\n### `hangup`\r\n\r\nEnds the call. Pearl answers with `ended` (`client_hangup`), then closes the connection. From your backend, [Hang Up Call](/api-reference/v2/call/hangup-call) ends it too.\r\n\r\n```json\r\n{ \"type\": \"hangup\" }\r\n```\r\n\r\n### `ping`\r\n\r\nOptional. Pearl answers with `pong`, which echoes `t`, so you can time the round trip. `t` is any number you choose, such as your clock in milliseconds, and may be left out.\r\n\r\n```json\r\n{ \"type\": \"ping\", \"t\": 1730624400123 }\r\n```\r\n\r\nYou never need `ping` to keep the call alive: any message, audio included, resets the 60-second `no_audio` timer.\r\n\r\nPearl ignores unknown event types, and any text that is not a JSON object with a string `type`.\r\n\r\n## Receive\r\n\r\nWhat Pearl sends: `ready` first, then audio and a `pong` for each of your pings, then at the end an optional `transfer` and one `ended`.\r\n\r\n### `ready`\r\n\r\nSent once, right after you connect.\r\n\r\n```json\r\n{\r\n  \"type\": \"ready\",\r\n  \"protocol\": 1,\r\n  \"callId\": \"6720f3c1a8b4e5d6f7a8b9c0\",\r\n  \"audio\": { \"encoding\": \"opus\", \"sampleRate\": 24000, \"channels\": 1, \"frameMs\": 20 }\r\n}\r\n```\r\n\r\n- `protocol`: the protocol version, `1`.\r\n- `callId`: the call's id, as in the Create Stream Token response.\r\n- `audio`: the format of every binary message, in both directions: the same object as in the Create Stream Token response.\r\n\r\n### Audio\r\n\r\n20 ms of Pearl's voice, as a binary message, **every 20 ms for the whole call**, with silence while it listens. On an Opus call, each message is one 20 ms Opus packet.\r\n\r\n- Play the frames through a small jitter buffer of 60 to 100 ms. If it grows past about 300 ms, after a network stall, drop the oldest audio.\r\n- There is no \"clear\" or interruption event, and you need none: when the end user talks over Pearl, it stops speaking and the next frames are already silence.\r\n\r\n### `pong`\r\n\r\nThe answer to a `ping`, sent between two audio frames, within about 20 ms. `t` is the `t` of your `ping`, or `null` when it had none. A `ping` sent before the call's audio starts gets no answer.\r\n\r\n```json\r\n{ \"type\": \"pong\", \"t\": 1730624400123 }\r\n```\r\n\r\n### `transfer`\r\n\r\nThe flow's [Transfer Call](/pages/transfer_call) node transferred the call. It is sent once Pearl has finished its transfer announcement, and is followed at once by `ended` (`transfer`). Carrying the call on, to a person, a queue or a phone number, is up to you.\r\n\r\n```json\r\n{\r\n  \"type\": \"transfer\",\r\n  \"target\": \"+14155550123\",\r\n  \"triggerDescription\": \"The caller asks for a human agent\",\r\n  \"warmTransferMessage\": \"Dana is calling about order A-1234\",\r\n  \"sipHeaders\": {},\r\n  \"variables\": { \"firstName\": \"Dana\", \"orderId\": \"A-1234\" }\r\n}\r\n```\r\n\r\n- `target`: the destination set on your Pearl's transfer, as entered: usually a phone number or a SIP address.\r\n- `triggerDescription`: why the flow transferred.\r\n- `warmTransferMessage`: the warm-transfer message set for the receiving side, or `null`.\r\n- `sipHeaders`: SIP headers, only when the transfer is set to forward them.\r\n- `variables`: the data Pearl has collected so far, by variable name.\r\n\r\n### `ended`\r\n\r\nThe call is over. Pearl then closes the connection with code `1000` and the reason as the close description. `durationSec` is the whole seconds the call ran, from connection to end.\r\n\r\n```json\r\n{ \"type\": \"ended\", \"reason\": \"agent_hangup\", \"durationSec\": 94 }\r\n```\r\n\r\n| `reason` | Meaning |\r\n| --- | --- |\r\n| `client_hangup` | You sent `hangup`, closed the connection, or it dropped. |\r\n| `agent_hangup` | Pearl ended the call: end of the flow, its silence handling, and so on. |\r\n| `operator_hangup` | The call was hung up with [Hang Up Call](/api-reference/v2/call/hangup-call) or from the NLPearl platform. |\r\n| `transfer` | The flow transferred the call, right after `transfer`. |\r\n| `max_duration` | Your Pearl's maximum call duration was reached. |\r\n| `no_audio` | No message from you for 60 seconds. |\r\n| `error` | The call failed on NLPearl's side. |\r\n\r\nIf you close the connection yourself, or it drops, nothing more arrives: the call is recorded as `client_hangup`.\r\n\r\n## Audio formats\r\n\r\n`audioFormat`, chosen in Create Stream Token, sets the format of every frame, the same in both directions. The same format has a name in each place it appears:\r\n\r\n| `audioFormat` (Create Stream Token) | `audio.encoding` (response and `ready`) | Sample rate | Samples | One 20 ms frame | Silence | `audioQuality` (call history) |\r\n| --- | --- | --- | --- | --- | --- | --- |\r\n| `opus_24000` | `opus` | 24000 Hz | Opus, mono | One Opus packet, its size varies | Encoded silence | `hd` |\r\n| `opus_8000` | `opus` | 8000 Hz | Opus, mono | One Opus packet, its size varies | Encoded silence | `phone` |\r\n| `ulaw_8000` (default) | `mulaw` | 8000 Hz | G.711 μ-law, 8-bit, mono | 160 bytes | `0xFF` bytes | `phone` |\r\n| `pcm_24000` | `pcm_s16le` | 24000 Hz | Signed 16-bit PCM, little-endian, mono | 960 bytes (480 samples) | `0x00` bytes | `hd` |\r\n\r\n## Limits\r\n\r\n| Item | Limit |\r\n| --- | --- |\r\n| Token | Single use, valid 60 seconds |\r\n| Connections per call | 1 |\r\n| Concurrent calls | Your Pearl's [agents](/pages/agents), shared with its phone calls. One is taken when the token is created. |\r\n| Call duration | Your Pearl's **Max Call Duration**, from 1 to 120 minutes; 30 minutes when it is not set. Reaching it ends the call with `max_duration`. |\r\n| Silence from your side | 60 seconds without any message ends the call with `no_audio` |\r\n| Message size | 16 KB |\r\n\r\n## Versioning\r\n\r\n`ready.protocol` is `1`. New event types may be added within a version, which is why unknown types are ignored. A change to the frame format would raise the version.",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "The `token` from Create Stream Token, starting with `wst_`. It is single use and valid for 60 seconds. From a server you can send it in the `Authorization: Bearer wst_...` header instead.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "101": {
+                        "description": "Connected. Pearl sends `ready` at once."
+                    },
+                    "400": {
+                        "description": "Not a WebSocket upgrade request."
+                    },
+                    "401": {
+                        "description": "The token is missing, unknown, expired or already used. Create a new token."
+                    },
+                    "410": {
+                        "description": "The call was ended before anyone connected, with [Hang Up Call](/api-reference/v2/call/hangup-call) or from the NLPearl platform. Create a new token."
+                    }
+                },
+                "security": [
+                    {}
+                ],
+                "servers": [
+                    {
+                        "url": "wss://agents.nlpearl.ai",
+                        "description": "The `url` that Create Stream Token returns"
+                    }
+                ],
+                "x-codeSamples": [
+                    {
+                        "lang": "javascript",
+                        "label": "JavaScript",
+                        "source": "const ws = new WebSocket(`${call.url}?token=${call.token}`);\r\nws.binaryType = \"arraybuffer\";\r\n\r\nws.onmessage = (message) => {\r\n  if (typeof message.data !== \"string\") {\r\n    play(message.data);                      // 20 ms of Pearl's voice\r\n    return;\r\n  }\r\n  const event = JSON.parse(message.data);    // ready, pong, transfer, ended\r\n};\r\n\r\n// After ready, every 20 ms: ws.send(frame) with 20 ms of the end user's audio.\r\n// To hang up: ws.send(JSON.stringify({ type: \"hangup\" }));"
+                    },
+                    {
+                        "lang": "python",
+                        "label": "Python",
+                        "source": "async with websockets.connect(f\"{call['url']}?token={call['token']}\") as ws:\r\n    ready = json.loads(await ws.recv())      # always the first message\r\n    # every 20 ms: await ws.send(frame) with 20 ms of the end user's audio\r\n    async for message in ws:\r\n        if isinstance(message, bytes):\r\n            play(message)                    # 20 ms of Pearl's voice\r\n        else:\r\n            print(json.loads(message))       # pong, transfer, ended"
+                    }
+                ]
             }
         }
     },
@@ -8686,7 +8903,7 @@
                     },
                     "frameMs": {
                         "type": "integer",
-                        "description": "The duration of each audio frame, in milliseconds.",
+                        "description": "The duration of each audio frame, in milliseconds: always `20`.",
                         "format": "int32"
                     }
                 },
@@ -8700,21 +8917,23 @@
                 "type": "object",
                 "properties": {
                     "endUserId": {
+                        "maxLength": 200,
+                        "minLength": 1,
                         "type": "string",
-                        "description": "Your identifier for the person on the call, up to 200 characters. It stands where a phone number would: the call shows it as its number, and you can search calls by it.",
-                        "nullable": true
+                        "description": "Your own id for the person on the call, such as a customer id, an e-mail or a phone number (1 to 200 characters). A stream call has no phone number, so this takes its place: in the call history, in your Pearl's [memory](/pages/knowledge_base#memory), and in the flow's [Phone Number](/pages/variables) variable. Send the same value for the same person every time, and never one value for different people; if you have no id for the person, send a session id."
                     },
                     "callData": {
                         "type": "object",
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "A dictionary containing additional information about the call.\r\nIt is used as variables that you can use in \"Opening Sentence\" or \"Flow Script\" when you create a Pearl on the platform.\r\nThe keys represent the field names, and the values contain the corresponding data.\r\nThis information can be used to personalize the conversation or manage lead-specific details.\r\nThis parameter is optional.\r\n            \r\nSee [Variables](/pages/variables) for more information.\r\nHere is an example of the json to send:\r\n            \r\n`{ \"email\" : \"joe@gmail.com\", \"address\": \"3 Abbey Road UK\" , \"carLicense\" : \"90-929-82\" }`",
+                        "description": "The flow's [pre-call variables](/api-reference/flow_variables), by variable name: the same dictionary as a phone call's `callData`.\r\n            \r\n**Required entries:** every variable used in the opening sentence, and every input of a pre-call API, present and not blank. Other variables are optional.\r\n            \r\nKeys are letters (any script), digits, `_` and `-`, up to 40 characters. Values are strings, up to 200 characters.",
                         "nullable": true
                     },
                     "audioFormat": {
                         "type": "string",
-                        "description": "The audio format of the call, the same in both directions: `ulaw_8000` (8 kHz mu-law, the default), `pcm_24000` (24 kHz 16-bit PCM), `opus_8000` (Opus at 8 kHz) or `opus_24000` (Opus at 24 kHz).",
+                        "description": "The audio format of the call, the same in both directions. We recommend `opus_24000`: HD for far less bandwidth.\r\n            \r\n- `opus_24000`: Opus at 24 kHz, HD.\r\n- `opus_8000`: Opus at 8 kHz, phone quality.\r\n- `ulaw_8000`: 8 kHz G.711 μ-law, phone quality.\r\n- `pcm_24000`: 24 kHz 16-bit little-endian PCM, HD.\r\n            \r\nCase-insensitive. Absent, `null` or empty means `ulaw_8000`, and any other value is refused.",
+                        "default": "ulaw_8000",
                         "nullable": true
                     }
                 },
@@ -8726,22 +8945,22 @@
                 "properties": {
                     "callId": {
                         "type": "string",
-                        "description": "The id of the call, to follow it like any other call, for example with [Get Call](/api-reference/v2/call/get-call).",
+                        "description": "The call's id: the same id as in [Get Call](/api-reference/v2/call/get-call), the call list and the webhooks.",
                         "nullable": true
                     },
                     "url": {
                         "type": "string",
-                        "description": "The WebSocket URL to connect to.",
+                        "description": "The WebSocket URL. Open it with the token: `url?token=<token>`. Always use the returned value rather than a fixed address.",
                         "nullable": true
                     },
                     "token": {
                         "type": "string",
-                        "description": "A single-use token that admits one connection to `url`. Send it in the `Authorization: Bearer` header of the WebSocket request, or as the `token` query parameter when connecting from a browser.",
+                        "description": "The single-use token for the connection, starting with `wst_`. It is valid for 60 seconds and is consumed by the first successful connection. Treat it as a secret. From a server you can send it in the `Authorization: Bearer` header instead of the query.",
                         "nullable": true
                     },
                     "expiresAt": {
                         "type": "string",
-                        "description": "When the token expires (UTC), 60 seconds after it was issued. Connect before then.",
+                        "description": "When the token stops being accepted, in ISO 8601 UTC: creation plus 60 seconds.",
                         "format": "date-time"
                     },
                     "audio": {
@@ -8750,7 +8969,7 @@
                                 "$ref": "#/components/schemas/StreamCallAudioFormat"
                             }
                         ],
-                        "description": "The audio format to stream, the same in both directions.",
+                        "description": "The format of every audio frame, in both directions.",
                         "nullable": true
                     }
                 },
