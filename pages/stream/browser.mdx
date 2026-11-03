@@ -5,12 +5,12 @@ icon: "browser"
 iconType: "light"
 ---
 
-A web page that talks to your Pearl, in four small files. Your server creates the connection and keeps the [API key](/api-reference/authorization); the page connects with the ticket, streams the microphone and plays Pearl's voice through a small jitter buffer, all at 24 kHz HD.
+A web page that talks to your Pearl, in four small files. Your server creates the stream token and keeps the [API key](/api-reference/authorization); the page connects with the token, streams the microphone and plays Pearl's voice through a small jitter buffer. The audio is HD Opus, coded by the browser itself with [WebCodecs](https://developer.mozilla.org/en-US/docs/Web/API/WebCodecs_API), with no library to add.
 
 ```text
-server.mjs            creates the connection (your API key stays here)
+server.mjs            creates the stream token (your API key stays here)
 public/index.html     two buttons
-public/app.js         the WebSocket
+public/app.js         the WebSocket and the Opus codec
 public/pearl-audio.js the microphone and the speaker, in an AudioWorklet
 ```
 
@@ -19,25 +19,30 @@ public/pearl-audio.js the microphone and the speaker, in an AudioWorklet
 Node.js 18 or later: `npm install express`.
 
 ```javascript server.mjs
-// server.mjs: serves the page and creates the connection. Your API key stays here.
+// server.mjs: serves the page and creates the stream token. Your API key stays here.
 import express from "express";
 
 const app = express();
 app.use(express.static("public"));
 
 app.post("/pearl-call", async (req, res) => {
-  const response = await fetch(`https://api.nlpearl.ai/v2/Pearl/${process.env.NLPEARL_PEARL_ID}/WebSocket`, {
+  const response = await fetch(`https://api.nlpearl.ai/v2/Pearl/${process.env.NLPEARL_PEARL_ID}/Stream/Token`, {
     method: "POST",
     headers: { Authorization: `Bearer ${process.env.NLPEARL_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ endUserId: "visitor-123", audioFormat: "pcm_24000" }),   // your own id for the visitor
+    body: JSON.stringify({
+      endUserId: "visitor-123",   // your own id for the visitor
+      audioFormat: "opus_24000",  // HD Opus, coded in the page with WebCodecs
+      callData: {},               // the variables your opening sentence uses, such as { firstName: "Dana" }
+    }),
   });
-  res.status(response.status).json(await response.json());   // { callId, url, ticket, expiresAt, audio }
+  const body = await response.text();   // { callId, url, token, expiresAt, audio }, or why it was refused
+  res.status(response.status).type("json").send(body || "{}");
 });
 
 app.listen(3000, () => console.log("http://localhost:3000"));
 ```
 
-Use your own id for the visitor as `endUserId`, so Pearl remembers them and their calls are grouped in the call history.
+Use your own id for the visitor as `endUserId`, so Pearl remembers them and their calls are grouped in the call history. For an anonymous visitor, leave it out.
 
 ## The page
 
@@ -53,37 +58,70 @@ Use your own id for the visitor as `endUserId`, so Pearl remembers them and thei
 ```
 
 ```javascript public/app.js
-// app.js: asks your server for a connection, then streams the microphone to Pearl and plays its voice.
+// app.js: asks your server for a stream token, then streams the microphone to Pearl and plays its voice.
 const talk = document.querySelector("#talk");
 const hangUp = document.querySelector("#hang-up");
 
 talk.onclick = async () => {
   talk.disabled = true;
-  const call = await (await fetch("/pearl-call", { method: "POST" })).json();   // { url, ticket, audio, ... }
+  const response = await fetch("/pearl-call", { method: "POST" });
+  const call = await response.json();   // { url, token, audio, ... }, or the reason it was refused
+  if (!response.ok) {
+    console.error("Create Stream Token failed:", response.status, call);
+    talk.disabled = false;
+    return;
+  }
 
   const microphone = await navigator.mediaDevices.getUserMedia({
     audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true },
   });
   const context = new AudioContext({ sampleRate: 24000 });   // the browser resamples the microphone to 24 kHz
+  await context.resume();
   await context.audioWorklet.addModule("pearl-audio.js");
   const audio = new AudioWorkletNode(context, "pearl-audio", { outputChannelCount: [1] });
   context.createMediaStreamSource(microphone).connect(audio).connect(context.destination);
 
-  const ws = new WebSocket(`${call.url}?ticket=${call.ticket}`);
+  const ws = new WebSocket(`${call.url}?token=${call.token}`);
   ws.binaryType = "arraybuffer";
   let ready = false;
 
-  // The end user: one 960-byte frame every 20 ms, from the worklet
+  // Opus both ways, with the browser's own codec (WebCodecs): one packet per 20 ms frame.
+  const encoder = new AudioEncoder({
+    output: (chunk) => {
+      const packet = new Uint8Array(chunk.byteLength);
+      chunk.copyTo(packet);
+      if (ws.readyState === WebSocket.OPEN) ws.send(packet);
+    },
+    error: (error) => console.error("AudioEncoder", error),
+  });
+  encoder.configure({ codec: "opus", sampleRate: 24000, numberOfChannels: 1, bitrate: 32000 });
+  const decoder = new AudioDecoder({
+    output: (frame) => {
+      const decoded = new Float32Array(frame.numberOfFrames);
+      frame.copyTo(decoded, { planeIndex: 0, format: "f32-planar" });
+      const step = frame.sampleRate / 24000;   // 2 in Chrome, which decodes Opus at 48 kHz
+      frame.close();
+      const samples = decoded.filter((_, i) => i % step === 0);
+      audio.port.postMessage(samples, [samples.buffer]);   // to the worklet's jitter buffer
+    },
+    error: (error) => console.error("AudioDecoder", error),
+  });
+  decoder.configure({ codec: "opus", sampleRate: 24000, numberOfChannels: 1 });
+
+  // The end user: one 20 ms frame every 20 ms from the worklet, coded to Opus
+  let timestamp = 0;
   audio.port.onmessage = (event) => {
-    if (ready && ws.readyState === WebSocket.OPEN) ws.send(event.data);
+    if (!ready) return;
+    const frame = new AudioData({ format: "f32", sampleRate: 24000, numberOfChannels: 1, numberOfFrames: event.data.length, timestamp, data: event.data });
+    timestamp += 20000;
+    encoder.encode(frame);
+    frame.close();
   };
 
+  // Pearl's voice: one Opus packet per message
   ws.onmessage = (message) => {
     if (typeof message.data !== "string") {
-      // Pearl's voice: 20 ms of 16-bit PCM, to the worklet's jitter buffer
-      const pcm = new Int16Array(message.data);
-      const samples = Float32Array.from(pcm, (sample) => sample / 0x8000);
-      audio.port.postMessage(samples, [samples.buffer]);
+      decoder.decode(new EncodedAudioChunk({ type: "key", timestamp: 0, data: message.data }));
       return;
     }
     const event = JSON.parse(message.data);
@@ -93,13 +131,17 @@ talk.onclick = async () => {
   };
 
   ws.onclose = (event) => {
-    console.log("closed", event.code);   // 1006 at once: the ticket was refused
+    console.log("closed", event.code);   // 1006 at once: the token was refused
     microphone.getTracks().forEach((track) => track.stop());
+    encoder.close();
+    decoder.close();
     context.close();
     talk.disabled = false;
   };
 
-  hangUp.onclick = () => ws.send(JSON.stringify({ type: "hangup" }));
+  hangUp.onclick = () => {
+    if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ type: "hangup" }));
+  };
 };
 ```
 
@@ -116,7 +158,7 @@ const MAX_BEHIND = 7200;  // past 300 ms buffered, drop the oldest audio
 class PearlAudio extends AudioWorkletProcessor {
   constructor() {
     super();
-    this.mic = new Int16Array(FRAME);
+    this.mic = new Float32Array(FRAME);
     this.micLength = 0;
     this.queue = [];      // Pearl's audio, as Float32Array chunks
     this.offset = 0;      // read position in queue[0]
@@ -129,13 +171,13 @@ class PearlAudio extends AudioWorkletProcessor {
   }
 
   process(inputs, outputs) {
-    // The microphone: 20 ms frames of 16-bit PCM, in real time, silence included when muted.
+    // The microphone: 20 ms frames, in real time, silence included when muted.
     const input = inputs[0][0];
     if (input) {
       for (let i = 0; i < input.length; i++) {
-        this.mic[this.micLength++] = Math.max(-1, Math.min(1, input[i])) * 0x7fff;
+        this.mic[this.micLength++] = input[i];
         if (this.micLength === FRAME) {
-          this.port.postMessage(this.mic.buffer.slice(0));
+          this.port.postMessage(this.mic.slice());
           this.micLength = 0;
         }
       }
@@ -177,20 +219,21 @@ export NLPEARL_PEARL_ID="<pearlId>"
 node server.mjs
 ```
 
-Open `http://localhost:3000`, click **Talk to Pearl** and allow the microphone.
+Open `http://localhost:3000`, click **Talk to Pearl** and allow the microphone. If the call does not start, the browser console shows why, such as a missing variable: add it to `callData` in `server.mjs`.
 
 <Note>
 - Browsers allow the microphone only on `https://` pages and on `localhost`.
+- WebCodecs audio, which codes the Opus, is in Chrome and Edge, Firefox 130 and later on desktop, and Safari 26 and later.
 - `AudioContext({ sampleRate: 24000 })` makes the browser resample the microphone to 24 kHz. Chrome, Edge and Safari do this; check your other target browsers.
 - On a laptop, test with headphones: browser echo cancellation does not always cover audio played through Web Audio, and Pearl would hear itself.
 </Note>
 
 ## Going further
 
-- **Phone quality:** with `audioFormat: "ulaw_8000"`, create the context at 8000 Hz, use 160-sample frames, and encode and decode μ-law in the worklet. HD needs no codec at all, which is why this page uses it.
+- **Phone quality:** with `audioFormat: "opus_8000"`, use 8000 instead of 24000 for the context, the encoder and the decoder, and divide the worklet's `FRAME`, `CUSHION` and `MAX_BEHIND` by 3.
 - **Hang-up button:** `hangup` is answered by `ended`, then the socket closes and `onclose` releases the microphone.
 - **Transfers:** a `transfer` event carries the target set on your Pearl's [Transfer Call](/pages/transfer_call) node. In a browser there is usually no phone line to pass on, so show the end user the next step instead, or let your server act on it.
 
-<Card title="Stream Call" icon="plug" iconType="light" href="/api-reference/v2/realtime/stream-call">
+<Card title="Stream WebSocket" icon="plug" iconType="light" href="/api-reference/v2/stream/websocket">
   Every message, audio format, event and limit.
 </Card>
