@@ -1,5 +1,5 @@
 ---
-title: Send Email Node
+title: "Email Node"
 icon: "envelope"
 iconType: "light"
 ---
@@ -9,7 +9,7 @@ iconType: "light"
     <div className="p-1">
       <img
         src="/images/dark_mode/email-action-cover.svg"
-        alt="Send Email action interface on light mode"
+        alt="Email node cover"
         className="rounded-[14px]"
       />
     </div>
@@ -21,49 +21,126 @@ iconType: "light"
     <div className="p-1">
       <img
         src="/images/dark_mode/email-action-cover.svg"
-        alt="Send Email action interface on dark mode"
+        alt="Email node cover"
         className="rounded-[14px]"
       />
     </div>
   </Frame>
 </div>
 
-The **Send Email** node lets your AI agent send an email automatically when a condition is met during (or after) a conversation, for example a confirmation, a quote, or follow-up information.
+The **Email** node sends an email from your Pearl: a confirmation, a quote, a recap, or follow-up information. Placed in the conversation, it sends the email as soon as the conversation reaches it. Placed after the call, it sends it once the conversation ends. It works on voice and text Pearls alike.
 
-## Fields to configure
+## How to configure
 
-Open the node and fill in the fields below to define who receives the email and what it contains.
+<Steps>
+  <Step title="Add the node">
+    In the [PearlVibe editor](/pages/pearl_vibe), click **Add Node** and pick **Email** in the **Actions** section:
 
-<Frame>
-  <img
-    src="/images/dark_mode/email-action-node-config.png"
-    alt="Send Email node configuration on the platform"
-    className="rounded-[14px]"
-  />
-</Frame>
+    - of the **In-Call** tab (**In-Chat** on a text Pearl) to send it during the conversation;
+    - of the **Post-Call** tab (**Post-Chat** on a text Pearl) to send it once the conversation ends.
+
+    You can also ask PearlVibe to add one for you in the chat (**Build** mode).
+
+    To configure it by hand, click it on the canvas and open it with the pencil of its tile in the chat (**Manual edit**), or hover it and click **Edit Manually**. Your changes are kept once you click **Save Changes**.
+
+    <div className="block dark:hidden">
+      <Frame>
+        <img src="/images/light_mode/email-node-add.png" alt="Email in the Actions section of the node picker" className="rounded-[14px]" />
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <img src="/images/dark_mode/email-node-add.png" alt="Email in the Actions section of the node picker" className="rounded-[14px]" />
+      </Frame>
+    </div>
+  </Step>
+  <Step title="Choose the sender">
+    In **From**, keep **Pearl's default email address**, or pick one of the addresses your workspace has connected. To send from your own address, click **Connect Email** in the list (see [How to connect your email to Pearl](#how-to-connect-your-email-to-pearl)). Once a connected address is selected, the pencil next to it opens its settings.
+
+    <div className="block dark:hidden">
+      <Frame>
+        <img src="/images/light_mode/email-from.png" alt="From list of an Email node with Pearl's default email address and Connect Email" className="rounded-[14px]" />
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <img src="/images/dark_mode/email-from.png" alt="From list of an Email node with Pearl's default email address and Connect Email" className="rounded-[14px]" />
+      </Frame>
+    </div>
+  </Step>
+  <Step title="Set the recipients">
+    In **To**, type one or more addresses, or click the `{ }` button to insert a variable of type **Email Address** from your pre-call variables or your environment variables. At least one recipient is required. **CC** is optional and works the same way.
+
+    <div className="block dark:hidden">
+      <Frame>
+        <img src="/images/light_mode/email-recipients.png" alt="To and CC of an Email node with the list of email variables open" className="rounded-[14px]" />
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <img src="/images/dark_mode/email-recipients.png" alt="To and CC of an Email node with the list of email variables open" className="rounded-[14px]" />
+      </Frame>
+    </div>
+  </Step>
+  <Step title="Write the subject and the content">
+    In **Content**, write the subject on the first line, then the body of the email in the rich text editor below (formatting, lists, links). Click **Variable** to insert details gathered during the conversation, such as the customer's name or a time slot, as well as pre-call variables. On a post-call email, post-call variables are available too.
+
+    <div className="block dark:hidden">
+      <Frame>
+        <img src="/images/light_mode/email-content.png" alt="Subject and content of an Email node with the list of variables open" className="rounded-[14px]" />
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <img src="/images/dark_mode/email-content.png" alt="Subject and content of an Email node with the list of variables open" className="rounded-[14px]" />
+      </Frame>
+    </div>
+  </Step>
+  <Step title="Set the transitions (in-call only)">
+    In the **Transitions** tab, choose where the conversation goes once the email is sent. A new node starts with a single **Continue** transition. Use **New Transition** to add your own: each has a **Condition** and a **Node Chosen**. A post-call email has no transitions, since the conversation is over.
+
+    <div className="block dark:hidden">
+      <Frame>
+        <img src="/images/light_mode/email-transitions.png" alt="Transitions tab of an Email node" className="rounded-[14px]" />
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <img src="/images/dark_mode/email-transitions.png" alt="Transitions tab of an Email node" className="rounded-[14px]" />
+      </Frame>
+    </div>
+  </Step>
+</Steps>
+
+## How to connect your email to Pearl
+
+By default, emails go out from Pearl's default email address. To send from your own business address, connect it once: click **Connect Email** in the **From** list of an Email node, or go to **Settings → Email Providers** and click **Connect**. The address is then available to every Email node of your workspace.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/email-provider.png" alt="Email Provider panel with the list of providers open" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/email-provider.png" alt="Email Provider panel with the list of providers open" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+The **Email Provider** panel asks for:
 
 | Field | Description |
 | --- | --- |
-| **From** | The sender account the email is sent from. Pick a connected account, click **Connect Email** to add one, or use **Edit** to update an existing connection. If none is selected, the default sender is used. |
-| **To** | The recipient address(es). Type addresses directly or insert variables (for example an email collected earlier in the conversation). At least one recipient is required. |
-| **CC** (optional) | Additional recipients in copy. Supports the same direct input and variables as **To**. |
-| **Subject** | The subject line of the email. Insert variables to personalize it (for example the prospect's first name). |
-| **Content (Body)** | The body of the email, using a rich text (HTML) editor. Insert variables to include details gathered during the conversation, such as a price quote or a meeting time. |
+| **Provider** | **Gmail**, **Office365**, or **Custom** for any SMTP server |
+| **Sender email** | The address your emails are sent from |
+| **Sender password** | The password Pearl signs in with: your regular password or an app password, depending on your provider |
+| **Send a test email to** | *(Optional)* An address to receive a test email when you click **Send test** |
 
----
+Click **Save** to keep the provider. Pick yours below for the details.
 
-<Card title="Connecting your email">
-<div style={{ marginTop: '16px' }}>
-<Frame>
-  <img
-    src="/images/dark_mode/email-action-provider-config.png"
-    alt="Email provider configuration panel"
-    className="rounded-[14px]"
-  />
-</Frame>
-</div>
-
-Pearl sends emails **from your own business address** using one of three providers. Pick the one that matches your setup.
+<Note>
+Email providers are workspace settings. You need the **Manage advanced settings** permission to save, test, or delete one; without it, you can see the provider but not change it.
+</Note>
 
 <Tabs>
   <Tab title="Gmail">
@@ -80,20 +157,32 @@ Pearl sends emails **from your own business address** using one of three provide
 
     <Steps>
       <Step title="Select the provider">
-        Choose **Gmail** from the provider list.
+        In **Provider**, choose **Gmail**.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-gmail-provider.png" alt="Gmail in the Provider list of the Email Provider panel" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-gmail-provider.png" alt="Gmail in the Provider list of the Email Provider panel" className="rounded-[14px]" /></Frame></div>
       </Step>
       <Step title="Enter your sender email">
-        Enter your Gmail address in **Sender Email**.
+        Enter your Gmail address in **Sender email**.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-gmail-sender.png" alt="Sender email of a Gmail provider" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-gmail-sender.png" alt="Sender email of a Gmail provider" className="rounded-[14px]" /></Frame></div>
       </Step>
-      <Step title="Add an app-password">
-        Enter a **Gmail app-password**, not your normal password. [Learn how to generate one](https://support.google.com/accounts/answer/185833).
+      <Step title="Add an app password">
+        In **Sender password**, enter a **Gmail app password**, not your normal password. [Learn how to generate one](https://support.google.com/accounts/answer/185833).
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-gmail-password.png" alt="Sender password of a Gmail provider" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-gmail-password.png" alt="Sender password of a Gmail provider" className="rounded-[14px]" /></Frame></div>
       </Step>
       <Step title="Test and save">
-        *(Optional)* Add an address under **Test Email to**, click **Test Config**, then **Save**.
+        *(Optional)* Enter an address under **Send a test email to** and click **Send test**. Then click **Save**.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-gmail-test.png" alt="Send a test email to, Send test and Save in the Email Provider panel" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-gmail-test.png" alt="Send a test email to, Send test and Save in the Email Provider panel" className="rounded-[14px]" /></Frame></div>
       </Step>
     </Steps>
 
-    <Warning>Enable **2-factor authentication** on your Google account and use an **app-password**, not your main password.</Warning>
+    <Warning>Enable **2-step verification** on your Google account to generate an app password.</Warning>
   </Tab>
 
   <Tab title="Office 365">
@@ -110,20 +199,32 @@ Pearl sends emails **from your own business address** using one of three provide
 
     <Steps>
       <Step title="Select the provider">
-        Choose **Office 365** from the provider list.
+        In **Provider**, choose **Office365**.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-office365-provider.png" alt="Office365 in the Provider list of the Email Provider panel" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-office365-provider.png" alt="Office365 in the Provider list of the Email Provider panel" className="rounded-[14px]" /></Frame></div>
       </Step>
       <Step title="Enter your sender email">
-        Enter your Microsoft address in **Sender Email**.
+        Enter your Microsoft address in **Sender email**.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-office365-sender.png" alt="Sender email of an Office365 provider" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-office365-sender.png" alt="Sender email of an Office365 provider" className="rounded-[14px]" /></Frame></div>
       </Step>
-      <Step title="Add an app-password">
-        Enter an **Office 365 app-password** (see your Microsoft security settings).
+      <Step title="Add your password">
+        In **Sender password**, enter your account password, or an app password if your organization requires one (see your Microsoft security settings).
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-office365-password.png" alt="Sender password of an Office365 provider" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-office365-password.png" alt="Sender password of an Office365 provider" className="rounded-[14px]" /></Frame></div>
       </Step>
       <Step title="Test and save">
-        *(Optional)* Add a **Test Email** address, click **Test Config**, then **Save**.
+        *(Optional)* Enter an address under **Send a test email to** and click **Send test**. Then click **Save**.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-office365-test.png" alt="Send a test email to, Send test and Save in the Email Provider panel" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-office365-test.png" alt="Send a test email to, Send test and Save in the Email Provider panel" className="rounded-[14px]" /></Frame></div>
       </Step>
     </Steps>
 
-    <Warning>Office 365 may block basic SMTP by default. Make sure your tenant allows it and use an app-password where required.</Warning>
+    <Warning>Office 365 may block SMTP sign-in by default. Make sure your tenant allows it for this mailbox.</Warning>
   </Tab>
 
   <Tab title="Custom SMTP">
@@ -140,30 +241,44 @@ Pearl sends emails **from your own business address** using one of three provide
 
     <Steps>
       <Step title="Select the provider">
-        Choose **Custom** from the provider dropdown.
+        In **Provider**, choose **Custom**.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-custom-provider.png" alt="Custom in the Provider list of the Email Provider panel" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-custom-provider.png" alt="Custom in the Provider list of the Email Provider panel" className="rounded-[14px]" /></Frame></div>
       </Step>
       <Step title="Enter your SMTP server">
-        For example `smtp.gmail.com`, `smtp.office365.com`, or `mail.yourdomain.com`.
+        In **SMTP server**, enter your provider's server, for example `smtp.gmail.com`, `smtp.office365.com`, or `mail.yourdomain.com`.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-custom-server.png" alt="SMTP server of a Custom provider" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-custom-server.png" alt="SMTP server of a Custom provider" className="rounded-[14px]" /></Frame></div>
       </Step>
       <Step title="Set the port and SSL">
-        Enter the **Port**, usually **587** for TLS or **465** for SSL, then toggle **Enable SSL** (usually **On**).
+        Enter the **Port**, usually **587** for TLS or **465** for SSL. Keep **Enable SSL** on, as recommended for most providers.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-custom-port.png" alt="Port and Enable SSL of a Custom provider" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-custom-port.png" alt="Port and Enable SSL of a Custom provider" className="rounded-[14px]" /></Frame></div>
       </Step>
       <Step title="Enter your credentials">
-        Enter your **Sender Email** and its **SMTP account password**.
+        Enter your **Sender email** and its SMTP password in **Sender password**.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-custom-credentials.png" alt="Sender email and Sender password of a Custom provider" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-custom-credentials.png" alt="Sender email and Sender password of a Custom provider" className="rounded-[14px]" /></Frame></div>
       </Step>
       <Step title="Test and save">
-        *(Optional)* Add a **Test Email** address under **Test Email to**, click **Test Config**, then **Save**.
+        *(Optional)* Enter an address under **Send a test email to** and click **Send test**. Then click **Save**.
+
+        <div className="block dark:hidden"><Frame><img src="/images/light_mode/email-custom-test.png" alt="Send a test email to, Send test and Save in the Email Provider panel" className="rounded-[14px]" /></Frame></div>
+        <div className="hidden dark:block"><Frame><img src="/images/dark_mode/email-custom-test.png" alt="Send a test email to, Send test and Save in the Email Provider panel" className="rounded-[14px]" /></Frame></div>
       </Step>
     </Steps>
 
     <Info>If you're unsure about your SMTP details, check with your email hosting provider (Google Workspace, Outlook, Zoho, etc.).</Info>
   </Tab>
 </Tabs>
-</Card>
 
 ## Variables
 
-Personalize the **Subject** and **Content**, and set dynamic **To** and **CC** recipients using variables collected during the conversation.
+Personalize the subject and the content, and set dynamic **To** and **CC** recipients, with variables.
 
 <Card title="Using variables" icon="brackets-curly" href="/pages/variables" horizontal>
   Learn how to create and insert variables to tailor each email to the recipient.
