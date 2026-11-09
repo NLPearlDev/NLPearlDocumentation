@@ -117,3 +117,9 @@ details.accordion p[data-component-part="accordion-title"] {
   --background-dark: 26 26 25 !important;
 }
 
+/* Integration logos drawn in a single ink: flipped where the theme would hide them (black on dark, white on light). */
+:root[class~="dark"] .logo-ink-dark,
+:root:not([class~="dark"]) .logo-ink-light {
+  filter: invert(1);
+}
+
