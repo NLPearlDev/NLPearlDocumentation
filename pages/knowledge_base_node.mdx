@@ -28,69 +28,101 @@ iconType: "light"
   </Frame>
 </div>
 
-The **Knowledge Base** node lets Pearl look up answers in your uploaded knowledge base during a live conversation, instead of relying on a scripted line.
+The **Knowledge Base** node makes Pearl search your own documents at a given step of the conversation and answer from what she finds, instead of reading a scripted line. It works on voice and text Pearls alike.
 
-**What it does**
+## What it does
 
-Pearl searches your knowledge base for the most relevant content and uses it to answer the caller in a natural, contextual way.
+When the conversation reaches the node, Pearl turns the customer's question into a search, looks it up in your Pearl's knowledge base, and answers in her own words from the most relevant passages.
 
-**When to use it**
+## When to use it
 
-Use this node whenever Pearl should answer from your own documents or FAQ content (product details, pricing, policies, opening hours) rather than a fixed script. It is ideal for open-ended questions where the exact wording can vary.
+Use it whenever Pearl should answer from your own content (product details, pricing, policies, opening hours) rather than from a fixed script. It is ideal for open-ended questions whose wording varies from one customer to the next.
 
 ## How to configure
 
-- **Instructions** (optional): tell Pearl when and how to rely on the knowledge base. Keep it short and specific.
-  - Example: "Use the knowledge base for any question about pricing, plans, or opening hours."
+<Steps>
+  <Step title="Add the node">
+    In the [PearlVibe editor](/pages/pearl_vibe), click **Add Node** and pick **Knowledge Base** in the **Conversation** section of the **In-Call** tab (**In-Chat** on a text Pearl). You can also ask PearlVibe to add one for you in the chat (**Build** mode).
+
+    To configure it by hand, click it on the canvas and open it with the pencil of its tile in the chat (**Manual edit**), or hover it and click **Edit Manually**. Your changes are kept once you click **Save Changes**.
+
+    <div className="block dark:hidden">
+      <Frame>
+        <img src="/images/light_mode/kb-node-add.png" alt="Knowledge Base in the Conversation section of the node picker" className="rounded-[14px]" />
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <img src="/images/dark_mode/kb-node-add.png" alt="Knowledge Base in the Conversation section of the node picker" className="rounded-[14px]" />
+      </Frame>
+    </div>
+  </Step>
+  <Step title="Add instructions (optional)">
+    In **Options**, turn on **Instructions** to tell Pearl how to use what she finds: the topics to look up, what to leave out, how long the answer should be — up to 250 characters.
+
+    <div className="block dark:hidden">
+      <Frame>
+        <img src="/images/light_mode/kb-node-instructions.png" alt="Instructions turned on in the Options of a Knowledge Base node" className="rounded-[14px]" />
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <img src="/images/dark_mode/kb-node-instructions.png" alt="Instructions turned on in the Options of a Knowledge Base node" className="rounded-[14px]" />
+      </Frame>
+    </div>
+  </Step>
+  <Step title="Set the transitions">
+    In the **Transitions** tab, add a transition for each outcome — typically one for when Pearl found the answer and one for when your documents don't cover the question. Each transition has a **Condition**, written in plain language, and a **Node Chosen**, the node the conversation goes to. Use **New Transition** to add one.
+
+    <div className="block dark:hidden">
+      <Frame>
+        <img src="/images/light_mode/kb-node-transitions.png" alt="Transitions tab of a Knowledge Base node with Answer found and No answer" className="rounded-[14px]" />
+      </Frame>
+    </div>
+    <div className="hidden dark:block">
+      <Frame>
+        <img src="/images/dark_mode/kb-node-transitions.png" alt="Transitions tab of a Knowledge Base node with Answer found and No answer" className="rounded-[14px]" />
+      </Frame>
+    </div>
+  </Step>
+</Steps>
+
+On the canvas, the node shows each transition and the node it leads to.
 
 <div className="block dark:hidden">
   <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/knowledge-base-node-example.png"
-        alt="Knowledge Base node on the platform"
-        className="rounded-[14px]"
-      />
-    </div>
+    <img src="/images/light_mode/kb-node-canvas.png" alt="Knowledge Base node on the canvas with its two transitions" className="rounded-[14px]" />
   </Frame>
 </div>
-
 <div className="hidden dark:block">
   <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/knowledge-base-node-example.png"
-        alt="Knowledge Base node on the platform"
-        className="rounded-[14px]"
-      />
-    </div>
+    <img src="/images/dark_mode/kb-node-canvas.png" alt="Knowledge Base node on the canvas with its two transitions" className="rounded-[14px]" />
   </Frame>
 </div>
 
 <Info>
-The knowledge content itself is uploaded and managed in the flow's **Knowledge Base** area, not inside the node. The node only tells Pearl *to* consult it. See [Agent Knowledge Base](/pages/knowledge_base) to manage your content, including [supported formats and limits](/pages/knowledge_base#files-and-limits).
+The content itself lives in the **Knowledge Base** tab of the Pearl editor, not in the node: the node only tells Pearl to search it. See [Knowledge Base](/pages/knowledge_base) to manage your content, including [supported formats and limits](/pages/knowledge_base#files-and-limits).
 </Info>
 
 ## Example
 
-<Card title="Example: answering about opening hours">
+<Card title="Example: answering about opening hours" icon="clock">
 
-Imagine you uploaded a document to your knowledge base that says:
+Imagine your knowledge base includes a document that says:
 
 > The clinic is open Monday to Friday, 9 AM to 6 PM, and Saturday from 9 AM to 1 PM.
 
-Here is how the node uses it during a call:
+Here is how the node uses it:
 
-1. The caller asks: *"Are you open on Saturdays?"*
-2. The **Knowledge Base** node lets Pearl search that document and find the opening hours.
+1. The customer asks: *"Are you open on Saturdays?"*
+2. The **Knowledge Base** node makes Pearl search your documents and find the opening hours.
 3. Pearl answers: *"Yes, we're open on Saturdays from 9 AM to 1 PM."*
-
-Without this node, Pearl would not have access to your specific hours and could not answer reliably.
+4. The **Answer found** transition takes the conversation on to the next step of your flow.
 
 </Card>
 
 ## Good to know
 
-- The knowledge content is managed once in Agent Knowledge Base, so every Knowledge Base node in your flow uses the same documents. You don't need to re-upload them for each node.
-- If no relevant information is found, Pearl falls back to the rest of your flow instead of inventing an answer.
-- Pair this node with a [Dialogue](/pages/dialogue) node to ask a follow-up question once the answer is delivered.
+- Your content is managed once, in the **Knowledge Base** tab, so every Knowledge Base node in your flow searches the same documents. You don't need to upload them again for each node.
+- Pearl already has part of your knowledge base in mind during the whole conversation. The node goes further: at this step, it makes her search your documents for the answer to the customer's question.
+- If your documents don't cover the question, the search comes back empty. Plan a transition for that case, for example to a [Transfer Call](/pages/transfer_call) node or to a [Dialogue](/pages/dialogue) node that offers a callback.
