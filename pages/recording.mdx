@@ -4,7 +4,7 @@ icon: "record-vinyl"
 iconType: "light"
 ---
 
-<Callout icon="phone" color="#2563EB" iconType="regular">Available for **Pearl Voice** only.</Callout>
+<Callout icon="phone" color="#2563EB" iconType="regular">Available on **voice Pearls** only.</Callout>
 
 <div className="block dark:hidden">
   <Frame>
@@ -30,27 +30,24 @@ iconType: "light"
   </Frame>
 </div>
 
-The **Start Recording** node gives you control over when call recording begins in a Pearl Voice flow.
+The **Start Recording** node gives you control over when call recording begins in a voice flow.
 
 ## What it does
 
-Starts recording at the exact point where Pearl reaches this node in a Pearl Voice flow.
+Starts recording at the exact point where Pearl reaches this node.
 
-Recording is usually managed at campaign level. In most cases, calls are recorded automatically according to the **Recording** settings in your **Inbound Campaign** or **Outbound Campaign** settings.
+Recording is usually set for the whole call, in the **Recording Options** of your **Inbound Settings** or of your outbound campaign. With Start Recording, the call begins unrecorded and recording starts only once the flow reaches the node, for example after the caller agrees to be recorded.
 
-<Warning>
-**Feature-flagged node.** Start Recording is hidden by default and is not available in every workspace or plan.
-</Warning>
+### Adding Start Recording
 
-To add it to your flow, ask **PearlVibe** in natural language, in **Build** mode:
+Start Recording isn't in the node picker: ask **PearlVibe** for it in the chat, in **Build** mode. Say where recording should begin; PearlVibe adds the node there and turns automatic recording off for you.
 
 ```text Example prompt for PearlVibe
-Add a Start Recording node after Pearl asks the caller for permission to record the call.
+Only start recording once the caller agrees to be recorded.
 ```
 
-<Note>
-If Start Recording does not appear in the toolbar or add-node panel after asking PearlVibe, it is not enabled for your account.
-</Note>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/recording-ask.png" alt="Request for a Start Recording node typed in the PearlVibe chat" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/recording-ask.png" alt="Request for a Start Recording node typed in the PearlVibe chat" className="rounded-[14px]" /></Frame></div>
 
 ## When to use it
 
@@ -65,24 +62,19 @@ Use Start Recording when recording should begin only after a specific moment in 
 
 ## How it works
 
-Automatic recording is configured in your **Inbound Campaign** or **Outbound Campaign** settings. When it is enabled, recording begins at the start of the call and you do not need this node.
-
-To trigger recording from the flow instead, set it up as a conditional action:
+When automatic recording is on, recording begins at the start of the call and you don't need this node. To start recording from the flow instead:
 
 <Steps>
-  <Step title="Disable automatic recording">
-    Turn off automatic recording in the relevant Inbound or Outbound Campaign settings, so recording starts only from the flow.
+  <Step title="Turn off automatic recording">
+    In **Inbound Settings**, or in your outbound campaign's settings, set **Recording Options** to **Off**, so recording starts only from the flow. PearlVibe does it when it adds the node; check it if you change the flow later.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/recording-start-disabled-option.png"
-        alt="Disable the automatic recording option in campaign settings"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    The other choices record from the start: **Full call** (including the person the call is transferred to) and **Until transfer**, plus **Pearl only** for outbound campaigns.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/recording-options.png" alt="Recording Options in Inbound Settings, with the Off choice highlighted" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/recording-options.png" alt="Recording Options in Inbound Settings, with the Off choice highlighted" className="rounded-[14px]" /></Frame></div>
 
     <Warning>
-    Once automatic recording is disabled, any call that does not reach the Start Recording node will **not** be recorded. Make sure every path that requires a recording leads to the node.
+    Once automatic recording is off, any call that does not reach the Start Recording node will **not** be recorded. Make sure every path that requires a recording leads to the node.
     </Warning>
   </Step>
   <Step title="Ask for consent (optional)">
@@ -92,18 +84,18 @@ To trigger recording from the flow instead, set it up as a conditional action:
     Use a conditional transition to send callers who agree to the **Start Recording** node.
   </Step>
   <Step title="Place the node">
-    Put **Start Recording** exactly where recording should begin. It has no configuration fields, it is an action marker inside the flow.
+    Put **Start Recording** exactly where recording should begin. It has no fields: its panel only reminds you to turn off **Recording Options**.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/recording-node-example.png"
-        alt="Start Recording node placed in a Pearl Voice flow"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/recording-panel.png" alt="Start Recording node panel with its reminder to turn off Recording Options" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/recording-panel.png" alt="Start Recording node panel with its reminder to turn off Recording Options" className="rounded-[14px]" /></Frame></div>
+
+    Once recording starts, the call goes on through the node's **Continue** transition, which you connect on the canvas to the next step.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/recording-canvas.png" alt="Start Recording node on the canvas with its Continue transition" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/recording-canvas.png" alt="Start Recording node on the canvas with its Continue transition" className="rounded-[14px]" /></Frame></div>
   </Step>
 </Steps>
 
 <Info>
-Recordings are always active during test calls, regardless of this node or your campaign recording settings.
+Recordings are always active during test calls, regardless of this node or your recording options.
 </Info>
