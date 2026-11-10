@@ -71,7 +71,7 @@ Use webhooks only when an **external tool needs event notifications**. For actua
     iconType="light"
     href="#call-webhook-payload"
   >
-    Triggered at the start and end of every call. Available for both Inbound and Outbound Pearls.
+    Sent when a call ends, and when an outbound call starts. Available for both Inbound and Outbound Pearls.
   </Card>
   <Card
     title="Lead Webhook"
@@ -79,7 +79,7 @@ Use webhooks only when an **external tool needs event notifications**. For actua
     iconType="light"
     href="#lead-webhook-payload"
   >
-    Triggered every time a lead changes status. Available for Outbound Pearls only.
+    Sent when an outbound call starts and when it ends, with the lead's current status. Available for Outbound Pearls only.
   </Card>
 </CardGroup>
 
@@ -93,14 +93,14 @@ Select the version that matches your Pearl configuration. **V2 is the recommende
   <Tab title="V2 (Latest)">
 
 <Note>
-In V2, all JSON payload keys use **camelCase** (e.g. `pearlId`, `phoneNumber`, `collectedData`).
+In V2, all JSON payload keys use **camelCase** (e.g. `pearlId`, `phoneNumber`, `collectedData`). Statuses, roles, and sentiments are sent as numbers: use the **Code** column of the tables below. The keys of `callData` and `collectedData` are sent exactly as stored, i.e. your variable IDs.
 </Note>
 
 ---
 
 ## Call Webhook Payload
 
-The **Call Webhook** is triggered at the start and at the end of every call. It provides comprehensive data about the call, including its outcome, duration, transcript, and any information collected during the conversation.
+The **Call Webhook** is sent when a call ends, and when an outbound call starts. It provides comprehensive data about the call, including its outcome, duration, transcript, and any information collected during the conversation. In a webhook sent at the start of a call, the result fields (`summary`, `recording`, `tags`, `overallSentiment`…) are `null`, and `transcript` and `collectedInfo` are empty.
 
 > Available for both **Inbound** and **Outbound** Pearls.
 
@@ -140,9 +140,9 @@ The **Call Webhook** is triggered at the start and at the end of every call. It 
 
 | Value | Code | Description |
 |-------|------|-------------|
-| `NeedRetry` | 10 | The call will be retried. |
-| `InCallQueue` | 20 | The call is queued and waiting to be placed. |
-| `OnCall` | 40 | The call is currently in progress. |
+| `NotAnswered` | 10 | The call wasn't answered. |
+| `InQueue` | 35 | The call is waiting in a queue. |
+| `OnGoing` | 40 | The call is currently in progress. |
 | `VoiceMailLeft` | 70 | Pearl reached voicemail and left a message. |
 | `Success` | 100 | The conversation ended with a successful outcome as defined in the Pearl. |
 | `NotSuccessful` | 110 | The conversation ended without achieving the defined success criteria. |
@@ -205,8 +205,8 @@ Each entry in the `collectedInfo` array represents a variable captured during th
   "id": "64f3c300e4b0d3a5f1c9e299",
   "pearlId": "64f3b9ffe4b0d3a5f1c9e100",
   "startTime": "2024-06-01T10:15:00Z",
-  "conversationStatus": "Success",
-  "status": "Completed",
+  "conversationStatus": 100,
+  "status": 4,
   "from": "+18005550100",
   "to": "+14155552671",
   "channel": "phone",
@@ -219,13 +219,13 @@ Each entry in the `collectedInfo` array represents a variable captured during th
   "recording": "https://recordings.nlpearl.ai/calls/64f3c300e4b0d3a5f1c9e299.mp3",
   "transcript": [
     {
-      "role": "Pearl",
+      "role": 2,
       "content": "Hi John, this is Pearl calling on behalf of Acme Corp. How are you today?",
       "startTime": 0.0,
       "endTime": 4.2
     },
     {
-      "role": "Client",
+      "role": 3,
       "content": "I'm good, thanks. What's this about?",
       "startTime": 4.8,
       "endTime": 7.1
@@ -241,7 +241,7 @@ Each entry in the `collectedInfo` array represents a variable captured during th
   ],
   "tags": ["interested", "callback-requested"],
   "isCallTransferred": false,
-  "overallSentiment": "SlightlyPositive",
+  "overallSentiment": 4,
   "leadId": "64f3c2a1e4b0d3a5f1c9e271"
 }
 ```
@@ -250,7 +250,7 @@ Each entry in the `collectedInfo` array represents a variable captured during th
 
 ## Lead Webhook Payload
 
-The **Lead Webhook** is triggered every time a lead changes status - at the beginning and at the end of a call. It contains all relevant information about the lead and its current state.
+The **Lead Webhook** is sent when an outbound call starts and when it ends, and again after a transfer. It contains all relevant information about the lead and its current status. Nothing is sent when a lead is added, edited, or deleted.
 
 > Available for **Outbound** Pearls only.
 
@@ -292,7 +292,6 @@ The **Lead Webhook** is triggered every time a lead changes status - at the begi
 | `Completed` | 130 | All attempts are done (neutral outcome). |
 | `Unreachable` | 150 | The lead could not be reached after all retry attempts. |
 | `Blacklisted` | 220 | The number is blacklisted and will not be contacted. |
-| `QueueAbandon` | 300 | The call was abandoned while in the queue. |
 | `Error` | 500 | An error occurred while processing this lead. |
 
 <Note>
@@ -308,7 +307,7 @@ The definition of **Success** and **NotSuccessful** is set at the Pearl level. R
   "externalId": "crm-lead-00482",
   "phoneNumber": "+14155552671",
   "timeZone": "America/New_York",
-  "status": "Success",
+  "status": 100,
   "created": "2024-06-01T09:00:00Z",
   "callsId": [
     "64f3c300e4b0d3a5f1c9e299"
@@ -335,14 +334,14 @@ The definition of **Success** and **NotSuccessful** is set at the Pearl level. R
 </Warning>
 
 <Note>
-In V1, all JSON payload keys use **PascalCase** (e.g. `PearlId`, `PhoneNumber`, `CollectedInfo`).
+In V1, all JSON payload keys use **PascalCase** (e.g. `PearlId`, `PhoneNumber`, `CollectedInfo`). Statuses, roles, and sentiments are sent as numbers: use the **Code** column of the tables below. The keys of `CallData` are sent exactly as stored, i.e. your variable IDs.
 </Note>
 
 ---
 
 ## Call Webhook Payload
 
-The **Call Webhook** is triggered at the start and at the end of every call.
+The **Call Webhook** is sent when a call ends, and when an outbound call starts.
 
 > Available for both **Inbound** and **Outbound** Pearls.
 
@@ -387,9 +386,9 @@ V1 includes an additional `RelatedId` field referencing the inbound or outbound 
 
 | Value | Code | Description |
 |-------|------|-------------|
-| `NeedRetry` | 10 | The call will be retried. |
-| `InCallQueue` | 20 | The call is queued and waiting to be placed. |
-| `OnCall` | 40 | The call is currently in progress. |
+| `NotAnswered` | 10 | The call wasn't answered. |
+| `InQueue` | 35 | The call is waiting in a queue. |
+| `OnGoing` | 40 | The call is currently in progress. |
 | `VoiceMailLeft` | 70 | Pearl reached voicemail and left a message. |
 | `Success` | 100 | The conversation ended with a successful outcome as defined in the Pearl. |
 | `NotSuccessful` | 110 | The conversation ended without achieving the defined success criteria. |
@@ -445,8 +444,8 @@ V1 includes an additional `RelatedId` field referencing the inbound or outbound 
   "PearlId": "64f3b9ffe4b0d3a5f1c9e100",
   "RelatedId": "64f3c1ffe4b0d3a5f1c9e200",
   "StartTime": "2024-06-01T10:15:00Z",
-  "ConversationStatus": "Success",
-  "Status": "Completed",
+  "ConversationStatus": 100,
+  "Status": 4,
   "From": "+18005550100",
   "To": "+14155552671",
   "Channel": "phone",
@@ -459,13 +458,13 @@ V1 includes an additional `RelatedId` field referencing the inbound or outbound 
   "Recording": "https://recordings.nlpearl.ai/calls/64f3c300e4b0d3a5f1c9e299.mp3",
   "Transcript": [
     {
-      "Role": "Pearl",
+      "Role": 2,
       "Content": "Hi John, this is Pearl calling on behalf of Acme Corp. How are you today?",
       "StartTime": 0.0,
       "EndTime": 4.2
     },
     {
-      "Role": "Client",
+      "Role": 3,
       "Content": "I'm good, thanks. What's this about?",
       "StartTime": 4.8,
       "EndTime": 7.1
@@ -481,7 +480,7 @@ V1 includes an additional `RelatedId` field referencing the inbound or outbound 
   ],
   "Tags": ["interested", "callback-requested"],
   "IsCallTransferred": false,
-  "OverallSentiment": "SlightlyPositive",
+  "OverallSentiment": 4,
   "LeadId": "64f3c2a1e4b0d3a5f1c9e271"
 }
 ```
@@ -490,7 +489,7 @@ V1 includes an additional `RelatedId` field referencing the inbound or outbound 
 
 ## Lead Webhook Payload
 
-The **Lead Webhook** is triggered every time a lead changes status - at the beginning and at the end of a call.
+The **Lead Webhook** is sent when an outbound call starts and when it ends, and again after a transfer.
 
 > Available for **Outbound** Pearls only.
 
@@ -527,7 +526,6 @@ V1 uses `OutboundId` to reference the campaign. V2 replaces this with `pearlId` 
 | `Completed` | 130 | All attempts are done (neutral outcome). |
 | `Unreachable` | 150 | The lead could not be reached after all retry attempts. |
 | `Blacklisted` | 220 | The number is blacklisted and will not be contacted. |
-| `QueueAbandon` | 300 | The call was abandoned while in the queue. |
 | `Error` | 500 | An error occurred while processing this lead. |
 
 ### Example Payload
@@ -539,15 +537,15 @@ V1 uses `OutboundId` to reference the campaign. V2 replaces this with `pearlId` 
   "ExternalId": "crm-lead-00482",
   "PhoneNumber": "+14155552671",
   "TimeZone": "America/New_York",
-  "Status": "Success",
+  "Status": 100,
   "Created": "2024-06-01T09:00:00Z",
   "CallsId": [
     "64f3c300e4b0d3a5f1c9e299"
   ],
   "CallData": {
-    "FirstName": "John",
-    "Email": "john.doe@example.com",
-    "Plan": "Premium"
+    "firstName": "John",
+    "email": "john.doe@example.com",
+    "plan": "Premium"
   }
 }
 ```
@@ -570,61 +568,37 @@ V1 uses `OutboundId` to reference the campaign. V2 replaces this with `pearlId` 
 
 ## Setting Up Webhooks
 
-You can configure webhook URLs directly in your Pearl or outbound campaign settings.
+Webhooks are set in your Pearl's editor, in the **Inbound Settings** tab for an inbound Pearl, or the **Outbound Settings** tab for an outbound one.
 
 <Steps>
-<Step title="Open Your Campaign Settings">
-Navigate to the Pearl or outbound campaign you want to configure and open its settings panel.
-</Step>
-
-<Step title="Locate the Webhook Section">
-Scroll to the **Webhooks** section in the configuration form.
-
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/webhooks-documentation.png"
-        alt="Webhook settings on light mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/webhooks-documentation.png"
-        alt="Webhook settings on dark mode"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-</Step>
-
 <Step title="Turn Webhooks On">
-Toggle the **Webhooks** setting to **On**. Webhooks are off by default, and the URL fields only appear once it's enabled.
+In the **Webhooks** block, select **On**. Webhooks are off by default, and the webhook lines only appear once they're on.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/webhooks-inbound.png" alt="Webhooks block of an inbound Pearl, turned on, with its Calls line" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/webhooks-inbound.png" alt="Webhooks block of an inbound Pearl, turned on, with its Calls line" className="rounded-[14px]" /></Frame></div>
 </Step>
 
 <Step title="Enter Your Webhook URLs">
-Provide the endpoint URLs for the webhooks you want to receive. Your server must respond with any HTTP `2xx` status to acknowledge receipt.
+Type the endpoint URL of each webhook you want to receive: **Calls** for the Call Webhook, available for **Inbound** and **Outbound** Pearls, and **Leads** for the Lead Webhook, available for **Outbound** Pearls only. Your server must respond with any HTTP `2xx` status to acknowledge receipt.
 
-<Info>
-- **Call Webhook** - available for **Inbound** and **Outbound** Pearls.
-- **Lead Webhook** - available for **Outbound** Pearls only.
-</Info>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/webhooks-outbound.png" alt="Webhooks block of an outbound Pearl with its Calls and Leads lines" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/webhooks-outbound.png" alt="Webhooks block of an outbound Pearl with its Calls and Leads lines" className="rounded-[14px]" /></Frame></div>
 </Step>
 
-<Step title="Authenticate Your Webhooks (Optional)">
-For each webhook (Call and Lead), you can attach a **Credential** so NLPearl.AI authenticates its requests to your endpoint:
+<Step title="Choose the Payload Version">
+Click the version pill at the end of the **Calls** line to choose **V1** or **V2** (see [Webhook Version](#webhook-version)). V2 is selected by default.
 
-1. Enable the **Credentials** toggle under the webhook URL.
-2. Select an existing **Token**, or create one with **Add New** (use **Edit** to update an existing one).
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/webhooks-version.png" alt="Payload version menu of the Calls webhook with V1 and V2" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/webhooks-version.png" alt="Payload version menu of the Calls webhook with V1 and V2" className="rounded-[14px]" /></Frame></div>
+</Step>
 
-The selected credential is sent with every webhook delivery, letting your server verify the request genuinely originates from NLPearl.AI. Available for both Inbound (Call Webhook) and Outbound (Call + Lead Webhook) Pearls.
+<Step title="Sign Your Webhooks (Optional)">
+Click the signature pill of a webhook line to attach a **Credential**, so NLPearl.AI authenticates its requests to your endpoint: pick one of your tokens, create one with **New token**, or update the selected one with **Edit token**. **No signature** sends the webhook without credentials.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/webhooks-signature.png" alt="Signature menu of the Calls webhook with No signature, a token and New token" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/webhooks-signature.png" alt="Signature menu of the Calls webhook with No signature, a token and New token" className="rounded-[14px]" /></Frame></div>
+
+The selected credential is applied to every webhook delivery, letting your server verify the request genuinely originates from NLPearl.AI.
 
 <Tip>
 Credentials work the same way as in the [API Node](/pages/api_action#credentials-authentication). A token created here can be reused across your webhooks.
@@ -634,6 +608,8 @@ Credentials work the same way as in the [API Node](/pages/api_action#credentials
 
 <Note>
 Make sure your webhook endpoint is publicly accessible and responds within **10 seconds**. When a delivery fails (a non-`2xx` response, an error, or a timeout), NLPearl.AI tries again up to **3 attempts** in total, **30 seconds** apart. Since a delivery can arrive more than once, make your endpoint idempotent.
+
+Each request is a `POST` with the headers `Content-Type: application/json; charset=utf-8` and `User-Agent: NLPearl/Agent`, plus the ones your credential adds.
 </Note>
 
 <Info>
@@ -644,9 +620,12 @@ If your endpoint is behind a firewall, allow the NLPearl IP addresses listed in 
 
 ## Checking Webhook Deliveries
 
-Every webhook sent for a call appears in that call's event timeline, in the call details. Each **Call Webhook** or **Lead Webhook** event shows the endpoint URL, the number of attempts, and the final status code, or **Not sent** when the delivery could not leave (for example, when its credential was deleted).
+Every webhook sent for a call appears in the **Event Log** of that call's details. Each **Call Webhook** or **Lead Webhook** event shows the endpoint URL, the number of attempts, and the final status code, or **Not sent** when the delivery could not leave (for example, when its credential was deleted).
 
-Expand the event to see each attempt: its time, its status code, the response time, and the error returned by your server, if any. Use it to check that your endpoint received the data, or to find out why it did not.
+Expand the event to see the attempt that settled the delivery: its time, the request with its status code and response time, and the error and response returned by your server, if any. Use it to check that your endpoint received the data, or to find out why it did not.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/webhooks-delivery.png" alt="Call Webhook event expanded in a conversation's Event Log, with its attempt, status code and error" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/webhooks-delivery.png" alt="Call Webhook event expanded in a conversation's Event Log, with its attempt, status code and error" className="rounded-[14px]" /></Frame></div>
 
 ---
 
