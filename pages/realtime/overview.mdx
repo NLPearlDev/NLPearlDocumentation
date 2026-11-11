@@ -1,16 +1,16 @@
 ---
-title: "Stream Calls"
+title: "Realtime API"
 sidebarTitle: "Overview"
-description: "Talk to your Pearl from your own app or website, its audio streamed over a WebSocket."
+description: "Talk to your Pearl in real time from your own app or website."
 icon: "waveform-lines"
 iconType: "light"
 ---
 
-A stream call gives your app a live, speech-to-speech conversation with your Pearl: you stream the end user's voice in and play Pearl's voice back as it speaks. It is the same Pearl you integrate with your phone numbers, with the same flow, call history, webhooks, recordings and billing. Only the connection differs: your app starts the call through the API, then connects to Pearl over a WebSocket, with no phone line involved.
+The Realtime API gives your app a live, speech-to-speech conversation with your Pearl: you stream the end user's voice in and play Pearl's voice back as it speaks. It is the same Pearl you integrate with your phone numbers, with the same flow, call history, webhooks, recordings and billing. Only the connection differs: your app starts the call through the API, then connects to Pearl over a WebSocket, with no phone line involved.
 
 ## Before you start
 
-To make your first stream call, you need:
+To make your first Realtime API call, you need:
 
 - A [voice Pearl](/pages/getting_started#2-create-your-agent-with-pearlvibe) that is **active**. The call runs its [published](/pages/getting_started#5-publish-your-agent) version.
 - Its **Pearl ID**: on your Pearl's overview page, in the **Settings** popover.
@@ -96,11 +96,11 @@ The cases you are most likely to meet. [Stream WebSocket](/api-reference/v2/stre
 
 <CardGroup cols={2}>
 
-<Card title="Quickstart" icon="rocket" iconType="light" href="/pages/stream/quickstart">
+<Card title="Quickstart" icon="rocket" iconType="light" href="/pages/realtime/quickstart">
   Talk to your Pearl from your terminal, with your microphone.
 </Card>
 
-<Card title="Browser App" icon="browser" iconType="light" href="/pages/stream/browser">
+<Card title="Browser App" icon="browser" iconType="light" href="/pages/realtime/browser">
   A web page with the microphone and Pearl's voice.
 </Card>
 
