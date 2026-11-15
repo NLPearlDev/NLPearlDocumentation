@@ -448,57 +448,37 @@ Outbound only. Click the **Lead Retention** value to open the **Lead retention**
 
 ## Managing Leads
 
-Open the **Leads** tab in your campaign to add, view, and manage the people Pearl will call. Leads are shown in a searchable, paginated table with default columns **Created**, **Phone Number**, **Time Zone**, **Reference ID**, and **Status**, plus one column per variable used in your Pearl.
+Open the **Leads** tab on your Pearl's page to add, view, and manage the people Pearl will call. Leads are shown in a searchable, paginated table with default columns **Created**, **Phone Number**, **Time Zone**, **Reference ID**, and **Status**, plus one column per variable used in your Pearl. Filter the table with the **Status** and **Columns** chips next to the search field. A lead whose callback is booked through [Callback Requests](#callback-requests) shows **Callback Scheduled**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-overview.png"
-    alt="Leads tab overview"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-overview.png" alt="The Leads tab with its table of leads" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-overview.png" alt="The Leads tab with its table of leads" className="rounded-[14px]" /></Frame></div>
 
 ### Adding Leads
 
-Click **Add Lead**, then choose how you want to add them.
+Click **Add lead** (or **Add leads** when the list is still empty), then choose how you want to add them.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-add.png"
-    alt="Add Lead button"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-add.png" alt="The Add lead button" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-add.png" alt="The Add lead button" className="rounded-[14px]" /></Frame></div>
 
 <Card>
 
 <Tabs>
 
-<Tab title="Upload a File">
+<Tab title="Upload files">
 
-Download the **CSV** or **XLSX** template, fill it with your lead data, and upload it back. The template only includes the variables actually used in your Pearl (unused ones won't appear, and extra columns you add won't be recognized). You can also set a timezone for the file — if left empty, the campaign timezone is used. After the upload, a report shows how many leads were added and lets you download the list of any failed rows.
+In the **Add lead** panel, stay on **Upload files**. Download the **CSV template** or **XLSX template**, fill it with your lead data, and upload it back. The template only includes the variables actually used in your Pearl (unused ones won't appear, and extra columns you add won't be recognized). You can also set a timezone for the file — if left empty, the campaign timezone is used. After the upload, a report shows how many leads were added and lets you download the list of any failed rows.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-add-popup-upload-file.png"
-    alt="Add Lead - upload file"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-add-popup-upload-file.png" alt="Add lead, Upload files: the template, then the file to drop" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-add-popup-upload-file.png" alt="Add lead, Upload files: the template, then the file to drop" className="rounded-[14px]" /></Frame></div>
 
 </Tab>
 
-<Tab title="Add Manually">
+<Tab title="Manually">
 
-Enter a lead one by one: phone number (country code + number), any variables your Pearl uses (e.g. Calendly URI, event type, date/time), an optional timezone, and an optional **Reference ID** (your own external identifier, up to 100 characters).
+In the **Add lead** panel, switch to **Manually** and enter a lead one by one: phone number (country code + number), any variables your Pearl uses (e.g. Calendly URI, event type, date/time), an optional timezone, and an optional **Reference ID** (your own external identifier, up to 100 characters).
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-add-manually.png"
-    alt="Add Lead - manually"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-add-manually.png" alt="Add lead, Manually: the phone number, the variables and the timezone" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-add-manually.png" alt="Add lead, Manually: the phone number, the variables and the timezone" className="rounded-[14px]" /></Frame></div>
 
 </Tab>
 
@@ -514,15 +494,10 @@ Both methods require accepting the **AI-calls compliance** checkbox. A notice al
 
 ### Customizing the View
 
-Use **Customize Column** to show or hide any column, including the per-variable columns (by default, only the last 3 variables are shown). Up to 50 columns can be visible at once, and your selection is saved locally in your browser.
+Use the **Columns** chip to show or hide any column, including the per-variable columns (by default, only the last 3 variables are shown). Up to 50 columns can be visible at once, and your selection is saved locally in your browser.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-customize-view.png"
-    alt="Customize columns"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-customize-view.png" alt="The Columns list of the Leads table" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-customize-view.png" alt="The Columns list of the Leads table" className="rounded-[14px]" /></Frame></div>
 
 ---
 
@@ -530,44 +505,30 @@ Use **Customize Column** to show or hide any column, including the per-variable 
 
 Click **Download CSV** to export your leads together with their current statuses. The export respects the filters currently applied to the table.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-download-csv.png"
-    alt="Download leads as CSV"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-download-csv.png" alt="The Download CSV button" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-download-csv.png" alt="The Download CSV button" className="rounded-[14px]" /></Frame></div>
 
 ---
 
 ### Refreshing and Deleting
 
-Select one or more leads (or select all across the current filter), then:
+Select one or more leads (or select all across the current filter). A bar appears at the bottom with the number selected, then:
 
-- **Refresh**: resets the leads to **New** so they re-enter the calling queue — handy to re-contact already-processed leads (Completed, Unsuccessful, etc.).
+- **Reset status**: resets the leads to **New** so they re-enter the calling queue — handy to re-contact already-processed leads (Completed, Unsuccessful, etc.).
 - **Delete**: permanently removes the selected leads, after a confirmation.
+- **Cancel**: clears the selection.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-delete-or-refresh.png"
-    alt="Refresh or delete selected leads"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-delete-or-refresh.png" alt="Two selected leads with Reset status, Delete and Cancel" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-delete-or-refresh.png" alt="Two selected leads with Reset status, Delete and Cancel" className="rounded-[14px]" /></Frame></div>
 
 ---
 
 ### Outside Calling Hours
 
-When a lead's local time falls outside your campaign's [calling hours](#calling-hours), a **moon icon** appears on its Time Zone column — the lead is "sleeping" and won't be called until its window opens. Hover the icon to see the lead's local time and UTC offset.
+When a lead's local time falls outside your campaign's [calling hours](#calling-hours), a **moon icon** appears on its Time Zone column — the lead is "sleeping" and won't be called until its window opens. Hover the icon to see **Outside calling hours**, with the lead's local time and UTC offset: the lead will be called once your calling hours resume.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-sleeping.png"
-    alt="Lead outside calling hours indicator"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-sleeping.png" alt="Outside calling hours on a lead's time zone" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-sleeping.png" alt="Outside calling hours on a lead's time zone" className="rounded-[14px]" /></Frame></div>
 
 ---
 
@@ -575,46 +536,26 @@ When a lead's local time falls outside your campaign's [calling hours](#calling-
 
 Click a lead to open its details panel. Use the arrows or **↑/↓** keys to move between leads. The header shows the lead's name (or phone number), its **Lead ID** (copyable), and its status.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-popup-overview.png"
-    alt="Lead detail panel"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-popup-overview.png" alt="A lead's details panel" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-popup-overview.png" alt="A lead's details panel" className="rounded-[14px]" /></Frame></div>
 
 **Status** — change the lead's status from the editable dropdown; the change is applied instantly. This simply updates the lead's status label — for example, set it back to **New** to re-contact the lead.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-popup-change-status.png"
-    alt="Change lead status"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-popup-change-status.png" alt="The status list in a lead's details panel" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-popup-change-status.png" alt="The status list in a lead's details panel" className="rounded-[14px]" /></Frame></div>
 
 **Lead information** — Timezone, Reference ID, Phone Number, and every Pearl variable are **editable inline**, and each change is saved immediately. The panel separates two groups:
 
 - **Lead data**: values you provided up front (imported or entered variables).
 - **Lead Collected Info**: values Pearl gathered during the conversation.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-popup-info.png"
-    alt="Lead information and collected info"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-popup-info.png" alt="Lead Information in a lead's details panel, each value editable" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-popup-info.png" alt="Lead Information in a lead's details panel, each value editable" className="rounded-[14px]" /></Frame></div>
 
 **Calls** — the right column lists the lead's calls with their time and status; click one to open its **Post Call** view.
 
-<Frame>
-  <img
-    src="/images/dark_mode/lead-popup-calls-view.png"
-    alt="Lead calls history"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/lead-popup-calls-view.png" alt="The Calls column of a lead's details panel" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/lead-popup-calls-view.png" alt="The Calls column of a lead's details panel" className="rounded-[14px]" /></Frame></div>
 
 <Card
   title="Post Call"
