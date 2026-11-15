@@ -45,27 +45,17 @@ Inbound calls let your Pearl handle incoming calls, engaging with callers immedi
 
 ## Attach a Phone Number
 
-To receive calls, your Pearl needs a phone number. Numbers are purchased and connected from **Settings → Phone Numbers**, not from the Inbound Settings screen.
+To receive calls, your Pearl needs a phone number. Numbers are purchased and connected from **Settings → Phone Numbers** (or with **Buy or connect a number** in your Pearl's settings, see below).
 
-Start by clicking your **profile card** at the bottom-left corner of the sidebar, then open **Settings**.
+Click your **profile** at the bottom-left corner of the sidebar, then click **Settings**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/go-to-settings.png"
-    alt="Open Settings from the profile card"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/go-to-settings.png" alt="Opening Settings from the profile menu" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/go-to-settings.png" alt="Opening Settings from the profile menu" className="rounded-[14px]" /></Frame></div>
 
-Then select the **Phone Numbers** tab. From here you can purchase, connect, and manage all your numbers.
+Then open **Phone Numbers** (under **Channels**). From here you can purchase, connect, and manage all your numbers with **Purchase or Connect**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/choose-phone-number-in-settings.png"
-    alt="Phone Numbers tab in Settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/choose-phone-number-in-settings.png" alt="Phone Numbers in Settings" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/choose-phone-number-in-settings.png" alt="Phone Numbers in Settings" className="rounded-[14px]" /></Frame></div>
 
 You have three ways to get a number for your Pearl:
 
@@ -91,7 +81,7 @@ You have three ways to get a number for your Pearl:
   <span className="m-0 text-lg font-semibold text-white">NLPearl Number</span>
 </div>
 
-Buy a number directly from NLPearl and start receiving or making calls in minutes (US numbers, billed monthly).
+Buy a number directly from NLPearl and start receiving or making calls in minutes (US numbers, billed monthly, available once you subscribe to a plan).
 
 <Info>
 For more details, visit the [NLPearl Phone Numbers](/pages/nlpearl_phones) page.
@@ -163,37 +153,27 @@ To learn more about integrating your own VoIP service, check out [Custom VoIP In
 
 </Card>
 
-Once you have a number, attach it to your Pearl: open the Pearl's **Settings** panel and pick the number from the **Phone Number** dropdown. Your Pearl will then answer calls on that number.
+Once you have a number, attach it to your Pearl: on the Pearl's page, click **Settings**, then the number in the **Phone Number** row (**Choose a number** if none is set). The menu groups your numbers by source (**NLPearl**, **Twilio**, **SIP**), with a search field at the top; pick one and it is saved right away. **Buy or connect a number**, at the bottom of the menu, adds a number without leaving the page. Your Pearl will then answer calls on that number.
 
-<Frame>
-  <img
-    src="/images/dark_mode/choose-campaign-phone.png"
-    alt="Select the phone number in the Pearl settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/choose-campaign-phone.png" alt="Choosing the phone number in the Pearl's Settings" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/choose-campaign-phone.png" alt="Choosing the phone number in the Pearl's Settings" className="rounded-[14px]" /></Frame></div>
 
 ---
 
 ## Inbound Settings
 
-Configure how your Pearl answers incoming calls from the **Inbound Settings** tab of your Pearl, in the [PearlVibe](/pages/pearl_vibe) flow editor.
+Configure how your Pearl answers incoming calls from the **Inbound Settings** tab of your Pearl, in the [PearlVibe](/pages/pearl_vibe) flow editor. Each setting is saved automatically in your Pearl's draft: publish the Pearl to apply it to live calls.
 
-<Warning>
-These settings apply to **voice** Pearls only. A Text Pearl has a different set of inbound options.
-</Warning>
+<Note>
+**Mask Sensitive Info** and **Webhooks** apply to every Pearl. The other settings on this page apply to **voice** Pearls only: a Text Pearl has its own inbound options (message limit, auto-close after inactivity, response delay, inactivity follow-up).
+</Note>
 
 ### Recording Options
 
 Choose whether the call audio is recorded. Recordings are available afterwards from your **call logs** for quality reviews, training, and analytics.
 
-<Frame>
-  <img
-    src="/images/dark_mode/inbound-recording-options.png"
-    alt="Recording Options setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-recording-options.png" alt="Recording Options with Full call, Until transfer and Off" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-recording-options.png" alt="Recording Options with Full call, Until transfer and Off" className="rounded-[14px]" /></Frame></div>
 
 | Option | Description |
 | --- | --- |
@@ -213,22 +193,17 @@ See the [Transfer Call Node](/pages/transfer_call) to learn how call transfers w
 
 ### Mask Sensitive Info
 
-Replace personal details with `****` in everything that is kept after the call. The transcript is always kept: **Off** stores it as-is, **On** masks it and opens the masking settings below.
+Replace personal details with `****` in everything that is kept after the call. **Off** keeps the transcript as-is; **On** masks it and opens the masking settings below.
 
-<Frame>
-  <img
-    src="/images/dark_mode/inbound-transcript-options.png"
-    alt="Mask Sensitive Info setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-mask-sensitive-info.png" alt="Mask Sensitive Info in Manual mode, with the variables to mask" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-mask-sensitive-info.png" alt="Mask Sensitive Info in Manual mode, with the variables to mask" className="rounded-[14px]" /></Frame></div>
 
 | Setting | Description |
 | --- | --- |
-| **PII Detection** | **Auto** lets the AI decide what is personal information, such as names, phone numbers, or card numbers. **Manual** masks only the variables you pick, the same way on every call. |
-| **Variables to mask** | *Manual only.* The variables whose values are masked. Their values are replaced with `****` wherever they appear, including inside other variables. |
-| **Mask personal details in** | Where masking applies: **Transcript**, **Summary**, **Variables**, and **Action logs**. Unchecked parts keep the original values. In Manual mode, this setting reads **Mask the variables in**. |
-| **Send Masked Payloads** | **On**: webhooks and post-call actions receive the masked values (`****`). **Off**: they receive the original values. |
+| **PII detection** | **Auto** (default) lets the AI decide what is personal information, such as names, phone numbers, or card numbers. **Manual** masks only the variables you pick, the same way on every call. |
+| **Variables to mask** | *Manual only.* The variables whose values are masked. Their values are replaced with `****` wherever they appear, including inside other variables. With no variable selected, nothing is masked (a warning tells you so). |
+| **Mask personal details in** | Where masking applies: **Transcript**, **Summary**, **Variables**, and **Action logs** (all checked by default, at least one stays checked). Unchecked parts keep the original values. In Manual mode, this setting reads **Mask the variables in**. |
+| **Send masked payloads** | **On**: webhooks and post-call actions receive the masked values (`****`). **Off** (default): they receive the original values. |
 
 <Info>
 With **Auto** detection, if a customer says *"My credit card number is 1234-5678-9012-3456"*, the transcript stores it as *"My credit card number is \*\*\*\*"*, so you can review interactions safely without exposing sensitive data.
@@ -238,51 +213,45 @@ With **Auto** detection, if a customer says *"My credit card number is 1234-5678
 
 ### Hold Message
 
-Played to callers when they are put on hold, typically when all agents are busy and the caller enters the holding line. English only, max **300 characters**.
+Played once to callers when they are put on hold, typically when all agents are busy and the caller enters the holding line. Required, English only, max **300 characters**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/inbound-hold-message.png"
-    alt="Hold Message setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-hold-message.png" alt="The Hold Message field" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-hold-message.png" alt="The Hold Message field" className="rounded-[14px]" /></Frame></div>
 
 <Info>
 Example: *"Thanks for calling! One moment while I connect you to our team."*
 </Info>
 
 <Note>
-If your Pearl experiences high call volumes, callers are not turned away. They enter the holding line and hear your hold message and sound until an agent becomes available.
+If your Pearl experiences high call volumes, callers are not turned away. They enter the holding line and hear your hold message and sound until an agent becomes available (the holding line takes up to 1,000 callers).
 </Note>
 
 ---
 
 ### Estimated Wait Time
 
-When enabled (on/off), callers on hold hear their position in the queue and an estimated wait time, along with your hold message. Setting expectations this way helps reduce hang-ups during busy periods.
+When **On** (default **Off**), callers who have been waiting more than a few seconds hear their position in the queue and an estimated wait time (*"You are in position 2, it will take about 3 minutes"*), then the hold sound resumes. Setting expectations this way helps reduce hang-ups during busy periods.
 
-<Frame>
-  <img
-    src="/images/dark_mode/inbound-estimated-wait-time.png"
-    alt="Estimated Wait Time setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-estimated-wait-time.png" alt="Estimated Wait Time set to Off" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-estimated-wait-time.png" alt="Estimated Wait Time set to Off" className="rounded-[14px]" /></Frame></div>
+
+---
+
+### Max Call Duration
+
+How long a call can last at most, in **minutes** (1 to 120, default **30**). When a call reaches this length, Pearl ends it, whatever is still being said.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-max-call-duration.png" alt="Max Call Duration set to 30 minutes" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-max-call-duration.png" alt="Max Call Duration set to 30 minutes" className="rounded-[14px]" /></Frame></div>
 
 ---
 
 ### Hold Sound
 
-The music that loops while callers wait in the holding line. Select one of the built-in tracks or upload your own `.mp3` (up to **3 minutes**). Use the preview button to listen before saving.
+The music that loops while callers wait in the holding line (required). Select one of the built-in tracks, or choose **Upload** to add your own `.mp3` file (we recommend tracks of up to **3 minutes**). Use the play button next to the field to listen to it.
 
-<Frame>
-  <img
-    src="/images/dark_mode/inbound-hold-sound.png"
-    alt="Hold Sound setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-hold-sound.png" alt="The Hold Sound list, with Upload and the built-in tracks" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-hold-sound.png" alt="The Hold Sound list, with Upload and the built-in tracks" className="rounded-[14px]" /></Frame></div>
 
 ---
 
@@ -290,15 +259,10 @@ The music that loops while callers wait in the holding line. Select one of the b
 
 A subtle background environment (office, call center, outdoor…) played **during the live conversation** to make the call sound more natural and human. Defaults to **None**.
 
-Pick an ambience from the dropdown, then fine-tune its **volume** (0–100) with the slider. A preview plays automatically so you can hear the result before saving.
+Pick an ambience from the list: the play icon next to an ambience lets you hear it first. Then fine-tune its **volume** (0–100) with the **Volume** button next to the field; each ambience starts at its own recommended volume.
 
-<Frame>
-  <img
-    src="/images/dark_mode/inbound-call-ambiance.png"
-    alt="Call Ambience setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-call-ambiance.png" alt="The Call Ambience list" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-call-ambiance.png" alt="The Call Ambience list" className="rounded-[14px]" /></Frame></div>
 
 <Note>
 Don't confuse this with **Hold Sound**: Call Ambience plays quietly behind Pearl's voice during the call, while Hold Sound only plays while a caller is waiting in the holding line.
@@ -308,19 +272,14 @@ Don't confuse this with **Hold Sound**: Call Ambience plays quietly behind Pearl
 
 ### Webhooks
 
-Send call lifecycle events to an external endpoint.
+Send call lifecycle events to an external endpoint. Turn **Webhooks** **On** (default **Off**), then fill in the **Calls** line:
 
-<Frame>
-  <img
-    src="/images/dark_mode/inbound-webhook.png"
-    alt="Webhooks setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-webhook.png" alt="Webhooks set to On, with the Calls URL, its version and its signature" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-webhook.png" alt="Webhooks set to On, with the Calls URL, its version and its signature" className="rounded-[14px]" /></Frame></div>
 
-- **Version**: `V1` or `V2` (default **V2**). V2 is the current payload format; keep V1 only if you have an older integration built against it.
-- **Call Webhook URL**: fires at key points in the call lifecycle (when the call starts and when it ends), sending an object similar to the [Get Calls Endpoint](/api-reference/v2/call/get-call) with details like duration, outcome, and any data collected during the call.
-- **Credentials**: optional authentication token attached to the requests so your endpoint can verify they come from NLPearl.
+- **URL**: your endpoint. It is called at key points in the call lifecycle (when the call starts and when it ends), with an object similar to the [Get Calls Endpoint](/api-reference/v2/call/get-call): duration, outcome, and any data collected during the call.
+- **Version** (the `V1`/`V2` pill): the payload format, default **V2**. Keep V1 only if you have an older integration built against it.
+- **Signature** (the key icon): optionally sign the requests with one of your tokens (or create a **New token**) so your endpoint can verify they come from NLPearl. **No signature** sends them unsigned.
 
 <Note>
 If your endpoint is behind a firewall, allow the NLPearl IP addresses listed in [IP Whitelisting](/pages/ip_whitelist).
@@ -343,27 +302,17 @@ Use Webhooks only if external tools need event notifications. For actual automat
 
 ## Project-Level Settings
 
-A few settings live at the **Project** level rather than in the Inbound Settings screen. Open them from the settings popover on your Pearl.
+A few settings live at the **Project** level rather than in the Inbound Settings screen. Open them with the **Settings** button on your Pearl's page: next to **Phone Number**, you'll find **Agents** and **Call Retention**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/outbound-project-settings-panel.png"
-    alt="Project settings: agents and data retention"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-project-settings-panel.png" alt="The Settings of an inbound Pearl: Phone Number, Agents and Call Retention" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-project-settings-panel.png" alt="The Settings of an inbound Pearl: Phone Number, Agents and Call Retention" className="rounded-[14px]" /></Frame></div>
 
 ### Agents
 
-Sets how many **simultaneous agents** handle this Pearl's incoming calls, i.e. how many calls can be answered at the same time, capped by your account's agent quota. A higher number lets your Pearl take more concurrent callers before the rest enter the holding line.
+Sets how many **simultaneous agents** handle this Pearl's incoming calls, i.e. how many calls can be answered at the same time, capped by your account's agent quota. A higher number lets your Pearl take more concurrent callers before the rest enter the holding line. Click the **Agents** value and pick a number: it is saved right away.
 
-<Frame>
-  <img
-    src="/images/dark_mode/outbound-agents-change-number.png"
-    alt="Agents setting in the Pearl settings panel"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-agents.png" alt="The Agents list in the Pearl's Settings" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-agents.png" alt="The Agents list in the Pearl's Settings" className="rounded-[14px]" /></Frame></div>
 
 <Card
   title="Agents"
@@ -378,15 +327,10 @@ Sets how many **simultaneous agents** handle this Pearl's incoming calls, i.e. h
 
 ### Call Retention
 
-Applies to **all calls**. Set how long calls are kept (a number of days, or leave empty to keep them indefinitely), then choose what is removed when they expire: delete all call data, or granularly the **Recording**, **Transcript**, **Summary**, or collected **Variables**.
+Click the **Call Retention** value to open the **Call retention** window. Set the **Retention period** in days (leave it empty to keep calls **Forever**), then choose what is removed when calls expire: **Delete all call data** (on by default), or turn it off to pick the **Recording**, **Transcript**, **Summary**, or collected **Variables**. Click **Save** to apply.
 
-<Frame>
-  <img
-    src="/images/dark_mode/outbound-call-retention-settings.png"
-    alt="Call Retention settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/inbound-call-retention.png" alt="The Call retention window" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/inbound-call-retention.png" alt="The Call retention window" className="rounded-[14px]" /></Frame></div>
 
 ---
 
