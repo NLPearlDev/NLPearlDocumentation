@@ -34,29 +34,21 @@ Before your Pearl can answer questions accurately, it needs context. This step h
 
 ## Company Name
 
-Give your Pearl the name of the company it represents. This name may be used when Pearl introduces itself or provides company-related information.
+These settings live in the **Knowledge Base** tab of your Pearl's editor (**Edit Pearl** in the **Settings** of the Pearl's page). Changes are saved automatically in your Pearl's draft: publish the Pearl to use them in live conversations.
 
-<Frame>
-  <img
-    src="/images/dark_mode/text-knowledge-base-company-name.png"
-    alt="Company Name field in the Knowledge Base"
-    className="rounded-[14px]"
-  />
-</Frame>
+Give your Pearl the name of the company it represents. This name may be used when Pearl introduces itself or provides company-related information. It's **required**, up to **100 characters**. Not representing a company? Write the name of the entity your agent says it's from.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-knowledge-base-company-name.png" alt="The Company Name field in the Knowledge Base tab of a text Pearl" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-knowledge-base-company-name.png" alt="The Company Name field in the Knowledge Base tab of a text Pearl" className="rounded-[14px]" /></Frame></div>
 
 ---
 
 ## Company Description
 
-Add a brief company description including your industry, mission, or key services. This allows Pearl to answer questions with more contextual relevance.
+Add a brief company description including your industry, mission, or key services. This allows Pearl to answer questions with more contextual relevance. It's **required**, up to **500 characters**: a few sentences are enough.
 
-<Frame>
-  <img
-    src="/images/dark_mode/text-knowledge-base-company-description.png"
-    alt="Company Description field in the Knowledge Base"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-knowledge-base-company-description.png" alt="The Company Description field in the Knowledge Base tab" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-knowledge-base-company-description.png" alt="The Company Description field in the Knowledge Base tab" className="rounded-[14px]" /></Frame></div>
 
 ---
 
@@ -64,13 +56,11 @@ Add a brief company description including your industry, mission, or key service
 
 This is where you teach Pearl what it needs to know to respond with relevance and accuracy. Add detailed information about your services, pricing, opening hours, locations, and any key operational data.
 
-<Frame>
-  <img
-    src="/images/dark_mode/text-knowledge-base-screen.png"
-    alt="Pearl Knowledge Base field with file upload"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-knowledge-base-screen.png" alt="The Pearl Knowledge Base text field and its file drop area" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-knowledge-base-screen.png" alt="The Pearl Knowledge Base text field and its file drop area" className="rounded-[14px]" /></Frame></div>
+
+- **Text**: type directly in the field (optional). The expand icon at its bottom right opens it in a larger editor.
+- **Files**: drop `.pdf`, `.docx`, or `.txt` files anywhere on the section, or click **Upload files**. Each file shows as a chip with its size (and its progress while uploading); click its **×** to remove it.
 
 <Note>
 **Background knowledge, not a script.** The Knowledge Base is passive reference data: Pearl consults it **only when needed** to answer accurately. It doesn't dictate the conversation flow, that's handled by the Flow Editor.
@@ -105,26 +95,27 @@ Text Pearls get twice the file budget of voice Pearls, which are capped at 1,000
 </Note>
 
 <Tip>
-A **Knowledge Base File Usage** bar appears once the text extracted from your files passes **100,000 characters**, so you can keep an eye on how much of the budget is left.
+Once the text extracted from your files passes **100,000 characters**, a usage gauge appears next to your files (e.g. *4% of 2M characters*). It turns red if you go over the limit.
 </Tip>
 
 <Warning>
-Pearl uses the **text extracted** from your `.pdf`, `.docx`, and `.txt` files. Standalone image files can't be uploaded, so make sure anything Pearl needs to answer with exists as text in the document.
+Pearl uses the **text extracted** from your `.pdf`, `.docx`, and `.txt` files. Standalone image files can't be uploaded here, so make sure anything Pearl needs to answer with exists as text in the document.
 </Warning>
 
 ---
 
 ## Memory
 
-When enabled, Pearl remembers the user or lead, allowing it to seamlessly continue conversations from where they left off.
+When enabled, Pearl remembers the user or lead, allowing it to seamlessly continue conversations from where they left off. Choose **On** or **Off** (off by default).
 
-<Frame>
-  <img
-    src="/images/dark_mode/text-knowledge-base-memory.png"
-    alt="Memory On/Off toggle in the Knowledge Base"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-knowledge-base-memory.png" alt="Memory set to On in the Knowledge Base tab" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-knowledge-base-memory.png" alt="Memory set to On in the Knowledge Base tab" className="rounded-[14px]" /></Frame></div>
+
+How it works:
+- After each conversation, Pearl adds what it learned to a short **profile** of that person, built from the conversation summaries.
+- The profile is kept **per contact** and per Pearl: the person's phone number on SMS and WhatsApp, or their sender ID on other channels. At the start of the next conversation with the same contact, Pearl reads it and picks up from there.
+- Pearls in a [group](/pages/pearl_groups) with **Shared Memory** turned on share the same profiles.
+- A conversation with no way to identify the contact is neither remembered nor recognized.
 
 <Tip>
 This feature is particularly useful for:
@@ -136,7 +127,7 @@ This feature is particularly useful for:
 <Card>
 ### Example use case: Hospitality
 
-Let's say a guest checks into a hotel. Pearl can:
+Let's say a guest checks into a hotel. Once they've mentioned it in a conversation, Pearl can:
 - Remember their room number  
 - Greet them by name  
 - Recall their preferences (like "extra towels" or "no wake-up call")  
@@ -146,7 +137,7 @@ Let's say a guest checks into a hotel. Pearl can:
 <Info>
 **Resetting Memory**
 
-Need a fresh start? Pearl's memory can be reset via API.
+Memory is never cleared automatically. To give a contact a fresh start, reset its memory through the API (**Reset Memory**, with the phone number).
 
-This is especially important in contexts like hospitality, where once a guest checks out, Pearl clears the slate, ensuring the next visitor starts with a clean experience.
+This is especially important in contexts like hospitality: when a guest checks out, have your system reset the memory of their number, so the next guest starts with a clean experience.
 </Info>
