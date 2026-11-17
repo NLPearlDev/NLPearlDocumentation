@@ -18,22 +18,17 @@ iconType: "light"
 This guide walks you through the full path: create an account, build your first agent, test it, and go live.
 
 <Note>
-This guide focuses on building a **voice agent**. The flow is the same for **text agents** - you just connect your messaging channels (SMS, WhatsApp, email, chat) instead of a phone number. See [Pearl Text](/pages/text/pearl_text) to get started with text.
+This guide focuses on building a **voice agent**. The flow is the same for **text agents** - you just connect your messaging channels (SMS, WhatsApp, Telegram, or your own chat) instead of a phone number. See [Pearl Text](/pages/text/pearl_text) to get started with text.
 </Note>
 
 ---
 
 ## 1. Sign Up
 
-Create your account at [platform.nlpearl.ai](https://platform.nlpearl.ai). You'll get complimentary minutes to test calls - no subscription required to start.
+Create your account at [platform.nlpearl.ai](https://platform.nlpearl.ai), with **Continue with Google** or your work email (personal addresses like Gmail or Outlook aren't accepted). You'll get complimentary minutes to test calls - no subscription or credit card required to start.
 
-<Frame>
-  <img
-    src="/images/dark_mode/getting-started-signup.png"
-    alt="NLPearl sign-up screen"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/getting-started-signup.png" alt="The NLPearl sign-up screen" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/getting-started-signup.png" alt="The NLPearl sign-up screen" className="rounded-[14px]" /></Frame></div>
 
 <Info>
 During the trial phase, you can create agents and run test calls. To unlock full inbound and outbound campaigns, you'll need to [subscribe to a plan](https://nlpearl.ai/pricing).
@@ -45,13 +40,8 @@ During the trial phase, you can create agents and run test calls. To unlock full
 
 PearlVibe is how you build your AI agents - voice or text. Describe what you need in a single prompt - PearlVibe generates the agent's personality, conversation flow, knowledge base, and connected actions.
 
-<Frame>
-  <img
-    src="/images/dark_mode/getting-started-dashboard.png"
-    alt="NLPearl dashboard with the PearlVibe chat"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/getting-started-dashboard.png" alt="The NLPearl home page with the PearlVibe chat" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/getting-started-dashboard.png" alt="The NLPearl home page with the PearlVibe chat" className="rounded-[14px]" /></Frame></div>
 
 <Steps>
 
@@ -261,15 +251,10 @@ to avoid interviewer bias. Support English and Spanish.
 
 ## 3. Test Your Agent
 
-Once your agent is ready, run test calls directly from the platform to hear how it sounds, verify the conversation flow, and confirm that actions (API calls, transfers, emails) fire correctly.
+Once your agent is ready, click **Test Call** at the top of your Pearl's page to call it from the platform: hear how it sounds, verify the conversation flow, and confirm that actions (API calls, transfers, emails) fire correctly. For a text agent, click **Test Chat**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/getting-started-test-call.png"
-    alt="Run a test call from the platform"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/getting-started-test-call.png" alt="The Test Call window opened from a Pearl's page" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/getting-started-test-call.png" alt="The Test Call window opened from a Pearl's page" className="rounded-[14px]" /></Frame></div>
 
 <Tip>
 Use your complimentary minutes for testing. Iterate on the prompt, variables, and actions until the agent handles your scenarios cleanly.
@@ -289,16 +274,16 @@ Based on your test calls:
 
 ## 5. Publish Your Agent
 
-When you're satisfied with the agent's performance, publish it. This locks in your configuration and makes the agent available for live campaigns.
+When you're satisfied with the agent's performance, click **Publish**. Live calls use the published version: the changes you make afterwards stay in your draft until you publish again. See [PearlVibe](/pages/pearl_vibe).
 
 ---
 
 ## 6. Connect a Phone Number
 
-Assign a phone number to your agent. All plans include at least one US number. You can purchase additional numbers or port existing ones from the [Phone Numbers](/pages/phone_numbers) settings.
+Assign a phone number to your agent: on its page, click **Settings**, then pick the number in **Phone Number**. All plans include at least one US number. You can buy more NLPearl numbers, or connect your own Twilio or VoIP numbers, from **Settings → Phone Numbers**. See [Phone Numbers](/pages/phone_overview).
 
 <Note>
-Building a text agent instead? Connect your messaging channels (SMS, WhatsApp, email, chat) rather than a phone number. See [Pearl Text](/pages/text/pearl_text).
+Building a text agent instead? Connect your messaging channels (SMS, WhatsApp, Telegram, or your own chat) rather than a phone number. See [Pearl Text](/pages/text/pearl_text).
 </Note>
 
 ---
@@ -318,13 +303,8 @@ Monitor performance in real time from the [Call Analytics](/pages/analytics) das
 
 Once you subscribe to a plan, you get access to agents, phone numbers, and call minutes. Each call minute is deducted from your plan's included minutes - once exhausted, your credits are used.
 
-<Frame>
-  <img
-    src="/images/dark_mode/getting-started-billing.png"
-    alt="Subscription plans in Subscriptions & Payments"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/getting-started-billing.png" alt="Subscription plans in Subscriptions & Payments" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/getting-started-billing.png" alt="Subscription plans in Subscriptions & Payments" className="rounded-[14px]" /></Frame></div>
 
 <CardGroup cols={2}>
 <Card title="Full Access to Activities" icon="check" iconType="light">
@@ -341,7 +321,7 @@ Concurrent agents and at least one US phone number included in every plan.
 </Note>
 
 <Warning>
-**Credit limits** - When credits drop below zero, your concurrent agents per activity are reduced to one. If your debt reaches 10% of your monthly subscription price, all activities are suspended until you recharge.
+**Credit limits** - When your credits run out, your activities can first be limited, then paused until you recharge, depending on your plan. See [Billing & Credits](/pages/billing) for the details.
 </Warning>
 
 ---
