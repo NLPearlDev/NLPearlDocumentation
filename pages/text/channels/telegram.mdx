@@ -39,7 +39,7 @@ Connect your Pearl Text agent to **Telegram** through a Telegram bot. Pearl repl
 Telegram is available for inbound only: a Telegram bot can't start a conversation, it can only answer users who message it first.
 </Note>
 
-To connect Telegram, you first create a bot directly inside the Telegram app using **BotFather**, then paste the bot token into the platform.
+To connect Telegram, you first create a bot directly inside the Telegram app using **BotFather**, then paste the bot token into the platform and assign the bot to your Pearl.
 
 ---
 
@@ -52,16 +52,14 @@ To connect Telegram, you first create a bot directly inside the Telegram app usi
   <Step title="Find BotFather">
     In Telegram's contact search, look for **BotFather** (the official Telegram bot for creating bots) and open the conversation.
 
-    <Frame>
-      <img src="/images/dark_mode/telegram-search.png" alt="Searching for BotFather in Telegram" className="rounded-[14px] w-full" />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/dark_mode/telegram-search.png" alt="Searching for BotFather in Telegram" className="rounded-[14px] w-full" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/telegram-search.png" alt="Searching for BotFather in Telegram" className="rounded-[14px] w-full" /></Frame></div>
   </Step>
   <Step title="Start the conversation">
     Send the `/start` command to BotFather. It replies with the list of available commands.
 
-    <Frame>
-      <img src="/images/dark_mode/telegram-start.png" alt="BotFather /start command" className="rounded-[14px] w-full" />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/dark_mode/telegram-start.png" alt="BotFather /start command" className="rounded-[14px] w-full" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/telegram-start.png" alt="BotFather /start command" className="rounded-[14px] w-full" /></Frame></div>
   </Step>
   <Step title="Create a new bot">
     Send the `/newbot` command. BotFather will ask you to choose a name for your bot.
@@ -70,9 +68,8 @@ To connect Telegram, you first create a bot directly inside the Telegram app usi
     The name must always **end with `bot`** (for example `MySupportBot` or `my_support_bot`).
     </Note>
 
-    <Frame>
-      <img src="/images/dark_mode/telegram-new-bot.png" alt="BotFather /newbot command and bot name" className="rounded-[14px] w-full" />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/dark_mode/telegram-new-bot.png" alt="BotFather /newbot command and bot name" className="rounded-[14px] w-full" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/telegram-new-bot.png" alt="BotFather /newbot command and bot name" className="rounded-[14px] w-full" /></Frame></div>
   </Step>
   <Step title="Save your token">
     Once the bot is created, BotFather sends you a message containing the link to talk to your bot and an **access token**. Keep this token - you'll need it to connect the bot to the platform.
@@ -81,9 +78,8 @@ To connect Telegram, you first create a bot directly inside the Telegram app usi
     Treat the token like a password. Anyone with it can control your bot, so don't share it publicly.
     </Warning>
 
-    <Frame>
-      <img src="/images/dark_mode/telegram-token.png" alt="BotFather bot creation confirmation and token" className="rounded-[14px] w-full" />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/dark_mode/telegram-token.png" alt="BotFather bot creation confirmation and token" className="rounded-[14px] w-full" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/telegram-token.png" alt="BotFather bot creation confirmation and token" className="rounded-[14px] w-full" /></Frame></div>
   </Step>
 </Steps>
 
@@ -92,33 +88,35 @@ To connect Telegram, you first create a bot directly inside the Telegram app usi
 ### Step 2 - Connect Telegram on the platform
 
 <Steps>
-  <Step title="Open the Text Channel settings">
-    On the platform, go to **Settings**, then open the **Text Channel** page.
-  </Step>
-  <Step title="Connect to Telegram">
-    Select **Telegram** and start a new connection.
+  <Step title="Open Text Channels">
+    On the platform, open **Settings → Text Channels**, click **Connect Channel**, and choose **Telegram**.
 
-    <Frame>
-      <img src="/images/dark_mode/telegram-connect.png" alt="Connect Telegram from the Text Channels page" className="rounded-[14px] w-full" />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/telegram-connect.png" alt="The Connect Channel menu of Text Channels, with Telegram" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/telegram-connect.png" alt="The Connect Channel menu of Text Channels, with Telegram" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="Enter the bot details">
-    - **Token**: paste the access token you received from BotFather.
-    - **Channel Name** *(optional)*: give the connection a name to identify it later.
+    The **Connect Telegram** window opens, with a reminder of the BotFather steps on the left (and an **Open BotFather** shortcut). Under **Telegram credentials**, fill in:
 
-    <Frame>
-      <img src="/images/dark_mode/telegram-connect-modal.png" alt="Connect Telegram dialog with bot token and channel name" className="rounded-[14px] w-full" />
-    </Frame>
-  </Step>
-  <Step title="Save and test">
-    Save the connection, then message your bot on Telegram to confirm Pearl replies as expected.
-  </Step>
-  <Step title="Assign the channel to a Pearl">
-    Open the Pearl you want to use for [inbound](/pages/text/inbound) conversations, go to **Settings**, and set the connected Telegram bot as its **Text Channel**.
+    - **Channel name**: a name to identify this bot in NLPearl (required, up to 100 characters).
+    - **Bot token**: the access token you received from BotFather (e.g. `123456789:ABC…`).
 
-    <Frame>
-      <img src="/images/dark_mode/text-channel-assign-pearl.png" alt="Assign the Telegram channel to a Pearl from its settings" className="rounded-[14px] w-full" />
-    </Frame>
+    Click **Connect Telegram**. The bot now appears in your list of text channels.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/telegram-connect-modal.png" alt="The Connect Telegram window with the channel name and the bot token" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/telegram-connect-modal.png" alt="The Connect Telegram window with the channel name and the bot token" className="rounded-[14px]" /></Frame></div>
+  </Step>
+  <Step title="Assign the bot to a Pearl">
+    Open the Pearl you want to use for [inbound](/pages/text/inbound) conversations, click **Settings** on its page, and pick the bot in **Text Channel**. This is when NLPearl starts receiving the bot's messages.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/text-inbound-channel.png" alt="The Text Channel list in the Settings of a text Pearl's page" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-inbound-channel.png" alt="The Text Channel list in the Settings of a text Pearl's page" className="rounded-[14px]" /></Frame></div>
+
+    <Note>
+    A bot can serve **one Pearl** at a time. If it is already used by another Pearl, NLPearl asks you to choose another one.
+    </Note>
+  </Step>
+  <Step title="Test your bot">
+    Make sure your Pearl is **Live**, then send a message to your bot on Telegram: Pearl replies following your flow.
   </Step>
 </Steps>
 
