@@ -1,6 +1,6 @@
 ---
 title: Account Security Settings
-description: 'Manage session timeout, audit logs, two-factor authentication, and enterprise access controls.'
+description: 'Manage session timeout, public recordings, audit logs, two-factor authentication, and enterprise access controls.'
 icon: "lock"
 iconType: "light"
 ---
@@ -38,7 +38,7 @@ Use account security settings to manage how users access your workspace, how lon
     Automatically log users out after a period of inactivity.
   </Card>
   <Card title="Two-factor authentication" icon="shield" iconType="light">
-    Add an extra verification step when users log in.
+    Add an extra verification step when you log in.
   </Card>
   <Card title="Audit log" icon="list" iconType="light">
     Track workspace activity and security-related events.
@@ -62,43 +62,30 @@ All the settings on this page live in your **Settings**. To open them, click you
   />
 </Frame>
 
-From there, use the left menu: the **Security** tab (under *User*) for 2FA and password, and **General Settings** or **Audit Log** (under *Workspace*) for session timeout and activity logs.
+From there, use the left menu: **Security** (under *Account*) for two-factor authentication and your password, and **General Settings** or **Audit Log** (under *Workspace*) for the session timeout, public recordings, and the activity log.
 
 ---
 
 ## Customizing Your Session Timeout
 
-You can configure how long a session remains active before the user is automatically logged out due to inactivity. This helps protect your account if you forget to log out, especially when using a shared or public device.
+The session timeout sets how long a session stays active before the user is logged out for inactivity. This helps protect your account if you forget to log out, especially on a shared or public device.
 
-The session timeout is set in **minutes**, with a minimum of **30 minutes** and a maximum of **3 days**.
+The value is set in **minutes**, from **30 minutes** to **7 days** (10,080 minutes).
 
 <Note>
-This is a **workspace-level** setting managed by the **workspace owner**. The value applies to **all members** of the workspace, not just the account that changes it.
+  This is a **workspace-level** setting: it applies to **all members** of the workspace. Changing it requires the **Manage advanced settings** permission (see [Users & Workspaces](/pages/users_workspaces)). A new value applies from each member's next sign-in.
 </Note>
 
 <Steps>
   <Step title="Open General Settings">
-    Go to **Settings > General Settings** under the *Workspace* section.
-
-    <Frame>
-      <img
-        src="/images/dark_mode/security-general-settings-location.png"
-        alt="General Settings tab in the Workspace section"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    Go to **Settings > General Settings**, under *Workspace*.
   </Step>
 
   <Step title="Set the Session Timeout">
-    In the **Session Timeout** field, enter the duration in minutes and click **Update**.
+    In the **Session Timeout** field, enter the duration in minutes, then press **Enter** or click outside the field. The value is saved right away.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/security-session-timeout.png"
-        alt="Session Timeout field in Workspace General Settings"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/security-session-timeout.png" alt="Session Timeout and Public Recordings in General Settings" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-session-timeout.png" alt="Session Timeout and Public Recordings in General Settings" className="rounded-[14px]" /></Frame></div>
   </Step>
 </Steps>
 
@@ -106,38 +93,55 @@ This is a **workspace-level** setting managed by the **workspace owner**. The va
   Shorter session timeouts are recommended for shared devices, public computers, or workspaces with stricter security policies.
 </Tip>
 
+### Public recordings
+
+Right under the session timeout, the **Public Recordings** switch controls who can listen to your call recordings. When it's on, call recordings are accessible publicly through a shared link. Changing it requires the same **Manage advanced settings** permission.
+
+<Warning>
+  Anyone who has the link to a public recording can listen to it. Leave **Public Recordings** off unless you need to share recordings outside the platform.
+</Warning>
+
 ---
 
 ## Reviewing Workspace Activity with Audit Logs
 
-The **Audit Log** helps administrators review important activity and security events in the workspace. It is useful for monitoring sign-ins, configuration changes, published Pearls, and other account-level events.
+The **Audit Log** helps administrators review important activity and security events in the workspace: sign-ins, configuration changes, published Pearls, and other account-level events.
 
-To access it, go to **Settings > Audit Log** under the *Workspace* section.
+<Info>
+  Opening the Audit Log requires the **View audit log** permission, and a plan that includes it: it isn't available on the **Starter** and **Companion** plans.
+</Info>
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-audit-log-location.png"
-    alt="Audit Log tab in the Workspace section"
-    className="rounded-[14px]"
-  />
-</Frame>
+To open it, go to **Settings > Audit Log**, under *Workspace*.
 
-Each entry in the log includes:
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/security-audit-log.png" alt="The Audit Log with its filters and an event open" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-audit-log.png" alt="The Audit Log with its filters and an event open" className="rounded-[14px]" /></Frame></div>
 
-- **Timestamp**: when the event happened.
-- **Event Type**: the kind of action recorded, such as a successful login or published Pearl.
-- **User**: the workspace member who triggered the event.
-- **Details**: additional context about the action, when available.
+Events are listed by day (**Today**, **Yesterday**, then the date). Each row shows:
+
+- **who** triggered the event: a workspace member, or **System** for automatic actions;
+- the **event type**, such as *Publish Pearl* or *Login Successful*;
+- **what** it applies to, when there is one: a Pearl's name, a status, a version;
+- **when** it happened.
+
+Click a row to see its details: the exact **Time**, the **User**, and the data recorded with the event. Click **Load more** at the bottom to see older events.
+
+Use the filters at the top to narrow the log:
+
+- **Period**: a date range (the last 30 days by default).
+- **Event type**: one kind of event.
+- **User**: the events of one workspace member.
 
 ### Recorded event types
 
-The audit log records the following events. The **Event Type** filter uses the same labels shown below.
+The audit log records the following events. The **Event type** filter uses the same labels shown below.
 
 #### Pearls
 
 | Event type | Description |
 | --- | --- |
 | Publish Pearl | A Pearl was published. |
+| Create Pearl Version | A new version of a Pearl was created. |
+| Delete Pearl Version | A version of a Pearl was deleted. |
 | Pearl Status | A Pearl's status was changed. |
 | Pearl Retention | A Pearl's data retention settings were changed. |
 | Pearl Total Agents | The number of agents assigned to a Pearl was changed. |
@@ -230,23 +234,20 @@ The audit log records the following events. The **Event Type** filter uses the s
 | Event type | Description |
 | --- | --- |
 | Import Leads | Leads were imported into a Pearl. |
+| Refresh Leads | Leads of a Pearl were set back to *New*, to be contacted again. |
 | Delete Leads | Leads were deleted from a Pearl. |
 | Delete Calls | Calls were deleted from a Pearl. |
 | Export Calls | Calls were exported from a Pearl. |
 | Group Retention | A group's contact retention settings were changed. |
 | Delete Contacts | Group contacts were purged by the retention policy. |
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-audit-log-filters.png"
-    alt="Audit Log with date range and event type filters"
-    className="rounded-[14px]"
-  />
-</Frame>
+#### Voices
 
-<Note>
-  Use the **date range** and **Event Type** filters at the top right to narrow the audit log when investigating a specific time period or activity.
-</Note>
+| Event type | Description |
+| --- | --- |
+| Clone Voice | A voice was cloned in the Voice Studio. |
+| Delete Voice | A cloned voice was deleted. |
+| Share Voice | A cloned voice was published. |
 
 ---
 
@@ -255,150 +256,101 @@ The audit log records the following events. The **Event Type** filter uses the s
 Single Sign-On (SSO) is available for Enterprise workspaces. It allows your team to authenticate through your company identity provider and centralize access management.
 
 <Info>
-  To enable SSO for your workspace, contact us at [support@nlpearl.ai](mailto:support@nlpearl.ai). Please include your workspace name, company domain, and preferred identity provider if available.
+  To enable SSO for your workspace, contact us at [support@nlpearl.ai](mailto:support@nlpearl.ai). Please include your workspace name, company domain, and preferred identity provider if available. SSO is set up for your company's email domain.
 </Info>
 
-Once SSO is enabled, members sign in with the **Sign in with SSO** button on the login screen instead of entering a password.
+Once SSO is enabled, members sign in through their identity provider instead of entering a password:
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-sso-login.png"
-    alt="Sign in with SSO button on the login screen"
-    className="rounded-[14px]"
-  />
-</Frame>
+<Steps>
+  <Step title="Click Sign in with SSO">
+    On the login screen, click **Sign in with SSO**.
 
----
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/security-sso-login.png" alt="The login screen with the Sign in with SSO button" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-sso-login.png" alt="The login screen with the Sign in with SSO button" className="rounded-[14px]" /></Frame></div>
+  </Step>
 
-## Two-Factor Authentication (2FA)
+  <Step title="Enter your company email">
+    Enter your **Company Email** and click **Sign in**. Your identity provider opens in a new window: sign in there to finish. If you have two-factor authentication turned on, you're then asked for your code.
 
-Two-Factor Authentication (2FA) adds an additional step to the login process to strengthen your account’s security. Instead of relying solely on your password, which could be guessed, leaked, or stolen, 2FA requires a second form of verification that only you should have access to.
-
-Typically, this second factor is a temporary code generated by a mobile app like Google Authenticator. If you can't reach your app, you can also receive the code by **SMS** at login. Even if someone knows your password, they won’t be able to access your account without that second code. That’s why 2FA is a simple and highly effective way to safeguard your data.
-
-In this guide, we’ll show you exactly how to activate and use Two-Factor Authentication on our platform.
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/security-sso-page.png" alt="The Sign in with SSO page with the Company Email field" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-sso-page.png" alt="The Sign in with SSO page with the Company Email field" className="rounded-[14px]" /></Frame></div>
+  </Step>
+</Steps>
 
 ---
 
-### How to Set Up 2FA
+## Setting Up Two-Factor Authentication (2FA)
+
+Two-Factor Authentication (2FA) adds an additional step to the login process to strengthen your account's security. Instead of relying solely on your password, which could be guessed, leaked, or stolen, 2FA requires a second form of verification that only you should have access to.
+
+This second factor is a temporary code generated by an authenticator app on your phone, such as Google Authenticator. If you can't reach your app, you can also receive the code by **SMS** at login. Even if someone knows your password, they can't access your account without that code.
+
+<Note>
+  2FA is set **for each user**: every member turns it on for their own account. There's no setting that requires it for a whole workspace.
+</Note>
 
 <Steps>
 
 <Step title="Open the Platform Security page">
-Click your **profile card** at the bottom-left corner of the sidebar, open **Settings**, then select the **Security** tab under the *User* section.
+Click your **profile card** at the bottom-left corner of the sidebar, open **Settings**, then select **Security**, under *Account*. The **Platform Security** page has two cards: **Two-Factor Authentication** and **Reset Password**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-tab-location.png"
-    alt="Security tab in Settings, opening the Platform Security page"
-    className="rounded-[14px]"
-  />
-</Frame>
-</Step>
-
-<Step title="Locate the 2FA box">
-The **Platform Security** page has two areas: the **2FA (Two-Factor Authentication)** box and a **Reset Password** section.
-
-<Frame>
-  <img
-    src="/images/dark_mode/security-2fa-location.png"
-    alt="Two-Factor Authentication box on the Platform Security page"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/security-platform.png" alt="The Platform Security page with the Two-Factor Authentication and Reset Password cards" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-platform.png" alt="The Platform Security page with the Two-Factor Authentication and Reset Password cards" className="rounded-[14px]" /></Frame></div>
 </Step>
 
 <Step title="Open the setup window">
-In the **2FA (Two-Factor Authentication)** box, click **Set up authenticator** (labeled **Reset authenticator** once 2FA is already set up) to open the QR code window.
+In the **Two-Factor Authentication** card, click **Set up authenticator** (**Reset authenticator** once 2FA is already set up).
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-2fa-setup-button.png"
-    alt="Button that opens the 2FA setup window"
-    className="rounded-[14px]"
-  />
-</Frame>
+The **Secure your NLPearl account with 2FA** window opens: the steps to follow on the left, with links to **Google Authenticator**, **Microsoft Authenticator**, and **Authy**, and the QR code to scan on the right.
 
-The **Secure your NLPearl account with 2FA** window appears, showing a QR code on the right and the boxes to enter your code.
-
-<Frame>
-  <img
-    src="/images/dark_mode/security-2fa-setup-window.png"
-    alt="2FA setup window with QR code and verification code"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/security-2fa-setup-window.png" alt="The Secure your NLPearl account with 2FA window with the steps and the QR code" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-2fa-setup-window.png" alt="The Secure your NLPearl account with 2FA window with the steps and the QR code" className="rounded-[14px]" /></Frame></div>
 </Step>
 
 <Step title="Download an authenticator app">
 On your phone, install an authenticator app such as **Google Authenticator**, **Microsoft Authenticator**, or **Authy**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-google-authenticator-appstore.png"
-    alt="Google Authenticator on the App Store"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/dark_mode/security-google-authenticator-appstore.png" alt="Google Authenticator on the App Store" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-google-authenticator-appstore.png" alt="Google Authenticator on the App Store" className="rounded-[14px]" /></Frame></div>
 </Step>
 
 <Step title="Scan the QR code">
 Open the app, tap the **+** button, and choose **Scan a QR code**. Point your camera at the QR code shown in the setup window.
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-google-authenticator-scan.png"
-    alt="Scanning a QR code in Google Authenticator"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/dark_mode/security-google-authenticator-scan.png" alt="Scanning a QR code in Google Authenticator" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-google-authenticator-scan.png" alt="Scanning a QR code in Google Authenticator" className="rounded-[14px]" /></Frame></div>
 </Step>
 
 <Step title="Enter the 6-digit code">
-The app generates a **6-digit code** that refreshes every few seconds. Enter it in the setup window and click **Verify & Activate**.
+The app generates a **6-digit code** that refreshes every few seconds. Enter it in the boxes under **Then enter the code** and click **Verify & Activate**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-google-authenticator-code.png"
-    alt="6-digit code generated by Google Authenticator"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/dark_mode/security-google-authenticator-code.png" alt="6-digit code generated by Google Authenticator" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-google-authenticator-code.png" alt="6-digit code generated by Google Authenticator" className="rounded-[14px]" /></Frame></div>
+
+<Check>
+Once the code is verified, 2FA is turned on for your account. You'll be asked for a code at every login.
+</Check>
 </Step>
 
 <Step title="Turn 2FA on or off">
-Once 2FA has been set up, use the **toggle** in the 2FA box to turn it on or off for your account at any time. When it's on, you're asked for a code at every login; when it's off, 2FA is disabled but your authenticator stays configured.
+Use the switch in the **Two-Factor Authentication** card to turn 2FA on or off at any time. Turning it off asks you to confirm (**Turn off two-factor sign-in?**): click **Turn off**. Your authenticator stays configured, so you can turn 2FA back on without scanning again.
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-2fa-toggle.png"
-    alt="Toggle to turn 2FA on or off on your account"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-<Check>
-Once the code is verified, 2FA is active on your account. You'll be asked for a code at every login.
-</Check>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/security-2fa-turn-off.png" alt="The Turn off two-factor sign-in? confirmation" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-2fa-turn-off.png" alt="The Turn off two-factor sign-in? confirmation" className="rounded-[14px]" /></Frame></div>
 
 <Note>
-Lost access to your authenticator app or got a new phone? Click **Reset authenticator** in the 2FA box (the same button used during setup) to unlink the current device and reopen the QR window to set up a new one.
+Got a new phone or lost access to your authenticator app? Click **Reset authenticator** and set up the new app with the QR code. The new app replaces the old one only once you've entered its code and clicked **Verify & Activate**: if you close the window before, nothing changes.
 </Note>
 </Step>
 
 <Step title="How it works at login">
-Once 2FA is active, every login prompts you for a verification code:
+Once 2FA is on, every login opens the **Two-Factor Authenticator** window after your password:
 
 - Enter the current 6-digit code from your **authenticator app**.
-- If you can't reach your app, click **Get your code via SMS** in the prompt to receive the code by text instead.
+- If you can't reach your app, click **Click Here** next to *Need help? Get your code via SMS* to receive the code by text instead. It's sent to the phone number in your **Profile**, so make sure it's up to date.
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-2fa-login-prompt.png"
-    alt="Two-Factor Authentication prompt at login"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/security-2fa-login-prompt.png" alt="The Two-Factor Authenticator window at login" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/security-2fa-login-prompt.png" alt="The Two-Factor Authenticator window at login" className="rounded-[14px]" /></Frame></div>
 </Step>
 
 </Steps>
@@ -407,12 +359,7 @@ Once 2FA is active, every login prompts you for a verification code:
 
 ## Resetting Your Password
 
-You can update your account password at any time from the **Platform Security** page. In the **Reset Password** section, click **Reset Password** and follow the prompts.
+You can change your account password at any time from the **Platform Security** page:
 
-<Frame>
-  <img
-    src="/images/dark_mode/security-reset-password.png"
-    alt="Reset Password section on the Platform Security page"
-    className="rounded-[14px]"
-  />
-</Frame>
+1. In the **Reset Password** card, click **Reset Password**. We email you a link to choose a new password.
+2. Open the link from the email, enter your new password on the **Reset your password** page, and confirm.
