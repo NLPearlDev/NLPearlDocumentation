@@ -1,6 +1,6 @@
 ---
 title: Phone Number Blacklist
-description: ''
+description: 'Block phone numbers or whole prefixes from calling and texting with your Pearls.'
 icon: "list"
 iconType: "light"
 ---
@@ -31,14 +31,7 @@ iconType: "light"
 
 ---
 
-The **Blacklist** feature enables you to restrict specific phone numbers or entire prefixes from engaging in inbound or outbound calls with your AI agent campaigns. Utilizing this feature helps enhance campaign efficiency and ensures communication efforts remain focused and relevant.
-
-<Tip>
-### Benefits
-- Prevent unwanted calls from specific numbers or number prefixes.
-- Enhance operational efficiency by avoiding irrelevant interactions.
-- Monitor and track blacklisted number activities clearly within your campaigns.
-</Tip>
+The **Blacklist** lets you block specific phone numbers, or entire prefixes, for every Pearl of your workspace: your Pearls never call or text them, and their calls and messages never reach your Pearls.
 
 ---
 
@@ -54,101 +47,66 @@ The Blacklist lives in your **Settings**. Click your **profile card** at the bot
   />
 </Frame>
 
-From the left menu, select **Blacklist** under the *Workspace* section.
+From the left menu, select **Blacklist** under the *Workspace* section. The page shows the **Add Blacklisted Phone Number** bar, then the list of blocked numbers.
 
-<Frame>
-  <img
-    src="/images/dark_mode/blacklist-tab.png"
-    alt="Blacklist tab in the Workspace settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/blacklist-page.png" alt="The Blacklist page with the add bar and the list of blocked numbers" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/blacklist-page.png" alt="The Blacklist page with the add bar and the list of blocked numbers" className="rounded-[14px]" /></Frame></div>
+
+<Info>
+  Adding or removing numbers requires the **Manage advanced settings** permission (see [Users & Workspaces](/pages/users_workspaces)) and a **paid plan**: without one, the button reads **Upgrade** and takes you to the plans.
+</Info>
 
 ---
 
-### Adding a Number to the Blacklist
+### Adding Numbers to the Blacklist
 
 <Steps>
-  <Step title="Open the Add dialog">
-    In the **Add Blacklisted Phone Number** bar at the top, click **Add Phone Number**.
-
-    <Frame>
-      <img
-        src="/images/dark_mode/blacklist-add-bar.png"
-        alt="Add Blacklisted Phone Number bar"
-        className="rounded-[14px]"
-      />
-    </Frame>
+  <Step title="Open the add window">
+    In the **Add Blacklisted Phone Number** bar, click **Add Phone Number**.
   </Step>
 
-  <Step title="Enter the number and confirm">
-    In the **Phone Number Blacklist** dialog, type the phone number you want to block (e.g., `+1 408 XXX XXXX`), then click **Add Phone Number**.
+  <Step title="Enter the numbers and confirm">
+    In the **Add numbers to the blacklist** window, type a phone number in **Phone numbers** (e.g., `+1 408 XXX XXXX`) and press **Enter**. Add as many numbers as you need the same way, then click **Add to blacklist**.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/blacklist-add-dialog.png"
-        alt="Phone Number Blacklist dialog to enter a number"
-        className="rounded-[14px]"
-      />
-    </Frame>
-
-    <Note>
-    You can also block an entire **prefix** (e.g., `+33`). Every number beginning with that prefix (`+33123456789`, `+33456789012`, etc.) is then blocked from both receiving and making calls.
-    </Note>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/blacklist-add-dialog.png" alt="The Add numbers to the blacklist window with two numbers entered" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/blacklist-add-dialog.png" alt="The Add numbers to the blacklist window with two numbers entered" className="rounded-[14px]" /></Frame></div>
 
     <Tip>
-    Need to block many numbers at once? You can **add them in bulk** instead of entering them one by one — paste or import a whole list in a single action.
+    To add many numbers at once, paste a whole list into the field: numbers separated by commas, semicolons, spaces, or line breaks are split into separate entries.
     </Tip>
+
+    <Note>
+    You can also block an entire **prefix** (e.g., `+33`). Every number beginning with that prefix (`+33123456789`, `+33456789012`, etc.) is then blocked.
+    </Note>
   </Step>
 </Steps>
 
 ---
 
-### Managing Blacklisted Numbers
+### What the Blacklist Blocks
 
-All blocked numbers appear under **Blacklisted Phone Numbers**, with a counter showing how many are stored.
+A blacklisted number is blocked across all the Pearls of your workspace:
 
-<Frame>
-  <img
-    src="/images/dark_mode/blacklist-list.png"
-    alt="List of blacklisted phone numbers"
-    className="rounded-[14px]"
-  />
-</Frame>
+- **Outbound calls and messages**: your Pearls never call or text it. The lead gets the **Blacklisted** status in the Pearl's **Leads** tab.
+- **Inbound calls**: its calls to your Pearls are rejected, and appear in the Pearl's calls with the **Blacklisted** status.
+- **Inbound SMS**: its text messages don't reach your Pearls.
+- **Test calls**: you can't place a test call to it.
 
-**Search** — use the search field at the top right to quickly find a specific number in a long list.
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/blacklist-lead-status.png" alt="A lead with the Blacklisted status in a Pearl's Leads tab" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/blacklist-lead-status.png" alt="A lead with the Blacklisted status in a Pearl's Leads tab" className="rounded-[14px]" /></Frame></div>
 
-<Frame>
-  <img
-    src="/images/dark_mode/blacklist-search.png"
-    alt="Search field in the blacklist"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-**Remove** — click the red trash icon on a row to remove that number from the blacklist.
-
-<Frame>
-  <img
-    src="/images/dark_mode/blacklist-remove.png"
-    alt="Remove a number from the blacklist with the trash icon"
-    className="rounded-[14px]"
-  />
-</Frame>
+<Warning>
+  A blacklisted number can't be used inside a Pearl either. Saving a Pearl is refused if one of its **transfer** destinations or **SMS** recipients is on the blacklist: remove it from the flow, or from the blacklist, first.
+</Warning>
 
 ---
 
-### Monitoring Blacklisted Numbers in Campaigns
+### Managing Blacklisted Numbers
 
-- Blacklisted numbers will appear with a `Blacklisted` label in your campaign interface.
-- Track attempted interactions involving blacklisted numbers, whether inbound calls to your campaigns or outbound calls initiated by your AI agent.
+The list shows every blocked number, with a counter of how many are stored. Use the **search** field at the top to find a number in a long list, and **Load more** at the bottom to see the rest.
 
-<Frame>
-  <img
-    src="/images/dark_mode/blacklist-call-label.png"
-    alt="Blacklisted label on a call in a Pearl's Calls list"
-    className="rounded-[14px]"
-  />
-</Frame>
+- **Remove one number**: click the red trash icon on its row (**Remove from blacklist**).
+- **Remove several numbers**: tick their checkboxes, then click **Delete** in the bar that appears at the bottom.
 
-Leveraging the blacklist feature ensures your campaigns remain targeted, effective, and free from unwanted communication.
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/blacklist-bulk-delete.png" alt="Two numbers selected in the blacklist, with the Delete bar" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/blacklist-bulk-delete.png" alt="Two numbers selected in the blacklist, with the Delete bar" className="rounded-[14px]" /></Frame></div>
