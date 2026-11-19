@@ -35,62 +35,65 @@ iconType: "light"
 
 When creating or editing your Pearl, you can set up multiple agents with different languages and voices. This flexibility allows your Pearl to engage in conversations in more than one language and switch smoothly between them as needed.
 
+<Info>
+For chat, SMS, and WhatsApp Pearls, this section is a single **Agent Name** field: the name your Pearl answers with. Languages, voices, and language switching apply to voice Pearls.
+</Info>
+
 ---
 
 #### How to Add Multiple Languages and Voices
 
 <Steps>
   <Step title="Open the Agent Names, Languages & Voices section">
-In **Pearl Settings**, find the **Agent Names, Languages & Voices** section. Each row is one agent, with its name, language, voice, and accent. This is where you add, configure, and order your agents.
+Open your Pearl's editor (**Edit Pearl** in the **Settings** of the Pearl's page) and go to the **Pearl Settings** tab. In **Agent Names, Languages & Voices**, each row is one agent: its **Name**, **Language**, and **Voice**. The voice shows its accent next to its name (e.g. `en-US`).
 
-<Frame>
-  <img
-    src="/images/dark_mode/voice-language-screen.png"
-    alt="Agent Names, Languages & Voices section in Pearl Settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/voice-language-screen.png" alt="Agent Names, Languages & Voices in the Pearl Settings tab, with three agents" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/voice-language-screen.png" alt="Agent Names, Languages & Voices in the Pearl Settings tab, with three agents" className="rounded-[14px]" /></Frame></div>
+
+<Note>
+Your changes are saved automatically in your Pearl's draft. Publish the Pearl to use them in live calls.
+</Note>
 
   </Step>
 
   <Step title="Add an agent">
-Fill in the empty row at the bottom of the table to add a new agent:
+Use the empty row at the bottom (**Name**, **Language**, **Voice**). Type a name, or pick a language or a voice: the agent is added right away, and you can adjust its other fields.
 
-- **Name**: the name the agent uses during conversations in that language.
+- **Name**: the name the agent uses during conversations in that language (required, up to 25 characters).
 - **Language**: pick a language from the supported list.
 - **Voice**: pick a voice for that language.
 
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/languages-add-agent.png" alt="The empty row to add an agent" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/languages-add-agent.png" alt="The empty row to add an agent" className="rounded-[14px]" /></Frame></div>
+
 <Note>
-Each language can be assigned to **only one agent**. A language that's already in use won't be selectable for another agent.
+Each language can be assigned to **only one agent**: languages already in use don't appear in the list. Once every language is used, the empty row disappears.
 </Note>
 
   </Step>
 
   <Step title="Choose a voice and accent">
-Open the **Voice** dropdown to browse the available voices. Use the **search** box to filter, and check the **accent label** next to each voice (e.g. `en-US`, `en-UK`) to match your target audience. Click the **play button** next to a voice to hear a sample before selecting it.
+Open the **Voice** list to browse the available voices:
 
-<Frame>
-  <img
-    src="/images/dark_mode/languages-accents.png"
-    alt="Voice dropdown with search, accent labels and preview"
-    className="rounded-[14px]"
-  />
-</Frame>
+- **Search** a voice by name.
+- When a language has several accents, filter the list with the accent chips (**All**, `es-AR`, `es-CL`…) to match your target audience.
+- Your favorite voices (star) come first.
+- To hear a voice, select it, then click the **play** button in its field.
+
+**Open Voice Studio**, at the bottom of the list, opens [Voice Studio](/pages/voice_studio) in a new tab to create or fine-tune a voice (English, Spanish, French, German, Italian, and Hebrew).
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/languages-accents.png" alt="The Voice list with search, accent chips and Open Voice Studio" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/languages-accents.png" alt="The Voice list with search, accent chips and Open Voice Studio" className="rounded-[14px]" /></Frame></div>
 
   </Step>
 
   <Step title="Set the default (opening) language">
-The agent marked **Default** is the one your Pearl uses to open the conversation. The first agent you add becomes the default automatically.
+The first agent, marked **Default**, is the one your Pearl uses to open the conversation.
 
-To change it, hover over the agent you want and click the **Set as default** (↑) button. Use the **delete** icon to remove an agent.
+To change it, click **Make default** (↑) on another agent's row: that agent moves to the top. Click the trash icon (**Delete**) to remove an agent. The default agent can't be deleted: make another agent the default first.
 
-<Frame>
-  <img
-    src="/images/dark_mode/languages-set-default.png"
-    alt="Set an agent as the default opening language"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/languages-set-default.png" alt="Make default and Delete on an agent's row" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/languages-set-default.png" alt="Make default and Delete on an agent's row" className="rounded-[14px]" /></Frame></div>
 
   </Step>
 </Steps>
@@ -98,9 +101,9 @@ To change it, hover over the agent you want and click the **Set as default** (�
 <Note>
 Switching Languages During a Call
 
-- If, during the conversation, the caller requests to switch to another language, and you've added that language to your agent configurations, Pearl will smoothly handle the transition.
-- The agent will inform the caller that they will be transferred to a representative who speaks the requested language.
-- The conversation will then continue with the agent configured for that language.
+- Pearl switches to another language when the caller asks for it, or simply starts speaking it, as long as you've added an agent for that language.
+- The current agent says a short word in its own language, a brief ring plays, then the agent for the new language introduces itself and continues the conversation where it left off, without asking the caller to repeat anything.
+- If the requested language isn't configured, Pearl stays in its current language and tells the caller which languages it can speak.
 </Note>
 
 ---
@@ -109,27 +112,31 @@ Switching Languages During a Call
 
 Currently, NLPearl.AI supports the following languages and accents:
 
-| **Language**   | **Accent(s)**                                | **Locale Code(s)**                 |
+| **Language**   | **Accent(s)**                                | **Tag(s) shown on voices**         |
 | -------------- | -------------------------------------------- | -----------------------------------|
-| **English**    | American, Australian, British, South African, Indian, Scotland | `en-US`, `en-AU`, `en-UK`, `en-ZA`, `en-SC`, `en-HI`  |
-| **French**     | French, Canadian French                                       | `fr-FR`, `fr-CA`                   |
-| **Italian**    | Italian                                      | `it-IT`                            |
-| **Spanish**    | Spanish, Argentine, Colombian, Mexican       | `es-ES`, `es-AR`, `es-CO`, `es-MX` |
-| **Dutch**      | Dutch                                        | `nl-NL`                            |
-| **German**     | German                                       | `de-DE`                            |
-| **Hindi**      | Hindi                                        | `hi-IN`                            |
-| **Japanese**   | Japanese                                     | `ja-JP`                            |
-| **Mandarin**   | Chinese Mandarin                           | `zh-CN`                            |
-| **Korean**     | Korean                                       | `ko-KR`                            |
-| **Russian**    | Russian                                      | `ru-RU`                            |
-| **Portuguese** | Brazilian Portuguese, European Portuguese                         |`pt-BR`, `pt-PT`                    |
-| **Turkish**    | Turkish                                      | `tr-TR`                            |
-| **Vietnamese** | Vietnamese                                   | `vi-VN`                            |
-| **Polish**     | Polish                                       | `pl-PL`                            |
-| **Arabic**     | Levantine Arabic                             | `ar-LEV`                           |
-| **Greek**      | Greek                                        | `el-GR`                            |
-| **Hebrew**     | Hebrew                                       | `he-IL`                            |
-| **Indonesian** | Indonesian                                   | `id-ID`                            |
+| **English**    | American, British, Australian, South African, Irish, Scottish, Indian | `en-US`, `en-UK`, `en-AU`, `en-ZA`, `en-IE`, `en-SC`, `en-HI` |
+| **French**     | French, Canadian French                      | `fr-FR`, `fr-CA`                   |
+| **Italian**    | Italian                                      | `IT`                               |
+| **Spanish**    | Spanish, Mexican, Argentine, Colombian, Chilean, Peruvian, Latin American | `es-ES`, `es-MX`, `es-AR`, `es-CO`, `es-CL`, `es-PE`, `es-LATAM` |
+| **Dutch**      | Dutch                                        | `NL`                               |
+| **German**     | German                                       | `DE`                               |
+| **Hindi**      | Hindi                                        | `HI`                               |
+| **Japanese**   | Japanese                                     | `JP`                               |
+| **Mandarin**   | Mainland Chinese, Taiwanese                  | `zh-CN`, `zh-TW`                   |
+| **Korean**     | Korean                                       | `KR`                               |
+| **Russian**    | Russian                                      | `RU`                               |
+| **Portuguese** | Brazilian Portuguese, European Portuguese    | `pt-BR`, `pt-PT`                   |
+| **Turkish**    | Turkish                                      | `TR`                               |
+| **Vietnamese** | Vietnamese                                   | `VI`                               |
+| **Polish**     | Polish                                       | `PL`                               |
+| **Arabic**     | Levantine Arabic                             | `AR`                               |
+| **Greek**      | Greek                                        | `EL`                               |
+| **Hebrew**     | Hebrew                                       | `HE`, `he-IL`                      |
+| **Indonesian** | Indonesian                                   | `ID`                               |
+
+<Note>
+The languages and accents follow the voice catalogue, which grows over time: the **Language** and **Voice** lists in your Pearl always show what's available. Some voices also show a version tag, such as `v2`.
+</Note>
 
 ---
 
@@ -165,12 +172,12 @@ If you have specific language or accent requirements that are not currently supp
 
 <CardGroup cols={2}>
   <Card
-    title="Create Your Pearl"
-    icon="subtitles"
+    title="Voice Studio"
+    icon="microphone"
     iconType="light"
-    href="/pages/create_pearl"
+    href="/pages/voice_studio"
   >
-    Learn how to create a Pearl and configure multiple languages and voices.
+    Create or fine-tune a voice for your Pearl's agents.
   </Card>
   <Card
     title="Contact Support"

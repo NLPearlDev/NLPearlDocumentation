@@ -41,67 +41,52 @@ To integrate your custom VoIP service, follow these steps:
 
 <Step title="Go to Phone Numbers Settings">
 
-Start by clicking your **profile card** at the bottom-left corner of the sidebar, then open **Settings**.
+Click your **profile** at the bottom-left corner of the sidebar, then click **Settings**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/go-to-settings.png"
-    alt="Open Settings from the profile card"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/go-to-settings.png" alt="Opening Settings from the profile menu" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/go-to-settings.png" alt="Opening Settings from the profile menu" className="rounded-[14px]" /></Frame></div>
 
-From there, open the **Phone Numbers** tab to manage the numbers linked to your account.
+In the Settings window, open **Phone Numbers** (under **Channels**).
 
-<Frame>
-  <img
-    src="/images/dark_mode/choose-phone-number-in-settings.png"
-    alt="Phone Numbers tab in Settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/choose-phone-number-in-settings.png" alt="Phone Numbers in Settings" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/choose-phone-number-in-settings.png" alt="Phone Numbers in Settings" className="rounded-[14px]" /></Frame></div>
 </Step>
 
 <Step title="Click on Custom VoIP">
 
-In the **Phone Numbers** tab, locate the **Custom VoIP** row and click **Add Custom VoIP** to start setting up your own provider.
+Click **Purchase or Connect** at the top right of the list, then choose **Custom VoIP**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-choose.png"
-    alt="Add Custom VoIP from the Phone Numbers settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-choose.png" alt="Custom VoIP in the Purchase or Connect menu" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-choose.png" alt="Custom VoIP in the Purchase or Connect menu" className="rounded-[14px]" /></Frame></div>
 </Step>
 
 <Step title="Add Phone Number">
-Enter the phone number you want to associate with this custom VoIP configuration.
+
+The **Add custom VoIP** window opens, with a short guide on the left. Enter your number in the **Phone number** field on the right, as your provider gives it, then click **Continue**.
 
 <Note>
-Enter it in **E.164 format** (digits only, with an optional leading `+`). This label is mainly for display (DID number, extension, etc.) and doesn't have to be a routable number, but it must be numeric.
+Enter it in **E.164 format**: digits only, with an optional leading `+` (for example `+12125550147`). It's how the number appears in NLPearl: calls are routed by the SIP settings you configure next.
 </Note>
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-enter-phone-number.png"
-    alt="Enter the phone number for your custom VoIP configuration"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-enter-phone-number.png" alt="The phone number and Continue in the Add custom VoIP window" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-enter-phone-number.png" alt="The phone number and Continue in the Add custom VoIP window" className="rounded-[14px]" /></Frame></div>
 </Step>
 
 <Step title="Configure Inbound and/or Outbound">
- 
-After adding the number, you land on a setup screen with two cards — **Inbound Configuration** and **Outbound Configuration** — each showing a **Configured** / **Not Configured** badge. Configure the direction(s) you need (one or both), then click **Finish Setup**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-choose-inbound-outbound.png"
-    alt="Choose to configure inbound and/or outbound"
-    className="rounded-[14px]"
-  />
-</Frame>
+The window becomes **Edit custom VoIP**. On the right, two rows show where the number stands: **Inbound** (calls coming in) and **Outbound** (calls going out), each marked **Configured** or **Not configured**.
+
+Click a row to open its settings on the left, fill them in, and click **Save**. Configure the directions you need, then click **Finish setup**.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-choose-inbound-outbound.png" alt="The Inbound and Outbound rows and Finish setup" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-choose-inbound-outbound.png" alt="The Inbound and Outbound rows and Finish setup" className="rounded-[14px]" /></Frame></div>
+
+<Info>
+A number only works in the directions you configure:
+- An **inbound** Pearl needs the **Inbound** configuration.
+- **Outbound** campaigns, test calls, and calls started through the API need the **Outbound** configuration.
+- **Call transfers always use the Outbound configuration**, even during inbound calls. If your Pearl transfers calls, configure **Outbound** too.
+</Info>
 </Step>
 
 <Step title="Configure Your VoIP Settings">
@@ -110,8 +95,30 @@ After adding the number, you land on a setup screen with two cards — **Inbound
 ### Inbound Configuration Settings
 
 <Steps>
+<Step title="Copy Your SIP Domain">
+
+NLPearl generates a **SIP domain** for this number. This is what tells your provider where to send incoming calls so they reach the platform.
+
+<Info>
+The SIP domain isn't something you type. It's shown **read-only** at the top of the **Inbound configuration**: click the copy icon (or the field itself) to copy it.
+</Info>
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-inbound-sip-domain.png" alt="The read-only SIP domain at the top of the Inbound configuration" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-inbound-sip-domain.png" alt="The read-only SIP domain at the top of the Inbound configuration" className="rounded-[14px]" /></Frame></div>
+
+<Warning>
+**To finish connecting inbound calls:**
+
+1. Copy the **SIP domain** from the **Inbound configuration**.
+2. Add it to your VoIP provider / PBX as the **destination for inbound calls**, so your operator routes incoming calls to NLPearl.
+3. If you choose **Credential-based authentication**, also add the **username and password** set here to your VoIP settings so authentication succeeds.
+4. Click **Save**.
+</Warning>
+
+</Step>
+
 <Step title="TLS (SRTP) Encryption">
-Secures your VoIP traffic by encrypting both the signaling (via TLS) and media (via SRTP). Activate this toggle **only** if your VoIP provider requires it.
+Secures your VoIP traffic by encrypting both the signaling (via TLS) and media (via SRTP). It's off by default: turn on **TLS (SRTP) encryption** **only** if your VoIP provider requires it.
 
 <Tip>
 **When to Enable It:**
@@ -123,84 +130,41 @@ Secures your VoIP traffic by encrypting both the signaling (via TLS) and media (
 - You’re using basic test environments or local SIP servers without encryption.
 </Tip>
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-inbound-tls.png"
-    alt="Inbound TLS (SRTP) encryption toggle"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-inbound-tls.png" alt="The inbound TLS (SRTP) encryption switch" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-inbound-tls.png" alt="The inbound TLS (SRTP) encryption switch" className="rounded-[14px]" /></Frame></div>
 
 </Step>
 <Step title="Authentication Methods">
 <Info>
-Inbound calls require an authentication method. Choose **one**: **IP Address** or **Credentials** — the two cannot be combined. A new inbound configuration starts on **Credentials**.
+Inbound calls require an authentication method. Under **Authentication**, choose **one**: **IP-based authentication** or **Credential-based authentication**. The two cannot be combined. A new inbound configuration starts on **Credential-based authentication**.
 </Info>
 
-**IP Address Authentication:**  
+**IP-based authentication:**
 
 Allow traffic from specific IP addresses, ideal if your VoIP infrastructure has a static IP.
 
-IP Address:
-Enter the public IP address(es) of your SIP servers so we can accept and process requests from them. Use **IPv4** addresses only, without leading zeros, and no duplicates — up to **100** addresses.
+Enter the public IP address(es) of your SIP servers so we can accept and process requests from them: type an address and press **Enter** to add the next one. Use **IPv4** addresses only, without leading zeros, and no duplicates, up to **100** addresses.
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-inbound-ip-auth.png"
-    alt="Inbound IP-based authentication"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-inbound-ip-auth.png" alt="IP-based authentication with two IP addresses" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-inbound-ip-auth.png" alt="IP-based authentication with two IP addresses" className="rounded-[14px]" /></Frame></div>
 
 ---
 
-**Credentials Authentication:**  
+**Credential-based authentication:**
 
 Use a username and password to authenticate each incoming SIP request.
 
-NLPearl proposes a username and a password for you. Keep them, edit them, or click **Regenerate** for a new pair.
+NLPearl proposes a username and a password for you. Keep them, edit them, or click **Regenerate credentials** for a new pair.
 
-Username: 2–32 characters, letters and digits only. <br/>
-Password: At least 12 characters, with at least one uppercase letter, one lowercase letter, and one digit. Letters and digits only — **special characters are not allowed**.
+- **Username**: 2–32 characters, letters and digits only.
+- **Password**: 12–72 characters, with at least one uppercase letter, one lowercase letter, and one digit. Letters and digits only: **special characters are not allowed**.
 
 <Tip>
 This method is useful if your infrastructure is cloud-based and IPs can change, or you want multi-tenant control.
 </Tip>
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-inbound-credential-auth.png"
-    alt="Inbound credential-based authentication"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-</Step>
-
-<Step title="Copy Your SIP Domain">
-
-NLPearl generates a **SIP Domain** for this number as soon as you add it. This is what tells your provider where to send incoming calls so they reach the platform.
-
-<Info>
-The SIP Domain isn't something you type. It's created automatically and shown **read-only** at the top of the **Inbound Configuration** card, with a **Copy** button.
-</Info>
-
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-inbound-sip-domain.png"
-    alt="SIP Domain shown read-only with a Copy button in the Inbound Configuration"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-<Warning>
-**To finish connecting inbound calls:**
-
-1. Copy the generated **SIP Domain** from the **Inbound Configuration** card.
-2. Add it to your VoIP provider / PBX as the **destination for inbound calls**, so your operator routes incoming calls to NLPearl.
-3. If you chose **Credentials Authentication**, also add the **username and password** set here to your VoIP settings so authentication succeeds.
-4. Save the inbound configuration.
-</Warning>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-inbound-credential-auth.png" alt="Credential-based authentication with a username and password" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-inbound-credential-auth.png" alt="Credential-based authentication with a username and password" className="rounded-[14px]" /></Frame></div>
 
 </Step>
 </Steps>
@@ -212,62 +176,58 @@ The SIP Domain isn't something you type. It's created automatically and shown **
 ### Outbound Configuration Settings
 
 <Steps>
-<Step title="TLS (SRTP) Encryption"> 
-Secures your VoIP traffic by encrypting both the signaling (via TLS) and media (via SRTP). Activate this toggle **only** if your VoIP provider requires it.
+<Step title="TLS (SRTP) Encryption">
+Encrypts the signaling (TLS) and media (SRTP) of your outbound calls. It's off by default: turn on **TLS (SRTP) encryption** **only** if your VoIP provider requires it (see the tips in the inbound settings above).
 
-<Tip>
-**When to Enable It:**
-- Your SIP provider specifically mentions TLS or SRTP support.
-- You want to ensure secure, encrypted voice communication (e.g., for compliance or privacy reasons).
-
-**When to Leave It Off:**
-- Your provider doesn’t support TLS/SRTP, enabling it may block calls or cause failed connections.
-- You’re using basic test environments or local SIP servers without encryption.
-</Tip>
-
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-outbound-tls.png"
-    alt="Outbound TLS (SRTP) encryption toggle"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-outbound-tls.png" alt="The outbound TLS (SRTP) encryption switch" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-outbound-tls.png" alt="The outbound TLS (SRTP) encryption switch" className="rounded-[14px]" /></Frame></div>
 </Step>
 
-<Step title="SIP Trunk URL"> 
-This is the address your outbound calls will be sent to, typically provided by your VoIP provider. Enter it as a **domain or IP address** (this is where your calls will be routed).
+<Step title="Transfer Calls with SIP REFER">
+**Transfer calls with SIP REFER** is **on by default**. When a Pearl transfers a call, NLPearl hands it over to your provider with the SIP REFER method, so the call continues directly between the caller and the destination.
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-outbound-sip-trunk-url.png"
-    alt="Outbound SIP Trunk URL field"
-    className="rounded-[14px]"
-  />
-</Frame>
+When enabled, it allows:
+
+- Transferring a live call from one destination to another without media proxying
+- Offloading media streams directly between endpoints
+- Reducing latency and server load
+
+<Warning>
+Leave it on unless your provider doesn't support SIP REFER. If you turn it off, NLPearl's servers stay connected for the whole transfer, and the app reminds you with a **SIP REFER is off** message.
+</Warning>
+
+<Note>
+A [Warm Transfer](/pages/transfer_call#transfer-types), where Pearl introduces the call to the recipient first, always goes through NLPearl's servers, whatever this setting.
+</Note>
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-outbound-transfer-call-sip.png" alt="The Transfer calls with SIP REFER switch" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-outbound-transfer-call-sip.png" alt="The Transfer calls with SIP REFER switch" className="rounded-[14px]" /></Frame></div>
 </Step>
 
-<Step title="User Part"> 
-This is the SIP user identity used in the “From” header of your outbound SIP requests. It's how your VoIP system identifies the origin of the call.
+<Step title="SIP Trunk URL">
+This is the address your outbound calls will be sent to, typically provided by your VoIP provider. In **SIP trunk URL**, enter a **domain or IPv4 address**, with an optional port (for example `sip.example-voip.com` or `203.0.113.10:5060`). Don't add a `sip:` prefix. Up to 100 characters.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-outbound-sip-trunk-url.png" alt="The SIP trunk URL field" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-outbound-sip-trunk-url.png" alt="The SIP trunk URL field" className="rounded-[14px]" /></Frame></div>
+</Step>
+
+<Step title="User Part">
+**User part (SIP From)** is the SIP user identity used in the “From” header of your outbound SIP requests. It's how your VoIP system identifies the origin of the call. It's required.
 
 What to enter:
 You can use one of the following formats depending on your provider:
 - A SIP username (e.g. `caller01`)
-- A DID or phone number in `E.164` format (e.g. `+1234567890`)
+- A DID or phone number in `E.164` format (e.g. `+12125550147`)
 - An extension (e.g. `201`)
 
 Up to 50 characters: letters, digits, and `+ - _ .` only. A full SIP URI such as `caller01@example.com` is not accepted.
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-outbound-user-part.png"
-    alt="Outbound User Part field"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-outbound-user-part.png" alt="The User part (SIP From) field" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-outbound-user-part.png" alt="The User part (SIP From) field" className="rounded-[14px]" /></Frame></div>
 </Step>
 
-<Step title="Data Center"> 
-Select the network edge closest to your VoIP infrastructure to optimize call routing and reduce latency. Eight regions are available:
+<Step title="Data Center">
+In **Datacenter (network edge)**, select the network edge closest to your VoIP infrastructure to optimize call routing and reduce latency. Eight regions are available:
 
 | Region | Location |
 |--------|----------|
@@ -277,73 +237,33 @@ Select the network edge closest to your VoIP infrastructure to optimize call rou
 | Europe | Frankfurt |
 | Asia Pacific | Singapore |
 | Asia Pacific | Tokyo |
-| Asia Pacific | Sydney |
 | South America | São Paulo |
+| Asia Pacific | Sydney |
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-outbound-datacenter.png"
-    alt="Outbound Data Center selection"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-outbound-datacenter.png" alt="The Datacenter (network edge) list" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-outbound-datacenter.png" alt="The Datacenter (network edge) list" className="rounded-[14px]" /></Frame></div>
 </Step>
 
-<Step title="Transfer Call Using SIP Refer"> 
-This toggle enables or disables call transfers using the SIP REFER method. It is **enabled by default**.
+<Step title="Authentication Methods (optional based on your VoIP)">
 
-When enabled, it allows:
+If your provider requires authentication, choose **one** method under **Authentication**: **Credential-based authentication** or **Headers-based authentication**. The two cannot be combined.
 
-- Transferring a live call from one destination to another without media proxying
-- Offloading media streams directly between endpoints
-- Reducing latency and server load
-
-<Warning>
-If you **disable** SIP REFER, NLPearl's servers stay in the media path during transfers, which results in **additional costs**. Leave it on unless your provider doesn't support SIP REFER.
-</Warning>
-
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-outbound-transfer-call-sip.png"
-    alt="Outbound Transfer Call Using SIP REFER toggle"
-    className="rounded-[14px]"
-  />
-</Frame>
-</Step>
-
-<Step title="Authentication Methods (optional based on your VoIP)"> 
-
-If your provider requires authentication, choose **one** method: **Credentials** or **Headers** — the two cannot be combined.
-
-**Credentials Authentication:**  
+**Credential-based authentication:**
 
 Use this method if your VoIP provider requires username/password credentials to authenticate outbound calls.
 
-Username:
-This is the identifier associated with your SIP account.
+- **Username**: the identifier associated with your SIP account (up to 32 characters).
+- **Password**: the password of that SIP user, as your provider defines it.
 
-Password:
-A secure password used to authenticate the SIP user.
-Make sure it meets your provider’s security requirements (e.g. minimum 12 characters, including upper/lowercase letters, a number, and a special character).
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-outbound-credential-auth.png" alt="Outbound credential-based authentication" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-outbound-credential-auth.png" alt="Outbound credential-based authentication" className="rounded-[14px]" /></Frame></div>
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-outbound-credential-auth.png"
-    alt="Outbound credential-based authentication"
-    className="rounded-[14px]"
-  />
-</Frame>
+**Headers-based authentication:**
 
-**Header-Based Authentication:**  
+Use this method if your VoIP provider requires custom headers for SIP request authentication. Type a key, then press **Enter** to add its value and the next pair.
 
-Use this method if your VoIP provider requires custom headers for SIP request authentication.
-
-Header Key:
-This is the name of the custom SIP header field expected by your provider (e.g., X-Custom-Auth, X-Access-Token, etc.). It must start with `X-`.
-
-Header Value:
-The corresponding value used to validate the request (e.g., a token, API key, or static secret).
-Example: AuthZ-87!t!link
+- **Key**: the name of the custom SIP header expected by your provider (e.g. `X-Account-Id`, `X-Access-Token`). It must start with `X-` and can be up to 100 characters.
+- **Value**: the value used to validate the request (e.g. a token, account ID, or static secret), up to 500 characters. Letters, digits, and `- _ . ! ~ * ' ( ) [ ] / : + $` are allowed.
 
 <Note>
 Header-based auth is typically used for advanced integrations or when SIP gateways are behind proxies/firewalls that don’t support IP or credential-based auth.
@@ -354,17 +274,18 @@ Ensure this matches exactly what your provider expects, as even small typos (lik
 You can add up to **15** key-value pairs if needed, for example, to meet multi-token security policies.
 </Info>
 
-<Frame>
-  <img
-    src="/images/dark_mode/custom-voip-outbound-header-auth.png"
-    alt="Outbound header-based authentication"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-outbound-header-auth.png" alt="Headers-based authentication with two headers" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-outbound-header-auth.png" alt="Headers-based authentication with two headers" className="rounded-[14px]" /></Frame></div>
 
-  - **IP Address Allow List:**  
-    **IP Address:** See [Twilio's SIP Trunking IP Addresses](https://www.twilio.com/docs/sip-trunking/ip-addresses).
+</Step>
 
+<Step title="Allow Our IP Addresses">
+If your trunk only accepts calls from known addresses, allow ours. At the bottom of the **Outbound configuration**, **Our IP addresses, to allow on your trunk → View list** opens the list ([Twilio's SIP Trunking IP Addresses](https://www.twilio.com/docs/sip-trunking/ip-addresses)).
+
+Then click **Save**.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/custom-voip-outbound-ip-list.png" alt="Our IP addresses, to allow on your trunk, with View list" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/custom-voip-outbound-ip-list.png" alt="Our IP addresses, to allow on your trunk, with View list" className="rounded-[14px]" /></Frame></div>
 </Step>
 </Steps>
 </Card>
@@ -373,19 +294,20 @@ You can add up to **15** key-value pairs if needed, for example, to meet multi-t
 
 Once integrated:
 
-- **Assign to Inbound/Outbound:**  
-  You can assign your custom VoIP phone numbers to inbound or outbound campaigns within NLPearl.AI.
+- **Assign to a Pearl:**
+  Open the Pearl, click **Settings** at the top right of its page, then pick the number in the **Phone Number** row: Custom VoIP numbers are listed under **SIP**. A number can be used by only one running inbound Pearl at a time.
 
-<Frame>
-  <img
-    src="/images/dark_mode/choose-campaign-phone.png"
-    alt="Assign a custom VoIP number to a campaign"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/choose-campaign-phone.png" alt="Choosing a Custom VoIP number under SIP in a Pearl's Settings" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/choose-campaign-phone.png" alt="Choosing a Custom VoIP number under SIP in a Pearl's Settings" className="rounded-[14px]" /></Frame></div>
 
-- **Update Configuration:**  
-  If any changes are needed, you can edit the VoIP settings by accessing the phone number in the Phone Numbers tab.
+- **Update Configuration:**
+  In **Settings → Phone Numbers**, click **⋯ (More)** on the number's row, then **Edit**. The same window opens: click **Inbound** or **Outbound**, change the settings, and click **Save**.
+
+- **Delete a Number:**
+  Click **⋯ (More)** on the number's row, then **Delete**, and confirm with **Delete number**. The number is removed immediately, along with its SIP domain. Pearls using it are paused, and your workspace's notification email receives the list of paused Pearls.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/delete-phone-number.png" alt="The Delete this number? confirmation" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/delete-phone-number.png" alt="The Delete this number? confirmation" className="rounded-[14px]" /></Frame></div>
 
 </Step>
 </Steps>
@@ -395,9 +317,11 @@ Once integrated:
 <Tip>
 ### Troubleshooting Tips
 
-**Connection Issues**: Double-check all configuration settings, especially SIP URLs, usernames, passwords, and IP addresses.
+**Connection Issues**: Double-check all configuration settings, especially the SIP domain, SIP trunk URL, usernames, passwords, and IP addresses.
 
 **Authentication Failures**: Make sure the authentication method you've selected matches the one supported by your VoIP provider.
+
+**Transfers Not Working**: Check that the number has an **Outbound** configuration: transfers use it, even during inbound calls.
 
 **Provider Support**: If you're unsure about specific requirements, contact your VoIP provider for assistance with configuration.
 </Tip>
@@ -407,7 +331,9 @@ Once integrated:
 
 **Flexibility**: Leverage your existing VoIP infrastructure without switching providers or modifying your current setup.
 
-**Global Reach**: Access phone numbers and make calls in any region your VoIP provider supports, ideal for international teams.
+**Global Reach**: Access phone numbers and make calls in any region your VoIP provider supports, ideal for international teams. Unlike NLPearl numbers, Custom VoIP numbers aren't limited to calling their own country.
+
+**No Number Fee**: NLPearl charges no monthly fee for Custom VoIP numbers. Your Pearls' calls are billed at your usual NLPearl rate.
 
 **Caller Context**: Pass data to your Pearl on inbound calls with custom SIP headers (`X-` prefix). Each value lands in the matching Pre-call variable. [Learn how](/pages/variables#passing-data-on-inbound-calls-with-custom-sip-headers).
 </Info>

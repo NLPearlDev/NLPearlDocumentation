@@ -40,67 +40,47 @@ Connect your Twilio account to NLPearl.AI and use your existing Twilio numbers f
 
 <Step title="Go to Phone Numbers Settings">
 
-Start by clicking your **profile card** at the bottom-left corner of the sidebar, then open **Settings**.
+Click your **profile** at the bottom-left corner of the sidebar, then click **Settings**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/go-to-settings.png"
-    alt="Open Settings from the profile card"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/go-to-settings.png" alt="Opening Settings from the profile menu" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/go-to-settings.png" alt="Opening Settings from the profile menu" className="rounded-[14px]" /></Frame></div>
 
-From there, open the **Phone Numbers** tab to manage the numbers linked to your account.
+In the Settings window, open **Phone Numbers** (under **Channels**).
 
-<Frame>
-  <img
-    src="/images/dark_mode/choose-phone-number-in-settings.png"
-    alt="Phone Numbers tab in Settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/choose-phone-number-in-settings.png" alt="Phone Numbers in Settings" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/choose-phone-number-in-settings.png" alt="Phone Numbers in Settings" className="rounded-[14px]" /></Frame></div>
 
 </Step>
 
 <Step title="Open the Twilio Connection">
 
-In the **Phone Numbers** tab, locate the **Connect to Twilio** row. Click **Manage Twilio** to open the connection panel and link your Twilio account.
+Click **Purchase or Connect** at the top right of the list, then choose **Connect to Twilio**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/twilio-connect-button.png"
-    alt="Connect to Twilio from the Phone Numbers settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/twilio-connect-button.png" alt="Connect to Twilio in the Purchase or Connect menu" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-connect-button.png" alt="Connect to Twilio in the Purchase or Connect menu" className="rounded-[14px]" /></Frame></div>
 
 </Step>
 
 <Step title="Enter Your Twilio Credentials">
 
-The **Connect your Twilio Account** panel opens. A short guide on the left walks you through each value, with quick links to the right pages in your Twilio Console.
+The **Connect your Twilio account** window opens. On the left, choose how you connect: **With API credentials** or **With Account SID + Auth token**. The steps below your choice walk you through each value, with shortcuts to the right pages of your Twilio Console.
 
-Choose the method that fits your needs, fill in the fields on the right, then click **Connect Twilio**.
+Fill in the **Twilio credentials** on the right, then click **Connect Twilio**.
 
 <Tabs>
 
 <Tab title="API Credentials (recommended)">
 
-The most secure option. It uses a scoped API Key instead of your main Auth Token.
+The most secure option. It uses a scoped API key instead of your main Auth Token.
 
-| Field | Where to find it |
-|-------|------------------|
-| **Account SID** | Twilio Console, under **Account Info**. |
-| **API Key SID** | Generated when you create a Standard API Key (see below). |
-| **API Key Secret** | Shown **only once** when the key is created. |
+| Field | What to enter |
+|-------|---------------|
+| **Account SID** | Your Account SID (it starts with `AC`), from **Account Info** in your Twilio Console. |
+| **Auth token or API key secret** | The API key's **Secret**. |
+| **API key SID** | The API key's **SID** (it starts with `SK`). |
 
-<Frame>
-  <img
-    src="/images/dark_mode/twilio-credentials-api-key.png"
-    alt="Twilio credentials using an API Key"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/twilio-credentials-api-key.png" alt="Twilio credentials with an API key" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-credentials-api-key.png" alt="Twilio credentials with an API key" className="rounded-[14px]" /></Frame></div>
 
 <Note>
 **How to generate a Twilio API Key**
@@ -109,29 +89,28 @@ The most secure option. It uses a scoped API Key instead of your main Auth Token
 <Step title="Go to Twilio API Keys Settings">
 Visit the [Twilio API Keys page](https://www.twilio.com/console/project/api-keys) in your console, then click **Create API Key** in the top-right corner.
 
-<Frame>
-  <img src="/images/dark_mode/twilio-integration-step-1.png" alt="Twilio API keys & tokens page with Create API key" className="rounded-[14px] w-full" />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/dark_mode/twilio-integration-step-1.png" alt="Twilio API keys & tokens page with Create API key" className="rounded-[14px] w-full" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-integration-step-1.png" alt="Twilio API keys & tokens page with Create API key" className="rounded-[14px] w-full" /></Frame></div>
 </Step>
 
 <Step title="Select Standard Key Type">
 Give your key a name and select **Standard** as the key type. Then click **Create**.
 
-<Frame>
-  <img src="/images/dark_mode/twilio-integration-step-2.png" alt="Create a new Twilio API key with Standard type" className="rounded-[14px] w-full" />
-</Frame>
+NLPearl needs a **Standard** key: a **Restricted** key is refused when you connect.
+
+<div className="block dark:hidden"><Frame><img src="/images/dark_mode/twilio-integration-step-2.png" alt="Create a new Twilio API key with Standard type" className="rounded-[14px] w-full" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-integration-step-2.png" alt="Create a new Twilio API key with Standard type" className="rounded-[14px] w-full" /></Frame></div>
 </Step>
 
 <Step title="Copy the SID and Secret">
 Twilio now displays both the **SID** and the **Secret**.
 
 <Warning>
-The **Secret Key** is shown only once, so copy and store it somewhere safe before closing the page.
+The **Secret** is shown only once, so copy and store it somewhere safe before closing the page.
 </Warning>
 
-<Frame>
-  <img src="/images/dark_mode/twilio-integration-step-3.png" alt="Copy the Twilio API key SID and secret" className="rounded-[14px] w-full" />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/dark_mode/twilio-integration-step-3.png" alt="Copy the Twilio API key SID and secret" className="rounded-[14px] w-full" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-integration-step-3.png" alt="Copy the Twilio API key SID and secret" className="rounded-[14px] w-full" /></Frame></div>
 </Step>
 </Steps>
 </Note>
@@ -142,100 +121,93 @@ The **Secret Key** is shown only once, so copy and store it somewhere safe befor
 
 The simplest option. Connect directly with your main Twilio credentials.
 
-| Field | Where to find it |
-|-------|------------------|
-| **Account SID** | Twilio Console, under **Account Info**. |
-| **Auth Token** | Twilio Console, under **Account Info** (click **Show** to reveal). |
+| Field | What to enter |
+|-------|---------------|
+| **Account SID** | Your Account SID (it starts with `AC`), from **Account Info** in your Twilio Console. |
+| **Auth token or API key secret** | Your **Auth Token**, from **Account Info** (click **Show** to reveal it). |
+| **API key SID** | Leave it empty. |
 
-<Frame>
-  <img
-    src="/images/dark_mode/twilio-credentials-auth-token.png"
-    alt="Twilio credentials using Account SID and Auth Token"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/twilio-credentials-auth-token.png" alt="Twilio credentials with the Account SID and Auth Token" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-credentials-auth-token.png" alt="Twilio credentials with the Account SID and Auth Token" className="rounded-[14px]" /></Frame></div>
 
 <Note>
 Both values live in the **Account Info** panel on your Twilio Console dashboard.
 
-<Frame>
-  <img
-    src="/images/dark_mode/twilio-integration-step-6.png"
-    alt="Account SID and Auth Token in the Twilio Account Info panel"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/dark_mode/twilio-integration-step-6.png" alt="Account SID and Auth Token in the Twilio Account Info panel" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-integration-step-6.png" alt="Account SID and Auth Token in the Twilio Account Info panel" className="rounded-[14px]" /></Frame></div>
 </Note>
 
 </Tab>
 
 </Tabs>
 
+NLPearl checks your credentials with Twilio before saving them. If Twilio refuses them, nothing is saved: correct the values and click **Connect Twilio** again.
+
 <Tip>
-Use the **Open Twilio Console** and **Open Twilio API Keys** shortcuts inside the panel to jump straight to the right Twilio pages while filling in your credentials.
+Use the **Open Twilio Console** and **Open Twilio API Keys** shortcuts inside the window to jump straight to the right Twilio pages while filling in your credentials.
 </Tip>
 
 </Step>
 
 <Step title="Import Your Twilio Phone Numbers">
 
-Once connected, the **Twilio Account** screen lists every number available on your account.
+Once connected, the **Twilio account** window lists the numbers of your Twilio account, whatever their country.
 
-Click **Add to account** next to a number to import it into NLPearl. A confirmation message appears, and the number becomes available in your account right away. To detach a number, click **Remove** next to it.
+Click **Add to account** next to a number to import it. It appears in your **Phone Numbers** list right away. **Remove** takes an imported number back out of NLPearl (see [Deleting Phone Numbers](#deleting-phone-numbers)).
 
-<Frame>
-  <img
-    src="/images/dark_mode/twilio-import-numbers.png"
-    alt="Import Twilio phone numbers into NLPearl"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/twilio-import-numbers.png" alt="Importing Twilio numbers with Add to account" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-import-numbers.png" alt="Importing Twilio numbers with Add to account" className="rounded-[14px]" /></Frame></div>
 
 <Info>
-You can return to this screen at any time to import additional numbers, especially after adding new ones to your Twilio account.
+You can come back to this window at any time (**Purchase or Connect → Connect to Twilio**) to import numbers you add to your Twilio account later.
 </Info>
+
+</Step>
+
+<Step title="Assign the Number to a Pearl">
+
+Open the Pearl that should use the number, inbound or outbound, and click **Settings** at the top right of its page. In the **Phone Number** row, click the current number (or **Choose a number**): your imported numbers are listed under **Twilio**. Pick one, and it is saved right away.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/choose-campaign-phone.png" alt="Choosing a Twilio number in a Pearl's Settings" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/choose-campaign-phone.png" alt="Choosing a Twilio number in a Pearl's Settings" className="rounded-[14px]" /></Frame></div>
+
+<Warning>
+When an inbound Pearl starts on a Twilio number, NLPearl sets the number's **Voice URL** in Twilio (along with its status callback and friendly name) so that calls reach your Pearl. Using the number as an SMS text channel sets its **SMS URL** the same way. Don't use the number in another Twilio application at the same time.
+</Warning>
 
 </Step>
 
 <Step title="Manage or Switch Twilio Accounts">
 
-The **Twilio Account** screen shows the connected **Account SID** at the top, so you always know which account is in use.
+The **Twilio account** window shows the connected account's **SID** at the top, so you always know which account is in use.
 
-To connect a different Twilio account, use the **back arrow** in the top-left corner to return to the connection panel and enter new credentials.
+To connect a different Twilio account, click **Change account**, then confirm in the **Connect another Twilio account?** window. Enter the new credentials: they replace the account connected now.
 
-<Frame>
-  <img
-    src="/images/dark_mode/twilio-manage-account.png"
-    alt="Manage or switch the connected Twilio account"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/twilio-manage-account.png" alt="Confirming a change of Twilio account" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-manage-account.png" alt="Confirming a change of Twilio account" className="rounded-[14px]" /></Frame></div>
 
 <Info>
-Numbers you already imported stay linked to your NLPearl account. Switching Twilio accounts won’t affect them.
+Numbers you already imported keep their own credentials: switching Twilio accounts doesn't affect them, as long as those credentials stay valid in Twilio. The window only lists the numbers of the account connected now.
 </Info>
 
 </Step>
 </Steps>
 
+<a id="deleting-phone-numbers"></a>
+
 <Card title="Deleting Phone Numbers" icon="circle-info" iconType="light">
 
-If you no longer need a phone number, you can schedule it for deletion directly from your settings.
+If you no longer need a Twilio number in NLPearl, you can remove it from your settings.
 
-Start by going to the **Phone Numbers** section in your Settings. From there, locate the number you want to remove and click the **Delete** button next to it.
+In **Settings → Phone Numbers**, click the **trash icon** at the end of the number's row. In the **Delete this number?** window, check the number and click **Delete number**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/delete-phone-number.png"
-    alt="Delete a phone number from the Phone Numbers settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/delete-phone-number.png" alt="The Delete this number? confirmation" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/delete-phone-number.png" alt="The Delete this number? confirmation" className="rounded-[14px]" /></Frame></div>
 
-A confirmation step will appear to make sure you really want to delete the selected number. The phone number will be removed from your NLPearl account immediately.
+The number is removed from NLPearl immediately. Pearls using it are paused, and your workspace's notification email receives the list of paused Pearls.
 
 <Info>
-Deleting a phone number from NLPearl does not delete it from your Twilio account. Ensure that the phone number isn't used in any running activities before deleting it from the platform.
+Deleting a number from NLPearl does not delete it from your Twilio account: the number stays yours. Its **Voice URL** in Twilio still points to NLPearl, so update it in Twilio if you use the number elsewhere.
 </Info>
 
 </Card>
@@ -253,13 +225,8 @@ To ensure full functionality, disable HTTP Basic Authentication for media access
 
 Start by logging into your **Twilio dashboard**. In the left-hand navigation, click on **Voice** <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span> to open the voice-related settings. Under the Voice section, select **Settings** <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span>, then click on **General** <span style={{ color: '#f87171', fontWeight: 600 }}>(3)</span> to access the general voice configuration panel.
 
-<Frame>
-  <img
-    src="/images/dark_mode/twilio-integration-step-4.png"
-    alt="Open Voice > Settings > General in the Twilio Console"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/dark_mode/twilio-integration-step-4.png" alt="Open Voice > Settings > General in the Twilio Console" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-integration-step-4.png" alt="Open Voice > Settings > General in the Twilio Console" className="rounded-[14px]" /></Frame></div>
 </Step>
 
 <Step title="Disable HTTP Basic Authentication in Twilio">
@@ -267,13 +234,8 @@ Once you're in the **Voice > General** settings, scroll down to the **HTTP Basic
 
 Under this section, select **Disabled** to allow media URLs to be publicly accessible <span style={{ color: '#f87171', fontWeight: 600 }}>(1)</span>. Then, click the **Save** button at the bottom of the page <span style={{ color: '#f87171', fontWeight: 600 }}>(2)</span> to apply your changes.
 
-<Frame>
-  <img
-    src="/images/dark_mode/twilio-integration-step-5.png"
-    alt="Disable HTTP Basic Authentication for media access in Twilio"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/dark_mode/twilio-integration-step-5.png" alt="Disable HTTP Basic Authentication for media access in Twilio" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/twilio-integration-step-5.png" alt="Disable HTTP Basic Authentication for media access in Twilio" className="rounded-[14px]" /></Frame></div>
 <Note>
 By disabling this setting, you ensure that NLPearl.AI can access and use media resources without authentication issues.
 </Note>
@@ -286,6 +248,8 @@ By disabling this setting, you ensure that NLPearl.AI can access and use media r
 
 - **Access to Global Phone Numbers**: Use phone numbers from countries not directly supported by NLPearl.AI by purchasing them through Twilio.
 
+- **No Country Limit on Calls**: Unlike NLPearl numbers, a Twilio number can call and transfer to numbers in other countries, as far as your Twilio account allows.
+
 - **Compliance with Country Regulations**: Twilio handles country-specific regulations, allowing you to purchase numbers that comply with local laws.
 
 - **Leverage Existing Numbers**: Utilize the phone numbers you already own in Twilio without needing to acquire new ones.
@@ -296,7 +260,11 @@ By disabling this setting, you ensure that NLPearl.AI can access and use media r
 
 - **Phone Number Ownership**: Numbers are purchased and managed in your Twilio account. NLPearl.AI only lets you use them within the platform.
 
-- **Running Activities**: Before removing a number from NLPearl.AI, make sure it isn't assigned to any active campaign to avoid disruptions.
+- **Billing**: NLPearl charges no monthly fee for Twilio numbers. Twilio bills you directly for the numbers, calls, and messages, and NLPearl charges its usual usage for your Pearls' calls.
+
+- **Restricted Numbers**: If a number's Twilio credentials are revoked or no longer valid, the number shows **Restricted** in your Phone Numbers list and the Pearls using it are paused. Delete the number and import it again with valid credentials: connecting your account again is not enough.
+
+- **Running Activities**: Deleting a number from NLPearl.AI pauses the Pearls that use it. Assign them another number first to avoid disruptions.
 </Warning>
 
 ---

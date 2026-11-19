@@ -34,29 +34,21 @@ Before your Pearl can answer questions accurately, it needs context. This step h
 
 ## Company Name
 
-Give your Pearl the name of the company it represents. This name may be used when Pearl introduces itself or provides company-related information.
+These settings live in the **Knowledge Base** tab of your Pearl's editor (**Edit Pearl** in the **Settings** of the Pearl's page). Changes are saved automatically in your Pearl's draft: publish the Pearl to use them in live calls.
 
-<Frame>
-  <img
-    src="/images/dark_mode/knowledge-base-screen.png"
-    alt="Company Name field in the Knowledge Base"
-    className="rounded-[14px]"
-  />
-</Frame>
+Give your Pearl the name of the company it represents. This name may be used when Pearl introduces itself or provides company-related information. It's **required**, up to **100 characters**. Not representing a company? Write the name of the entity your agent says it's from.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/knowledge-base-screen.png" alt="The Company Name field in the Knowledge Base tab" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/knowledge-base-screen.png" alt="The Company Name field in the Knowledge Base tab" className="rounded-[14px]" /></Frame></div>
 
 ---
 
 ## Company Description
 
-Add a brief company description including your industry, mission, or key services. This allows Pearl to answer questions with more contextual relevance.
+Add a brief company description including your industry, mission, or key services. This allows Pearl to answer questions with more contextual relevance. It's **required**, up to **500 characters**: a few sentences are enough.
 
-<Frame>
-  <img
-    src="/images/dark_mode/knowledge-base-screen-5.png"
-    alt="Company Description field in the Knowledge Base"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/knowledge-base-screen-5.png" alt="The Company Description field in the Knowledge Base tab" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/knowledge-base-screen-5.png" alt="The Company Description field in the Knowledge Base tab" className="rounded-[14px]" /></Frame></div>
 
 ---
 
@@ -64,13 +56,11 @@ Add a brief company description including your industry, mission, or key service
 
 This is where you teach Pearl what it needs to know to respond with relevance and accuracy. Add detailed information about your services, pricing, opening hours, locations, and any key operational data.
 
-<Frame>
-  <img
-    src="/images/dark_mode/knowledge-base-screen-1.png"
-    alt="Pearl Knowledge Base field with file upload"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/knowledge-base-screen-1.png" alt="The Pearl Knowledge Base text field, with the file drop area and Upload files" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/knowledge-base-screen-1.png" alt="The Pearl Knowledge Base text field, with the file drop area and Upload files" className="rounded-[14px]" /></Frame></div>
+
+- **Text**: type directly in the field (optional). The expand icon at its bottom right opens it in a larger editor.
+- **Files**: drop `.pdf`, `.docx`, or `.txt` files anywhere on the section, or click **Upload files**. Each file shows as a chip with its size (and its progress while uploading); click its **×** to remove it.
 
 <Note>
 **Background knowledge, not a script.** The Knowledge Base is passive reference data: Pearl consults it **only when needed** to answer accurately. It doesn't dictate the conversation flow, that's handled by the Flow Editor.
@@ -95,13 +85,13 @@ These caps apply **per Pearl**: they cover every file attached to that Pearl's K
 | Number of files | 50 |
 | Supported formats | `.pdf`, `.docx`, `.txt` |
 | Total size of all files | 25 MB (no per-file cap) |
-| Total text extracted from files | 1,000,000 characters |
+| Total text extracted from files | 1,000,000 characters (2,000,000 for chat, SMS, and WhatsApp Pearls) |
 | Free-text field | 20,000 characters (counted separately) |
 
-There is no page limit and no character cap on an individual document, only the shared 25 MB and 1,000,000-character totals apply. The free-text field has its own 20,000-character budget and does **not** consume the 1,000,000 characters reserved for files.
+There is no page limit and no character cap on an individual document, only the shared 25 MB and character totals apply. The free-text field has its own 20,000-character budget and does **not** consume the characters reserved for files.
 
 <Tip>
-A **Knowledge Base File Usage** bar appears once the text extracted from your files passes **100,000 characters**, so you can keep an eye on how much of the budget is left.
+Once the text extracted from your files passes **100,000 characters**, a usage gauge appears next to your files (e.g. *17% of 1M characters*). It turns red if you go over the limit.
 </Tip>
 
 <Warning>
@@ -112,15 +102,16 @@ Pearl uses the **text extracted** from your `.pdf`, `.docx`, and `.txt` files. S
 
 ## Memory
 
-When enabled, Pearl remembers the user or lead, allowing it to seamlessly continue conversations from where they left off.
+When enabled, Pearl remembers the user or lead, allowing it to seamlessly continue conversations from where they left off. Choose **On** or **Off** (off by default).
 
-<Frame>
-  <img
-    src="/images/dark_mode/knowledge-base-screen-2.png"
-    alt="Memory On/Off toggle in the Knowledge Base"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/knowledge-base-screen-2.png" alt="Memory set to On in the Knowledge Base tab" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/knowledge-base-screen-2.png" alt="Memory set to On in the Knowledge Base tab" className="rounded-[14px]" /></Frame></div>
+
+How it works:
+- After each conversation, Pearl adds what it learned to a short **profile** of that person, built from the conversation summaries.
+- The profile is kept **per phone number** and per Pearl. At the start of the next call or conversation with the same number, Pearl reads it and picks up from there.
+- Pearls in a [group](/pages/pearl_groups) with **Shared Memory** turned on share the same profiles.
+- No phone number, no memory: for example, a [stream call](/pages/stream/overview) started without an `endUserId` is neither remembered nor recognized.
 
 <Tip>
 This feature is particularly useful for:
@@ -132,7 +123,7 @@ This feature is particularly useful for:
 <Card>
 ### Example use case: Hospitality
 
-Let's say a guest checks into a hotel. Pearl can:
+Let's say a guest checks into a hotel. Once they've mentioned it in a call, Pearl can:
 - Remember their room number  
 - Greet them by name  
 - Recall their preferences (like "extra towels" or "no wake-up call")  
@@ -142,9 +133,9 @@ Let's say a guest checks into a hotel. Pearl can:
 <Info>
 **Resetting Memory**
 
-Need a fresh start? Pearl's memory can be reset via API.
+Memory is never cleared automatically. To give a phone number a fresh start, reset its memory through the API (**Reset Memory**, with the phone number).
 
-This is especially important in contexts like hospitality, where once a guest checks out, Pearl clears the slate, ensuring the next visitor starts with a clean experience.
+This is especially important in contexts like hospitality: when a guest checks out, have your system reset the memory of their number, so the next guest starts with a clean experience.
 </Info>
 
 ---
@@ -153,17 +144,18 @@ This is especially important in contexts like hospitality, where once a guest ch
 
 Some words are just… not in the dictionary. Whether you're using brand-specific terms, creative product names, or industry jargon, teaching Pearl how to recognize them makes all the difference.
 
-<Frame>
-  <img
-    src="/images/dark_mode/knowledge-base-screen-3.png"
-    alt="Speech Recognition Keywords table"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/knowledge-base-screen-3.png" alt="Speech Recognition Keywords, with two variants for Invisalign" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/knowledge-base-screen-3.png" alt="Speech Recognition Keywords, with two variants for Invisalign" className="rounded-[14px]" /></Frame></div>
 
-Use this feature to define:
-- **Keywords**: The unique word or name you want Pearl to catch
-- **Pronunciations**: Variations of how users might say it (spoken form)
+Each row has two fields:
+- **Pearl understands**: the word you want Pearl to catch. Pearl's speech recognition listens for it in priority.
+- **Caller says** (optional): how the transcription might write it by mistake. Whenever one of these variants shows up in what the caller said, Pearl reads it as your keyword.
+
+To add a keyword, fill the empty row at the bottom. In **Caller says**, press **Enter** or type a comma after each variant. Use the trash icon to delete a row.
+
+<Note>
+**Limits:** up to **25** keywords, each a **single word** without digits (no duplicates), with up to **4** variants. The first and last name of the person on the call are added as keywords automatically.
+</Note>
 
 <Card>
 ### Example
@@ -171,11 +163,11 @@ Use this feature to define:
 Let's say your bakery sells a pastry called `FluffoBun`.
 
 Here's how you'd define it:
-- **Keyword:** FluffoBun  
-- **Pronunciations:** fluh-foh-bun, floof-oh-bun, fluff-bunb  
-*(Separate each pronunciation with a comma)*
+- **Pearl understands:** FluffoBun  
+- **Caller says:** fluffy bun, fluff o bun  
+*(Press Enter or type a comma after each variant)*
 
-This helps Pearl match even creatively named terms to real user input, no matter how it's pronounced.
+Write the variants the way a transcription would spell them, as real words, not as phonetic spellings: if the caller's "FluffoBun" comes out as "fluffy bun", Pearl now reads it as FluffoBun.
 </Card>
 
 ---
@@ -184,15 +176,12 @@ This helps Pearl match even creatively named terms to real user input, no matter
 
 Speech Output Pronunciations let you fine-tune how Pearl *pronounces* specific words or short phrases out loud. You provide the text as it appears (**Pearl says**) and a simple phonetic respelling of how it should actually sound (**Caller hears**).
 
-<Frame>
-  <img
-    src="/images/dark_mode/knowledge-base-screen-4.png"
-    alt="Speech Output Pronunciations table"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/knowledge-base-screen-4.png" alt="Speech Output Pronunciations with Dr. and Invisalign" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/knowledge-base-screen-4.png" alt="Speech Output Pronunciations with Dr. and Invisalign" className="rounded-[14px]" /></Frame></div>
 
 Whenever Pearl is about to speak a word or phrase listed in **Pearl says**, it uses the **Caller hears** respelling instead. It changes the **audio only**: your scripts, variables, and node text stay exactly as you wrote them.
+
+Matching is on **whole words or phrases**, regardless of case (`dr.` matches `Dr.`). When two entries overlap, the longest one applies first.
 
 Reach for it whenever text-to-speech mispronounces something important, such as:
 
@@ -221,5 +210,7 @@ Write **Caller hears** the way it should be *spoken*, not spelled, e.g. `2024` �
 <Note>
 **Speech Output Pronunciations vs. Speech Recognition Keywords** — don't mix them up:
 - **Speech Output Pronunciations** control how Pearl **speaks** (text-to-speech / output). Fields: **Pearl says** → **Caller hears**.
-- **Speech Recognition Keywords** help Pearl **understand** what the caller says (speech-to-text / input). Fields: a **keyword** plus one or more **pronunciations** it might be heard as.
+- **Speech Recognition Keywords** help Pearl **understand** what the caller says (speech-to-text / input). Fields: **Pearl understands** ← **Caller says**.
+
+Both are voice settings: they don't appear on chat, SMS, and WhatsApp Pearls.
 </Note>
