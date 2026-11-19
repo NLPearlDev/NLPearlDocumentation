@@ -161,13 +161,13 @@ Once you have a number, attach it to your Pearl: on the Pearl's page, click **Se
 <div className="hidden dark:block"><Frame><img src="/images/dark_mode/choose-campaign-phone.png" alt="Choosing the phone number in the Pearl's Settings" className="rounded-[14px]" /></Frame></div>
 
 <Note>
-**Country codes** — each campaign is tied to a single country code, set automatically by the number you attach:
+**Country codes (NLPearl-provided numbers only)** — a campaign that uses a number bought from NLPearl is tied to that number's country code:
 
 - **One country code per campaign**: you can only call leads whose phone numbers match it.
 - **Cannot be changed**: you can switch to another number **within the same country code**, but to use a different one you must create a **new campaign**.
 - **Multiple countries**: create a separate campaign for each country code.
 
-**NLPearl-provided** numbers are currently **US only**. To reach other countries, connect a [Twilio](/pages/twilio_integration) or [Custom VoIP](/pages/custom_voip) number, which give access to additional country codes.
+**NLPearl-provided** numbers are currently **US only**. To reach other countries, connect a [Twilio](/pages/twilio_integration) or [Custom VoIP](/pages/custom_voip) number: these numbers aren't tied to a country code, so a campaign that uses one isn't limited to a single country.
 </Note>
 
 ---
