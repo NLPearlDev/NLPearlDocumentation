@@ -1,152 +1,157 @@
 ---
 title: Billing
-description: 'Learn how to manage your billing settings, subscriptions, and invoices on the NLPearl.AI platform.'
+description: 'Manage your subscription plan, payment method, credits, and invoices on NLPearl.AI.'
 icon: "wallet"
 iconType: "light"
 ---
 
-<div className="block dark:hidden">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/billing-cover.png"
-        alt="Billing cover"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
-<div className="hidden dark:block">
-  <Frame>
-    <div className="p-1">
-      <img
-        src="/images/dark_mode/billing-cover.png"
-        alt="Billing cover"
-        className="rounded-[14px]"
-      />
-    </div>
-  </Frame>
-</div>
-
----
-
-## Billing Management
-
-The **Billing** page is your central place to manage everything related to payments on NLPearl.AI. From here you can choose or change your subscription plan, manage your payment methods, view and download invoices, and configure auto-recharge to keep your activities running without interruption.
+Everything related to payments lives in **Settings → Subscriptions & Payments**, in the **Billing** group of the Settings. The page has four tabs: **Subscription**, **Payment Method**, **Credits**, and **Invoices**.
 
 <Info>
-Billing changes are managed directly on the platform. Make sure you have the right permissions on your workspace to update subscriptions or payment methods.
+  Opening this page requires the **Billing** permission (*Manage account billing*). The **Usage** page, in the same group, requires the **Usage** permission. See [Users & Workspaces](/pages/users_workspaces).
 </Info>
 
 ---
 
-## Subscription Management
+## Subscription
 
-From the Billing page, you can select the subscription plan that best fits your needs, or change your current one at any time.
+The **Subscription** tab shows your **Current Billing Plan**, with your credit balance and its renewal date, followed by the **Subscription Plans** you can switch to.
 
-<CardGroup cols={2}>
-  <Card title="Upgrading" icon="arrow-up" iconType="light">
-    Upgrades take effect **immediately**, giving you access to additional features and resources right away.
-  </Card>
-  <Card title="Downgrading" icon="arrow-down" iconType="light">
-    Downgrades take effect at the **end of your current billing period**, on the anniversary date of your current plan.
-  </Card>
-</CardGroup>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/billing-subscription.png" alt="The Subscription tab with the current plan and the plan cards" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/billing-subscription.png" alt="The Subscription tab with the current plan and the plan cards" className="rounded-[14px]" /></Frame></div>
 
-To downgrade, click **Downgrade** on the plan you want. No payment is needed: tell us why you're downgrading, then confirm. **Nothing is charged today** — your current plan stays active until its renewal date, when the new plan takes over.
+Each plan card shows its price, the **credits included** each cycle, the number of **Agent(s) Included**, and what the platform costs on it:
+
+- **Voice Agent**: the credits per minute for each voice model (pick the model in the card's list).
+- **Text Agent**: the credits per message.
+- **Text to Speech**: the price per million characters and the number of concurrent requests.
+
+The **Enterprise** card has a custom price: click **Talk with sales** to reach our team. To compare the plans in detail, see the [pricing page](https://nlpearl.ai/pricing/).
+
+### Upgrade your plan
+
+Click **Upgrade now** on a higher plan (or **Subscribe now** if you don't have a plan yet). The **Subscription** window opens with:
+
+- the **Payment method** and the **Billing details** that will be used, each with an **Update** button;
+- the lines of the charge: the new plan for a full cycle and, if you're upgrading, a **Pro-rata refund** for the days you haven't used on your current plan;
+- what is **Due today**, then what each renewal costs (**Then $X/month**).
+
+Click **Confirm payment** to pay. The upgrade takes effect **immediately**.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/billing-upgrade.png" alt="The Subscription window with the payment method, the billing details and the amount due today" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/billing-upgrade.png" alt="The Subscription window with the payment method, the billing details and the amount due today" className="rounded-[14px]" /></Frame></div>
+
+### Downgrade your plan
+
+Click **Downgrade** on a lower plan. Tell us why you're downgrading, click **Continue**, then confirm. **Nothing is charged today**: your current plan stays active until its renewal date, when the new plan takes over.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/billing-downgrade.png" alt="The Why do you want to downgrade? window" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/billing-downgrade.png" alt="The Why do you want to downgrade? window" className="rounded-[14px]" /></Frame></div>
+
+A plan with a shorter billing cycle that doesn't cost less shows **Change at renewal** instead: it also switches on your renewal date, without asking for a reason.
+
+Once a change is scheduled, the tab tells you *Your plan switches to … on … at renewal*, and the button of that plan reads **Scheduled for renewal**.
 
 ---
 
-## Payment Methods
+## Payment Method
 
-Enter and manage your credit card details directly from the Billing page. Keeping a valid payment method on file ensures your payments are processed smoothly and your subscription stays active.
+The **Payment Method** tab holds the card that pays your subscription, your agents, and your credits, and the **Billing Details** printed on your invoices.
 
-<Frame>
-  <img
-    src="/images/dark_mode/billing-payment-method.png"
-    alt="Payment method on the Billing page"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/billing-payment-method.png" alt="The Payment Method tab with the card and the billing details" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/billing-payment-method.png" alt="The Payment Method tab with the card and the billing details" className="rounded-[14px]" /></Frame></div>
 
-<Note>
-You can update or replace your card at any time. The new payment method is used for your next charge.
-</Note>
-
----
-
-## Invoices
-
-Access your full billing history from the Billing page. Every invoice is available to **view and download** for your records and accounting needs.
-
-The name, email, and address printed on your invoices come from your **Billing Details**: **Invoice Name**, **Invoice Email**, and **Billing Address**. The Invoice Email is pre-filled with your login email until you change it. Invoices and receipts themselves are sent to the workspace **Billing Email** (see [Users & Workspaces](/pages/users_workspaces)).
-
-<Frame>
-  <img
-    src="/images/dark_mode/billing-invoices.png"
-    alt="Invoices list on the Billing page"
-    className="rounded-[14px]"
-  />
-</Frame>
+- **Payment Method**: one card per account. To replace it, click the edit button next to it, enter the new card, then click **Update card**. The new card is used for your next charge.
+- **Billing Details**: the **Invoice name**, **Invoice email**, and **Billing address** printed on your invoices. The Invoice email is pre-filled with your login email until you change it.
 
 ---
 
 ## Credits
 
-Credits fund your activities on NLPearl.AI. From the **Credits** tab of the **Subscription & Payment** page, you can top up your balance in two ways: buy credits instantly, or set up auto-recharge so your balance is replenished automatically.
+Credits fund your activity on NLPearl.AI: calls, messages, and speech. **$1 buys 100 credits.**
 
-### Buy credits instantly
+The **Credits** tab shows your **Auto Recharge** setting (*Inactive*, or the amount and the threshold you set) and your balance, with two ways to top it up.
 
-Purchase a credit amount that is added to your balance **immediately**. Use this for a one-time top-up or to get started right away.
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/billing-credits.png" alt="The Credits tab with Auto Recharge and Recharge Credits" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/billing-credits.png" alt="The Credits tab with Auto Recharge and Recharge Credits" className="rounded-[14px]" /></Frame></div>
 
-<Frame>
-  <img
-    src="/images/dark_mode/billing-buy-credits.png"
-    alt="Buy credits instantly on the Subscription & Payment page"
-    className="rounded-[14px]"
-  />
-</Frame>
+<Note>
+  Buying credits and auto-recharge both require a **paid plan** and a **card** on file. Neither is available on a one-time plan: contact support instead.
+</Note>
+
+### Buy credits
+
+In **Recharge Credits**, click **Recharge**. In the **Purchase credits** window, pick an amount ($10, $25, $50, $100, $200) or **Custom** (at least $10), check the credits you'll get and the **Total due today**, then click **Purchase credits**. The credits are added to your balance as soon as your card is charged.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/billing-buy-credits.png" alt="The Purchase credits window with the amounts and the total due today" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/billing-buy-credits.png" alt="The Purchase credits window with the amounts and the total due today" className="rounded-[14px]" /></Frame></div>
 
 ### Auto-recharge
 
-Auto-recharge keeps your balance topped up automatically so your activities never stop because of an insufficient balance.
+Auto-recharge buys credits for you when your balance gets low, so your activities keep running.
 
 <Steps>
-  <Step title="Enable auto-recharge">
-    Turn on auto-recharge from the Credits tab.
+  <Step title="Open Auto Recharge">
+    In **Auto Recharge**, click the edit button, then turn on **Auto Recharge**.
   </Step>
-  <Step title="Set your threshold">
-    Define the balance level that triggers a recharge.
+  <Step title="Set the threshold">
+    In **When balance drops below**, enter the balance, in credits, that triggers a recharge (at least 1).
   </Step>
-  <Step title="Set your target balance">
-    Choose the amount your balance is recharged to whenever it falls below the threshold.
+  <Step title="Set the amount">
+    In **Automatically recharge**, enter the amount in dollars to buy each time (at least $10). The credits it buys are shown next to it.
+  </Step>
+  <Step title="Save">
+    Click **Update**. If your balance is already below the threshold, a first recharge happens right away.
   </Step>
 </Steps>
 
-<Frame>
-  <img
-    src="/images/dark_mode/billing-auto-recharge.png"
-    alt="Auto-recharge settings on the Subscription & Payment page"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/billing-auto-recharge.png" alt="The Auto Recharge window with the threshold and the amount" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/billing-auto-recharge.png" alt="The Auto Recharge window with the threshold and the amount" className="rounded-[14px]" /></Frame></div>
+
+Each recharge charges the same fixed amount: it doesn't top your balance up to a target. If a recharge is declined, auto-recharge is turned off.
+
+### How long credits last
+
+- Credits **included in your plan** are valid for the current billing period, unless your plan carries them over.
+- Credits you **buy**, by hand or through auto-recharge, expire **6 months** after the purchase.
+
+### When your credits run out
 
 <Warning>
-We strongly recommend enabling auto-recharge. Without it, your calls and conversations stop as soon as your balance runs out.
+  We strongly recommend enabling auto-recharge. Without it, running out of credits first limits your activities, then suspends them.
 </Warning>
+
+- **Your balance reaches zero and auto-recharge is off**: the service is limited to **1 agent per Pearl**. Each Pearl handles one call at a time, inbound, outbound, and web calls alike. A banner tells you *No credits left. Service is limited to 1 agent per Pearl.*
+- **Your balance goes past your plan's limit**: every running activity is **suspended**. Calls, messages, test calls, web calls, and PearlVibe are refused, and you can't start an activity. A banner tells you *Your account is suspended due to insufficient credits.*
+
+As soon as credits are added (a purchase, a recharge, or your plan's renewal), suspended activities start running again on their own.
+
+---
+
+## Invoices
+
+The **Invoices** tab lists your invoices. Click an invoice to see its date, its lines, and its total, and use the download button to save it. Search them by invoice number or amount.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/billing-invoices.png" alt="The Invoices tab with an invoice open" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/billing-invoices.png" alt="The Invoices tab with an invoice open" className="rounded-[14px]" /></Frame></div>
+
+Invoices and receipts are emailed to the workspace **Billing Email** (see [Users & Workspaces](/pages/users_workspaces)).
+
+### Failed payments
+
+Unpaid invoices are listed separately at the top of the tab, with a **Retry Payment** button. They can't be downloaded until they're paid.
+
+A declined payment is retried once a day, and each failure is emailed to your Billing Email. If it still fails after three retries, your account is restricted: all its activities are suspended until the payment goes through.
 
 ---
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card
-    title="Subscription Plans"
-    icon="credit-card"
-    iconType="light"
-    href="https://nlpearl.ai/pricing/"
-  >
-    Compare the different subscription plans and choose the best one for your needs.
+  <Card title="Agents" icon="users" iconType="light" href="/pages/agents">
+    Buy agents to run more calls at the same time.
+  </Card>
+  <Card title="Subscription Plans" icon="credit-card" iconType="light" href="https://nlpearl.ai/pricing/">
+    Compare the plans and choose the one that fits your needs.
   </Card>
 </CardGroup>
