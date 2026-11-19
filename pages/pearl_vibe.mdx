@@ -52,8 +52,8 @@ You can work in two complementary ways:
 
 | View | Description |
 |------|-------------|
-| **Chat (default)** | You describe what you want in natural language (e.g. "Add a post‑call SMS when the booking is confirmed"). In **Build** mode, Pearl Vibe creates or edits the nodes and transitions for you; in **Ask** mode, it answers and advises without touching your flow. |
-| **Manual Edit** | You open **Manual Edit** on the selected node to configure it and its transitions yourself, for full control. Every setting is visible and editable. |
+| **Chat (default)** | You describe what you want in natural language (e.g. "Add a post‑call SMS when the booking is confirmed"). In **Build** mode, PearlVibe creates or edits the nodes and transitions for you; in **Ask** mode, it answers and advises without touching your flow. |
+| **Manual edit** | You open a node by hand to configure it and its transitions yourself, for full control. Every setting is visible and editable. |
 </Info>
 
 ### What can you build with PearlVibe?
@@ -73,7 +73,7 @@ Each of these works the same way whether your Pearl is **voice** or **text** —
 
 <Check>
 - **Build in minutes instead of days** – Describe what you want in the chat, let Pearl build it for you in **Build** mode, then refine visually.
-- **Safe versioning** – Work in a separate version with autosave while your Published version keeps running in production.
+- **Safe versioning** – Work in a separate version with autosave while your live version keeps running in production.
 - **Visual understanding of calls** – Use test calls and live node highlighting to see exactly how calls traverse your flow.
 - **Structured but flexible** – Combine high‑level "vibes" (global instructions, personality) with precise node and transition logic.
 </Check>
@@ -82,126 +82,191 @@ Each of these works the same way whether your Pearl is **voice** or **text** —
 
 ## Header
 
-The header is always visible at the top of the editor. From left to right, it holds the **Pearl icon (menu)** and the editable **Pearl title** with its autosave indicator, the **version selector**, the **top navigation tabs**, and — on the right — the **credentials & variables** (`{ }`) button, **Test Call**, and **Publish**. Each of these is detailed below.
+The editor's controls sit along its top edge. Above the chat, on the left, you find the **Pearl icon** (it opens the Pearl menu), the editable **Pearl title** with its autosave indicator, the **version selector**, and the **+** button. Across the rest of the top edge run the **navigation tabs**, then — on the right — the **Variables & credentials** (`{ }`) button, **Test Call**, and the **Publish** button. Each of these is detailed below.
 
-<Frame>
-  <img
-    src="/images/dark_mode/pearl-header-bar.png"
-    alt="PearlVibe header bar with title, version selector, and top-right controls"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/pearl-header-bar.png" alt="PearlVibe header with the Pearl title, version selector, navigation tabs, and top-right controls" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/pearl-header-bar.png" alt="PearlVibe header with the Pearl title, version selector, navigation tabs, and top-right controls" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-<br/>
+<Note>
+When you open a node by hand, the top of the chat column shows that node instead (see [Manual edit](#chat-sidebar)). During a followed test call and in the Studio, the header is hidden.
+</Note>
 
 <AccordionGroup>
 
 <Accordion title="Pearl Title & Menu" icon="tag">
-The top-left corner shows the Pearl's **title** as an inline, editable field (it reads **Untitled Pearl** by default). Click it to rename your Pearl — this is the label you'll reuse across the platform and in your workspace. Just below, an autosave indicator shows the save status (for example **Saved 2 min ago**).
+The top-left corner shows the Pearl's **title** as an inline, editable field (it reads **Untitled Pearl** by default). Click it to rename your Pearl — this is the label you'll reuse across the platform and in your workspace. Just below, an autosave indicator shows the save status (**Auto Save** while it saves, then for example **Saved 2 min ago**).
 
-<Frame>
-  <img
-    src="/images/dark_mode/rename-pearl-title.png"
-    alt="Inline editable Pearl title with autosave indicator"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/rename-pearl-title.png" alt="Inline editable Pearl title with autosave indicator" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/rename-pearl-title.png" alt="Inline editable Pearl title with autosave indicator" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 **Pearl menu**
 
 The Pearl icon next to the title opens a menu with quick actions for the whole Pearl.
 
-<Frame>
-  <img
-    src="/images/dark_mode/open-pearl-menu-icon.png"
-    alt="Pearl icon that opens the Pearl menu"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/open-pearl-menu-icon.png" alt="Pearl icon that opens the Pearl menu" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/open-pearl-menu-icon.png" alt="Pearl icon that opens the Pearl menu" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-From this menu you can go back to the Dashboard or Overview, open the Pearl's **Settings**, **Duplicate** or **Delete** the Pearl, check your **Credit Balance**, switch the **Theme**, and reach the Documentation or Support & Feedback.
+The menu starts with the Pearl's name and ID, which you can copy. From there you can:
 
-<Frame>
-  <img
-    src="/images/dark_mode/pearl-options-menu.png"
-    alt="Pearl menu with dashboard, settings, duplicate, delete, credit balance, and theme options"
-    className="rounded-[14px]"
-  />
-</Frame>
+| Item | What it does |
+|------|--------------|
+| **Go back to Dashboard** | Leave the editor for your dashboard. |
+| **Go back to Overview** | Open the Pearl's page. Shown once a version has been published. |
+| **Settings** | Open your workspace settings. |
+| **Duplicate Pearl** | Make a copy of this Pearl. You choose the version to copy first. |
+| **Delete Pearl** | Delete this Pearl. |
+| **Credits** | Your credit balance (shown if you can access billing). |
+| **Appearance** | Theme, palette, and other display preferences. |
+| **Documentation** / **Support & Feedback** | Open this documentation, or send us a message. |
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/pearl-options-menu.png" alt="Pearl menu with dashboard, settings, duplicate, delete, credits, and appearance" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/pearl-options-menu.png" alt="Pearl menu with dashboard, settings, duplicate, delete, credits, and appearance" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 </Accordion>
 
 <Accordion title="Versioning & Publishing" icon="code-branch">
 
-Pearl Vibe is built for safe iteration: you can experiment freely without breaking your live calls. Your work is organized into **versions** (v1, v2, v3…), and the one currently handling calls carries a **Published** badge.
+PearlVibe is built for safe iteration: you can experiment freely without breaking your live calls. Your work is organized into **versions** (v1, v2, v3…), and the one currently handling calls is the **Published** version — the live one.
 
 **Autosave**
 
-Every change you make is saved automatically. The header shows an **Auto Save** indicator that turns into **Saved N min ago** once your edits are stored, so you never lose work and can come back later.
+Every change you make is saved automatically. The indicator under the title reads **Auto Save** while it saves, then **Saved N min ago**, so you never lose work and can come back later.
 
 ---
 
 **Versions & history**
 
-The version selector next to the title shows the version you're editing (for example **v35**).
+The version selector next to the title shows the version you're on (for example **v35**). It turns blue when you're on the live version.
 
-<Frame>
-  <img
-    src="/images/dark_mode/version-selector.png"
-    alt="Version selector next to the Pearl title"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/version-selector.png" alt="Version selector next to the Pearl title" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/version-selector.png" alt="Version selector next to the Pearl title" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-Open it to browse the full **version history**. You can search for a version, see when each was last edited, spot the **Published** one at a glance, and open any past version to review it. You can also **tag** each version with a label of your own so it's easy to recognize later (e.g. "stable", "summer promo", "before refactor").
+Open it to browse the full **version history**: search for a version, see when each one was last edited, and spot the **Published** one at a glance. Each row also lets you:
 
-<Frame>
-  <img
-    src="/images/dark_mode/version-history-dropdown.png"
-    alt="Version history dropdown with a Published badge on the live version"
-    className="rounded-[14px]"
-  />
-</Frame>
+- **Label** the version with a name of your own (up to 20 characters), so it's easy to recognize later (e.g. "stable", "summer promo").
+- **Copy** it, to paste it into another Pearl (see below).
+- **Delete** it. You can also tick several versions and delete them together.
+
+Click a version to switch to it. Your next changes go to that version.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/version-history-dropdown.png" alt="Version history with a Published badge on the live version" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/version-history-dropdown.png" alt="Version history with a Published badge on the live version" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+<Note>
+The Published version can't be deleted, and a Pearl always keeps at least two versions. A Pearl holds up to 99 versions: past that, PearlVibe asks you to delete some before creating a new one.
+</Note>
 
 ---
 
+**Editing the live version**
+
+You never edit the live version in place. As soon as you change something on it — by hand or through the chat — PearlVibe creates the next version for your change, and a notification confirms it (**New version created**), with a **Discard** button if you didn't mean it. The live version keeps handling calls, untouched, until you publish.
+
 **Creating a new version**
 
-Use the **+** button next to the version selector to create a new version.
+You can also start a version yourself with the **+** button next to the version selector.
 
-<Frame>
-  <img
-    src="/images/dark_mode/create-new-version-button.png"
-    alt="Button to create a new version"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/create-new-version-button.png" alt="Button to create a new version" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/create-new-version-button.png" alt="Button to create a new version" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 In the **Create New Version** dialog, pick the existing version to use as the base, then click **Create**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/create-new-version-popup.png"
-    alt="Create New Version dialog with a base version selector"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/create-new-version-popup.png" alt="Create New Version dialog with a base version selector" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/create-new-version-popup.png" alt="Create New Version dialog with a base version selector" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-<Tip>
-Editing a version that is already **Published** automatically creates a new version for your changes, so the live configuration keeps running untouched while you iterate.
-</Tip>
+---
 
 **Copying a version to another Pearl**
 
-To reuse a flow in another Pearl, open the version history, hover the version you want, and click its **copy** icon (*Copy to paste into another Pearl*). Then open the version history of the other Pearl: a **Copied version** row appears at the bottom of the list, with a **Paste** button.
+To reuse a flow in another Pearl, first copy the version: open the version history and click the version's **copy** icon (*Copy to paste into another Pearl*). It turns into a check mark once the version is copied. You can also use **Copy** in the menu of the **Publish** button, for the version you're on.
 
-<Frame>
-  <img
-    src="/images/dark_mode/version-paste.png"
-    alt="Copied version row with the Paste button in the version history"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/version-copy.png" alt="Copy icon of a version in the version history" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/version-copy.png" alt="Copy icon of a version in the version history" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+Then open the version history of the other Pearl: a **Copied version** row appears at the bottom of the list, with a **Paste** button.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/version-paste.png" alt="Copied version row with the Paste button in the version history" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/version-paste.png" alt="Copied version row with the Paste button in the version history" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 **Paste** creates a new version of that Pearl with the copied flow and its credentials, and opens it. The Published version keeps handling calls until you publish the new one.
 
@@ -209,41 +274,70 @@ To reuse a flow in another Pearl, open the version history, hover the version yo
 You can paste only into another Pearl of the same account and of the same type (voice or text). A copy is pasted once: to reuse the same version in a third Pearl, copy it again.
 </Note>
 
+<Tip>
+To reuse only part of a flow, copy its nodes instead — see **Selecting, copying & pasting nodes** below.
+</Tip>
+
 ---
 
 **Publishing**
 
-When you're satisfied with your changes and tests, click **Publish** (top-right of the header). The current version becomes the new **Published** version and starts handling calls.
+The button on the right of the header follows the version you're on:
 
-<Frame>
-  <img
-    src="/images/dark_mode/publish-testcall-credential-variable-buttons.png"
-    alt="Publish, Test Call, and credentials/variables buttons in the header"
-    className="rounded-[14px]"
-  />
-</Frame>
+| Button | When |
+|--------|------|
+| **Publish v36** | You're on a version that isn't live yet. Click it, confirm, and this version becomes the new **Published** version and starts handling calls. |
+| **Live** | You're on the live version: there is nothing to publish. |
+| **Errors & Tasks (N)** | The version you're editing still has issues to fix (see **Tasks & Errors** below). |
 
-<Note>
-If your flow still has unresolved issues, the **Publish** button is replaced by an **Errors & Tasks (N)** button until you fix or dismiss them (see the **Tasks & Errors** section below).
-</Note>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/publish-testcall-credential-variable-buttons.png" alt="Variables & credentials, Test Call, and Publish buttons in the header" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/publish-testcall-credential-variable-buttons.png" alt="Variables & credentials, Test Call, and Publish buttons in the header" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+The arrow next to it opens the version's other actions:
+
+- **Rename** — give the version a label.
+- **Copy** — copy it to paste into another Pearl.
+- **Discard** — go back to the live version and delete this one, with all its changes.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/publish-version-menu.png" alt="Publish button menu with Rename, Copy, and Discard" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/publish-version-menu.png" alt="Publish button menu with Rename, Copy, and Discard" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 The version you are editing and the **Published** version drift apart as soon as you change anything, and they stay apart until you publish again. You don't have to keep track of that yourself: ask in the chat whether what you are editing still matches what is live, and Pearl compares the two for you (see [Chat Sidebar](#chat-sidebar)).
 </Accordion>
 
-<Accordion title="Credentials & Variables Managers" icon="plug">
-Credentials and variables are what connect your Pearl to the rest of your stack. Both are opened from the **`{ }`** button in the top-right of the header.
+<Accordion title="Variables & Credentials" icon="plug">
+Variables and credentials are what connect your Pearl to the rest of your stack. Both live in one dialog, opened by the **Variables & credentials** (`{ }`) button in the top-right of the header, with a **Variables** and a **Credentials** section on its left.
 
-**Variables Manager**
+**Variables**
 
-The **Variables Manager** lets you create, edit, and organize the variables used in your conversation flows.
+Create, edit, and organize the variables used in your conversation flows. Use **Add variable** to create one, search them, or filter them by type.
 
-<Frame>
-  <img
-    src="/images/dark_mode/pearl-vibe-variables-manager.jpg"
-    alt="Variables Manager to create, edit, and organize variables"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/variables-credentials-variables.png" alt="Variables section of the Variables & credentials dialog" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/variables-credentials-variables.png" alt="Variables section of the Variables & credentials dialog" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 <Info>
 See the [Variables documentation](/pages/variables) for more details.
@@ -251,21 +345,27 @@ See the [Variables documentation](/pages/variables) for more details.
 
 ---
 
-**Credentials Manager**
+**Credentials**
 
-The **Credentials Manager** is where your integrations live: you connect external systems by adding credentials and configuration for each one. Once a credential is added, the matching integration becomes available as a node in your flow.
+Credentials are where your integrations live: the accounts and keys your Pearl uses to reach external systems.
 
-<Frame>
-  <img
-    src="/images/dark_mode/pearl-vibe-credentials-manager.png"
-    alt="Credentials Manager to connect external systems"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/variables-credentials-credentials.png" alt="Credentials section of the Variables & credentials dialog" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/variables-credentials-credentials.png" alt="Credentials section of the Variables & credentials dialog" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-It lets you:
-- Add new integrations (e.g. Salesforce, HubSpot, ticketing tools, booking engines).
-- Configure authentication.
+From here you can:
+- **Add a credential** — pick a service from the catalog (e.g. Salesforce, HubSpot, Google Calendar), or add one manually.
+- **Configure authentication** — API key, bearer token, basic auth, or OAuth 2 (**Connect**).
+- **Edit** or delete a credential. A credential that is ready to use is marked **Ready**.
+
+Integration nodes use these credentials. In the **Add Node** picker, every integration of the catalog is listed, and those you already have a credential for are marked **Connected** (see [Integration Nodes](#central-canvas)).
 </Accordion>
 
 <Accordion title="Tasks & Errors" icon="circle-exclamation">
@@ -274,71 +374,88 @@ As your flows grow, PearlVibe helps you keep them valid, connected, and fully co
 <Warning>
 **Error detection**
 
-Pearl Vibe automatically scans your Pearl for common issues, such as:
-- Nodes without outgoing transitions.
-- Transitions not connected to any node.
-- Missing required fields (for example: API nodes without an endpoint or description).
-- Incomplete campaign or flow configuration.
+PearlVibe automatically scans your Pearl for common issues, such as:
+- Transitions not connected to any node (**Missing Transition**).
+- Nodes that nothing leads to (**Missing Inbound Transition**).
+- API nodes without an endpoint or description.
+- Settings left incomplete in the other tabs, and credentials that need attention.
 
-When such issues are detected, the **Publish** button in the header is replaced by a red **Errors & Tasks (N)** button that signals how many items need your attention.
+When such issues are detected on the version you're editing, the **Publish** button in the header is replaced by a red **Errors & Tasks (N)** button that signals how many items need your attention.
 </Warning>
 
-<Frame>
-  <img
-    src="/images/dark_mode/errors-and-tasks-button.png"
-    alt="Errors & Tasks button in the header when issues are detected"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/errors-and-tasks-button.png" alt="Errors & Tasks button in the header when issues are detected" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/errors-and-tasks-button.png" alt="Errors & Tasks button in the header when issues are detected" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 **Tasks & Errors panel**
 
-Clicking the **Errors & Tasks** button opens a right-hand **Tasks & Errors** panel that groups every issue in one place, organized per workspace (Flow Editor, credentials, etc.). Each card names the affected node and what's missing (e.g. "Missing Transition: Budget provided", "Missing Inbound Transition").
+Clicking the **Errors & Tasks** button opens a right-hand **Tasks & Errors** panel that groups every issue in one place, by area (Flow Editor, Pearl Settings, Knowledge Base, Analytics, Inbound and Outbound Settings, Credentials), each with its count. Each row names the affected node and what's missing (e.g. "Missing Transition: Budget provided", "Missing Inbound Transition"). A tab with an issue also shows an error icon.
 
-<Frame>
-  <img
-    src="/images/dark_mode/tasks-and-errors-panel.png"
-    alt="Tasks & Errors panel listing issues per node"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/tasks-and-errors-panel.png" alt="Tasks & Errors panel listing issues per node" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/tasks-and-errors-panel.png" alt="Tasks & Errors panel listing issues per node" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-Each card offers two actions:
-- **Fix With Pearl** — sends the fix to the chat. In **Build**, the agent proposes the corrected configuration and applies it once you confirm; in **Ask**, it describes the fix instead.
-- **Open in editor** — jump directly to the affected node in the Flow Editor.
+For each issue:
+- Click the row to jump to the affected node.
+- Click **Fix With Pearl** to send the issue to the chat, where Pearl works out the fix.
 
-<Frame>
-  <img
-    src="/images/dark_mode/error-item-selected.png"
-    alt="Selecting an issue card in the Tasks & Errors panel"
-    className="rounded-[14px]"
-  />
-</Frame>
+A credential that needs attention can be fixed right in the panel.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/error-item-selected.png" alt="An issue row with its Fix With Pearl button in the Tasks & Errors panel" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/error-item-selected.png" alt="An issue row with its Fix With Pearl button in the Tasks & Errors panel" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 **On the canvas**
 
-Affected nodes are highlighted in red, and the problem is flagged directly in the node's Transitions section, so you can spot exactly what needs attention.
+Affected nodes are flagged in red, with a **!** on their icon, and a transition that leads nowhere is shown in red, so you can spot exactly what needs attention.
 
-<Frame>
-  <img
-    src="/images/dark_mode/node-missing-transition-error.png"
-    alt="Node flagged with a missing transition error on the canvas"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-missing-transition-error.png" alt="Node flagged with a missing transition error on the canvas" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-missing-transition-error.png" alt="Node flagged with a missing transition error on the canvas" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-You can also fix an issue from the node itself: hovering a node reveals a quick **Fix With Pearl** action, which sends the same request to the chat.
+You can also fix an issue from the node itself: hovering a node with an issue reveals a **Fix With Pearl** action, which sends the same request to the chat.
 
-<Frame>
-  <img
-    src="/images/dark_mode/node-ai-fix-button.png"
-    alt="Fix With Pearl quick action on a node"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-ai-fix-button.png" alt="Fix With Pearl action on a node" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-ai-fix-button.png" alt="Fix With Pearl action on a node" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 <Tip>
-You can either fix issues manually or let Pearl draft the corrected configuration for you in the chat — in **Build** mode, it applies it once you confirm.
+You can either fix issues manually or let Pearl fix them for you in the chat.
 </Tip>
 </Accordion>
 
@@ -346,67 +463,87 @@ You can either fix issues manually or let Pearl draft the corrected configuratio
 Test calls are the safest way to validate your Pearl before and after publishing.
 
 <Note>
-On **text** Pearls, these controls read **Test Chat** and **Past Chats** instead of **Test Call** and **Past Calls**.
+On **text** Pearls, these controls read **Test Chat** and **Past Chats** instead of **Test Call** and **Past Calls**: you enter a phone number and click **Start chat**.
 </Note>
 
 **Launching a Test Call**
 
-Open the **Test Call** menu in the header. From here you switch between the two views: **Test Call** (test your agent by phone) and **Past Calls** (view your call history and details).
+Click **Test Call** in the header. A panel opens on the right, with two tabs at its top: **Test Call** (test your agent) and **Past Calls** (your call history). The button is unavailable while your Pearl has errors to fix.
 
-<Frame>
-  <img
-    src="/images/dark_mode/test-call-dropdown-menu.png"
-    alt="Test Call menu to switch between Test Call and Past Calls"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/test-call-panel.png" alt="Test Call panel with phone numbers, lead variables, and the Call button" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/test-call-panel.png" alt="Test Call panel with phone numbers, lead variables, and the Call button" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-In the **Test Call** panel, choose the **From** and **To** phone numbers, optionally reset the Pearl's memory for a fresh test, prefill opening sentences and lead variables, then click **Call Now**. The Pearl calls that number using the version you're currently editing.
+First choose how to call:
+- **From a phone number** — pick the number Pearl calls from (**From phone number**), and enter the number to call (**To phone number**).
+- **From this browser** — talk to Pearl through your computer's microphone and speakers (see below).
 
-<Frame>
-  <img
-    src="/images/dark_mode/test-call-panel.png"
-    alt="Test Call panel with phone numbers, lead variables, and Call Now button"
-    className="rounded-[14px]"
-  />
-</Frame>
+Then, optionally, tick **Reset Pearl's memory** for a fresh test, and prefill the **Opening Sentences**, **Lead Variables**, and **Pre-Call API Variables**. Click **Call** with the number: Pearl calls it using the version you're currently editing. When the call ends, a notification lets you open it (**View call**).
 
-**Testing from your browser (Web Phone)**
+<Note>
+Without a subscription, test calls are limited to your verified phone number.
+</Note>
 
-You don't need a phone to test a voice Pearl. In **From**, pick **Web Phone (this browser)**: you talk to Pearl through your computer's microphone and speakers. The phone number becomes optional, and you choose the microphone next to **Call Now**.
+**Testing from your browser**
 
-<Frame>
-  <img
-    src="/images/dark_mode/test-call-web-phone.png"
-    alt="Test Call panel with Web Phone selected, the microphone picker, and the HD audio option"
-    className="rounded-[14px]"
-  />
-</Frame>
+You don't need a phone to test a voice Pearl. Choose **From this browser**: you pick your **Microphone**, the phone number becomes optional, and you click **Call in browser**.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/test-call-web-phone.png" alt="Test Call panel with From this browser selected, the microphone picker, and the HD audio option" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/test-call-web-phone.png" alt="Test Call panel with From this browser selected, the microphone picker, and the HD audio option" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 | Option | Description |
 | --- | --- |
-| **HD audio** checked | High-definition audio (24 kHz) in both directions. |
+| **HD audio** checked (default) | High-definition audio (24 kHz) in both directions. |
 | **HD audio** unchecked | Phone-line audio (8 kHz), as a real caller hears Pearl. Use it to judge how your Pearl really sounds on the phone. |
 
-Once connected, the call continues in a small floating window that stays on screen while you move around the platform, with the call duration and controls to mute your microphone or hang up. The call then appears in **Past Calls** like any other test call.
+Once connected, the call continues in a small floating window that stays on screen while you move around the platform. It shows the call duration and the node Pearl is on, lets you **Follow the flow** on the canvas, and has controls to mute your microphone or end the call. The call then appears in **Past Calls** like any other test call.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/web-call-in-progress.png" alt="Floating window of a call from the browser, with its duration, current node, and controls" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/web-call-in-progress.png" alt="Floating window of a call from the browser, with its duration, current node, and controls" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 <Note>
-Your browser asks for microphone access the first time. If no microphone is found, **Call Now** stays disabled.
+Your browser asks for microphone access the first time. If no microphone is found, **Call in browser** stays disabled.
 </Note>
 
 ---
 
 **Live Node Tracing**
 
-During the test call, a **Ringing… / Stop Following** pill appears and the nodes in the canvas light up one after another as the conversation progresses, so you can visually follow the path the call is taking through your flow.
+During a phone test call, a **Ringing…** pill (then the call duration) appears with a **Stop Following** button, and the nodes in the canvas light up one after another as the conversation progresses, so you can visually follow the path the call is taking through your flow.
 
-<Frame>
-  <img
-    src="/images/dark_mode/live-call-ringing-stop-following.png"
-    alt="Live node tracing during a test call with a Stop Following pill"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/live-call-ringing-stop-following.png" alt="Live node tracing during a test call with a Stop Following button" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/live-call-ringing-stop-following.png" alt="Live node tracing during a test call with a Stop Following button" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 <Tip>
 This helps you understand why a certain question was asked, see which transition was taken at each step, and debug misrouted calls or unexpected behaviors.
@@ -416,15 +553,22 @@ This helps you understand why a certain question was asked, see which transition
 
 **Past Calls**
 
-The **Past Calls** view lists your previous test calls grouped by date. Open any entry to inspect its details and verify that your flow — including post-call automation — behaved as expected.
+The **Past Calls** tab lists your previous test calls, grouped by day (Today, Yesterday, then by date). A blue dot marks a call you haven't opened yet. Open any entry to inspect its details and verify that your flow — including post-call automation — behaved as expected.
 
-<Frame>
-  <img
-    src="/images/dark_mode/past-calls-panel.png"
-    alt="Past Calls panel listing previous test calls by date"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/past-calls-panel.png" alt="Past Calls tab listing previous test calls by day" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/past-calls-panel.png" alt="Past Calls tab listing previous test calls by day" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+<Tip>
+Open a past call and click **PearlVibe** (*Review this call with PearlVibe*) to bring the call into the chat and ask about it (see **Investigating your flow and your calls** below).
+</Tip>
 
 <Info>
 To learn more about post-call actions, see the [Post-Call documentation](/pages/postcall) — or, for text Pearls, the [Post-Chat documentation](/pages/text/postchat).
@@ -438,289 +582,413 @@ To learn more about post-call actions, see the [Post-Call documentation](/pages/
 
 ## Chat Sidebar
 
-The chat sidebar is where you work on your Pearl — by talking to PearlVibe in natural language, either to ask it about your flow and your calls or to have it create and edit the flow for you, or by switching to Manual Edit to configure things by hand.
+The chat sidebar is where you work on your Pearl — by talking to PearlVibe in natural language, either to ask it about your flow and your calls or to have it create and edit the flow for you, or by opening a node to configure it by hand.
 
-<Frame>
-  <img
-    src="/images/dark_mode/chat-sidebar-overview.png"
-    alt="Chat sidebar on the left of the editor"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/chat-sidebar-overview.png" alt="Chat sidebar on the left of the editor" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/chat-sidebar-overview.png" alt="Chat sidebar on the left of the editor" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 It combines two complementary views:
 
 | View | Description |
 |------|-------------|
 | **Chat** | Describe what you want in natural language. This is the default view, and it has two modes: **Ask**, which only answers and advises, and **Build**, which changes your flow. |
-| **Manual Edit** | Explicit, hands-on configuration of the selected node. |
+| **Manual edit** | Explicit, hands-on configuration of one node. |
 
 The Chat view is covered in two parts below: building your flow, and using the chat to investigate it.
 
 <Note>
-When a node is selected, everything you ask for in this sidebar is interpreted in the context of that node — unless it is explicitly global (like General Instructions), or you are asking about the flow as a whole, a past call, or the Published version (see **Investigating your flow and your calls** below).
+Click a node on the canvas and it joins the chat's context: what you ask next is about that node — unless it is explicitly global (like General Instructions), or you are asking about the flow as a whole, a past call, or the Published version (see **Investigating your flow and your calls** below).
 </Note>
 
 <AccordionGroup>
-  <Accordion title="Chat" icon="comments">
-
-<Frame>
-  <img
-    src="/images/dark_mode/pearl-chat-panel.png"
-    alt="Chat panel in the left sidebar"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    This is the default view. You describe what you want in natural language, and Pearl either answers you or builds it into your current version — depending on the mode you are in.
-
-    **Ask and Build**
-
-    The composer carries a pill showing the current mode. Click it to open the mode menu and switch. The chat opens in **Build**.
-
-    | Mode | What it does |
-    |------|--------------|
-    | **Ask** | Investigates, checks, and advises. It reads your flow and your calls and answers your questions, but it never changes anything. |
-    | **Build** | Makes the changes you ask for, after you confirm them. |
-
-    The same sentence gives you two different outcomes. "Add an SMS step after the booking step" in **Ask** gets you a description of the change and an invitation to switch to **Build**, and your flow is left untouched. The same sentence in **Build** gets you a short plan, a confirmation, and then the step itself in the editor.
-
-    <Note>
-    Deletions are always confirmed by name. "Delete the booking step" is answered with a confirmation naming the node, and it is only removed once you say yes.
-    </Note>
-
-    **Typical operations you can perform:**
-
-    These are all **Build** mode operations — in **Ask**, Pearl describes what it would do instead of doing it.
-
-    | Operation | Example |
-    |-----------|---------|
-    | **Create or delete nodes** | "Add a qualification step after the greeting." |
-    | **Edit a node's content and behavior** | "Make the opening more formal and mention our summer offer." |
-    | **Add, rename, or reconnect transitions** | "Add a 'Not interested' branch that ends the call politely." |
-    | **Attach actions** | "Send a confirmation SMS after a successful booking." (API calls, SMS, email, transfers, etc.) |
-    | **Configure post-call logic** | "Log the outcome to the CRM once the call ends." |
-
-    **The composer**
-
-    Type your instruction in the composer — its placeholder reads **Ask Pearl…** whichever mode you are in. For example: "Split this node into three outcomes based on payment status.", "After a successful payment, send a confirmation SMS and end the call.", "Create a post-call node that logs the outcome to the CRM." Press **Send**: in **Build**, Pearl answers with its plan and updates the editor once you confirm; in **Ask**, it answers without touching your flow.
-
-<Frame>
-  <img
-    src="/images/dark_mode/ask-pearl-input-box.png"
-    alt="Chat composer input box"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    The composer includes a few helpers:
-
-    - **Attach files** — add supporting material (FAQs, pricing sheets, policy docs, playbooks…) to enrich the Pearl's knowledge and reference it in node prompts.
-
-<Frame>
-  <img
-    src="/images/dark_mode/ask-pearl-attach-file-button.png"
-    alt="Attach file button in the chat composer"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    Accepted formats: `.pdf`, `.docx`, `.txt`, `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.mp3`, `.m4a`, `.wav`, `.webm` — up to **10 files per message**.
-
-    <Tip>
-    You can attach a **full recording of a real conversation** (e.g. an `.mp3` or `.wav` call) and ask PearlVibe to build the flow from it — in **Build** mode, it turns the exchange into nodes and transitions for you.
-    </Tip>
-
-    - **Enhance prompt** — rewrite a rough or short instruction into a clearer, more structured request before it runs.
-
-<Frame>
-  <img
-    src="/images/dark_mode/ask-pearl-ai-suggest-button.png"
-    alt="Enhance prompt button in the chat composer"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    - **Voice input** — dictate your instruction instead of typing it.
-
-<Frame>
-  <img
-    src="/images/dark_mode/ask-pearl-voice-input-button.png"
-    alt="Voice input button in the chat composer"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    **Node context**
-
-    When a node is selected in the canvas, its name appears as a pill above the composer. Any instruction you send while this pill is active is interpreted in the context of that node (for example: "Change the greeting", "Add a failure transition that transfers to support").
-
-<Frame>
-  <img
-    src="/images/dark_mode/ask-pearl-node-context-panel.png"
-    alt="Node context pill above the chat composer"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    **Reviewing what Pearl builds**
-
-    In **Build** mode, Pearl usually shows a short plan before applying larger edits and asks you to confirm (for example **Yes, build it**) — or you can answer it directly in the composer.
-
-<Frame>
-  <img
-    src="/images/dark_mode/build-changes-confirmation.png"
-    alt="Pearl asking to confirm before building changes"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    When Pearl needs a decision, it can present interactive choices right in the chat (for example, which CRM to connect).
-
-<Frame>
-  <img
-    src="/images/dark_mode/crm-selection-prompt.png"
-    alt="Interactive choice prompt in the chat"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    Once applied, each batch of edits appears as a **Changes** card summarizing what was added and removed.
-
-<Frame>
-  <img
-    src="/images/dark_mode/changes-summary-panel.png"
-    alt="Changes card summarizing applied edits"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    Expand it (**View more**) to see the full diff — added, edited, and removed nodes and transitions, highlighted in green and red.
-
-<Frame>
-  <img
-    src="/images/dark_mode/changes-diff-expanded.png"
-    alt="Expanded diff of the applied changes"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    If you don't want to keep a batch, click **Undo changes** to roll it back.
-
-<Frame>
-  <img
-    src="/images/dark_mode/undo-changes-button.png"
-    alt="Undo changes button on a Changes card"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    <Tip>
-    Chat is the recommended entry point to quickly build or refactor a flow, especially for large or complex trees.
-    </Tip>
-  </Accordion>
-  <Accordion title="Investigating your flow and your calls" icon="magnifying-glass">
-
-    Pearl can read your flow and your calls, not only change them. Ask it a question about either and it goes and reads the material itself. All of this works in **Ask** mode as well as in **Build**, since none of it changes your flow.
-
-    **Reading a past call**
-
-    Ask *"Look at my last test call and tell me what happened"* and Pearl reads the call itself — the lines that were exchanged, the nodes the call went through, and what your API steps returned. You don't have to open the call and go through the transcript yourself.
-
-    It works the same way on a text Pearl — ask about your last test chat instead.
-
-    **Asking why something went wrong**
-
-    You can go straight to the question instead of to the evidence: *"Investigate why my agent skipped the booking."* Pearl pulls up the relevant calls on its own and answers from what it finds in them.
-
-    **What changed since the published version**
-
-    Pearl knows both the version you are editing and the **Published** one that is handling your calls, and it can compare them. Ask *"What changed since the published version?"* after editing a node, or *"Is what I'm editing still the same as what is live?"*, and it tells you exactly what you have changed since.
-
-    **Checking the flow for problems**
-
-    *"Check my flow for problems"* gets you a structural review: nodes that lead nowhere, transitions that connect to nothing, configuration left unfinished. If your Pearl has already taken calls, it also reports which API steps behaved inconsistently across them.
-
-    <Tip>
-    This is the quickest way to use your call history: instead of opening past calls one by one, ask Pearl what happened in them.
-    </Tip>
-  </Accordion>
-  <Accordion title="Manual Edit" icon="sliders">
-    Select a node in the canvas, then click the **Manual Edit** button at the bottom of the sidebar to configure it by hand.
-
-<Frame>
-  <img
-    src="/images/dark_mode/manual-edit-button.png"
-    alt="Manual Edit button at the bottom of the chat sidebar"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    Manual Edit always targets the currently selected node (shown by the node context pill).
-
-<Frame>
-  <img
-    src="/images/dark_mode/manual-edit-with-node-selected.png"
-    alt="Manual Edit with a node selected in the canvas"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    It is split into two tabs: **Edit** and **Transitions**.
-
-    **The Edit tab**
-
-    Exposes all the settings specific to the current node type (Script / Free Text, Instructions, variables…). What you see here changes depending on whether the node is a Dialogue, API, SMS, Email, Transfer, Integration, or Post-Call node.
-
-<Frame>
-  <img
-    src="/images/dark_mode/node-edit-panel-open.png"
-    alt="Edit tab of a node in Manual Edit"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    In short, the Edit tab is where you configure what this node does internally, based purely on its type.
-
-    <Note>
-    Routing to other nodes is not handled here, but in the Transitions tab.
-    </Note>
-
-    **The Transitions tab**
-
-    Defines how the conversation can exit this node. Each transition is a labeled branch (for example "Agreed to future contact") pointing to the next node, and you add new ones with **New Transition**.
-
-<Frame>
-  <img
-    src="/images/dark_mode/node-transitions-tab.png"
-    alt="Transitions tab in Manual Edit with a transition and the New Transition button"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    From here you can:
-    - **Create transitions** – Add exits such as "Success", "Failure", "No answer", "Customer asks for human", etc.
-    - **Connect transitions** – Choose the target node for each transition to shape the path of the conversation.
-    - **Edit or delete transitions** – Rename transitions, change their destination, or remove them when they are no longer needed.
-
-    **Back to Chat**
-
-    When you're done, click **Back to Chat** to return to the chat.
-
-<Frame>
-  <img
-    src="/images/dark_mode/back-to-chat-button.png"
-    alt="Back to Chat button in Manual Edit"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-    <Info>
-    Any modification done in Manual Edit is immediately reflected in the visual flow and remains fully understood by Pearl.
-
-    You can freely switch between Chat and Manual Edit as you work on the same node.
-    </Info>
-  </Accordion>
+<Accordion title="Chat" icon="comments">
+
+This is the default view. You describe what you want in natural language, and Pearl either answers you or builds it into your current version — depending on the mode you are in.
+
+**Ask and Build**
+
+The composer carries a pill showing the current mode. Click it to open the mode menu and switch. The chat opens in **Build**.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/chat-mode-menu.png" alt="Mode menu of the chat composer with Ask and Build" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/chat-mode-menu.png" alt="Mode menu of the chat composer with Ask and Build" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+| Mode | What it does |
+|------|--------------|
+| **Ask** | Investigates, checks, and advises. It reads your flow and your calls and answers your questions, but it never changes anything. |
+| **Build** | Makes the changes you ask for, after you confirm them. |
+
+The same sentence gives you two different outcomes. "Add an SMS step after the booking step" in **Ask** gets you a description of the change and a **Switch to Build** button, and your flow is left untouched. The same sentence in **Build** gets you a short plan, a confirmation, and then the step itself in the editor.
+
+<Note>
+Building on the live version first creates a new version for the changes, so the live configuration keeps running untouched.
+</Note>
+
+**Typical operations you can perform:**
+
+These are all **Build** mode operations — in **Ask**, Pearl describes what it would do instead of doing it.
+
+| Operation | Example |
+|-----------|---------|
+| **Create or delete nodes** | "Add a qualification step after the greeting." |
+| **Edit a node's content and behavior** | "Make the opening more formal and mention our summer offer." |
+| **Add, rename, or reconnect transitions** | "Add a 'Not interested' branch that ends the call politely." |
+| **Attach actions** | "Send a confirmation SMS after a successful booking." (API calls, SMS, email, transfers, etc.) |
+| **Configure post-call logic** | "Log the outcome to the CRM once the call ends." |
+
+**The composer**
+
+Type your instruction in the composer — its placeholder reads **Ask Pearl...**, or names what's in context (for example **Ask about Qualify Budget...**). For example: "Split this node into three outcomes based on payment status.", "After a successful payment, send a confirmation SMS and end the call.", "Create a post-call node that logs the outcome to the CRM." Press **Enter** or click **Send** (**Shift + Enter** adds a line): in **Build**, Pearl answers with its plan and updates the editor once you confirm; in **Ask**, it answers without touching your flow.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/ask-pearl-input-box.png" alt="Chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/ask-pearl-input-box.png" alt="Chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+The composer includes a few helpers:
+
+- **Upload** — attach supporting material (FAQs, pricing sheets, policy docs, playbooks…) to enrich the Pearl's knowledge and reference it in node prompts. You can also drop files onto the chat.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/ask-pearl-attach-file-button.png" alt="Upload button in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/ask-pearl-attach-file-button.png" alt="Upload button in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+Accepted formats: `.pdf`, `.docx`, `.txt`, `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.mp3`, `.m4a`, `.wav`, `.ogg`, `.webm` — up to **10 files** and 25 MB per message.
+
+<Tip>
+You can attach a **recording of a real conversation** (e.g. an `.mp3` or `.wav` call, up to 15 minutes) and ask PearlVibe to build the flow from it — in **Build** mode, it turns the exchange into nodes and transitions for you.
+</Tip>
+
+- **Enhance Prompt** — rewrite your instruction into a clearer, more structured request before it runs. It works once your instruction is at least 50 characters long.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/ask-pearl-ai-suggest-button.png" alt="Enhance Prompt button in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/ask-pearl-ai-suggest-button.png" alt="Enhance Prompt button in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+- **Record** — dictate your instruction instead of typing it (up to 5 minutes). The microphone shows while the composer is empty; click **Stop & transcribe** and the text lands in the composer.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/ask-pearl-voice-input-button.png" alt="Record button in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/ask-pearl-voice-input-button.png" alt="Record button in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+**Context**
+
+When you click a node on the canvas, it appears as a tile inside the composer. Any instruction you send is interpreted in the context of that node (for example: "Change the greeting", "Add a failure transition that transfers to support"). You can add several nodes; remove one with its **×**.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/ask-pearl-node-context-panel.png" alt="Node tile in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/ask-pearl-node-context-panel.png" alt="Node tile in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+To ask about more than nodes, use the selection button in the composer (*Select parts of your flow to ask questions, review issues, or make changes*): pick nodes, settings, variables, credentials, or calls, and ask about them together.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/chat-context-select-button.png" alt="Selection button in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/chat-context-select-button.png" alt="Selection button in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+**Reviewing what Pearl builds**
+
+In **Build** mode, Pearl shows what it is about to change and asks you to confirm before applying it (for example **Yes, build it**), next to a **Dismiss** button — or you can answer it directly in the composer.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/build-changes-confirmation.png" alt="Pearl asking to confirm before building changes" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/build-changes-confirmation.png" alt="Pearl asking to confirm before building changes" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+When Pearl needs a decision, it can present interactive choices right in the chat (for example, which CRM to connect), with **Other** to answer in your own words and **Skip**.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/crm-selection-prompt.png" alt="Interactive choice prompt in the chat" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/crm-selection-prompt.png" alt="Interactive choice prompt in the chat" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+While Pearl works, the chat shows what it is doing, and **Stop generation** lets you interrupt it.
+
+Once applied, each batch of edits appears as a card that sums up what changed in a sentence (for example "3 steps and 1 SMS changed"), followed by its first changes and **Show N more**. The card covers the flow and the Pearl's settings alike. Hover a row to highlight its node on the canvas, or click **Show in flow**.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/changes-card.png" alt="Card summarizing the changes Pearl applied" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/changes-card.png" alt="Card summarizing the changes Pearl applied" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+Open a row to see exactly what changed: the text with its additions and removals marked word by word, or the result alone.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/changes-row-expanded.png" alt="A change opened to show its word-by-word differences" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/changes-row-expanded.png" alt="A change opened to show its word-by-word differences" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+If you don't want to keep a batch, click **Undo** on its card and confirm with **Undo changes**.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/changes-undo-confirmation.png" alt="Confirmation before undoing a batch of changes" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/changes-undo-confirmation.png" alt="Confirmation before undoing a batch of changes" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+<Warning>
+Undo also removes every later change, made by PearlVibe or by you. Inbound and Outbound settings stay as they are. Only the most recent batches can be undone.
+</Warning>
+
+Under each answer, you can **Copy** it, **Regenerate** it, rate it (**Good response** / **Bad response**), and see the credits it used.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/chat-message-actions.png" alt="Copy, Regenerate, and rating buttons under an answer" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/chat-message-actions.png" alt="Copy, Regenerate, and rating buttons under an answer" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+<Tip>
+Chat is the recommended entry point to quickly build or refactor a flow, especially for large or complex trees.
+</Tip>
+</Accordion>
+<Accordion title="Investigating your flow and your calls" icon="magnifying-glass">
+
+Pearl can read your flow and your calls, not only change them. Ask it a question about either and it goes and reads the material itself. All of this works in **Ask** mode as well as in **Build**, since none of it changes your flow.
+
+**Reading a past call**
+
+Ask *"Look at my last test call and tell me what happened"* and Pearl reads the call itself — the lines that were exchanged, the nodes the call went through, and what your API steps returned. You don't have to open the call and go through the transcript yourself.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/investigate-call-answer.png" alt="PearlVibe explaining what happened in a past call" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/investigate-call-answer.png" alt="PearlVibe explaining what happened in a past call" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+It works the same way on a text Pearl — ask about your last test chat instead.
+
+You can also start from the call itself: open it in **Past Calls** and click **PearlVibe** (*Review this call with PearlVibe*). The call joins the chat as a tile in the composer and the chat switches to **Ask**, ready for your question.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/past-call-pearlvibe-button.png" alt="PearlVibe button in the details of a past call" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/past-call-pearlvibe-button.png" alt="PearlVibe button in the details of a past call" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+**Asking why something went wrong**
+
+You can go straight to the question instead of to the evidence: *"Investigate why my agent skipped the booking."* Pearl pulls up the relevant calls on its own and answers from what it finds in them.
+
+**What changed since the published version**
+
+Pearl knows both the version you are editing and the **Published** one that is handling your calls, and it can compare them. Ask *"What changed since the published version?"* after editing a node, or *"Is what I'm editing still the same as what is live?"*, and it tells you exactly what you have changed since.
+
+**Checking the flow for problems**
+
+*"Check my flow for problems"* gets you a structural review: steps that lead nowhere, steps that nothing reaches, a flow with no ending, API results that nothing uses. If your Pearl has already taken calls, it also reports which API steps behaved inconsistently across them.
+
+<Tip>
+This is the quickest way to use your call history: instead of opening past calls one by one, ask Pearl what happened in them.
+</Tip>
+</Accordion>
+<Accordion title="Manual edit" icon="sliders">
+To configure a node by hand, click it on the canvas: it joins the chat as a tile in the composer. Click the pencil on that tile (**Manual edit**).
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-context-tile-manual-edit.png" alt="Manual edit pencil on a node tile in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-context-tile-manual-edit.png" alt="Manual edit pencil on a node tile in the chat composer" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+You can also hover the node on the canvas and click **Edit Manually** in its action bar.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-bar-edit-manually.png" alt="Edit Manually in a node's action bar on the canvas" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-bar-edit-manually.png" alt="Edit Manually in a node's action bar on the canvas" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+The node then takes the place of the chat. Its header shows its type, its name (click it to rename the node), and the Pearl and version you're editing, with **Show on canvas** and a **More** menu to **Duplicate** or **Delete** the node.
+
+It is split into two tabs: **Edit** and **Transitions**. A node only shows the tabs that apply to it: an End Call node has no Edit tab, and a Transfer Call or Hand-Off node has no Transitions tab.
+
+**The Edit tab**
+
+Exposes all the settings specific to the current node type (Script / Free Text, Instructions, variables…). What you see here depends on the node: Dialogue, Knowledge Base, API, SMS, Email, Transfer Call, Hand-Off, or an integration.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-edit-panel-open.png" alt="Edit tab of a node opened by hand" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-edit-panel-open.png" alt="Edit tab of a node opened by hand" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+In short, the Edit tab is where you configure what this node does internally, based purely on its type.
+
+<Note>
+Routing to other nodes is not handled here, but in the Transitions tab. Post-call actions are edited one by one, from the post-call node on the canvas.
+</Note>
+
+**The Transitions tab**
+
+Defines how the conversation can exit this node. Each transition has a **Condition** (for example "Agreed to future contact") and the next node (**Node Chosen**); you add new ones with **New Transition**.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-transitions-tab.png" alt="Transitions tab with a transition and the New Transition button" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-transitions-tab.png" alt="Transitions tab with a transition and the New Transition button" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+From here you can:
+- **Create transitions** – Add exits such as "Success", "Failure", "No answer", "Customer asks for human", etc.
+- **Connect transitions** – Choose the target node for each transition to shape the path of the conversation.
+- **Edit or delete transitions** – Rename transitions, change their destination, or remove them when they are no longer needed.
+
+**Saving your changes**
+
+Changes made by hand wait for you to save them: an **Unsaved Changes** bar offers **Discard** and **Save Changes**.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/manual-edit-unsaved-changes.png" alt="Unsaved Changes bar with Discard and Save Changes" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/manual-edit-unsaved-changes.png" alt="Unsaved Changes bar with Discard and Save Changes" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+**Back to chat**
+
+When you're done, click **Back to chat** (the arrow at the top of the node) to return to the chat.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/back-to-chat-button.png" alt="Back to chat button at the top of a node opened by hand" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/back-to-chat-button.png" alt="Back to chat button at the top of a node opened by hand" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+<Info>
+Once saved, a change made by hand shows in the visual flow and is fully understood by Pearl.
+
+You can switch between the chat and a node opened by hand as often as you like — save or discard your changes first.
+</Info>
+</Accordion>
 </AccordionGroup>
 
 ---
@@ -729,31 +997,36 @@ When a node is selected, everything you ask for in this sidebar is interpreted i
 
 The central canvas displays your flow as a graph of nodes and transitions.
 
-<Frame>
-  <img
-    src="/images/dark_mode/flow-editor-canvas.png"
-    alt="Central canvas showing the flow as a graph of nodes and transitions"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/flow-editor-canvas.png" alt="Central canvas showing the flow as a graph of nodes and transitions" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/flow-editor-canvas.png" alt="Central canvas showing the flow as a graph of nodes and transitions" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 | Element | Description |
 |---------|-------------|
 | **Nodes** | Each node represents a step in the conversation (a message, an action, or a set of actions). |
-| **Transitions** | Each transition represents a possible path from one node to another based on intents, recognition results, or business logic. |
+| **Transitions** | Each transition represents a possible path from one node to another, based on its condition. |
 
 **From the canvas you can:**
 
 | Action | Description |
 |--------|-------------|
-| **Add, connect, branch, disconnect** | Create nodes and wire transitions to shape the flow. |
+| **Add, connect, branch, disconnect** | Create nodes and wire transitions to shape the flow, right on the canvas. |
 | **Move, pan & zoom** | Navigate large trees comfortably. |
-| **Search** | Find a node by name or content. |
+| **Search** | Find a node by name or content, or by the name of a transition. |
 | **Reorganize** | Re-lay out the flow automatically (auto-layout). |
 | **Go to Start / End** | Jump straight to the beginning or end of the flow. |
 | **Hover preview** | See a quick summary of what a node does. |
-| **Quick actions** | Fix, Edit, Duplicate, or Delete a node in place. |
-| **Undo / Redo** | Roll your latest changes back and forth. |
+| **Quick actions** | Fix, edit, duplicate, or delete a node in place. |
+| **Select, copy & paste** | Select several nodes, delete them, or copy them into this Pearl or another one. |
+| **Studio** | Follow a route through the flow and export the flow as an image or a PDF. |
+| **Undo / Redo** | Roll your latest manual changes back and forth. |
 
 <Note>
 The canvas has no minimap — use zoom, pan, **Reorganize**, and **Search** to move around instead.
@@ -761,28 +1034,35 @@ The canvas has no minimap — use zoom, pan, **Reorganize**, and **Search** to m
 
 **Right toolbar**
 
-The vertical toolbar on the right groups the navigation controls: **Undo / Redo**, **Go to Start / End**, **Reorganize** (auto-layout), and **Zoom in / out**.
+The vertical toolbar on the right groups the navigation controls: **Undo manual changes** / **Redo manual changes**, **Go to Start** / **Go to End**, **Studio**, **Reorganize** (auto-layout), and **Zoom In** / **Zoom Out**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/flow-editor-right-toolbar.png"
-    alt="Right toolbar with undo/redo, go to start/end, reorganize, and zoom"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/flow-editor-right-toolbar.png" alt="Right toolbar with undo/redo, go to start/end, Studio, reorganize, and zoom" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/flow-editor-right-toolbar.png" alt="Right toolbar with undo/redo, go to start/end, Studio, reorganize, and zoom" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+<Note>
+Undo and Redo apply to the changes you make by hand. To roll back what PearlVibe built, use **Undo** on its card in the chat.
+</Note>
 
 <AccordionGroup>
 
 <Accordion title="Node Types Overview" icon="shapes">
-Pearl Vibe supports several node types:
+PearlVibe supports several node types:
 
 | Node Type | Description |
 |-----------|-------------|
-| **Start node** | Entry point of the flow. |
-| **In‑Call nodes** | Actions that occur while the caller is on the line. |
+| **Start node** | Entry point of the flow. It starts with an **Opening Sentence** or a **Pre Call API**. |
+| **In‑Call nodes** | Dialogue and actions that occur while the caller is on the line. |
 | **Integration nodes** | Interactions with external systems (CRM, ticketing, booking…). |
 | **End Call node** | The node that ends the conversation. |
-| **Post‑Call nodes** | Actions executed after the call has ended. |
+| **Post‑Call Actions** | Actions executed after the call has ended. |
 
 <Info>
 **Understanding Node Types: Pre-Call, In-Call & Post-Call**
@@ -807,74 +1087,85 @@ Once the call is finished, these nodes handle asynchronous tasks: writing CRM lo
 <Accordion title="Start Node" icon="play">
 Every flow begins with a Start node. It controls how the conversation is initiated.
 
-<Frame>
-  <img
-    src="/images/dark_mode/start-node.png"
-    alt="Start node at the entry point of the flow"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/start-node.png" alt="Start node at the entry point of the flow" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/start-node.png" alt="Start node at the entry point of the flow" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-You can configure it in two ways:
+You choose how it starts, right on the Start node:
 
 | Configuration | Description |
 |---------------|-------------|
-| **Opening sentence** | A standard greeting and first question, for example: "Hi, you've reached [Company]. How can I help you today?" |
-| **Pre‑Call API** | Before the Pearl speaks, it can call an external API (for example to fetch order details, check account status, or pre‑qualify the caller). The API response can then change the opening sentence, route the caller toward different branches, or preload variables and context. On text Pearls this is labeled **Pre‑Chat API**. |
+| **Opening Sentence** | A standard greeting and first question, for example: "Hi, you've reached [Company]. How can I help you today?" |
+| **Pre Call API** | Before the Pearl speaks, it can call an external API (for example to fetch order details, check account status, or pre‑qualify the caller). The API response can then change the opening sentence, route the caller toward different branches, or preload variables and context. On text Pearls this is labeled **Pre Chat API**. |
 
 <Info>
 **The Pearl says the opening sentence almost word for word.** In a Dialogue node, your text is only a guide: the Pearl adapts it to what the customer says.
 </Info>
 
 <Note>
-The Pre-Call API cannot be used to import leads into your Pearl. Its purpose is strictly to enrich or prepare contextual data before the call starts
+The Pre Call API cannot be used to import leads into your Pearl. Its purpose is strictly to enrich or prepare contextual data before the call starts.
 </Note>
 </Accordion>
 
 <Accordion title="In‑Call Nodes" icon="phone">
-In‑Call nodes represent the actions and dialogues that happen during the conversation. In the **Add Node** picker they're split into **Live Global Nodes** (Dialogue, Knowledge Base) and **Live Action Nodes** (SMS, Email, API, Transfer Call).
+In‑Call nodes represent the actions and dialogues that happen during the conversation. In the **Add Node** picker they're split into **Conversation** (Dialogue, Knowledge Base) and **Actions** (SMS, API, Email, Transfer Call, Hand-Off).
 
-<Frame>
-  <img
-    src="/images/dark_mode/full-flow-selected.png"
-    alt="In-call nodes across the conversation flow"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/full-flow-selected.png" alt="In-call nodes across the conversation flow" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/full-flow-selected.png" alt="In-call nodes across the conversation flow" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 | Node Type | Description |
 |-----------|-------------|
 | **Dialogue** | The Pearl speaks, listens, and interprets the customer's response according to your instructions. |
 | **Knowledge Base** | Answer questions using your Pearl's configured knowledge base. |
-| **Send SMS** | Send a text message during the call (e.g. a confirmation code, a link, or a summary). *Voice only — hidden on text Pearls.* |
-| **Send Email** | Trigger an email to the customer or your team. |
+| **SMS** | Send a text message during the call (e.g. a confirmation code, a link, or a summary). *Voice only — hidden on text Pearls.* |
 | **API** | Call an external API (e.g. update a record, check availability, create a ticket). |
+| **Email** | Trigger an email to the customer or your team. |
 | **Transfer Call** | Transfer the caller to a human agent or another phone number. *Voice only — hidden on text Pearls.* |
 | **Hand-Off** | Hand the conversation over to a human. *Text Pearls only.* |
-| **Recording** | Control call recording (availability depends on your platform). |
 
 <Note>
-Integration-specific actions (e.g. Google Calendar, Salesforce) appear in a separate **Integration Nodes** group of the picker — see below.
+Integration-specific actions (e.g. Google Calendar, Salesforce) appear in a separate **Integrations** section of the picker — see below.
 </Note>
 </Accordion>
 
 <Accordion title="Integration Nodes" icon="plug">
-Integration nodes let your Pearl interact directly with external tools and services without writing any API code yourself. Technically, each one is an **API node pre-configured with an integration credential** from the **Credentials Manager** — it handles authentication, request formatting, and data mapping for you. They appear in a dedicated **Integration Nodes** group of the **Add Node** picker.
+Integration nodes let your Pearl interact directly with external tools and services without writing any API code yourself. Technically, each one is an **API node pre-configured with an integration credential** — it handles authentication, request formatting, and data mapping for you. They appear in the **Integrations** section of the **Add Node** picker, in every tab.
 
-<Frame>
-  <img
-    src="/images/dark_mode/pearl-vibe-integration-node.png"
-    alt="Integration node configured from a credential"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/add-node-integrations.png" alt="Integrations section of the Add Node picker" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/add-node-integrations.png" alt="Integrations section of the Add Node picker" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+The picker lists the whole catalog. Integrations you already have a credential for are marked **Connected**; picking another one lets you connect it.
 
 **Integration node variants:**
 
 | Variant | Description |
 |---------|-------------|
-| **In-Call Integration Nodes** | Executed while the caller is still on the line (e.g. checking a CRM record before answering). |
-| **Post-Call Integration Nodes** | Executed after the call ends (e.g. logging call results into a ticketing system). |
+| **Pre-Call** | Executed before the call starts, as the flow's Pre Call API (e.g. looking up the caller in your CRM). |
+| **In-Call** | Executed while the caller is still on the line (e.g. checking a CRM record before answering). |
+| **Post-Call** | Executed after the call ends (e.g. logging call results into a ticketing system). |
 
 **What Integration Nodes Do**
 
@@ -883,123 +1174,144 @@ Integration nodes encapsulate tasks such as:
 | Category | Examples | Tasks |
 |----------|----------|-------|
 | **CRM operations** | Salesforce, HubSpot, Pipedrive… | Create or update records, attach call results, sync contact data. |
-| **Helpdesk platforms** | Zendesk, Freshdesk… | Create tickets, update statuses, push conversation summaries. |
-| **Booking engines** | Calendly, Cloudbeds, Shore… | Check availability, create reservations, cancel or modify bookings. |
-| **Search & data services** | Algolia, Elasticsearch… | Query product/catalog data, validate inputs, or retrieve structured info. |
-| **Payments & billing** | Stripe, Paystack… | Check payment status, initiate a payment link workflow, validate customer identity. |
-| **Custom Integrations** | Any configured integration | Any integration you configure in the Credentials Manager becomes available here as a dedicated node. |
+| **Helpdesk platforms** | Zendesk, Freshdesk, Gorgias… | Create tickets, update statuses, push conversation summaries. |
+| **Booking engines** | Google Calendar, Cal.com, Microsoft Outlook… | Check availability, create reservations, cancel or modify bookings. |
+| **Search & data services** | Algolia, Elasticsearch, Airtable… | Query product/catalog data, validate inputs, or retrieve structured info. |
+| **Payments & billing** | Square, Paddle… | Check payment status, initiate a payment link workflow, validate customer identity. |
+| **Custom Integrations** | Any configured integration | Any service you add a credential for can be used through an API node. |
 
 **How They Work**
 
 | Feature | Description |
 |---------|-------------|
-| **Secure Credentials** | The Credentials Manager stores credentials securely (API keys, tokens, IDs…). |
-| **Available as Node** | Once connected, each service becomes available as a node in the flow. |
+| **Secure Credentials** | Credentials are stored securely (API keys, tokens, IDs…) in **Variables & credentials**. |
+| **Available as Node** | Every integration of the catalog is available as a node; you connect it the first time you use it. |
 | **Simple Configuration** | The node exposes only the required parameters, no API documentation or coding needed. |
 | **Data Mapping** | Returned data can be mapped to variables and used later in the conversation. |
 
 **Available Integrations**
 
-<div style={{display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px', marginTop: '16px'}}>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/ActiveCampaign.svg" width="18" height="18" /> ActiveCampaign</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Airtable.svg" width="18" height="18" /> Airtable</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Algolia.svg" width="18" height="18" /> Algolia</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Anthropic.svg" width="18" height="18" /> Anthropic</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/AssemblyAI.svg" width="18" height="18" /> AssemblyAI</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Backblaze.svg" width="18" height="18" /> Backblaze</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Baserow.svg" width="18" height="18" /> Baserow</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Bitly.svg" width="18" height="18" /> Bitly</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Brevo.svg" width="18" height="18" /> Brevo</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Cal.svg" width="18" height="18" /> Cal.com</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Calendly.svg" width="18" height="18" /> Calendly</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Clearbit.svg" width="18" height="18" /> Clearbit</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/ClickUp.svg" width="18" height="18" /> ClickUp</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Cloudflare.svg" width="18" height="18" /> Cloudflare</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Cohere.svg" width="18" height="18" /> Cohere</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Contentful.svg" width="18" height="18" /> Contentful</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Convertkit.svg" width="18" height="18" /> Convertkit</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/CustomerIO.svg" width="18" height="18" /> Customer.io</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Datadog.svg" width="18" height="18" /> Datadog</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/DeepL.svg" width="18" height="18" /> DeepL</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/DigitalOcean.svg" width="18" height="18" /> DigitalOcean</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Discord.svg" width="18" height="18" /> Discord</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Elasticsearch.svg" width="18" height="18" /> Elasticsearch</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Freshdesk.svg" width="18" height="18" /> Freshdesk</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Ghost.svg" width="18" height="18" /> Ghost</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/GoogleCalendar.svg" width="18" height="18" /> Google Calendar</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/GoogleDocs.svg" width="18" height="18" /> Google Docs</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/GoogleSheets.svg" width="18" height="18" /> Google Sheets</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Grafana.svg" width="18" height="18" /> Grafana</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Groq.svg" width="18" height="18" /> Groq</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Hetzner.svg" width="18" height="18" /> Hetzner</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Hubspot.svg" width="18" height="18" /> HubSpot</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/HuggingFace.svg" width="18" height="18" /> HuggingFace</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Hunter.svg" width="18" height="18" /> Hunter</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/InfluxDB.svg" width="18" height="18" /> InfluxDB</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/JotForm.svg" width="18" height="18" /> JotForm</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Lemlist.svg" width="18" height="18" /> Lemlist</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Magento.svg" width="18" height="18" /> Magento</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/MailerLite.svg" width="18" height="18" /> MailerLite</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Mailgun.svg" width="18" height="18" /> Mailgun</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Mailjet.svg" width="18" height="18" /> Mailjet</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Mandrill.svg" width="18" height="18" /> Mandrill</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Matrix.svg" width="18" height="18" /> Matrix</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Mattermost.svg" width="18" height="18" /> Mattermost</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/MessageBird.svg" width="18" height="18" /> MessageBird</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Metabase.svg" width="18" height="18" /> Metabase</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/MicrosoftOutlook.svg" width="18" height="18" /> Microsoft Outlook</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/MinIO.svg" width="18" height="18" /> MinIO</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/MistralAI.svg" width="18" height="18" /> Mistral AI</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Mocean.svg" width="18" height="18" /> Mocean</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/MongoDB.svg" width="18" height="18" /> MongoDB</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/MQTT.svg" width="18" height="18" /> MQTT</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/MSG91.svg" width="18" height="18" /> MSG91</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/MySQL.svg" width="18" height="18" /> MySQL</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Netlify.svg" width="18" height="18" /> Netlify</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/NewRelic.svg" width="18" height="18" /> New Relic</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/NocoDB.svg" width="18" height="18" /> NocoDB</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/OpenAI.svg" width="18" height="18" /> OpenAI</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/OpenRouter.svg" width="18" height="18" /> OpenRouter</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/OpenWeatherMap.svg" width="18" height="18" /> OpenWeatherMap</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Pabbly.svg" width="18" height="18" /> Pabbly</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Paddle.svg" width="18" height="18" /> Paddle</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/PagerDuty.svg" width="18" height="18" /> PagerDuty</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Perplexity.svg" width="18" height="18" /> Perplexity</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Pinecone.svg" width="18" height="18" /> Pinecone</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Plivo.svg" width="18" height="18" /> Plivo</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/PostHog.svg" width="18" height="18" /> PostHog</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/PostgreSQL.svg" width="18" height="18" /> PostgreSQL</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Postmark.svg" width="18" height="18" /> Postmark</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Pushover.svg" width="18" height="18" /> Pushover</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Qdrant.svg" width="18" height="18" /> Qdrant</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/RabbitMQ.svg" width="18" height="18" /> RabbitMQ</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Redis.svg" width="18" height="18" /> Redis</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Replicate.svg" width="18" height="18" /> Replicate</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Rocketchat.svg" width="18" height="18" /> Rocketchat</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Salesforce.svg" width="18" height="18" /> Salesforce</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/SendGrid.svg" width="18" height="18" /> SendGrid</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Sendy.webp" width="18" height="18" /> Sendy</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Sentry.svg" width="18" height="18" /> Sentry</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Serp.svg" width="18" height="18" /> Serp</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/SIGNL4.svg" width="18" height="18" /> SIGNL4</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/SparkPost.svg" width="18" height="18" /> SparkPost</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Square.svg" width="18" height="18" /> Square</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/StabilityAI.svg" width="18" height="18" /> Stability AI</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Strapi.svg" width="18" height="18" /> Strapi</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Supabase.svg" width="18" height="18" /> Supabase</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Telegram.svg" width="18" height="18" /> Telegram</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/TogetherAI.svg" width="18" height="18" /> Together AI</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Twilio.svg" width="18" height="18" /> Twilio</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Typeform.svg" width="18" height="18" /> Typeform</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Vercel.svg" width="18" height="18" /> Vercel</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Vonage.svg" width="18" height="18" /> Vonage</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Wasabi.svg" width="18" height="18" /> Wasabi</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Weaviate.svg" width="18" height="18" /> Weaviate</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/WooCommerce.svg" width="18" height="18" /> WooCommerce</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/WordPress.svg" width="18" height="18" /> WordPress</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Wufoo.svg" width="18" height="18" /> Wufoo</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Yourls.svg" width="18" height="18" /> Yourls</div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', border: '1px solid #2E2E2E', borderRadius: '8px', fontSize: '12px'}}><img src="https://assets.nlpearl.ai/Integrations/Zulip.svg" width="18" height="18" /> Zulip</div>
+<div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/ActiveCampaign.svg" width="18" height="18" alt="" className="logo-ink-light" style={{ margin: 0 }} noZoom /> ActiveCampaign</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Airtable.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Airtable</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Algolia.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Algolia</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Anthropic.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Anthropic</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Asana.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Asana</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/AssemblyAI.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> AssemblyAI</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Backblaze.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Backblaze</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Baserow.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Baserow</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Bitly.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Bitly</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Brevo.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Brevo</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Cal.svg" width="18" height="18" alt="" className="logo-ink-light" style={{ margin: 0 }} noZoom /> Cal.com</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Clearbit.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Clearbit</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/ClickUp.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> ClickUp</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Cloudflare.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Cloudflare</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Cohere.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Cohere</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Contentful.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Contentful</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Convertkit.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Convertkit</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Creatio.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Creatio</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/CustomerIO.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Customer.io</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Datadog.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Datadog</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/DeepL.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> DeepL</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/DigitalOcean.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> DigitalOcean</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Discord.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Discord</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Elasticsearch.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Elasticsearch</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Freshdesk.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Freshdesk</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Ghost.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Ghost</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/GoHighLevel.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Go High Level</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Google.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Google</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/GoogleCalendar.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Google Calendar</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/GoogleDocs.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Google Docs</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/GoogleSheets.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Google Sheet</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Gorgias.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Gorgias</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Grafana.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Grafana</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Groq.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Groq</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/HelpScout.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Help Scout</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Hetzner.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Hetzner</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Hubspot.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> HubSpot</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/HuggingFace.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> HuggingFace</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Hunter.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Hunter</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/InfluxDB.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> InfluxDB</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Intercom.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Intercom</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/JotForm.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> JotForm</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Keap.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Keap</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Lemlist.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Lemlist</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Magento.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Magento</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Mailchimp.svg" width="18" height="18" alt="" className="logo-ink-light" style={{ margin: 0 }} noZoom /> Mailchimp</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/MailerLite.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> MailerLite</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Mailgun.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Mailgun</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Mailjet.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Mailjet</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Mandrill.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Mandrill</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Matrix.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Matrix</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Mattermost.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Mattermost</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/MessageBird.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> MessageBird</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Metabase.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Metabase</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/MicrosoftOutlook.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Microsoft Outlook</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/MinIO.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> MinIO</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/MistralAI.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Mistral AI</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Mocean.svg" width="18" height="18" alt="" className="logo-ink-light" style={{ margin: 0 }} noZoom /> Mocean</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/MongoDB.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> MongoDB</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/MQTT.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> MQTT</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/MSG91.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> MSG91</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/MySQL.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> MySQL</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Netlify.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Netlify</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/NewRelic.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> New Relic</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/NocoDB.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> NocoDB</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Notion.svg" width="18" height="18" alt="" className="logo-ink-light" style={{ margin: 0 }} noZoom /> Notion</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/OpenAI.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> OpenAI</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/OpenRouter.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> OpenRouter</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/OpenWeatherMap.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> OpenWeatherMap</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Pabbly.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Pabbly</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Paddle.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Paddle</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/PagerDuty.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> PagerDuty</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Perplexity.svg" width="18" height="18" alt="" className="logo-ink-light" style={{ margin: 0 }} noZoom /> Perplexity</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Pinecone.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Pinecone</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Pipedrive.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Pipedrive</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Plivo.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Plivo</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/PostgreSQL.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> PostgreSQL</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/PostHog.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> PostHog</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Postmark.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Postmark</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Pushover.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Pushover</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Qdrant.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Qdrant</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/RabbitMQ.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> RabbitMQ</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Redis.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Redis</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Replicate.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Replicate</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Rocketchat.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Rocketchat</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Salesforce.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Salesforce</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Salesforce.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Salesforce Marketing Cloud</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Salesforce.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Salesforce Sandbox (Test)</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/SendGrid.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> SendGrid</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Sendy.webp" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Sendy</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Sentry.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Sentry</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Serp.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Serp</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/ServiceNow.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> ServiceNow</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Shopify.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Shopify</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/SIGNL4.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> SIGNL4</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Slack.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Slack</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/SparkPost.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> SparkPost</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Square.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Square</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/StabilityAI.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Stability AI</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Strapi.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Strapi</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Supabase.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Supabase</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Telegram.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Telegram</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Todoist.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Todoist</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/TogetherAI.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Together AI</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Trello.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Trello</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Twilio.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Twilio</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Typeform.svg" width="18" height="18" alt="" className="logo-ink-light" style={{ margin: 0 }} noZoom /> Typeform</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Vercel.svg" width="18" height="18" alt="" className="logo-ink-dark" style={{ margin: 0 }} noZoom /> Vercel</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Vonage.svg" width="18" height="18" alt="" className="logo-ink-light" style={{ margin: 0 }} noZoom /> Vonage</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Wasabi.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Wasabi</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Weaviate.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Weaviate</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/WooCommerce.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> WooCommerce</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/WordPress.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> WordPress</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Wufoo.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Wufoo</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Yourls.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Yourls</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Zendesk.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Zendesk</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Zendesk.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Zendesk Sell</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Zoho.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Zoho</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Zoom.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Zoom</div>
+  <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-950/10 dark:border-white/10 text-xs"><img src="https://assets.nlpearl.ai/Integrations/Zulip.svg" width="18" height="18" alt="" style={{ margin: 0 }} noZoom /> Zulip</div>
 </div>
 </Accordion>
 
@@ -1009,33 +1321,41 @@ Integration nodes encapsulate tasks such as:
 
 This node closes the conversation gracefully (e.g. "Thanks for your time, goodbye."). It is typically the last in‑call node. On text Pearls it's labeled **End Chat**.
 
-<Frame>
-  <img
-    src="/images/dark_mode/end-call-node.png"
-    alt="End Call node closing the conversation"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/end-call-node.png" alt="End Call node closing the conversation" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/end-call-node.png" alt="End Call node closing the conversation" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-**Post‑Call nodes**
+**Post‑Call Actions**
 
-After the End Call node, you can add Post‑Call nodes via transitions. These nodes execute actions after the call has ended, such as:
+Each transition of the End Call node leads to a **Post-Call Actions** node, which lists the actions to run once the call has ended, such as:
 - Sending a summary SMS.
 - Writing a detailed log into your CRM.
 - Triggering a webhook.
 - Sending internal notifications to your team.
 
+Add an action with **Add Action**; hover an action to edit or delete it.
+
 <Info>
-Post‑Call nodes support many of the same actions as In‑Call nodes but are not constrained by real‑time conversation. In the **Add Node** picker, the Post-Call tab offers **SMS**, **Email**, and **API** nodes.
+Post‑call actions support many of the same actions as In‑Call nodes but are not constrained by real‑time conversation. In the **Add Node** picker, the Post-Call tab offers **SMS**, **API**, and **Email**, plus your integrations. On text Pearls, SMS isn't available.
 </Info>
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-action-nodes.png"
-    alt="Column of post-call action nodes"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/post-call-action-nodes.png" alt="Post-Call Actions node listing its actions" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/post-call-action-nodes.png" alt="Post-Call Actions node listing its actions" className="rounded-[14px]" />
+  </Frame>
+</div>
 </Accordion>
 
 <Accordion title="Node Structure" icon="layer-group">
@@ -1043,153 +1363,297 @@ Each node shares a common structure.
 
 **Header**
 
-- Icon representing the type of node.
-- Node name, editable to reflect its role ("Payment check", "Qualification", "Post‑call CRM update"…).
+- An icon in the color of the node's type (or the integration's logo). A red **!** appears on it when the node has an issue.
+- The node's name, which you can edit in place to reflect its role ("Payment check", "Qualification", "Post‑call CRM update"…). Start, Opening Sentence, Pre Call API, and End Call keep their names.
 
-<Frame>
-  <img
-    src="/images/dark_mode/node-header.png"
-    alt="Node header with type icon and editable name"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-header.png" alt="Node header with type icon and editable name" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-header.png" alt="Node header with type icon and editable name" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 **Transitions list**
 
-Under the header, you see the list of transitions for this node (e.g. "Success", "Failure", "No match", "Ask for human"). From here you can:
-- See which node each transition points to.
-- Click to navigate along the transition.
-- Disconnect or reconnect transitions to reshape the flow.
+Under the header, you see the list of transitions for this node (e.g. "Success", "Failure", "No match", "Ask for human"), each with the node it leads to. Hover a transition to:
+- **Go to Node** — jump to the node it leads to.
+- **Disconnect** it from that node.
 
-<Frame>
-  <img
-    src="/images/dark_mode/node-transition-branches.png"
-    alt="A node's transition branches listed under its header"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-transition-branches.png" alt="A node's transitions with the node each one leads to" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-transition-branches.png" alt="A node's transitions with the node each one leads to" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+**Connecting nodes on the canvas**
+
+You can shape the flow without opening a node:
+- **New Transition**, at the bottom of a node, adds a transition: type its condition and press **Enter**.
+- Drag the dot of a transition onto a node to connect it, or drag a connected dot to another node to reroute it.
+- Drop the dot in an empty spot, or click it, to open the node picker right there: the node you pick arrives connected.
+- A transition that leads nowhere is shown in red, with a delete button.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/canvas-new-transition.png" alt="Adding a transition on the canvas with New Transition" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/canvas-new-transition.png" alt="Adding a transition on the canvas with New Transition" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 **Quick actions**
 
-Selecting a node reveals quick actions right below it — **Edit**, **Duplicate**, and **Delete**.
+Hovering a node reveals its action bar:
 
-<Frame>
-  <img
-    src="/images/dark_mode/node-action-buttons-edit-duplicate-delete.png"
-    alt="Node quick actions: edit, duplicate, and delete"
-    className="rounded-[14px]"
-  />
-</Frame>
+| Action | What it does |
+|--------|--------------|
+| **Go to Previous Node** | Jump to the node that leads here. |
+| **Fix With Pearl** | Send the node's issues to the chat. Shown when the node has an issue. |
+| **Edit Manually** | Open the node by hand (see [Manual edit](#chat-sidebar)). |
+| **Duplicate** | Add a copy of the node. |
+| **Delete** | Delete the node, after confirmation. |
 
-**Node colors when selected**
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-hover-actions.png" alt="A node's action bar on hover" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-hover-actions.png" alt="A node's action bar on hover" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-When you select a node, the canvas colors the surrounding nodes to show their position relative to it:
+<Note>
+The Start node has no action bar, and End Call and Opening Sentence can't be duplicated or deleted.
+</Note>
 
-| Border color | Meaning |
-|--------------|---------|
-| **Blue** | Nodes that come **before** the selected node. |
-| **Green** | The **selected** node (the current one). |
-| **Orange** | Nodes that come **after** the selected node. |
+**Selecting a node**
 
-<Frame>
-  <img
-    src="/images/dark_mode/qualify-nodes-flow-view.png"
-    alt="Selected node with blue (previous), green (current), and orange (next) node borders"
-    className="rounded-[14px]"
-  />
-</Frame>
+Click a node to select it: it is outlined, its incoming and outgoing transitions light up in blue, and the rest of the flow fades back. The selected node also joins the chat's context; remove it with the **×** in its corner (*Remove from chat*). A node opened by hand is outlined in blue, and a node with an issue in red.
 
-**Hover popover**
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-selected-links.png" alt="Selected node with its transitions highlighted in blue" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-selected-links.png" alt="Selected node with its transitions highlighted in blue" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-When you hover a node in the canvas, a preview card shows a short summary of what it does — its main instruction or script, key actions, and transitions.
+<Tip>
+Hover a transition to light up the path it takes and the node it leads to.
+</Tip>
 
-<Frame>
-  <img
-    src="/images/dark_mode/node-details-preview-card.png"
-    alt="Hover preview card summarizing a node"
-    className="rounded-[14px]"
-  />
-</Frame>
+**Hover preview**
+
+When you hover the header of a node, a preview card shows a short summary of what it does — its main content (script, instructions, message, endpoint…) and any missing transition. The card doesn't open on Start, End Call, post-call nodes, or the selected node.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/node-details-preview-card.png" alt="Hover preview card summarizing a node" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/node-details-preview-card.png" alt="Hover preview card summarizing a node" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 </Accordion>
 
-<Accordion title="Bottom tools" icon="toolbox">
-The toolbar at the bottom of the canvas groups three controls.
+<Accordion title="Selecting, copying & pasting nodes" icon="clone">
+**Selecting several nodes**
 
-<Frame>
-  <img
-    src="/images/dark_mode/flow-editor-bottom-toolbar.png"
-    alt="Bottom toolbar with Add Node, General Instructions, and Search"
-    className="rounded-[14px]"
-  />
-</Frame>
+Click **Select area (V)** in the bottom toolbar and draw a rectangle around the nodes you want, or **Shift**-click or **⌘**-click to add nodes one by one. With nodes selected, the toolbar offers **Delete (⌫)** and **Clear selection (Esc)**.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/canvas-select-area.png" alt="Several nodes selected on the canvas, with Delete and Clear selection in the toolbar" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/canvas-select-area.png" alt="Several nodes selected on the canvas, with Delete and Clear selection in the toolbar" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+**Copying and pasting nodes**
+
+Press **⌘C** (**Ctrl+C**) to copy the selected nodes, then **⌘V** (**Ctrl+V**) on a canvas to paste them — in the same flow, or in any other Pearl of your account.
+
+- Transitions between the copied nodes come along; the others arrive unconnected, ready to be wired.
+- The variables the nodes use are added to the Pearl if it doesn't have them yet.
+- Credentials are matched in the Pearl you paste into; if none fits, PearlVibe asks you to choose one again on that node.
+- Start, Opening Sentence, Pre Call API, and End Call are never copied. In a text Pearl, SMS and Transfer Call nodes are left out.
+
+<Tip>
+To reuse a whole flow rather than a few nodes, copy a version instead (see **Versioning & Publishing** above).
+</Tip>
+</Accordion>
+
+<Accordion title="Studio" icon="route">
+The **Studio** button in the right toolbar opens a view of your flow made for reading and sharing it. The navigation tabs and the toolbars step aside, and a bar with the Studio's tools appears on the canvas.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/flow-studio-bar.png" alt="The Studio with a route lit on the canvas and the Route panel" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/flow-studio-bar.png" alt="The Studio with a route lit on the canvas and the Route panel" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+| Mode | What it shows |
+|------|---------------|
+| **Whole flow** | Every node and transition. |
+| **Route** | One path through the flow, lit on the canvas and told step by step in a **Route** panel: what each step says or does, and the answer or outcome that leads to the next one. |
+
+In **Route**:
+- Click an answer between two steps to take another branch, or **Route here** on a node off the path to go there.
+- **Play the route (Space)** walks through it step by step.
+- Save a route under a name (*Save this route as…*) to come back to it later in this browser; **Start again** clears it.
+
+**Export**
+
+The **Export** menu follows the mode:
+
+| From | Export |
+|------|--------|
+| **This route** | **Copy as text** (each step and the answer taken), **Image** (the route's nodes and transitions), or **PDF report** (the route, then each step and its answer). |
+| **Whole flow** | **Image** (every node and transition), or **PDF documentation** (the agent, its data, and a sheet per node). |
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/flow-studio-export-menu.png" alt="Export menu of the Studio" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/flow-studio-export-menu.png" alt="Export menu of the Studio" className="rounded-[14px]" />
+  </Frame>
+</div>
+
+Click **Exit Studio** to go back to the editor.
+</Accordion>
+
+<Accordion title="Bottom tools" icon="toolbox">
+The toolbar at the bottom of the canvas groups four controls.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/flow-editor-bottom-toolbar.png" alt="Bottom toolbar with Add Node, Select area, General Instructions, and Search" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/flow-editor-bottom-toolbar.png" alt="Bottom toolbar with Add Node, Select area, General Instructions, and Search" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 | Tool | Description |
 |------|-------------|
 | **Add Node** | Open the node picker to browse and insert new nodes into the flow. |
-| **General Instructions** | Open a modal to define global guidance for the whole flow. |
+| **Select area (V)** | Select several nodes at once (see **Selecting, copying & pasting nodes** above). |
+| **General Instructions** | Open a dialog to define global guidance for the whole flow. |
 | **Search** | Search across all nodes by name or content and jump directly to the node you need. |
 
 **Add Node**
 
-<Frame>
-  <img
-    src="/images/dark_mode/add-node-button.png"
-    alt="Add Node button in the bottom toolbar"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/add-node-button.png" alt="Add Node button in the bottom toolbar" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/add-node-button.png" alt="Add Node button in the bottom toolbar" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-The **Add Node** picker is organized by moment in the conversation — **Pre-Call**, **In-Call**, and **Post-Call** tabs (labeled **Pre-Chat / In-Chat / Post-Chat** on text Pearls) — and, within a tab, by group:
+The **Add Node** picker is organized by moment in the conversation — **Pre-Call**, **In-Call** (open by default), and **Post-Call** tabs, labeled **Pre-Chat / In-Chat / Post-Chat** on text Pearls. Each tab lists its nodes as tiles, with a line on what each one does, and ends with the **Integrations** section. Use **Search nodes and integrations** to find one; if nothing matches, **Integrate with Pearl** asks PearlVibe to set up the integration for you.
 
 | Tab | Addable nodes |
 |-----|---------------|
-| **Start** | Opening Sentence **or** Pre-Call API (Pre-Chat API on text). |
-| **In-Call** | **Live Global Nodes**: Dialogue, Knowledge Base — **Live Action Nodes**: SMS\*, Email, API, Transfer Call\*, Hand-Off (text only), Recording. |
-| **Post-Call** | SMS, Email, API. |
-| **Integration** | Dynamic integration nodes — an API node pre-filled with an integration credential from the Credentials Manager. |
+| **Pre-Call** | Pre Call API (Pre Chat API on text). |
+| **In-Call** | **Conversation**: Dialogue, Knowledge Base — **Actions**: SMS\*, API, Email, Transfer Call\*, Hand-Off (text only). |
+| **Post-Call** | SMS\*, API, Email. |
 
-<Frame>
-  <img
-    src="/images/dark_mode/add-node-menu.png"
-    alt="Add Node picker with Pre-Call, In-Call, and Post-Call tabs and node groups"
-    className="rounded-[14px]"
-  />
-</Frame>
+Every tab ends with **Integrations**: an API node pre-filled with an integration credential.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/add-node-menu.png" alt="Add Node picker with Pre-Call, In-Call, and Post-Call tabs" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/add-node-menu.png" alt="Add Node picker with Pre-Call, In-Call, and Post-Call tabs" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 <Note>
-\*On **text** Pearls, **SMS** and **Transfer Call** are hidden from the picker, while **Hand-Off** is available only on text. Post-call **SMS** remains available for both.
+\*On **text** Pearls, **SMS** and **Transfer Call** are hidden from the picker (post-chat SMS included), while **Hand-Off** is available only on text. The **Opening Sentence** isn't in the picker: you choose it on the Start node.
 </Note>
 
 **General Instructions**
 
-The middle button opens **General Instructions**, a modal where you define global guidance for the whole flow — persona, tone, strategy, and guardrails. These act as a "meta prompt" layered on top of individual nodes.
+The **General Instructions** button opens a dialog where you define global guidance for the whole flow — persona, tone, strategy, and guardrails. These act as a "meta prompt" layered on top of individual nodes.
 
-<Frame>
-  <img
-    src="/images/dark_mode/node-list-panel-button.png"
-    alt="General Instructions button in the bottom toolbar"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/general-instructions-button.png" alt="General Instructions button in the bottom toolbar" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/general-instructions-button.png" alt="General Instructions button in the bottom toolbar" className="rounded-[14px]" />
+  </Frame>
+</div>
 
-<Frame>
-  <img
-    src="/images/dark_mode/general-instructions-modal.png"
-    alt="General Instructions modal with global flow guidance"
-    className="rounded-[14px]"
-  />
-</Frame>
+General Instructions hold up to 7,500 characters. They are saved as you type; **Done** closes the dialog.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/general-instructions-modal.png" alt="General Instructions dialog with global flow guidance" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/general-instructions-modal.png" alt="General Instructions dialog with global flow guidance" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 **Search**
 
-<Frame>
-  <img
-    src="/images/dark_mode/search-nodes-button.png"
-    alt="Search button in the bottom toolbar"
-    className="rounded-[14px]"
-  />
-</Frame>
+Search across your nodes by name, content, or transition name (**Search nodes...**), then click a result to jump to the node.
+
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/search-nodes-button.png" alt="Search in the bottom toolbar" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/search-nodes-button.png" alt="Search in the bottom toolbar" className="rounded-[14px]" />
+  </Frame>
+</div>
 </Accordion>
 
 </AccordionGroup>
@@ -1198,15 +1662,18 @@ The middle button opens **General Instructions**, a modal where you define globa
 
 ## Top Navigation tabs
 
-The top navigation switches between the main workspaces of your Pearl. **Flow Editor** is the PearlVibe editor covered on this page; the other tabs configure your Pearl's identity, knowledge, analytics, and campaign behavior.
+The top navigation switches between the main workspaces of your Pearl. **Flow Editor** is the PearlVibe editor covered on this page; the other tabs configure your Pearl's identity, knowledge, analytics, and how it handles conversations. **Inbound Settings** and **Outbound Settings** show when your Pearl takes incoming conversations or runs outbound campaigns. A tab with an issue to fix shows an error icon.
 
-<Frame>
-  <img
-    src="/images/dark_mode/top-navigation-tabs.png"
-    alt="Top navigation tabs: Pearl Settings, Knowledge Base, Analytics, campaign settings, and Flow Editor"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden">
+  <Frame>
+    <img src="/images/light_mode/top-navigation-tabs.png" alt="Top navigation tabs: Pearl Settings, Knowledge Base, Call Analytics, campaign settings, and Flow Editor" className="rounded-[14px]" />
+  </Frame>
+</div>
+<div className="hidden dark:block">
+  <Frame>
+    <img src="/images/dark_mode/top-navigation-tabs.png" alt="Top navigation tabs: Pearl Settings, Knowledge Base, Call Analytics, campaign settings, and Flow Editor" className="rounded-[14px]" />
+  </Frame>
+</div>
 
 <br/>
 
@@ -1217,11 +1684,11 @@ The top navigation switches between the main workspaces of your Pearl. **Flow Ed
   <Card title="Knowledge Base" icon="book" href="/pages/knowledge_base">
     Give Pearl the company context and knowledge it needs to answer accurately.
   </Card>
-  <Card title="Analytics" icon="chart-line" href="/pages/pearl_analytics">
-    Define success, apply indicator tags, and track your Pearl's performance.
+  <Card title="Call Analytics" icon="chart-line" href="/pages/pearl_analytics">
+    Define success, apply indicator tags, and track your Pearl's performance. Labeled **Chat Analytics** on text Pearls.
   </Card>
   <Card title="Inbound Settings" icon="phone-arrow-down-left" href="/pages/inbound">
-    Configure how your Pearl answers incoming calls.
+    Configure how your Pearl answers incoming calls or chats.
   </Card>
   <Card title="Outbound Settings" icon="phone-arrow-up-right" href="/pages/outbound">
     Configure how your Pearl runs outbound campaigns.
