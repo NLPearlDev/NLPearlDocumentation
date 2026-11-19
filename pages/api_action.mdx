@@ -32,23 +32,46 @@ iconType: "light"
 
 </div>
 
-The **API node** runs an HTTP request automatically when the flow reaches it, letting your Pearl pull or push data from an external system. Depending on where you place it, it behaves in one of three ways:
+The **API** node sends an HTTP request to your own system or to a third-party service, so your Pearl can pull data (a customer record, open slots, a price) or push it (a booking, a CRM update). Depending on where you place it, it runs at one of three moments:
 
-- **Pre-Call API**: runs once, before the conversation starts.
-- **In-Call API**: runs during the conversation, when the flow reaches the node.
-- **Post-Call API**: runs after the conversation ends, as a post-call action.
+- **Pre-Call API**: once, before the conversation starts.
+- **In-Call API**: during the conversation, when the flow reaches the node.
+- **Post-Call API**: after the conversation ends, as a post-call action.
 
-The configuration form is the same in all three cases. Only the available variables, the response handling, and the transitions differ (see [Context Differences](#context-differences)).
+The form is the same in all three cases. Only the available variables, the response handling, and the transitions differ (see [Context Differences](#context-differences)). It works on voice and text Pearls alike: on a text Pearl, the tabs are called **Pre-Chat**, **In-Chat**, and **Post-Chat**.
 
 ---
 
 ## Adding an API Node
 
-| Context | Where to add it |
-| --- | --- |
-| **Pre-Call API** | On the **Start** node, choose **Pre Call API**. It is inserted between Start and the Opening Sentence, and runs before the call. |
-| **In-Call API** | Add an **API** node from the side toolbar (or the node picker under *Live Action Nodes*) and connect it where the request should run. |
-| **Post-Call API** | On the **Post-Call Actions** container (reached from an End Call transition), click **Add Action** and choose **API**. |
+In the [PearlVibe editor](/pages/pearl_vibe), click **Add Node** at the bottom of the canvas, then pick the moment the request should run. You can also ask PearlVibe to add one for you in the chat (**Build** mode).
+
+<Tabs>
+  <Tab title="In-Call API">
+    In the **In-Call** tab, pick **API** in the **Actions** section, then connect it where the request should run.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-node-add.png" alt="API in the Actions section of the In-Call tab of the node picker" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-node-add.png" alt="API in the Actions section of the In-Call tab of the node picker" className="rounded-[14px]" /></Frame></div>
+  </Tab>
+  <Tab title="Pre-Call API">
+    In the **Pre-Call** tab, pick **Pre Call API**. You can also choose **Pre Call API** on the **Start** node. It is inserted between Start and the Opening Sentence, and runs before the call.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-precall-add.png" alt="Pre Call API in the Pre-Call tab of the node picker" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-precall-add.png" alt="Pre Call API in the Pre-Call tab of the node picker" className="rounded-[14px]" /></Frame></div>
+  </Tab>
+  <Tab title="Post-Call API">
+    In the **Post-Call** tab, pick **API**. In **Add Post Call Action**, select the end of the conversation it should follow, or **New Transition** to write your own condition, then click **Add**. You can also click **Add Action** on an existing **Post-Call Actions** node.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-postcall-add.png" alt="Add Post Call Action popup, where you choose the end of the conversation the API follows" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-postcall-add.png" alt="Add Post Call Action popup, where you choose the end of the conversation the API follows" className="rounded-[14px]" /></Frame></div>
+  </Tab>
+</Tabs>
+
+<Tip>
+  The **Integrations** section of the picker lists ready-made services (Google Calendar, HubSpot, Salesforce, and more). Picking one adds an API node with its credential already created.
+</Tip>
+
+To configure the node by hand, click it on the canvas and open it with the pencil of its tile in the chat (**Manual edit**), or hover it and click **Edit Manually**. Your changes are kept once you click **Save Changes**.
 
 ---
 
@@ -56,26 +79,16 @@ The configuration form is the same in all three cases. Only the available variab
 
 <Steps>
   <Step title="Description">
-    Explain what this API does and what data it returns (e.g. *"Fetches customer order history"*). Maximum **150 characters**. This helps Pearl understand when and how to use the action.
+    Explain what this API does and what data it returns (e.g. *"Returns open appointment slots for the requested day"*). The description is **required**, up to **150 characters**. Pearl reads it to understand what the request is for.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/api-action-description.png"
-        alt="API node description field"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-description.png" alt="Description of an API node" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-description.png" alt="Description of an API node" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="URL & Method">
-    Type the API endpoint URL and choose the **HTTP Method** (**GET**, **POST**, **PUT**, **DELETE**, or **PATCH**) depending on the API's requirements. Click **+** to insert a variable into the URL, limited to the variables available in the node's context (see [Context Differences](#context-differences)).
+    In **URL**, pick the method in the dropdown before the address (**GET**, **POST**, **PUT**, **DELETE**, or **PATCH**), then type the endpoint URL. Click **Variable** to insert a variable, among those available in the node's context (see [Context Differences](#context-differences)) and your environment variables, for example `{apiBaseUrl}/orders`. Variables are inserted as they are, without URL encoding.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/api-action-url.png"
-        alt="API URL and method configuration"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-url.png" alt="URL of an API node with the list of methods open" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-url.png" alt="URL of an API node with the list of methods open" className="rounded-[14px]" /></Frame></div>
 
     <Info>
       The available fields depend on the method:
@@ -85,40 +98,30 @@ The configuration form is the same in all three cases. Only the available variab
     </Info>
 
     <Note>
-      If your API is behind a firewall, allow the NLPearl IP addresses listed in [IP Whitelisting](/pages/ip_whitelist). This applies to Pre-Call, In-Call, and Post-Call requests alike.
+      A request times out after **10 seconds**, and only a **2xx** status counts as a success. If your API is behind a firewall, allow the NLPearl IP addresses listed in [IP Whitelisting](/pages/ip_whitelist). This applies to Pre-Call, In-Call, and Post-Call requests alike.
     </Note>
   </Step>
   <Step title="Headers">
-    Add any header required by the API, such as `Content-Type` or `Authorization`. Header values are **static**.
+    Add any header required by the API, such as `Content-Type` or `Authorization`, as **Key / Value** pairs. Header values are **static**: only environment variables are replaced in them, since they are filled in across the whole flow before each call. When you don't set a `Content-Type`, `application/json` is sent.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/api-action-headers.png"
-        alt="API headers configuration"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-headers.png" alt="Headers of an API node with one header" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-headers.png" alt="Headers of an API node with one header" className="rounded-[14px]" /></Frame></div>
 
     <Info>
       For a **dynamic authorization token**, use a [**Credential**](#credentials-authentication) instead of a static header.
     </Info>
   </Step>
   <Step title="Body (POST / PUT / PATCH)">
-    Provide **Key / Value** pairs, sent as JSON.
+    Provide **Key / Value** pairs, sent as JSON. Type in the empty row at the bottom to add one; hover a row to delete it.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/api-action-body.png"
-        alt="API body configuration"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-body.png" alt="Body of an API node with three keys mapped to variables" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-body.png" alt="Body of an API node with three keys mapped to variables" className="rounded-[14px]" /></Frame></div>
 
-    Each **Value** is either a **Variable** or a **Static & Custom** value. Static values support these types:
+    Each **Value** is either one of your **Variables** or a **Static & Custom** value. Static values support these types:
 
     | Type | Format |
     | --- | --- |
-    | **Text** | String |
+    | **Text** | String, up to 250 characters, which can include variables |
     | **Whole Number** | Integer |
     | **Decimal Number** | Float / double |
     | **Boolean** | `true` / `false` |
@@ -127,15 +130,15 @@ The configuration form is the same in all three cases. Only the available variab
     | **Date & Time** | Combined date and time |
 
     <Info>
-      For each row you can toggle a **Required** checkbox:
+      For each row you can tick the **Required** checkbox:
 
-      - **Checked**: Pearl prompts the customer for the value before sending the request if it hasn't been collected yet.
-      - **Unchecked**: the request is sent even if the value is missing; the key is simply omitted.
+      - **Checked**: if the value is missing, the request is not sent. During the conversation, Pearl is told which value is missing and asks the customer for it. In a Pre-Call API, there is no one to ask, so the node takes its **Not Success** path.
+      - **Unchecked**: the request is sent even if the value is missing; the key is simply left out.
     </Info>
 
     When using a variable in the body, be aware that:
 
-    - The platform **casts each variable to its configured data type** (e.g. Whole Number becomes an integer, Text is quoted as a string). A type mismatch may cause the API to reject the request.
+    - Each variable keeps its **configured data type** (e.g. a Whole Number is sent as a number, a Text as a string). During the conversation, a value that doesn't match the type stops the request.
     - You can mix static values and variables in the same body.
     - For nested JSON, use **dot notation** in the Key (`customer.address.street`) and **square brackets** for array indices (`order.items[0].productId`). See [Using Nested Objects](#using-nested-objects) below.
 
@@ -199,7 +202,7 @@ Many APIs expect a **nested JSON structure** in their request body. Use dot nota
 ## Response Output Schema & Variable Assignment
 
 <Warning>
-  API responses are capped at **10,000 characters**. Anything longer is automatically truncated.
+  API responses are capped at **10,000 characters**, and error responses at **1,000 characters**. Anything longer is automatically truncated.
 </Warning>
 
 Available for every method **except DELETE**. The **Response Output Schema** lets you filter the API response so only the relevant data flows back into the conversation. Without filtering, the entire JSON is returned, which can reduce precision because the AI receives too much unrelated information. Even for small responses, setting a schema is strongly recommended to keep Pearl focused.
@@ -208,22 +211,19 @@ Each row of the schema has three parts:
 
 | Column | Description |
 | --- | --- |
-| **Required** (checkbox) | Mark the path as mandatory for the action. |
+| **Required** (checkbox) | The path must come back in the response. |
 | **JSON Path** | The path to extract from the response. |
-| **Variable to Assign** | Store the extracted value in a variable. **Required for Pre-Call**, optional otherwise. |
+| **Variable to Assign** | Store the extracted value in a variable. **Required for Pre-Call**, optional otherwise (**Variable to Assign (Optional)**). |
 
-<Frame>
-  <img
-    src="/images/dark_mode/api-action-response-output-schema.png"
-    alt="API response output schema configuration"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/api-response.png" alt="Response Output Schema of an API node with one path assigned to a variable" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-response.png" alt="Response Output Schema of an API node with one path assigned to a variable" className="rounded-[14px]" /></Frame></div>
 
 ### How it works
 
 - Provide a list of **JSON Path** strings, one per row.
 - The system extracts only those paths from the API response; everything else is discarded.
+- As soon as one row has a variable, Pearl receives **only the assigned variables**, not the rest of the response. Rows without a variable then don't reach Pearl.
+- The same variable can't be assigned to two paths, and environment variables can't be assigned.
 
 ### Path syntax
 
@@ -243,6 +243,8 @@ A path can also **choose**, which is what you need as soon as an API answers wit
 | `items[0:3]` | The first three entries — a slice. |
 | `..email` | Every `email` found anywhere in the response, at any depth. |
 
+Filters accept `==`, `!=`, `<`, `<=`, `>`, `>=`, `contains`, `startswith`, and `endswith`. A path can be up to 2,048 characters, with at most two `..` searches and eight nested brackets; beyond that, it selects nothing.
+
 A slice or a recursive `..` search can match several values at once. Assign one of those to a variable and the variable has to allow multiple values — see **Assigning to a variable** below.
 
 <Note>
@@ -252,13 +254,13 @@ A slice or a recursive `..` search can match several values at once. Assign one 
 <Card icon="circle-info" iconType="light">
   ### Using a variable inside a path
 
-  A path can carry a `{variableId}` placeholder — the same syntax used everywhere else (see [Flow Variables](/api-reference/flow_variables)). It is replaced with the variable's current value before the response is read, so the path can depend on what the conversation has collected:
+  A path can carry a `{variableId}` placeholder — the same syntax used everywhere else (see [Flow Variables](/api-reference/flow_variables)) — for a variable the request itself sends, in the URL or the body. It is replaced with the value sent in this request before the response is read, so the path can depend on what the conversation has collected:
 
   ```text
   collection[?(@.start_time startswith '{preferredDateIso}')][0].start_time
   ```
 
-  If the caller asked for a particular day and it was collected into `preferredDateIso`, that path returns the first slot on that day.
+  If the request sends the day the caller asked for as `preferredDateIso`, that path returns the first slot on that day. If the value is missing, nothing is extracted.
 </Card>
 
 <Tip>
@@ -284,7 +286,7 @@ A slice or a recursive `..` search can match several values at once. Assign one 
   - A variable can store up to **2,000 characters**. Any data beyond this limit is **truncated**.
 
   <Info>
-    Outside of Pre-Call APIs, assigning a variable is optional. If you don't assign one, the filtered JSON is still available for the conversation's internal logic, but it won't be stored for later reuse.
+    Outside of Pre-Call APIs, assigning a variable is optional. Without any assigned variable, Pearl receives the filtered JSON for the rest of the conversation, but it isn't stored for later reuse.
   </Info>
 </Card>
 
@@ -292,35 +294,30 @@ A slice or a recursive `..` search can match several values at once. Assign one 
 
 ## Credentials (Authentication)
 
-If your API requires authentication, create a **Credential** on the platform, then enable the **Credentials** toggle in the API node and select it from the **Token** dropdown (use **Add New** to create one, **Edit** to update it). Leave the toggle off if no authentication is needed.
+If your API requires authentication, use a **Credential**. In the node's **Options**, turn on **Credentials** and pick one in **Token**. **Add New** opens your Pearl's credentials, and the pencil next to the selected one (**Edit**) opens its settings. Leave **Credentials** off if no authentication is needed. Credentials are shared by the whole Pearl.
 
-<Frame>
-  <img
-    src="/images/dark_mode/api-action-credential-toggle.png"
-    alt="API credentials toggle and token selection"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/api-credentials.png" alt="Credentials turned on in the Options of an API node, with a token selected" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-credentials.png" alt="Credentials turned on in the Options of an API node, with a token selected" className="rounded-[14px]" /></Frame></div>
 
-**Supported credential types** (chosen from the **Type** dropdown when creating a credential):
+**Supported credential types** (chosen from the **Type** dropdown when you add a credential manually):
 
 | Type | Description |
 | --- | --- |
-| **Api Key** | Injected in a **Header** or **Query** parameter |
+| **Api Key** | A key and value injected in a **Header** or **Query** parameter |
 | **Basic Auth** | Username + password |
-| **Bearer** | A static bearer token |
+| **Bearer** | A static token, sent as `Authorization: Bearer <token>` |
 | **Custom Api Key** | Custom headers / query params / body |
 | **Refresh Token** | The platform fetches and refreshes a token automatically |
 
 <Info>
-  **OAuth2** providers are connected through [**Integrations**](/pages/pearl_vibe), not created manually in this form.
+  **OAuth2** services are connected through their **integration** in the **Add a credential** panel: pick it, then click **Connect** to sign in. They are not created manually in this form.
 </Info>
 
 <Tip>
   Why use a Credential?
 
   - Avoid hardcoding tokens manually in every API node
-  - Automatically refresh tokens based on their TTL (time-to-live)
+  - Automatically refresh tokens based on their lifetime
   - Centralized management when multiple API nodes reuse the same token
   - No need to parse token responses manually, the platform extracts the token for you
 </Tip>
@@ -328,63 +325,47 @@ If your API requires authentication, create a **Credential** on the platform, th
 ### Configuring a Refresh Token credential
 
 <Steps>
-  <Step title="Open the Credential Manager">
-    Open the **Credential Manager** from the icon at the top of the Flow Editor header.
+  <Step title="Open Variables & credentials">
+    Click the `{ }` button (**Variables & credentials**) in the editor header.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/api-action-credential-1.png"
-        alt="Credential Manager access in the Flow Editor header"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-cred-open.png" alt="Variables & credentials button in the editor header" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-cred-open.png" alt="Variables & credentials button in the editor header" className="rounded-[14px]" /></Frame></div>
   </Step>
-  <Step title="Add a new credential">
-    In the **Credentials Manager**, click **+ Add** to create a new credential.
+  <Step title="Add a credential">
+    In **Credentials**, click **Add credential**. The list shows each credential's **Name**, **Type**, and **Status**: **Ready**, or what it still needs (**Not connected**, **Reconnect needed**, **Values missing**).
 
-    <Frame>
-      <img
-        src="/images/dark_mode/api-action-credential-2.png"
-        alt="Add a new credential in the Credentials Manager"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-cred-list.png" alt="Credentials of a Pearl with the Add credential button" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-cred-list.png" alt="Credentials of a Pearl with the Add credential button" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="Choose how to add it">
-    You can either pick a ready-made **integration** from the list (Google, Microsoft, Slack, HubSpot, Salesforce, Zoho, and more) to connect through its guided flow, or click **Add Manually** to configure a custom credential such as a **Refresh Token**.
+    In **Add a credential**, either pick a ready-made **integration** from the list (Google, Microsoft, Slack, HubSpot, Salesforce, Zoho, and more) to connect through its own sign-in, or click **Add manually** to configure a custom credential such as a **Refresh Token**.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/api-action-credential-3.png"
-        alt="Choose an integration or add a credential manually"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-cred-add.png" alt="Add a credential panel with Add manually and the list of integrations" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-cred-add.png" alt="Add a credential panel with Add manually and the list of integrations" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="Fill in the credential details">
-    If you chose **Add Manually**, enter a **Name** (a label to identify it later) and select a **Type**. The form updates to show the fields specific to the selected type.
+    Enter a **Name** (a label to identify it later) and choose a **Type**. The form updates to show the fields specific to the selected type.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/api-action-credential-4.png"
-        alt="Manual credential form with name, type, and type-specific fields"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-cred-form.png" alt="Refresh Token credential form with its token request and token settings" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-cred-form.png" alt="Refresh Token credential form with its token request and token settings" className="rounded-[14px]" /></Frame></div>
 
     <Card title="Example: Refresh Token fields">
       | Field | Description |
       | --- | --- |
-      | **Access Token URL** | The method and endpoint used to request the token, with optional **Headers**, **Query Params**, and **Body** (e.g. `grant_type`, `client_id`, `client_secret`). |
-      | **Token Path** | JSON path to locate the token in the response (e.g. `data.access_token`). |
-      | **TTL (sec)** | Token time-to-live (minimum **100**). |
-      | **Header Key** | Name of the header where the token is injected (e.g. `Authorization`). |
-      | **Header Prefix** | Optional prefix for the token (e.g. `Bearer`). |
-      | **Secured Variables** | Sensitive key/value pairs reused across requests. |
+      | **Access token URL** | The method and endpoint used to request the token, with optional **Headers**, **Query params**, and **Body** (e.g. `grant_type`, `client_id`, `client_secret`). The Body is hidden for GET and DELETE. |
+      | **Path in the answer** | JSON path to locate the token in the response (e.g. `access_token` or `data.access_token`). |
+      | **Lifetime (seconds)** | How long the token stays valid (minimum **100**, **300** by default). |
+      | **Header key** | Name of the header where the token is injected (**Authorization** by default). |
+      | **Header prefix** | Optional prefix for the token (**Bearer** by default). |
+
+      To keep a sensitive value such as a client secret out of sight, click the `{ }` button of a value (**Insert a secured variable**) and add it as a **secured variable**.
     </Card>
   </Step>
-  <Step title="Test the Credential">
-    Use **Test Credentials** to call the token endpoint and preview the JSON response, confirming your configuration retrieves the token successfully before saving.
+  <Step title="Test and save">
+    In **Test the token request**, click **Run test** to call the token endpoint. The result shows **Token ready** with the token, how it is sent, and how often it is renewed, or what went wrong (for example no token at the path you set, with a button to use the path it found). Then click **Save**.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-cred-test.png" alt="Test the token request section of a Refresh Token credential" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-cred-test.png" alt="Test the token request section of a Refresh Token credential" className="rounded-[14px]" /></Frame></div>
   </Step>
 </Steps>
 
@@ -393,11 +374,11 @@ If your API requires authentication, create a **Credential** on the platform, th
 
   Once saved, select this Credential from the **Token** dropdown in any API node. When selected:
 
-  - The platform automatically adds the token to the request header, using the configured **Header Key** and optional **Header Prefix**.
-  - The token is refreshed automatically when it expires, based on the configured **TTL**.
+  - The platform automatically adds the token to the request header, using the configured **Header key** and optional **Header prefix**.
+  - The token is kept for its **Lifetime** and fetched again when it expires. If the API answers with an error, the token is refreshed and the request retried once.
 
   <Warning>
-    Make sure the **Token Path** matches the exact location of the token in the JSON response. If the platform can't find the token at this path, the Credential will fail.
+    Make sure **Path in the answer** matches the exact location of the token in the JSON response. If the platform can't find the token at this path, the Credential will fail.
   </Warning>
 </Card>
 
@@ -413,7 +394,9 @@ The same API node behaves differently depending on where you place it in the flo
 | **Available variables** | Pre-Call only | Pre-Call + In-Call | Pre-Call + In-Call + Post-Call |
 | **Assign response to variable** | Required | Optional | Optional |
 | **Transitions** | Success (+ optional Not Success) | Continue / conditional | None |
-| **Can duplicate** | No | Yes | — |
+| **Can duplicate** | No | Yes | Yes |
+
+Environment variables are available in all three.
 
 <Tabs>
   <Tab title="Pre-Call API">
@@ -426,16 +409,23 @@ The same API node behaves differently depending on where you place it in the flo
       Only **Pre-Call variables** are available (system variables like phone number, call id, first/last name, email, plus your own Pre-Call variables).
     </Info>
 
-    - **Assigning response values to variables is required**, that's how pre-call data becomes usable in the conversation. All required variables must be returned for the node to take the **Success** path.
-    - **Transitions**: a **Success** branch by default. Enable **On Error Transition** (in the Transitions tab) to add a **Not Success** branch for failed requests.
-    - Pre-Call API nodes **cannot be duplicated**.
+    - **Assigning response values to variables is required**: that's how pre-call data becomes usable in the conversation. The rows marked **Required** must come back for the node to take the **Success** path.
+    - **Transitions**: a **Success** branch by default. Turn on **On Error Transition** in the **Transitions** tab to add a **Not Success** branch. It is taken when a required input is missing, the API answers with a non-2xx status, the response can't be read, a required value doesn't come back, or the request fails.
+    - Pre-Call API nodes **can't be renamed or duplicated**.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-precall-transitions.png" alt="Transitions tab of a Pre-Call API node with On Error Transition turned on" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-precall-transitions.png" alt="Transitions tab of a Pre-Call API node with On Error Transition turned on" className="rounded-[14px]" /></Frame></div>
   </Tab>
   <Tab title="In-Call API">
     Runs **when the flow reaches the node during the conversation**.
 
     - Both **Pre-Call** and **In-Call** variables are available.
-    - After it runs, the flow follows the **Continue** transition (or your conditional transitions).
+    - A new node starts with a single **Continue** transition. Add conditional transitions with **New Transition**: each has a condition (**Transition**) and a **Node Chosen**.
+    - If the request fails, Pearl receives the status code and the error message and decides what to say. There is no automatic error branch, so add a transition for that case (for example *No slots*).
     - Assigning response values to variables is optional but recommended for reuse later in the flow.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-incall-transitions.png" alt="Transitions tab of an In-Call API node with two conditions" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-incall-transitions.png" alt="Transitions tab of an In-Call API node with two conditions" className="rounded-[14px]" /></Frame></div>
   </Tab>
   <Tab title="Post-Call API">
     Runs **after the call**, as part of the **Post-Call Actions**.
@@ -449,30 +439,31 @@ The same API node behaves differently depending on where you place it in the flo
 
 ## Testing Your API
 
-Use the **Test API** panel below the form:
-
-<Frame>
-  <img
-    src="/images/dark_mode/api-action-test.png"
-    alt="Test API panel"
-    className="rounded-[14px]"
-  />
-</Frame>
+Use the **Test the API** block at the bottom of the form. Testing sends a real request to your API.
 
 <Steps>
-  <Step title="Assign Test Values">
-    Give sample values to every variable used in the request.
+  <Step title="Fill in the test values">
+    Give a sample **Value** to every variable used in the request.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-test.png" alt="Test the API block with a test value" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-test.png" alt="Test the API block with a test value" className="rounded-[14px]" /></Frame></div>
   </Step>
-  <Step title="Send">
-    Click **Send** to run the request.
+  <Step title="Run the test">
+    Click **Run test** (**Run again** afterwards). To work with more room, click **Expand**: the form and the test values sit on the left, the answer on the right, and **Send** runs the request.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-test-expand.png" alt="Expanded test view with the form on the left and No response yet on the right" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-test-expand.png" alt="Expanded test view with the form on the left and No response yet on the right" className="rounded-[14px]" /></Frame></div>
   </Step>
-  <Step title="Inspect">
-    Review the raw response, the filtered response (if an Output Schema is set), and any variables populated from it.
+  <Step title="Inspect the answer">
+    The result starts with a verdict (**Answer received**, **The API answered with an error**, **Couldn't reach the URL**, or **The test couldn't run**), the status code with the time it took, and the request line. Then switch between **Request**, **Response** (**Filtered** or **Unfiltered**, if an Output Schema is set), and **Assigned Variables**.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-test-result.png" alt="Expanded test view with an answer received, its filtered response and status" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-test-result.png" alt="Expanded test view with an answer received, its filtered response and status" className="rounded-[14px]" /></Frame></div>
   </Step>
 </Steps>
 
 <Tip>
-  Use **Expand** to open a full-screen view with the request and response side by side. Test and perfect your setup before putting the Pearl in production.
+  Test and perfect your setup before putting the Pearl in production.
 </Tip>
 
 ---

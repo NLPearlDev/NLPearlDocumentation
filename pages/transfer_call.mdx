@@ -1,17 +1,17 @@
 ---
-title: Transfer Call Node
+title: "Transfer Call Node"
 icon: "phone-volume"
 iconType: "light"
 ---
 
-<Callout icon="phone" color="#2563EB" iconType="regular">Available for **Pearl Voice** only.</Callout>
+<Callout icon="phone" color="#2563EB" iconType="regular">Available on **voice Pearls** only. Text Pearls use the [**Hand-Off**](/pages/text/handoff_action) node to route conversations to a human.</Callout>
 
 <div className="block dark:hidden">
   <Frame>
     <div className="p-1">
       <img
         src="/images/dark_mode/transfer-call-cover.svg"
-        alt="Send Email action interface on light mode"
+        alt="Transfer Call node cover"
         className="rounded-[14px]"
       />
     </div>
@@ -23,7 +23,7 @@ iconType: "light"
     <div className="p-1">
       <img
         src="/images/dark_mode/transfer-call-cover.svg"
-        alt="Send Email action interface on dark mode"
+        alt="Transfer Call node cover"
         className="rounded-[14px]"
       />
     </div>
@@ -32,51 +32,71 @@ iconType: "light"
 
 The **Transfer Call** node hands the live call off to another phone number, so your Pearl can bring a human or another line into the conversation.
 
-**What it does**: Transfers the live call to another phone number.
+## What it does
 
-**When to use**: Escalate to a human, route to a manager, or forward to another department.
+It transfers the live call to the number you set, optionally after a line to the caller and an introduction to the person who picks up.
 
-<Info>
+## When to use it
+
+Escalate to a human, route to a manager, or forward the call to another department.
+
+## Adding a Transfer Call node
+
+In the [PearlVibe editor](/pages/pearl_vibe), click **Add Node** and pick **Transfer Call** in the **Actions** section of the **In-Call** tab. You can also ask PearlVibe to add one for you in the chat (**Build** mode).
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/transfer-node-add.png" alt="Transfer Call in the Actions section of the node picker" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/transfer-node-add.png" alt="Transfer Call in the Actions section of the node picker" className="rounded-[14px]" /></Frame></div>
+
 A Transfer Call node can be triggered in **two ways**:
 
-- **Reached through a transition**: like any other node, when a previous node routes to it. It fires as soon as the flow reaches it, and the **When to trigger** field is hidden (it isn't needed).
+- **Reached through a transition**: like any other node, when a previous node routes to it. It fires as soon as the flow reaches it, and the **When to trigger** field is hidden.
 - **As a floating node**: with **no** incoming transition. Then **When to trigger** becomes required, and Pearl can jump to the transfer from **anywhere** in the conversation whenever that condition is met.
 
-You can use both patterns in one flow: place scripted transfers inline via transitions, and keep a floating transfer for exceptions like "the customer asks for a manager."
-</Info>
+You can use both patterns in one flow: place scripted transfers inline through transitions, and keep a floating transfer for exceptions like "the customer asks for a manager."
 
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/transfer-canvas.png" alt="Floating Transfer Call node on the canvas, with no incoming transition" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/transfer-canvas.png" alt="Floating Transfer Call node on the canvas, with no incoming transition" className="rounded-[14px]" /></Frame></div>
+
+To configure the node by hand, click it on the canvas and open it with the pencil of its tile in the chat (**Manual edit**), or hover it and click **Edit Manually**. Your changes are kept once you click **Save Changes**.
 
 ---
 
 ## How to Configure
 
-<Frame>
-  <img
-    src="/images/dark_mode/transfer-call-node.png"
-    alt="Transfer Call node configuration with phone number, Say, and Warm Transfer"
-    className="rounded-[14px]"
-  />
-</Frame>
-
 <Steps>
   <Step title="Phone Number">
-    Destination in international format (e.g., `+12025551234`) or a variable.
+    The destination, in international format (e.g. `+12025551234`), or a variable: click **Variable** to insert one. If the variable has no value when the transfer runs, the transfer is refused and the caller stays with Pearl.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/transfer-phone.png" alt="Phone Number of a Transfer Call node" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/transfer-phone.png" alt="Phone Number of a Transfer Call node" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="Show client caller ID (optional)">
-    When enabled, Pearl attempts to show the **client's number** to the recipient during the transfer, instead of Pearl's own number.
+    When turned on, Pearl attempts to show the **client's number** to the recipient during the transfer, instead of Pearl's own number.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/transfer-caller-id.png" alt="Show client caller ID switch under the phone number" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/transfer-caller-id.png" alt="Show client caller ID switch under the phone number" className="rounded-[14px]" /></Frame></div>
 
     <Warning>
     Test this first. If transfers fail with it on, turn it off.
     </Warning>
   </Step>
   <Step title="Say (optional)">
-    A line Pearl says to the **caller** right before transferring (e.g. *"I'm connecting you to a specialist now."*).
+    A line Pearl says to the **caller** right before transferring (e.g. *"I'm connecting you to our front desk now."*).
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/transfer-say.png" alt="Say field of a Transfer Call node" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/transfer-say.png" alt="Say field of a Transfer Call node" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="When to trigger (floating nodes only)">
-    Describe when Pearl should trigger the transfer, e.g. *"If the client needs a manager or has an emergency."* This field only appears when the node has no incoming transition.
+    Describe when Pearl should trigger the transfer, e.g. *"If the client needs to speak to a manager or has an emergency."* This field only appears when the node has no incoming transition.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/transfer-trigger.png" alt="When to trigger field of a floating Transfer Call node" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/transfer-trigger.png" alt="When to trigger field of a floating Transfer Call node" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="Warm Transfer (optional)">
-    Introduce the call to the recipient before Pearl drops off. See [Transfer types](#transfer-types) below.
+    In **Options**, turn on **Warm Transfer** to introduce the call to the recipient before Pearl drops off. Choose **Whisper** or **3-way**, then write the introduction. See [Transfer types](#transfer-types) below.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/transfer-warm.png" alt="Warm Transfer turned on in the Options of a Transfer Call node, with Whisper or 3-way and the introduction" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/transfer-warm.png" alt="Warm Transfer turned on in the Options of a Transfer Call node, with Whisper or 3-way and the introduction" className="rounded-[14px]" /></Frame></div>
   </Step>
 </Steps>
 
@@ -84,7 +104,7 @@ You can use both patterns in one flow: place scripted transfers inline via trans
 
 ## Transfer types
 
-A Transfer Call can happen in two ways, controlled by the **Warm Transfer** toggle.
+A Transfer Call can happen in two ways, controlled by the **Warm Transfer** switch.
 
 **Direct transfer (Warm Transfer off).** Pearl connects the caller straight to the destination number without speaking to the recipient first. The recipient picks up with no context. This is the default.
 
@@ -94,14 +114,6 @@ A Transfer Call can happen in two ways, controlled by the **Warm Transfer** togg
 | --- | --- | --- | --- |
 | **Whisper** (default) | Recipient only | On hold, doesn't hear it | Privately brief the recipient (e.g. sensitive context) |
 | **3-way** | Both caller and recipient | Present, hears it | Give an open, seamless handover |
-
-<Frame>
-  <img
-    src="/images/dark_mode/warm-transfer.png"
-    alt="Warm Transfer module with Whisper / 3-way toggle and intro message"
-    className="rounded-[14px]"
-  />
-</Frame>
 
 <Info>
   **Two different messages, don't confuse them:**
@@ -115,12 +127,10 @@ A Transfer Call can happen in two ways, controlled by the **Warm Transfer** togg
 - Whisper: `Hi, I'm on the line with {firstName} regarding {reason}. I'll transfer the call to you now.`
 - 3-way: `Hi, I'm on the line with {firstName} calling about {reason}. I'll leave you both to it. Thanks!`
 
-<Warning>
-**Pearl Voice only.** Pearl Text uses the [**Hand‑Off**](/pages/text/handoff_action) node to route conversations to a human.
-</Warning>
+If a variable of the intro has no value yet, Pearl first tries to fill it from the conversation; otherwise it is left empty and the call is transferred anyway.
 
 <Note>
-Transfer Call is **terminal**: the call leaves Pearl, so the node has no outgoing transitions. Validation flags *"Missing Phone Number"*, and *"Missing Trigger Description"* when the node is floating.
+Transfer Call is **terminal**: the call leaves Pearl, so the node has no **Transitions** tab. Validation flags *"Missing Phone Number"*, and *"Missing Trigger Description"* when the node is floating.
 </Note>
 
 <Card icon="circle-info" iconType="light">
@@ -130,5 +140,3 @@ Transfer Call is **terminal**: the call leaves Pearl, so the node has no outgoin
 
 **Test calls**: on a test call placed from an NLPearl number, the country restriction doesn't apply, but the transferred call is cut after 30 seconds.
 </Card>
-
-

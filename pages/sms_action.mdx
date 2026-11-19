@@ -1,5 +1,5 @@
 ---
-title: Send SMS Node
+title: "SMS Node"
 icon: "comments"
 iconType: "light"
 ---
@@ -505,14 +505,14 @@ export const SmsCalculator = () => {
   );
 };
 
-<Callout icon="phone" color="#2563EB" iconType="regular">Available for **Pearl Voice** only.</Callout>
+<Callout icon="phone" color="#2563EB" iconType="regular">Available on **voice Pearls** only: the editor doesn't offer the SMS node on text Pearls.</Callout>
 
 <div className="block dark:hidden">
   <Frame>
     <div className="p-1">
       <img
         src="/images/dark_mode/sms-action-cover.svg"
-        alt="Send Email action interface on light mode"
+        alt="SMS node cover"
         className="rounded-[14px]"
       />
     </div>
@@ -524,63 +524,70 @@ export const SmsCalculator = () => {
     <div className="p-1">
       <img
         src="/images/dark_mode/sms-action-cover.svg"
-        alt="Send Email action interface on dark mode"
+        alt="SMS node cover"
         className="rounded-[14px]"
       />
     </div>
   </Frame>
 </div>
 
-The **Send SMS** node lets your AI agent send an SMS in real time, during the conversation (In-Call) or after it ends (Post-Call), so your customers receive important information instantly.
+The **SMS** node sends a text message to your customer or to your team, during the conversation (In-Call) or once it ends (Post-Call): a confirmation, a link, a reminder, or a notification.
 
 ---
 
 ## Adding the Node
 
-In the Flow Editor, add a **Send SMS** node where you want the message to be sent.
+In the [PearlVibe editor](/pages/pearl_vibe), click **Add Node** and pick **SMS** in the **Actions** section of the tab for the moment the SMS should be sent. You can also ask PearlVibe to add one for you in the chat (**Build** mode). The SMS is sent based on where the node sits in your flow: there is **no separate trigger field** on the node itself.
 
-| Context | Where to add it |
-| --- | --- |
-| **In-Call** | Place the node in the conversation, at the point where the SMS should be sent. |
-| **Post-Call** | Add it as a **Post-Call action** to send the SMS once the call ends. |
+<Tabs>
+  <Tab title="In-Call">
+    In the **In-Call** tab, pick **SMS** (*Texts the caller*), then connect it at the point of the conversation where the SMS should be sent.
 
-<Note>
-  The SMS is sent based on where the node sits in your flow, there is **no separate trigger field** on the node itself.
-</Note>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/sms-node-add.png" alt="SMS in the Actions section of the In-Call tab of the node picker" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/sms-node-add.png" alt="SMS in the Actions section of the In-Call tab of the node picker" className="rounded-[14px]" /></Frame></div>
+  </Tab>
+  <Tab title="Post-Call">
+    In the **Post-Call** tab, pick **SMS** (*Texts once it ends*). In **Add Post Call Action**, select the end of the conversation it should follow, or **New Transition** to write your own condition, then click **Add**. You can also click **Add Action** on an existing **Post-Call Actions** node.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/sms-postcall-add.png" alt="Add Post Call Action popup for an SMS" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/sms-postcall-add.png" alt="Add Post Call Action popup for an SMS" className="rounded-[14px]" /></Frame></div>
+  </Tab>
+</Tabs>
+
+To configure the node by hand, click it on the canvas and open it with the pencil of its tile in the chat (**Manual edit**), or hover it and click **Edit Manually**. Your changes are kept once you click **Save Changes**.
 
 ---
 
 ## Fields to Configure
 
-<Frame>
-  <img
-    src="/images/dark_mode/sms-action-example.png"
-    alt="Send SMS node configuration with To and SMS Content fields"
-    className="rounded-[14px]"
-  />
-</Frame>
-
 <Steps>
   <Step title="To">
     The recipient phone number(s), entered as tags. **At least one recipient is required**, and you can mix both modes below in the same field.
 
-    **Send to the customer (dynamic)** — Insert the built-in **phone number** variable with the variable picker. At send time it resolves to the number of the person on the call, including the country code (e.g. `+1 234 567 8900`), and is stored as `{phoneNumber}`. This is the most common setup: the SMS goes to the customer you're talking to.
+    **Send to the customer (dynamic)**: click the `{ }` button and pick **Phone Number** under **Pre-call**. At send time it resolves to the number of the person on the call (the caller on inbound, the lead on outbound), with the country code. This is the most common setup: the SMS goes to the customer you're talking to.
 
-    **Send to a fixed number (static)** — Type a number and press **Space** or **Enter** to turn it into a tag. Use this to always notify the same destination (an internal team, a manager, a back-office line), whoever is on the call.
+    **Send to a fixed number (static)**: type a number and press **Space** or **Enter** to turn it into a tag. Use this to always notify the same destination (an internal team, a manager, a back-office line), whoever is on the call.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/sms-to.png" alt="To of an SMS node with the customer's phone number, a fixed number and the list of phone variables open" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/sms-to.png" alt="To of an SMS node with the customer's phone number, a fixed number and the list of phone variables open" className="rounded-[14px]" /></Frame></div>
 
     <Info>
-      Only the built-in **phone number** variable can be inserted here. Custom variables (including numbers collected during the call) are **not** available in the To field, only static numbers or the customer's phone number. This mirrors the Email node's **To** field, which only accepts the **email address** variable.
+      The list offers the variables of type **Phone Number** from your pre-call variables and environment variables. Numbers collected during the call are not offered in the To field.
     </Info>
 
-    **Accepted format**: an optional leading `+` followed by 1 to 20 digits, with no spaces, dashes, or parentheses. Invalid entries are rejected and not added as a tag.
+    **Format**: a number is sent only in international format, a `+` followed by 6 to 16 digits, with no spaces, dashes, or parentheses. A number without the `+` can be added as a tag, but the SMS is not sent to it.
 
-    | Valid | Invalid |
+    | Sent | Not sent |
     | --- | --- |
     | `+15551234567` | `+1 555 123 4567` |
-    | `0612345678` | `(555) 123-4567` |
+    | `+33612345678` | `0612345678` |
+    |  | `(555) 123-4567` |
   </Step>
   <Step title="SMS Content">
-    Write the message to send. You can include links and details, and insert variables to personalize it, for example: `Hi {firstName}, your reservation at {restaurantName} is confirmed.`
+    Write the message to send, up to **2,000 characters**. You can include links and details, and click **Variable** to personalize it, for example: `Hi {firstName}, your reservation at {restaurantName} is confirmed.`
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/sms-content.png" alt="SMS Content of an SMS node with the list of variables open" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/sms-content.png" alt="SMS Content of an SMS node with the list of variables open" className="rounded-[14px]" /></Frame></div>
 
     Available variables depend on where the node runs:
 
@@ -588,12 +595,22 @@ In the Flow Editor, add a **Send SMS** node where you want the message to be sen
     | --- | --- |
     | **In-Call** | Pre-Call + In-Call |
     | **Post-Call** | Pre-Call + In-Call + Post-Call (e.g. summary, duration) |
+
+    <Note>
+      During the conversation, if a variable of the message or of **To** has no value, the SMS is not sent. After the call, a missing variable is left empty and the SMS is sent.
+    </Note>
+  </Step>
+  <Step title="Transitions (In-Call only)">
+    In the **Transitions** tab, choose where the conversation goes once the SMS is sent. A new node starts with a single **Continue** transition. Use **New Transition** to add your own: each has a condition (**Transition**) and a **Node Chosen**. Pearl is told whether the SMS was sent, so a transition can cover the case where it failed. A post-call SMS has no transitions.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/sms-transitions.png" alt="Transitions tab of an SMS node" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/sms-transitions.png" alt="Transitions tab of an SMS node" className="rounded-[14px]" /></Frame></div>
   </Step>
 </Steps>
 
-<Info>
-  **Regulatory compliance** — To stay compliant, Pearl always asks the customer for consent before sending an SMS, respecting their preferences and communication laws.
-</Info>
+<Tip>
+  **Regulatory compliance**: Pearl sends the SMS when the flow reaches the node. To respect your customers' preferences and communication laws, have Pearl ask for their consent in a [Dialogue](/pages/dialogue) node before the SMS node.
+</Tip>
 
 ---
 
@@ -614,9 +631,14 @@ In the Flow Editor, add a **Send SMS** node where you want the message to be sen
 
 <Info>
 Sending an SMS consumes credits from your account balance. The cost depends on:
-- **Recipient country**: each destination has its own rate per segment.
+- **Recipient country**: each destination has its own rate per segment, read from the number's country code (all `+1` numbers, Canada included, use the United States rate).
 - **Number of segments**: longer messages are split into multiple segments, each billed individually.
+- **Number of recipients**: each recipient is billed at its own country's rate. An SMS that fails to send isn't billed.
 </Info>
+
+<Note>
+SMS sent during test calls are real messages and are billed like any other.
+</Note>
 
 A standard segment holds up to **160 characters** (GSM-7). With special characters or emojis, encoding switches to UCS-2 and the limit drops to **70 characters** per segment. Messages exceeding one segment are concatenated, with each segment charged separately.
 
@@ -631,6 +653,6 @@ If your SMS contains **variables** (e.g. `firstName`), the final cost may vary, 
 
 ### SMS Credit Calculator
 
-Use this calculator to estimate how many segments your message will use and the total credit cost based on the destination country.
+Use this calculator to estimate how many segments your message will use and the total credit cost based on the destination country. The rates shown are indicative.
 
 <SmsCalculator />
