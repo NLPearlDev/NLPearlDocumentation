@@ -50,67 +50,55 @@ The exchange is asynchronous. When you send a user message, NLPearl immediately 
 
 <Steps>
   <Step title="Open Text Channels">
-    On the platform, go to **Settings**, open **Text Channels**, then find **Generic** and click **Connect Generic**.
+    On the platform, open **Settings → Text Channels**, click **Connect Channel**, and choose **Generic**.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/generic-channel-location.png"
-        alt="Generic option highlighted on the Text Channels settings page"
-        className="rounded-[14px] w-full"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/generic-channel-location.png" alt="The Connect Channel menu of Text Channels, with Generic" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/generic-channel-location.png" alt="The Connect Channel menu of Text Channels, with Generic" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="Configure your endpoint">
-    Enter the details NLPearl will use to send events to your system:
+    The **Connect Generic Channel** window opens. Under **Channel details**, enter what NLPearl will use to send events to your system:
 
     | Setting | Description |
     |---|---|
-    | **Channel Name** | A name that helps you identify this connection on the platform. |
+    | **Channel name** | A name that helps you identify this connection on the platform (required). |
     | **Outbound URL** | An HTTPS endpoint that receives Pearl replies, typing indicators, handoffs, and conversation events. |
-    | **Auth Header** *(optional)* | A custom header name and value that NLPearl includes in every request to your outbound URL, such as your own bearer token. |
+    | **Auth header** *(optional)* | A custom header name and value that NLPearl includes in every request to your outbound URL, such as your own bearer token. Fill in both, or leave both empty. |
+
+    Then click **Connect channel**.
 
     <Note>
       If your outbound URL is behind a firewall, allow the NLPearl IP addresses listed in [IP Whitelisting](/pages/ip_whitelist).
     </Note>
 
-    <Frame>
-      <img
-        src="/images/dark_mode/generic-channel-connect.png"
-        alt="Connect Generic Channel dialog with channel name, outbound URL, and optional auth header fields"
-        className="rounded-[14px] w-full"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/generic-channel-connect.png" alt="The Connect Generic Channel window with the channel name, the outbound URL, and the optional auth header" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/generic-channel-connect.png" alt="The Connect Generic Channel window with the channel name, the outbound URL, and the optional auth header" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="Save your channel credentials">
-    Click **Connect Channel**. Open the connected channel to access the credentials required by your integration:
+    In the list of **Text Channels**, click the **⋯** menu of your channel, then **Manage**. The **Generic channel** window shows the credentials required by your integration:
 
     | Value | Description |
     |---|---|
-    | **Channel ID** | Identifies the channel and forms part of its inbound URLs. |
-    | **Signing Secret** | Authenticates requests in both directions. Send it with every request to NLPearl, and use it to verify requests sent to your outbound URL. |
+    | **Channel ID** | Identifies the channel and forms part of its inbound URLs. Copy it with its copy button. |
+    | **Signing secret** | Authenticates requests in both directions. Send it with every request to NLPearl, and use it to verify requests sent to your outbound URL. It is masked: use **Show** to reveal it, or copy it directly. |
 
-    <Frame>
-      <img
-        src="/images/dark_mode/generic-channel-credentials.png"
-        alt="Generic Channel details dialog showing the Channel ID and Signing Secret"
-        className="rounded-[14px] w-full"
-      />
-    </Frame>
+    **Edit** lets you change the channel name, the outbound URL, or the auth header later.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/generic-channel-credentials.png" alt="The Generic channel window with the Channel ID and the masked Signing secret" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/generic-channel-credentials.png" alt="The Generic channel window with the Channel ID and the masked Signing secret" className="rounded-[14px]" /></Frame></div>
 
     <Warning>
       Treat the signing secret like a password. Never expose it in client-side code or commit it to source control.
     </Warning>
   </Step>
   <Step title="Assign the channel to a Pearl">
-    Open the Pearl that should handle these conversations. From its **Overview** page, open **Settings**, select **Text Channel**, and choose the Generic channel you created.
+    Open the Pearl that should handle these conversations, click **Settings** on its page, and pick the Generic channel in **Text Channel**.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/text-channel-assign-pearl.png"
-        alt="Text Channel field highlighted in the Pearl Overview settings"
-        className="rounded-[14px] w-full"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/text-inbound-channel.png" alt="The Text Channel list in the Settings of a text Pearl's page" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-inbound-channel.png" alt="The Text Channel list in the Settings of a text Pearl's page" className="rounded-[14px]" /></Frame></div>
+
+    <Note>
+    A Generic channel can serve **one Pearl** at a time. If it is already connected to another Pearl, disconnect it there first.
+    </Note>
   </Step>
 </Steps>
 
@@ -179,6 +167,10 @@ Possible responses:
 | `404` | The channel does not exist. |
 | `500` | A transient error occurred. You can safely retry when you provide a stable `messageId`. |
 
+<Note>
+A message whose `chatId` is on your [blacklist](/pages/blacklist) is answered with `200` but not processed: Pearl doesn't reply.
+</Note>
+
 ### Return Control to Pearl
 
 After a human handoff, return the conversation to Pearl:
@@ -244,7 +236,7 @@ NLPearl records the message but does **not** deliver it, since your platform alr
 `/ManualMessage` has no retry deduplication. If a request times out and you resend it, the message is recorded twice.
 </Warning>
 
-These control actions return `200` when successful, or `404` when no active conversation exists for the supplied `chatId`.
+These control actions return `200` when successful, `400` when `chatId` is missing, or `404` when no active conversation exists for the supplied `chatId`.
 
 ---
 
@@ -363,15 +355,10 @@ A handoff can start in two ways: Pearl steps aside on its own and sends a `hando
 
 ## Rotate the Secret
 
-Open the connected Generic channel and click the **rotate** icon beside the Signing Secret to generate a new one.
+Open the Generic channel window (**⋯** → **Manage** in **Text Channels**) and click **Rotate** beside the **Signing secret**. Confirm with **Rotate secret** to generate a new one.
 
-<Frame>
-  <img
-    src="/images/dark_mode/generic-channel-rotate-secret.png"
-    alt="Rotate Signing Secret button in the Generic Channel details dialog"
-    className="rounded-[14px] w-full"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/generic-channel-rotate-secret.png" alt="The Rotate the signing secret? confirmation, with Rotate secret" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/generic-channel-rotate-secret.png" alt="The Rotate the signing secret? confirmation, with Rotate secret" className="rounded-[14px]" /></Frame></div>
 
 The previous secret becomes invalid immediately.
 
