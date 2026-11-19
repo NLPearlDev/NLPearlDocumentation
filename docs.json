@@ -71,6 +71,7 @@
                 ]
               },
               "pages/variables",
+              "pages/credentials",
               "pages/webhooks",
               "pages/ip_whitelist",
               "pages/pearl_groups"

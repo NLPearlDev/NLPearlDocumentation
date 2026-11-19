@@ -299,18 +299,10 @@ If your API requires authentication, use a **Credential**. In the node's **Optio
 <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-credentials.png" alt="Credentials turned on in the Options of an API node, with a token selected" className="rounded-[14px]" /></Frame></div>
 <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-credentials.png" alt="Credentials turned on in the Options of an API node, with a token selected" className="rounded-[14px]" /></Frame></div>
 
-**Supported credential types** (chosen from the **Type** dropdown when you add a credential manually):
-
-| Type | Description |
-| --- | --- |
-| **Api Key** | A key and value injected in a **Header** or **Query** parameter |
-| **Basic Auth** | Username + password |
-| **Bearer** | A static token, sent as `Authorization: Bearer <token>` |
-| **Custom Api Key** | Custom headers / query params / body |
-| **Refresh Token** | The platform fetches and refreshes a token automatically |
+The platform adds the selected credential to each request. A **Refresh Token** credential is kept for its **Lifetime** and fetched again when it expires; if the API answers **401**, **403**, **419**, **440**, or **498**, the token is renewed and the request sent again once.
 
 <Info>
-  **OAuth2** services are connected through their **integration** in the **Add a credential** panel: pick it, then click **Connect** to sign in. They are not created manually in this form.
+  To add, connect, or manage credentials (connected accounts, API keys, bearer tokens, refresh tokens), see [Credentials](/pages/credentials).
 </Info>
 
 <Tip>
@@ -321,66 +313,6 @@ If your API requires authentication, use a **Credential**. In the node's **Optio
   - Centralized management when multiple API nodes reuse the same token
   - No need to parse token responses manually, the platform extracts the token for you
 </Tip>
-
-### Configuring a Refresh Token credential
-
-<Steps>
-  <Step title="Open Variables & credentials">
-    Click the `{ }` button (**Variables & credentials**) in the editor header.
-
-    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-cred-open.png" alt="Variables & credentials button in the editor header" className="rounded-[14px]" /></Frame></div>
-    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-cred-open.png" alt="Variables & credentials button in the editor header" className="rounded-[14px]" /></Frame></div>
-  </Step>
-  <Step title="Add a credential">
-    In **Credentials**, click **Add credential**. The list shows each credential's **Name**, **Type**, and **Status**: **Ready**, or what it still needs (**Not connected**, **Reconnect needed**, **Values missing**).
-
-    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-cred-list.png" alt="Credentials of a Pearl with the Add credential button" className="rounded-[14px]" /></Frame></div>
-    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-cred-list.png" alt="Credentials of a Pearl with the Add credential button" className="rounded-[14px]" /></Frame></div>
-  </Step>
-  <Step title="Choose how to add it">
-    In **Add a credential**, either pick a ready-made **integration** from the list (Google, Microsoft, Slack, HubSpot, Salesforce, Zoho, and more) to connect through its own sign-in, or click **Add manually** to configure a custom credential such as a **Refresh Token**.
-
-    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-cred-add.png" alt="Add a credential panel with Add manually and the list of integrations" className="rounded-[14px]" /></Frame></div>
-    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-cred-add.png" alt="Add a credential panel with Add manually and the list of integrations" className="rounded-[14px]" /></Frame></div>
-  </Step>
-  <Step title="Fill in the credential details">
-    Enter a **Name** (a label to identify it later) and choose a **Type**. The form updates to show the fields specific to the selected type.
-
-    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-cred-form.png" alt="Refresh Token credential form with its token request and token settings" className="rounded-[14px]" /></Frame></div>
-    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-cred-form.png" alt="Refresh Token credential form with its token request and token settings" className="rounded-[14px]" /></Frame></div>
-
-    <Card title="Example: Refresh Token fields">
-      | Field | Description |
-      | --- | --- |
-      | **Access token URL** | The method and endpoint used to request the token, with optional **Headers**, **Query params**, and **Body** (e.g. `grant_type`, `client_id`, `client_secret`). The Body is hidden for GET and DELETE. |
-      | **Path in the answer** | JSON path to locate the token in the response (e.g. `access_token` or `data.access_token`). |
-      | **Lifetime (seconds)** | How long the token stays valid (minimum **100**, **300** by default). |
-      | **Header key** | Name of the header where the token is injected (**Authorization** by default). |
-      | **Header prefix** | Optional prefix for the token (**Bearer** by default). |
-
-      To keep a sensitive value such as a client secret out of sight, click the `{ }` button of a value (**Insert a secured variable**) and add it as a **secured variable**.
-    </Card>
-  </Step>
-  <Step title="Test and save">
-    In **Test the token request**, click **Run test** to call the token endpoint. The result shows **Token ready** with the token, how it is sent, and how often it is renewed, or what went wrong (for example no token at the path you set, with a button to use the path it found). Then click **Save**.
-
-    <div className="block dark:hidden"><Frame><img src="/images/light_mode/api-cred-test.png" alt="Test the token request section of a Refresh Token credential" className="rounded-[14px]" /></Frame></div>
-    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/api-cred-test.png" alt="Test the token request section of a Refresh Token credential" className="rounded-[14px]" /></Frame></div>
-  </Step>
-</Steps>
-
-<Card icon="circle-info" iconType="light">
-  ### How the Credential is used
-
-  Once saved, select this Credential from the **Token** dropdown in any API node. When selected:
-
-  - The platform automatically adds the token to the request header, using the configured **Header key** and optional **Header prefix**.
-  - The token is kept for its **Lifetime** and fetched again when it expires. If the API answers with an error, the token is refreshed and the request retried once.
-
-  <Warning>
-    Make sure **Path in the answer** matches the exact location of the token in the JSON response. If the platform can't find the token at this path, the Credential will fail.
-  </Warning>
-</Card>
 
 ---
 
