@@ -1,6 +1,6 @@
 ---
 title: "Call Analytics"
-description: "Track every campaign in real time: call outcomes, success and pickup rates, events, tags, sentiment, an activity heatmap, and costs — all from Pearl's automated conversations."
+description: "Track every Pearl in real time: call outcomes, success and pickup rates, events, tags, sentiment, an activity heatmap, and costs — all from Pearl's automated conversations."
 icon: "chart-simple"
 iconType: "light"
 ---
@@ -15,12 +15,14 @@ iconType: "light"
 
 <br />
 
-NLPearl gives you a detailed analytics dashboard for every campaign, so you can track performance, understand what Pearl is doing on your calls, and optimize your strategy as results come in.
+NLPearl gives every Pearl a detailed analytics dashboard, so you can track performance, understand what Pearl is doing on your calls, and optimize your strategy as results come in. To open it, go to your Pearl's page and select the **Analytics** tab.
 
 <Card icon="circle-info" iconType="light" title="How this dashboard works">
-Outbound campaigns (initiated by Pearl) surface more data, while inbound campaigns show a lighter set of insights. Every metric reflects Pearl's automated voice interactions, never human agents.
+Outbound Pearls (Pearl places the calls) surface more data than inbound Pearls (Pearl answers them). Every metric reflects Pearl's automated voice interactions, never human agents.
 
-Most cards follow the same layout: a **headline metric** at the top, a **Selected period** tag confirming the number matches the range you picked, and an **info** button (ⓘ) with a short explanation. Cards that include a chart plot that metric across the selected period.
+Every card follows the same layout: a **headline metric** at the top, a small tag that gives it context (such as **Selected period**, **Most used tag**, or the busiest time slot), and an **info** button (ⓘ) with a short explanation. Cards with a chart plot that metric across the selected period; on Average Call Duration, Success Rate, Pickup Rate, and Costs, a line marks the period's average.
+
+Until there's data for the period, a card shows an empty state instead (*No Call Status Yet*, *No Duration Data Yet*, and so on).
 </Card>
 
 <Note>
@@ -29,27 +31,21 @@ Running a **Pearl Text** agent? The same dashboard adapts its wording to chats �
 
 ## The analytics toolbar
 
-A toolbar sits at the top of the dashboard. Use it to set the time range for every card and to export a report.
+A toolbar sits at the top of the dashboard. On an outbound Pearl, the **Leads** chip shows how many leads the figures cover; on an inbound Pearl, a chip shows the phone number. Next to it, the period picker sets the time range for every card, and the **Print** button (printer icon, on the right) exports a report.
 
-<Frame caption="The toolbar: active leads, date range, and the Print button.">
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-filter-bar.png"
-    alt="Analytics toolbar showing the leads count, date range picker, and Print button"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-filter-bar.png" alt="Analytics toolbar with the Leads chip, the period picker, and the Print button" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-filter-bar.png" alt="Analytics toolbar with the Leads chip, the period picker, and the Print button" className="rounded-[14px]" /></Frame></div>
 
 ### Choose your time range
 
-By default the dashboard shows the **last 30 days**. Open the date picker to jump to a preset — `Today`, `Yesterday`, `Last 7 days`, `This week`, `This month` — or set a custom **Start** and **End** date. Every card updates to match.
+By default the dashboard shows the **last 30 days**. Open the period picker to jump to a preset — `Today`, `Yesterday`, `Last 7 days`, `This week`, `This month` — or pick a start and an end date on the calendar. Every card updates to match.
 
-<Frame caption="Presets and a custom start/end range.">
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-period-picker.png"
-    alt="Date range picker with quick presets and custom start and end fields"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-period-picker.png" alt="Period picker with start and end dates, two months of calendar, and quick presets" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-period-picker.png" alt="Period picker with start and end dates, two months of calendar, and quick presets" className="rounded-[14px]" /></Frame></div>
+
+<Info>
+A range can cover up to **90 days**.
+</Info>
 
 ### Export a report
 
@@ -60,44 +56,26 @@ Click **Print** to turn the current view into a shareable report.
     Pick the period you want the report to cover.
   </Step>
   <Step title="Click Print">
-    The button sits in the top-right of the toolbar.
+    The printer button sits on the right of the toolbar.
   </Step>
   <Step title="Save as PDF">
     In your browser's print dialog, choose **Save as PDF** (or send it to a printer).
   </Step>
 </Steps>
 
-The report is formatted for print — a light theme with one card per page. It adds a header with your project name and the selected period, and a footer with the generation date.
-
-<Frame caption="Your browser's print dialog, with a preview of the formatted report — pick Save as PDF.">
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-print-report.png"
-    alt="Browser print dialog previewing the analytics report with the NLPearl header, per-card layout, and footer"
-  />
-</Frame>
+The report is formatted for print, in a light theme. It opens with a header showing your Pearl's name and the selected period, and every page ends with a footer giving the generation date and the period.
 
 ## Call Status Breakdown
 
 This card shows how your calls are distributed across their **final statuses**. The headline is your total number of calls for the period.
 
-<Frame caption="The Call Status Breakdown card.">
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-status-breakdown.png"
-    alt="Call Status Breakdown card with total calls, a distribution bar, status pills, and a trend chart"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-status-breakdown.png" alt="Call Status Breakdown card with total calls, a distribution bar, status pills, and a trend chart" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-status-breakdown.png" alt="Call Status Breakdown card with total calls, a distribution bar, status pills, and a trend chart" className="rounded-[14px]" /></Frame></div>
 
-**Each status is a segment of the distribution bar, sized by its share of the total.** The pills below the bar list every status with its call count.
+**Each status is a segment of the distribution bar, sized by its share of the total.** The pills below the bar list each status with its number of calls. Statuses with no calls in the period are left out.
 
-<Frame caption="Segment width equals each status's share of total calls.">
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-status-distribution.png"
-    alt="Horizontal distribution bar split into colored status segments with labeled pills"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-status-distribution.png" alt="Distribution bar split into colored status segments, with a pill and a call count for each status" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-status-distribution.png" alt="Distribution bar split into colored status segments, with a pill and a call count for each status" className="rounded-[14px]" /></Frame></div>
 
 Statuses you'll see:
 
@@ -110,85 +88,62 @@ Statuses you'll see:
 | **Voice Mail Left** | Pearl reached voicemail and left a message. | Outbound |
 | **Unreachable** | The lead couldn't be reached after every retry was exhausted. | Outbound |
 | **Error** | The call failed for a technical reason. | All |
-| **Other** | Any remaining calls that don't fit the above (for example, calls still in progress). Shown on the bar but not selectable. | All |
+| **Other** | Any remaining calls that don't fit the above (for example, calls still in progress). Shown on the bar but can't be selected. | All |
+
+The chart below shows your total calls over the period.
 
 <Tip>
-Select any status — on the bar or in its pill — to overlay that status's trend on the chart below. Hover a segment to see its exact count and percentage.
+Select any status — on the bar or in its pill — to add that status's trend to the chart, and select it again to hide it. Hover a segment to see its exact count and percentage.
 </Tip>
 
-<Frame caption="Selected statuses appear as trends over the period.">
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-status-timeline.png"
-    alt="Line chart showing selected call statuses trending over the selected period"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-status-timeline.png" alt="Successful and Voice Mail Left selected, with their trends drawn under the total calls curve" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-status-timeline.png" alt="Successful and Voice Mail Left selected, with their trends drawn under the total calls curve" className="rounded-[14px]" /></Frame></div>
 
-On outbound campaigns, a toggle lets you switch the whole card between **All calls** and **Answered calls** (the calls a person actually picked up: Completed, Successful, and Unsuccessful).
+On outbound Pearls, a toggle at the top of the card switches it between **All calls** and **Answered calls** — the calls a person actually picked up: Successful, Unsuccessful, and Completed. The headline and the bar then cover answered calls only, and the chart adds an answered calls curve. The toggle is greyed out when no call was answered in the period.
 
-<Frame caption="Switch between all calls and answered calls.">
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-status-answered.png"
-    alt="Toggle switching the Call Status Breakdown between All calls and Answered calls"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-status-answered.png" alt="The Call Status Breakdown switched to Answered calls, with only Successful, Unsuccessful, and Completed" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-status-answered.png" alt="The Call Status Breakdown switched to Answered calls, with only Successful, Unsuccessful, and Completed" className="rounded-[14px]" /></Frame></div>
 
 ## Average Call Duration
 
-The **average length of your calls**, measured from the moment the person picks up or starts interacting with Pearl. Useful to:
+The **average length of your calls**, measured from the moment the person picks up or starts interacting with Pearl. The headline is the average over the selected period, weighted by the number of answered calls each day. Useful to:
 
 - Detect drop-offs
 - Monitor engagement quality
 - Measure attention span
 
-<Frame>
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-avg-duration.png"
-    alt="Average Call Duration card with a headline duration and a trend chart"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-avg-duration.png" alt="Average Call Duration card with a headline duration and a trend chart" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-avg-duration.png" alt="Average Call Duration card with a headline duration and a trend chart" className="rounded-[14px]" /></Frame></div>
 
 ## Success Rate
 
-The **percentage of calls that met the success definition** you set for your Pearl — booking a meeting, confirming information, or anything else you defined as a success. The headline is your average success rate over the selected period, weighted by call volume.
+The **percentage of calls that achieved the goal** you defined for your Pearl — booking a meeting, confirming information, or anything else you set as a success. It's measured on the calls where a conversation took place: calls waiting for a retry, unreachable, sent to voicemail, or in error are left out. The headline is your average success rate over the selected period, weighted by the number of answered calls each day.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-success-rate.png" alt="Success Rate card with an average percentage and a trend chart" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-success-rate.png" alt="Success Rate card with an average percentage and a trend chart" className="rounded-[14px]" /></Frame></div>
+
+<Info>
+Calls marked **Completed** count toward the success rate too. Until you [define what success means](/pages/pearl_analytics) for your Pearl, every answered call is Completed, so the rate isn't a measure of your goal yet.
+</Info>
 
 <Tip>
 Read Success Rate alongside Average Call Duration to gauge how efficient your conversations are.
 </Tip>
 
-<Frame>
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-success-rate.png"
-    alt="Success Rate card with an average percentage and a trend chart"
-  />
-</Frame>
-
-<Info>
-The chart stays empty until you [define what success means](/pages/pearl_analytics) for your Pearl.
-</Info>
-
 ## Events
 
-**Events are the actions Pearl took during conversations.** The headline shows the total number of events and the average per answered call.
+**Events are the actions Pearl took during conversations.** The headline shows the total number of events, with the average per answered call next to it. A distribution bar shows how the events split between actions, based on the answered calls of the period.
 
-<Frame>
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-events.png"
-    alt="Events card listing each action with its per-call rate and share of events"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-events.png" alt="Events card with a distribution bar and each action's count, per-call rate, and share of events" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-events.png" alt="Events card with a distribution bar and each action's count, per-call rate, and share of events" className="rounded-[14px]" /></Frame></div>
 
 Each row breaks down one action three ways:
 
-- **Count** — how many times it occurred.
-- **Per call** — the average number of times per answered call.
-- **Share of events** — its portion of all events triggered.
+- **Count** — the number of calls in which it happened (an action counts once per call).
+- **Per call** — the average per answered call.
+- **Share of events** — its portion of all events.
 
-Tracked actions include:
+Tracked actions:
 
 - **Message Taken**
 - **SMS Sent**
@@ -198,64 +153,41 @@ Tracked actions include:
 
 ## Tags
 
-**Tags are the Indicator Tags you defined when creating your Pearl** — labels like `Interested`, `Callback Requested`, or `Wrong Number` that Pearl applies automatically based on how each conversation goes. The headline highlights your most-used tag and its share of calls.
+**Tags are the Indicator Tags you defined for your Pearl** — labels like `Interested`, `Callback Requested`, or `Wrong Number` that Pearl applies automatically based on how each conversation goes. The headline highlights your most used tag and its share of calls.
 
-<Frame>
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-tags.png"
-    alt="Tags card showing each tag's color, count, and share of calls"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-tags.png" alt="Tags card with a distribution bar and each tag's color, count, and share of calls" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-tags.png" alt="Tags card with a distribution bar and each tag's color, count, and share of calls" className="rounded-[14px]" /></Frame></div>
 
-Each tag shows its color, its count, and its **share of calls** — the percentage of calls it was applied to.
+Each tag shows its color, its count, and its **share of calls** — the percentage of all calls in the period it was applied to. The distribution bar adds a grey **No tag** segment for the calls without any tag.
 
 <Info>
-Tags aren't just for display. You can filter campaigns by tag, trigger notifications, and use them to segment leads. Learn how to set them up in [Call Analytics — Indicator Tags](/pages/pearl_analytics).
+Tags aren't just for display. You can filter calls by tag, trigger notifications, and use them to segment leads. Learn how to set them up in [Call Analytics — Indicator Tags](/pages/pearl_analytics).
 </Info>
 
 ## Calls Heatmap
 
-The heatmap shows **when calls happen** across the week — every cell is a day-and-hour slot, and brighter cells mean more activity. The headline calls out your busiest slot. Use it to find the best times to call (outbound) or to staff for demand (inbound).
+The heatmap shows **when your answered calls happen** across the week — every cell is a day-and-hour slot, and brighter cells mean more activity. The headline gives the number of calls in your busiest slot, with that slot next to it (for example, *Tue · 10 AM–11 AM*). Use it to find the best times to call (outbound) or to staff for demand (inbound).
 
-<Frame>
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-heatmap.png"
-    alt="Weekly calls heatmap with a peak-time headline and a Less-to-More activity legend"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-heatmap.png" alt="Weekly calls heatmap with a peak-time headline and a Less-to-More activity legend" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-heatmap.png" alt="Weekly calls heatmap with a peak-time headline and a Less-to-More activity legend" className="rounded-[14px]" /></Frame></div>
 
-Two controls let you adjust the view:
+Use the **timezone** menu at the top of the card to read the grid in the timezone that matters to you: **Local** (your browser's timezone, the default), **Pearl** (the timezone set on your Pearl), or **UTC**. Each option shows its UTC offset.
 
-- **Color** — toggle a color scale on or off.
-- **Timezone** — read the grid in the timezone that matters to you.
-
-<Frame caption="Color toggle and timezone selector.">
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-heatmap-controls.png"
-    alt="Heatmap controls: a Color toggle and a timezone dropdown"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-heatmap-controls.png" alt="The heatmap's timezone menu open, with the Local, Pearl, and UTC options" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-heatmap-controls.png" alt="The heatmap's timezone menu open, with the Local, Pearl, and UTC options" className="rounded-[14px]" /></Frame></div>
 
 ## Pickup Rate
 
 <Warning>Outbound only.</Warning>
 
-The **percentage of outbound calls answered** by your contacts. The headline is your average pickup rate for the period. It tells you how reachable your audience is, so you can fine-tune your calling hours.
+The **percentage of calls answered** by your contacts: answered calls divided by all calls placed. The headline is your average pickup rate for the period, weighted by the number of calls each day. It tells you how reachable your audience is, so you can fine-tune your calling hours.
 
-<Frame>
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-pickup-rate.png"
-    alt="Pickup Rate card with an average percentage and a trend chart"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-pickup-rate.png" alt="Pickup Rate card with an average percentage and a trend chart" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-pickup-rate.png" alt="Pickup Rate card with an average percentage and a trend chart" className="rounded-[14px]" /></Frame></div>
 
 ## Sentiment Analysis
 
-The **emotional tone of your conversations**, detected from customer responses across five levels. The headline names the dominant sentiment and its share of calls.
+The **emotional tone of your conversations**, detected from customer responses across five levels. The headline names the dominant sentiment and its share of the analyzed calls.
 
 - Negative
 - Slightly Negative
@@ -263,27 +195,17 @@ The **emotional tone of your conversations**, detected from customer responses a
 - Slightly Positive
 - Positive
 
-<Frame>
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-sentiment.png"
-    alt="Sentiment Analysis card with a dominant sentiment and each level's share of calls"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-sentiment.png" alt="Sentiment Analysis card with the dominant sentiment, a distribution bar, and each level's share of calls" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-sentiment.png" alt="Sentiment Analysis card with the dominant sentiment, a distribution bar, and each level's share of calls" className="rounded-[14px]" /></Frame></div>
 
-Each level lists its call count and share of calls, so you can watch satisfaction trends and adjust Pearl's tone.
+A distribution bar and a row per level give each level's call count and share of the analyzed calls, so you can watch satisfaction trends and adjust Pearl's tone.
 
 ## Costs
 
-Your **total and per-period call costs**, with a headline total and a trend over time — so you can see how usage affects your credit.
+Your **call costs** over the period: the headline is the total cost, and the chart plots two curves, **Total** (what you spent) and **Average** (the average cost per call) — so you can see how usage affects your balance.
 
-<Frame>
-  <img
-    className="rounded-[14px]"
-    src="/images/dark_mode/analytics-costs.png"
-    alt="Costs card with a total cost headline and a spend trend chart"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/analytics-costs.png" alt="Costs card with a total cost headline and Total and Average curves" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/analytics-costs.png" alt="Costs card with a total cost headline and Total and Average curves" className="rounded-[14px]" /></Frame></div>
 
 <Warning>
 This card only reflects costs deducted from your available credit. Calls covered by your included minutes aren't shown.
@@ -294,6 +216,7 @@ This card only reflects costs deducted from your available credit. Calls covered
 | Feature | Inbound | Outbound |
 |---|---|---|
 | Call initiation | By the caller | By Pearl |
+| Toolbar chip | Phone number | Leads |
 | Call Status Breakdown | ✅ | ✅ *(adds Need Retry, Voice Mail Left, Unreachable)* |
 | All calls / Answered calls toggle | — | ✅ |
 | Pickup Rate | — | ✅ |
@@ -301,4 +224,4 @@ This card only reflects costs deducted from your available credit. Calls covered
 
 ## Summary
 
-With NLPearl Analytics you get full visibility into your campaigns' performance. Use these insights to fine-tune your strategy, lift your success and pickup rates, and optimize every conversation.
+With NLPearl Analytics you get full visibility into your Pearls' performance. Use these insights to fine-tune your strategy, lift your success and pickup rates, and optimize every conversation.

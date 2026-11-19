@@ -33,7 +33,16 @@ iconType: "light"
 ---
 
 ## What is a Post-Call?  
-In NLPearl, a **post-call** is a structured summary generated after each phone conversation handled by Pearl. It centralizes all key information captured before, during, and after the call to ensure full traceability, improve quality, and support human follow‑up when needed.
+In NLPearl, a **post-call** is the view of a single phone conversation handled by Pearl. It centralizes all key information captured before, during, and after the call to ensure full traceability, improve quality, and support human follow‑up when needed.
+
+To open one, go to your Pearl's page, open the **Calls** tab, and click a call: it opens in a panel on the right. Use the arrows at the top right, or the **↑ / ↓** keys, to move to the previous or next call. A call can also be opened from the **Calls** column of a lead's details.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-open.png" alt="A call opened in a panel from the Calls tab of a Pearl" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-open.png" alt="A call opened in a panel from the Calls tab of a Pearl" className="rounded-[14px]" /></Frame></div>
+
+<Note>
+The view also works while a call is still in progress: you can follow it live, and end it with the hang-up button at the top (*Hang up this ongoing call*). The call then shows **Hangup: Ended manually** in its details.
+</Note>
 
 ---
 
@@ -42,15 +51,14 @@ In NLPearl, a **post-call** is a structured summary generated after each phone c
 A post-call provides multiple key sections to review and analyze the outcome of a conversation:
 
 ### Call ID
- A unique identifier for each call, displayed at the top right of the page. It allows you to quickly reference or search for a specific call across the system.
+A unique identifier for each call. Click **Call ID** at the top right of the panel to copy it; hover it to see the full ID. Paste it in the search field of the **Calls** tab to find that call again.
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-call-id.png"
-    alt="Call ID location in the post-call view"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-call-id.png" alt="The Call ID button and its tooltip" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-call-id.png" alt="The Call ID button and its tooltip" className="rounded-[14px]" /></Frame></div>
+
+<Tip>
+Next to it, the **PearlVibe** button (*Review this call with PearlVibe*) opens your Pearl's [PearlVibe](/pages/pearl_vibe) chat with this call as context, to understand what happened and improve your flow.
+</Tip>
 
 ---
 
@@ -62,27 +70,24 @@ This section summarizes the essential metadata captured during the call, such as
 |-------|-------------|
 | **Date** | The exact date and time the call took place. |
 | **Pearl Version** | The version of the Pearl that handled the call. |
-| **Lead Name** | The name of the lead (outbound calls). |
+| **Callback** | The callback time confirmed to the caller, with its time zone (when a [callback](/pages/outbound#callback-requests) was booked). |
+| **Lead Name** | The name of the person called, when known. |
 | **Duration** | The length of the call, in mm:ss. |
-| **Transfer Duration** | Time spent with a human agent after a transfer (shown only when the call was transferred). |
-| **Queue Duration** | Time the caller spent waiting in the holding line before being answered (shown only when the caller was queued). |
+| **Transfer Duration** | Time spent with a human agent after a transfer. |
+| **Queue Duration** | Time the caller spent waiting in the holding line before being answered. |
 | **Credits Used** | The number of credits consumed by the call. |
-| **SMS Credits Used** | The number of credits consumed by SMS messages sent during the call (shown only when greater than 0). |
+| **SMS Credits Used** | The number of credits consumed by SMS messages sent during the call. |
 | **Status** | The technical call status (e.g. Completed, Busy, No Answer). |
+| **Hangup** | **Ended manually** when someone ended the call from this view. |
 | **Sentiment** | The detected sentiment of the customer during the conversation. |
 | **Events** | A shortcut to the actions triggered during the call — click **View** to jump to the Event Log. |
 
 <Note>
-Some fields are conditional: **Lead Name** appears for outbound calls, **Transfer Duration** only when the call was transferred, **Queue Duration** only when the caller was queued, and **SMS Credits Used** only when at least one SMS was sent.
+Some fields only appear when they apply: **Callback** when a callback was booked, **Lead Name** when the name is known, **Transfer Duration** when the call was transferred, **Queue Duration** when the caller was queued, **SMS Credits Used** when at least one SMS was sent, and **Hangup** when the call was ended manually.
 </Note>
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-details.png"
-    alt="Call Details section in the post-call view"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-details.png" alt="The Call Details section" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-details.png" alt="The Call Details section" className="rounded-[14px]" /></Frame></div>
 
 ---
 
@@ -91,6 +96,7 @@ The technical status of the call (whether the user answered or not), shown as th
 
 | Status        | Description                                                                 |
 |---------------|-----------------------------------------------------------------------------|
+| `In Queue`    | The call is waiting to be placed or answered.                               |
 | `In Progress` | The call is currently ongoing or being connected.                          |
 | `Completed`   | The call was successfully connected and ended normally.                    |
 | `Busy`        | The receiver was already on another call or rejected the call.             |
@@ -105,58 +111,50 @@ The technical status of the call (whether the user answered or not), shown as th
 **Conversation Status** <br />
 Indicates the outcome of the conversation from a business or process perspective. It is shown as a colored badge in the header, next to the caller and receiver numbers. Possible values include:
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-status-and-phone.png"
-    alt="Conversation status badge and phone numbers in the post-call header"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-status-and-phone.png" alt="The conversation status badge and the phone numbers in the header" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-status-and-phone.png" alt="The conversation status badge and the phone numbers in the header" className="rounded-[14px]" /></Frame></div>
 
 | Status               | Description                                                            |
 |----------------------|------------------------------------------------------------------------|
-| `Voice Mail Left`    | A voicemail was successfully left. *(Outbound only)*                  |
-| `Need Retry`         | The contact attempt failed and should be retried. *(Outbound only)*   |
-| `Unreachable`        | The lead couldn't be reached after all retry attempts were exhausted. *(Outbound only)* |
 | `Call Successful`    | The conversation achieved its expected outcome.                       |
-| `Not Successful`     | The conversation failed to meet its objective.                        |
+| `Call Unsuccessful`  | The conversation failed to meet its objective.                        |
 | `Completed`          | The conversation was conducted and finalized, regardless of outcome.  |
+| `Voicemail Left`     | A voicemail was successfully left. *(Outbound only)*                  |
+| `Need Retry`         | The contact attempt failed and will be retried. The **x/y** chip next to it shows the attempts made. *(Outbound only)* |
+| `Unreachable`        | The lead couldn't be reached after all retry attempts were exhausted (also used for an unanswered test call). |
+| `In Queue` / `On Call` | The call is waiting or in progress.                                |
+| `Queue Abandon`      | The caller hung up while waiting in the holding line.                 |
+| `Blacklisted`        | The number is on your [blacklist](/pages/blacklist), so the call was not handled. |
+| `Error`              | The call failed or was canceled.                                      |
 
 <Card icon="circle-info" iconType="light">
   <b>Important distinctions about Conversation Status</b>:
 
-  - `Voice Mail Left`, `Need Retry`, and `Unreachable` are **only shown for outbound activities**; these statuses are not applicable for inbound calls.
+  - `Voicemail Left` and `Need Retry` only apply to **outbound** activities.
   
-  - The difference between `Successful`, `Not Successful`, and `Complete` depends on whether a **Success Definition** was configured when creating the Pearl:
-    - If a **Success Definition** was configured:
-      - `Successful` → the Success Definition criteria were met during the conversation.
-      - `Not Successful` → the conversation did not meet the Success Definition criteria.
-    - If **no Success Definition** was configured:
-      - `Complete` → the conversation was completed without any Success Definition evaluation.
+  - The difference between `Call Successful`, `Call Unsuccessful`, and `Completed` depends on whether a **Success Definition** is set for the Pearl:
+    - If a **Success Definition** is set:
+      - `Call Successful` → the Success Definition criteria were met during the conversation.
+      - `Call Unsuccessful` → the conversation did not meet the Success Definition criteria.
+    - If **no Success Definition** is set:
+      - `Completed` → the conversation was completed without any Success Definition evaluation.
 </Card>
 
 
-<Note> For more information on Success Definitions, see [How to Create a Pearl – Step 4: Flow Configuration](/pages/create_pearl#step-4-flow-configuration).</Note>
+<Note> For more information on Success Definitions, see [Pearl Analytics](/pages/pearl_analytics#define-the-success-of-your-pearl).</Note>
 
 ---
 
 **Tags** <br />
-  The list of **tags defined during the last step of the Pearl creation process**. These tags represent key topics or categories you chose when setting up the Pearl configuration.  
+  The [Indicator Tags](/pages/pearl_analytics#indicator-tags) this call received, shown as colored chips at the top of the left column. Pearl assigns them automatically, based on the conditions you set for each tag.
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-tags.png"
-    alt="Tags in the post-call view"
-    className="rounded-[14px]"
-  />
-</Frame>
-
-<Note>For more information on setting up tags, see [How to Create a Pearl – Step 4: Flow Configuration](/pages/create_pearl#step-4-flow-configuration).</Note>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-tags.png" alt="The Booked and Escalated tags of a call" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-tags.png" alt="The Booked and Escalated tags of a call" className="rounded-[14px]" /></Frame></div>
 
 ---
 
 **Events** <br />
-  A log of the actions triggered by Pearl during the call. Each event includes a timestamp, the action details, and an execution status. The **Events** row in Call Details is a shortcut — click **View** to jump straight to the **Event Log**.
+  A log of the actions triggered by Pearl during the call. Each event includes a timestamp, the action details, and an execution status. The **Events** row in Call Details shows one icon per event (hover it for its name) — click **View** to jump straight to the **Event Log**.
 
   Possible event types include:
 
@@ -165,28 +163,25 @@ Indicates the outcome of the conversation from a business or process perspective
 | `Call Transferred`  | The call was transferred to another destination.                              |
 | `SMS Sent`          | A text message was sent to the customer.                                      |
 | `Email Sent`        | An email was sent during the call.                                            |
-| `API`               | An API was triggered — before the call (Pre-Call), during it (In-Call), or after it (Post-Call). |
-| `Appointment`       | An appointment was booked in the calendar.                                    |
+| `API Request`       | An API was called — before the call (**Pre Call API Request**), during it (**API Request**), or after it (**Post Call API Request**). |
+| `Appointment Booked` | An appointment was booked in the calendar.                                   |
 | `Slack`             | A Slack notification was sent.                                                |
+| `Call Webhook` / `Lead Webhook` | A [webhook](/pages/webhooks) was sent, with its number of attempts, response time, and status code. |
+| `Callback request`  | A callback was **Scheduled**, **Cancelled**, or **Not taken**, with the requested time and reason. |
 | `Call Recorded`     | The call recording was captured.                                              |
 | `Hand-Off`          | The conversation was handed off to a human (text agents).                     |
 
 <Info>
-Each event carries an execution status: the **HTTP status code** for API calls, otherwise **sent** / **failed**, with a possible error state (SMS, email, API, transfer, or booking error).
+Each event carries an execution status: the **HTTP status code** for API calls (or **Error** when no response came back), otherwise **sent** / **failed**. Failed events are flagged in red.
 </Info>
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-events.png"
-    alt="Events shortcut in the post-call view"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-events.png" alt="The Events row of Call Details, with View" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-events.png" alt="The Events row of Call Details, with View" className="rounded-[14px]" /></Frame></div>
 
 ---
 
-**Sentiment Analysis**  <br />
-  An automatic classification of the customer's tone and emotional state throughout the conversation. Possible sentiment values include:
+**Sentiment** <br />
+  An automatic classification of the customer's tone and emotional state throughout the conversation, shown as the **Sentiment** row of Call Details. Possible values include:
 
 | Sentiment Value       | Description                                                       |
 |------------------------|-------------------------------------------------------------------|
@@ -196,76 +191,51 @@ Each event carries an execution status: the **HTTP status code** for API calls, 
 | `Slightly Negative`    | The tone leaned slightly negative, but not strongly so.           |
 | `Negative`             | The conversation had a clearly negative emotional tone.           |
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-sentiment-analysis.png"
-    alt="Sentiment analysis in the post-call view"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-sentiment-analysis.png" alt="The Sentiment row of Call Details" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-sentiment-analysis.png" alt="The Sentiment row of Call Details" className="rounded-[14px]" /></Frame></div>
 
 ---
 
 ### Summary  
 
-A concise, human‑readable recap of the conversation, generated by Pearl. This includes:
+A concise, human‑readable recap of the conversation, generated by Pearl and shown at the top of the left column. This includes:
 - What the customer requested
 - What was confirmed or declined
 - The overall outcome of the interaction
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-summary.png"
-    alt="Summary in the post-call view"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-summary.png" alt="The Summary of a call" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-summary.png" alt="The Summary of a call" className="rounded-[14px]" /></Frame></div>
 
 ---
 
 ### Transcript & Event Log
 
-A toggle at the top of the right-hand panel switches between the **Transcript** and the **Event Log**.
+A toggle at the top of the right-hand column switches between the **Transcript** and the **Event Log**.
 
-**Transcript** — a full text version of the conversation between the customer and Pearl. It is structured into three blocks separated by dividers: **Pre-call events → In-call messages → Post-call events**. Timestamps are clickable and jump to the matching point in the recording. Useful for reviewing the interaction, auditing, and training.
+**Transcript** — a full text version of the conversation between the customer and Pearl. Events show up inline as compact rows: click one to open it in the Event Log. Dividers separate **Pre-call events**, the conversation (**In-call**), and **Post-call events** when there are any. Click a timestamp to play the recording from that moment. Useful for reviewing the interaction, auditing, and training.
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-transcript.png"
-    alt="Transcript in the post-call view"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-transcript.png" alt="The Transcript of a call" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-transcript.png" alt="The Transcript of a call" className="rounded-[14px]" /></Frame></div>
 
-**Event Log** — a chronological view of all actions triggered by Pearl during the call. Each entry shows the action type (API call, SMS, email, transfer…), its execution status, and contextual data, so you can verify that every automated operation ran and inspect its output.
+**Event Log** — the list of all actions triggered by Pearl around the call. Each entry shows the action, its status, and expands to show its details: for an API request, the method and URL, the error, the response, the body, and the headers. Use it to verify that every automated operation ran and inspect its output.
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-event-log.png"
-    alt="Event Log in the post-call view"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-event-log.png" alt="The Event Log with an API request expanded" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-event-log.png" alt="The Event Log with an API request expanded" className="rounded-[14px]" /></Frame></div>
 
 ---
 
 ### Variables
 
-This section, labeled **Variables** in the UI, displays the **structured data captured before or during the call**, corresponding to the dynamic values collected through the Pearl configuration.  
+This section, labeled **Variables** in the UI, lists every variable of your Pearl that has a value for this call: data provided before the call (such as the lead's details) and data collected during it.  
 Examples:
 - Delivery type
 - Selected options (e.g. “Dessert: Cheesecake”)
 - Customer preferences
 
-Variables displayed here are based on those defined in your **Pearl configuration**. 
+Variables displayed here are based on those defined in your **Pearl configuration**. When [Mask Sensitive Info](/pages/inbound#mask-sensitive-info) is on, masked values show as `****`.
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-variables.png"
-    alt="Call information variables in the post-call view"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-variables.png" alt="The Variables of a call" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-variables.png" alt="The Variables of a call" className="rounded-[14px]" /></Frame></div>
  
 <Info> 
 You can learn more about creating variables in the Pearl [here](/pages/variables).
@@ -276,22 +246,21 @@ You can learn more about creating variables in the Pearl [here](/pages/variables
 
 ### Recording
 
-The **recording is accessible directly from this page**, allowing you to listen to the entire conversation again for audit, training, or operational purposes. Clicking a timestamp in the **Transcript** seeks the player to that exact moment.
+The **recording player** sits at the bottom of the right-hand column, so you can listen to the entire conversation again for audit, training, or operational purposes. Clicking a timestamp in the **Transcript** plays the recording from that exact moment.
 
-<Frame>
-  <img
-    src="/images/dark_mode/post-call-recording.png"
-    alt="Recording player in the post-call view"
-    className="rounded-[14px]"
-  />
-</Frame>
+- **Play / Pause**, the position bar, and the time.
+- **Speed**: 1×, 1.5×, or 2× (for recordings of 30 seconds or more).
+- The **⋯** menu: **Mute**, **Show who speaks**, and **Download** (the recording as an `.ogg` file).
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/post-call-recording.png" alt="The recording player and its menu with Mute, Show who speaks and Download" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/post-call-recording.png" alt="The recording player and its menu with Mute, Show who speaks and Download" className="rounded-[14px]" /></Frame></div>
 
 <Note>
-The audio player only appears when the **Call Status** is `Completed` **and** recording is enabled for the activity.
+The audio player only appears when the **Call Status** is `Completed` **and** recording is enabled for the activity. If the recording can't be loaded, the player says so and offers **Try again**.
 </Note>
 
 <Warning>If you wish to **disable call recording**, you can manage this setting from the activity configuration (whether **inbound** or **outbound**).</Warning>
-👉 For more information on recording settings, see [Inbound Recording](/pages/inbound) or [Outbound Recording](/pages/outbound).
+👉 For more information on recording settings, see [Inbound Recording](/pages/inbound#recording-options) or [Outbound Recording](/pages/outbound#recording-options).
 
 If you're unable to listen to your recording and you imported a phone number from your Twilio account by connecting it to the platform, it is possible that you cannot access the recording because you have not disabled the 'HTTP Basic Authentication' option in your Twilio settings. For more information see [Disable HTTP Auth from Twilio](/pages/twilio_integration#disabling-http-basic-authentication-for-media-access)
 
@@ -301,8 +270,8 @@ If you're unable to listen to your recording and you imported a phone number fro
 <Tip>
 **Navigation & shortcuts** — a few actions make it faster to move around and act on a call:
 
-- **Open the linked Lead** — for outbound calls, open the lead's details in a popover directly from the call.
-- **Move between calls** — use the on-screen arrows or the **↑ / ↓** keyboard keys to jump to the previous or next call without leaving the post-call view.
+- **Open the linked Lead** — for outbound calls, the **Lead** button opens the lead's details in a popover directly from the call.
+- **Move between calls** — use the **Previous** / **Next** arrows or the **↑ / ↓** keyboard keys to jump to the previous or next call without leaving the post-call view.
 - **Jump to the Event Log** — click **View** on the Events row in Call Details to switch straight to the Event Log tab.
 </Tip>
 
@@ -331,4 +300,4 @@ If you're unable to listen to your recording and you imported a phone number fro
 
 ---
 
-By consolidating all these elements, the **Post-Call Activities** page provides a complete overview of each AI-handled conversation, ensuring transparency, traceability, and actionable insights for your team.
+By consolidating all these elements, the **post-call view** provides a complete overview of each AI-handled conversation, ensuring transparency, traceability, and actionable insights for your team.

@@ -1,7 +1,7 @@
 ---
 title: "Pearl Text"
 sidebarTitle: "Overview"
-description: "Build AI text agents that message your customers across SMS, WhatsApp, email, and chat - on inbound and outbound conversations."
+description: "Build AI text agents that message your customers over SMS, WhatsApp, Telegram, and your own messaging systems - on inbound and outbound conversations."
 icon: "messages"
 iconType: "light"
 ---
@@ -34,7 +34,7 @@ iconType: "light"
 
 ## What is Pearl Text?
 
-Pearl Text lets you create AI text agents that handle written conversations with your customers across SMS, WhatsApp, email, and chat. Deploy them on inbound channels to respond instantly, or launch outbound messaging to reach customers proactively - with the same reasoning, actions, and post-conversation data that power Pearl Voice.
+Pearl Text lets you create AI text agents that handle written conversations with your customers over [SMS](/pages/text/channels/sms), [WhatsApp](/pages/text/channels/whatsapp), [Telegram](/pages/text/channels/telegram), Glassix, or your own messaging system through the [Generic](/pages/text/channels/generic) channel. Deploy them on inbound channels to respond instantly, or launch outbound messaging to reach customers proactively - with the same reasoning, actions, and post-conversation data that power Pearl Voice.
 
 Pearl Text isn't just another chatbot: it understands context, follows your business rules, connects to your tools, triggers real actions, and hands off to a human when needed.
 
@@ -43,7 +43,7 @@ Pearl Text supports written conversations in any language, with no language or v
 </Info>
 
 <Note>
-Pearl Text and [Pearl Voice](/pages/pearl_voice) run on the same platform, so you can connect channels end to end - a conversation can start by chat and continue by phone, or a call can trigger a text follow-up.
+Pearl Text and [Pearl Voice](/pages/pearl_voice) run on the same platform: the same builder, the same actions and variables, and the same post-conversation data, so your text and voice agents work the same way.
 </Note>
 
 ---
@@ -55,7 +55,7 @@ Pearl Text and [Pearl Voice](/pages/pearl_voice) run on the same platform, so yo
     Use [PearlVibe](/pages/pearl_vibe) - the same builder as Pearl Voice - to define your agent's personality, knowledge base, conversation logic, and connected actions from a single prompt-driven interface.
   </Step>
   <Step title="Connect your channels" icon="comments">
-    Deploy your agent on [inbound](/pages/text/inbound) channels to answer messages instantly, or launch [outbound](/pages/text/outbound) campaigns to reach customers across [SMS](/pages/text/channels/sms), [WhatsApp](/pages/text/channels/whatsapp), email, and chat.
+    Deploy your agent on [inbound](/pages/text/inbound) channels to answer messages instantly, or launch [outbound](/pages/text/outbound) campaigns to reach customers over [SMS](/pages/text/channels/sms), [WhatsApp](/pages/text/channels/whatsapp), [Telegram](/pages/text/channels/telegram), Glassix, or the [Generic](/pages/text/channels/generic) channel.
   </Step>
   <Step title="Monitor and optimize" icon="chart-mixed">
     Review [Post-Chat](/pages/text/postchat) summaries, transcripts, and extracted variables for every conversation, then iterate on your agent's behavior.
@@ -104,12 +104,17 @@ Text agents run on one of two text models, billed per message. Pricing is relati
 
 See [Pearl Model](/pages/text/agent_customization#pearl-model) to change it.
 
-Optional add-ons let your agent understand richer inputs sent in the conversation:
+---
 
-| Add-on | Description |
-|--------|-------------|
-| **Vision** | Read and understand images customers send, such as screenshots, documents, or photos. |
-| **Audio input** | Understand voice notes and audio messages sent in the chat. |
+## Images, voice notes, and documents
+
+Customers can send more than text. Pearl reads what they attach, on every channel, up to **20 MB** per file. There's nothing to switch on: an attachment is billed only when a customer sends one.
+
+| Attachment | Formats | Billed as |
+|---|---|---|
+| **Images** — screenshots, photos, scans | JPG, PNG, WEBP, GIF | **Vision**, per image |
+| **Voice notes and audio messages** | OGG, MP3, M4A, WAV, WEBM | **Audio input**, per started minute |
+| **Documents** | PDF, TXT, DOCX | Per 50,000 characters read |
 
 ---
 

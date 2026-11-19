@@ -45,7 +45,10 @@ Inbound activities are used when the end user starts the conversation. Pearl rep
 
 ## Connect a Channel
 
-Unlike a voice activity, an inbound text activity isn't tied to a phone number, it's connected to a **messaging channel**. Once your Pearl is published, open its **overview** page and connect the channel your customers will use. Each channel is dedicated to your activity and can receive conversations from anywhere, at any time.
+Unlike a voice activity, an inbound text activity isn't tied to a phone number, it's connected to a **messaging channel**. First set up the channel in your workspace settings, then open your Pearl's page, click **Settings**, and pick it in **Text Channel**. Each channel is dedicated to your activity and can receive conversations from anywhere, at any time.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-inbound-channel.png" alt="The Text Channel list in the Settings of a text Pearl's page" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-inbound-channel.png" alt="The Text Channel list in the Settings of a text Pearl's page" className="rounded-[14px]" /></Frame></div>
 
 NLPearl supports built-in channels such as **WhatsApp**, **Telegram**, **SMS**, and **Glassix**, as well as a **Generic** channel for custom messaging systems. Follow the dedicated guides to set one up:
 
@@ -73,7 +76,7 @@ NLPearl supports built-in channels such as **WhatsApp**, **Telegram**, **SMS**, 
 
 ## Inbound Settings
 
-Configure how your Pearl handles incoming conversations from the **Inbound Settings** tab of your Pearl, in the [PearlVibe](/pages/pearl_vibe) flow editor.
+Configure how your Pearl handles incoming conversations from the **Inbound Settings** tab of your Pearl, in the [PearlVibe](/pages/pearl_vibe) flow editor. Changes are saved automatically in your Pearl's draft: publish the Pearl to use them in live conversations.
 
 <Warning>
 These settings apply to **text** Pearls only. A voice Pearl has a different set of inbound options.
@@ -83,13 +86,8 @@ These settings apply to **text** Pearls only. A voice Pearl has a different set 
 
 The maximum number of messages Pearl sends before automatically handing the conversation off to a human. You can set between **5 and 1000** messages (default **100**).
 
-<Frame>
-  <img
-    src="/images/dark_mode/text-inbound-message-limit.png"
-    alt="Message Limit setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-inbound-message-limit.png" alt="The Message Limit setting in the Inbound Settings tab" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-inbound-message-limit.png" alt="The Message Limit setting in the Inbound Settings tab" className="rounded-[14px]" /></Frame></div>
 
 ---
 
@@ -97,13 +95,8 @@ The maximum number of messages Pearl sends before automatically handing the conv
 
 How long a conversation can stay inactive before Pearl closes the chat and triggers the post-chat summary. You can set between **1 and 72 hours** (default **24 hours**).
 
-<Frame>
-  <img
-    src="/images/dark_mode/text-inbound-auto-close.png"
-    alt="Auto-close After Inactivity setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-inbound-auto-close.png" alt="The Auto-close After Inactivity setting in hours" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-inbound-auto-close.png" alt="The Auto-close After Inactivity setting in hours" className="rounded-[14px]" /></Frame></div>
 
 ---
 
@@ -111,15 +104,10 @@ How long a conversation can stay inactive before Pearl closes the chat and trigg
 
 How long Pearl waits before replying. When a customer sends several messages in a row, Pearl answers them together instead of replying to each one.
 
-Choose from **ASAP** up to **5 minutes**, in 30-second steps (default **ASAP**, which means Pearl replies as soon as it is ready).
+Choose from **ASAP (no delay)** up to **5 minutes**, in 30-second steps (default **ASAP**, which means Pearl replies as soon as it is ready).
 
-<Frame>
-  <img
-    src="/images/dark_mode/text-inbound-response-delay.png"
-    alt="Response Delay setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-inbound-response-delay.png" alt="The Response Delay list, from ASAP to 5 minutes" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-inbound-response-delay.png" alt="The Response Delay list, from ASAP to 5 minutes" className="rounded-[14px]" /></Frame></div>
 
 <Note>
   Inbound and outbound each have their own response delay. Setting one does not change the other.
@@ -129,44 +117,37 @@ Choose from **ASAP** up to **5 minutes**, in 30-second steps (default **ASAP**, 
 
 ### Inactivity Follow-up
 
-When enabled (on/off), Pearl sends follow-up messages when the end user stops replying after Pearl's last message, to re-engage the conversation.
+When **On** (default **Off**), Pearl sends follow-up messages when the end user stops replying after Pearl's last message, to re-engage the conversation.
 
-<Frame>
-  <img
-    src="/images/dark_mode/text-inbound-inactivity-followup.png"
-    alt="Inactivity Follow-up setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-inbound-inactivity-followup.png" alt="Inactivity Follow-up set to On, with one follow-up after 10 minutes" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-inbound-inactivity-followup.png" alt="Inactivity Follow-up set to On, with one follow-up after 10 minutes" className="rounded-[14px]" /></Frame></div>
 
-- **Up to 3 follow-ups**: each one is a **delay** plus an optional **message**.
+- **Up to 3 follow-ups**: each one is a **delay** plus an optional **message** (up to 1,000 characters). Click **Add follow-up** to add the next one.
 - **Minimum delay**: at least **5 minutes** between follow-ups for inbound.
 - **Default**: a single follow-up sent after **10 minutes**.
+- **Within the auto-close time**: the delays of all follow-ups together can't exceed [Auto-close After Inactivity](#auto-close-after-inactivity) (*"Total delay … exceeds the auto-close limit"*).
 
 <Note>
-Follow-up messages can use **Pre-Call** variables (e.g. the customer's first name) to keep the re-engagement personal.
+Leave a message empty and Pearl writes the follow-up itself, from the conversation so far. A message you write can use your variables (e.g. the customer's first name) to keep the re-engagement personal.
 </Note>
 
 ---
+
+<a id="transcript-options"></a>
 
 ### Mask Sensitive Info
 
 Replace personal details with `****` in everything that is kept after the conversation. The transcript is always kept: **Off** stores it as-is, **On** masks it and opens the masking settings below.
 
-<Frame>
-  <img
-    src="/images/dark_mode/text-inbound-transcript-option.png"
-    alt="Mask Sensitive Info setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-inbound-transcript-option.png" alt="Mask Sensitive Info set to On, with its masking settings" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-inbound-transcript-option.png" alt="Mask Sensitive Info set to On, with its masking settings" className="rounded-[14px]" /></Frame></div>
 
 | Setting | Description |
 | --- | --- |
-| **PII Detection** | **Auto** lets the AI decide what is personal information, such as names, phone numbers, or card numbers. **Manual** masks only the variables you pick, the same way in every conversation. |
-| **Variables to mask** | *Manual only.* The variables whose values are masked. Their values are replaced with `****` wherever they appear, including inside other variables. |
-| **Mask personal details in** | Where masking applies: **Transcript**, **Summary**, **Variables**, and **Action logs**. Unchecked parts keep the original values. In Manual mode, this setting reads **Mask the variables in**. |
-| **Send Masked Payloads** | **On**: webhooks and post-chat actions receive the masked values (`****`). **Off**: they receive the original values. |
+| **PII detection** | **Auto** (default) lets the AI decide what is personal information, such as names, phone numbers, or card numbers. **Manual** masks only the variables you pick, the same way in every conversation. |
+| **Variables to mask** | *Manual only.* The variables whose values are masked. Their values are replaced with `****` wherever they appear, including inside other variables. With no variable selected, nothing is masked (a warning tells you so). |
+| **Mask personal details in** | Where masking applies: **Transcript**, **Summary**, **Variables**, and **Action logs** (all checked by default, at least one stays checked). Unchecked parts keep the original values. In Manual mode, this setting reads **Mask the variables in**. |
+| **Send masked payloads** | **On**: webhooks and post-chat actions receive the masked values (`****`). **Off** (default): they receive the original values. |
 
 <Info>
 With **Auto** detection, if a customer writes *"My credit card number is 1234-5678-9012-3456"*, the transcript stores it as *"My credit card number is \*\*\*\*"*, so you can review interactions safely without exposing sensitive data.
@@ -176,19 +157,14 @@ With **Auto** detection, if a customer writes *"My credit card number is 1234-56
 
 ### Webhooks
 
-Send conversation lifecycle events to an external endpoint.
+Send conversation lifecycle events to an external endpoint. Turn **Webhooks** **On** (default **Off**), then fill in the webhook line (labelled **Calls**, as on voice Pearls):
 
-<Frame>
-  <img
-    src="/images/dark_mode/text-inbound-webhook.png"
-    alt="Webhooks setting"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-inbound-webhook.png" alt="Webhooks set to On, with the URL, the version pill, and the signature key" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-inbound-webhook.png" alt="Webhooks set to On, with the URL, the version pill, and the signature key" className="rounded-[14px]" /></Frame></div>
 
-- **Version**: `V1` or `V2` (default **V2**). V2 is the current payload format; keep V1 only if you have an older integration built against it.
-- **Chat Webhook URL**: fires at key points in the conversation lifecycle (when the chat starts and when it ends), sending details like the outcome and any data collected during the conversation.
-- **Credentials**: optional authentication token attached to the requests so your endpoint can verify they come from NLPearl.
+- **URL**: your endpoint. It is called at key points in the conversation lifecycle (when the chat starts and when it ends), with details like the outcome and any data collected during the conversation.
+- **Version** (the `V1`/`V2` pill): the payload format, default **V2**. Keep V1 only if you have an older integration built against it.
+- **Signature** (the key icon): optionally sign the requests with one of your tokens (or create a **New token**) so your endpoint can verify they come from NLPearl. **No signature** sends them unsigned.
 
 <Note>
 If your endpoint is behind a firewall, allow the NLPearl IP addresses listed in [IP Whitelisting](/pages/ip_whitelist).
@@ -211,11 +187,11 @@ Use Webhooks only if external tools need event notifications. For actual automat
 
 ## Project-Level Settings
 
-A few settings live at the **Project** level rather than in the Inbound Settings screen. Open them from the settings popover on your Pearl.
+A few settings live at the **Project** level rather than in the Inbound Settings screen. Open them with the **Settings** button on your Pearl's page: next to **Text Channel**, you'll find **Agents** and **Chat Retention**.
 
 ### Agents
 
-Sets how many **simultaneous agents** handle this Pearl's incoming conversations, i.e. how many chats can be handled at the same time, capped by your account's agent quota. A higher number lets your Pearl take more concurrent conversations.
+Sets how many **simultaneous agents** handle this Pearl's incoming conversations, i.e. how many chats can be handled at the same time, capped by your account's agent quota. A higher number lets your Pearl take more concurrent conversations. Click the **Agents** value and pick a number: it is saved right away.
 
 <Card
   title="Agents"
@@ -230,15 +206,14 @@ Sets how many **simultaneous agents** handle this Pearl's incoming conversations
 
 ### Retention
 
-Applies to **all conversations**. Set how long conversations are kept (a number of days, or leave empty to keep them indefinitely), then choose what is removed when they expire: delete all conversation data, or granularly the **Transcript**, **Summary**, or collected **Variables**.
+Click the **Chat Retention** value to open the retention window. Set the **Retention period** in days (leave it empty to keep conversations **Forever**), then choose what is removed when they expire: delete all conversation data (on by default), or turn it off to pick the **Transcript**, **Summary**, or collected **Variables**. Click **Save** to apply.
 
-<Frame>
-  <img
-    src="/images/dark_mode/outbound-call-retention-settings.png"
-    alt="Retention settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/text-inbound-retention.png" alt="The retention window opened from Chat Retention" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/text-inbound-retention.png" alt="The retention window opened from Chat Retention" className="rounded-[14px]" /></Frame></div>
+
+<Note>
+The window is shared with voice Pearls: it's titled *Call retention* and also lists **Recording**, which doesn't apply to conversations.
+</Note>
 
 ---
 
