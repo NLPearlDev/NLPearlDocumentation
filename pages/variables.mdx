@@ -341,6 +341,22 @@ X-CustomerId: 48213
 Create a Pre-call variable with the ID `X-CustomerId`. On each call, it holds the value sent in the header, and you can use it like any other variable, for example `{X-CustomerId}` in a script or in an API request.
 </Card>
 
+### Addressing the Caller by Gender (Hebrew Calls)
+
+In Hebrew, the second person changes with the gender of the person addressed. On Hebrew voice calls, Pearl adapts what it says to the caller's gender. To tell it the gender up front, create a **Pre-call** variable with the ID `gender` (all lowercase, exactly that) and send `Male` or `Female`, capitalized exactly like that. Any other value (`male`, `M`, …) is ignored, as if the variable wasn't sent.
+
+How the gender is chosen:
+
+1. If `gender` has a valid value, that value is used.
+2. If not, Pearl guesses it from the `firstName` variable.
+3. Once the caller starts talking, the gender detected from their voice takes over.
+
+If none of these gives an answer, Pearl's speech isn't adjusted for gender.
+
+<Note>
+This is automatic: you don't need to ask PearlVibe for it or mention gender in your prompt.
+</Note>
+
 ---
 
 <Note>

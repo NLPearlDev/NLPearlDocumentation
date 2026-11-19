@@ -149,7 +149,7 @@ The **Call Webhook** is sent when a call ends, and when an outbound call starts.
 | `Completed` | 130 | The conversation was completed (neutral outcome). |
 | `Unreachable` | 150 | The lead could not be reached after all attempts. |
 | `Blacklisted` | 220 | The number is blacklisted and will not be contacted. |
-| `QueueAbandon` | 300 | The call was abandoned while in the queue. |
+| `QueueAbandon` | 300 | The call was abandoned while in the queue. Inbound Pearls only. |
 | `Error` | 500 | An error occurred during the conversation. |
 
 <Note>
@@ -395,7 +395,7 @@ V1 includes an additional `RelatedId` field referencing the inbound or outbound 
 | `Completed` | 130 | The conversation was completed (neutral outcome). |
 | `Unreachable` | 150 | The lead could not be reached after all attempts. |
 | `Blacklisted` | 220 | The number is blacklisted and will not be contacted. |
-| `QueueAbandon` | 300 | The call was abandoned while in the queue. |
+| `QueueAbandon` | 300 | The call was abandoned while in the queue. Inbound Pearls only. |
 | `Error` | 500 | An error occurred during the conversation. |
 
 ### Call Statuses

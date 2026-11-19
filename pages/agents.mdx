@@ -56,74 +56,47 @@ The more agents you own, the more activity you can run in parallel. What a singl
 </Info>
 
 <Note>
-  Agents are shared at the **workspace** level. You buy them once, then allocate them to each inbound or outbound activity from the Pearl overview — so a busy campaign can use more lanes while a quieter one uses fewer.
+  Agents are shared at the **workspace** level. You buy them once, then allocate them to each inbound or outbound activity from the Pearl's page — so a busy campaign can use more lanes while a quieter one uses fewer.
 </Note>
 
 ## Set up agents for your activities
 
-Agents are managed at the **workspace** level from your Settings, then allocated to each Pearl from its overview page once published.
+Agents are managed at the **workspace** level from your Settings, then allocated to each Pearl from its page once published.
 
 <Steps>
   <Step title="Open the Agent(s) settings">
     Click your **profile card** at the bottom-left of the sidebar, open **Settings**, then select the **Agent(s)** tab. This is where you purchase, review, and remove the agents in your workspace.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/agents-settings-tab.png"
-        alt="Agent(s) tab in workspace Settings"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/agents-settings-tab.png" alt="The Agent(s) tab in the Settings" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/agents-settings-tab.png" alt="The Agent(s) tab in the Settings" className="rounded-[14px]" /></Frame></div>
   </Step>
 
   <Step title="Purchase agents">
-    Use the **Purchase New Agent(s)** bar at the top: set the quantity, review the monthly price, and click **Purchase Agent(s)**. You're billed immediately (see [Subscription and billing](#subscription-and-billing)).
+    In **Purchase Agents** (*Each agent adds one more simultaneous call*), click **Purchase Agents**. The **Purchase agents** window (*Billed monthly, on top of your plan*) shows the price per agent: choose how many with **−** and **+**, check what is **Due today** and then each month, and the card that will be charged, then click **Purchase … agent(s)**. You're billed immediately (see [Subscription and billing](#subscription-and-billing)).
 
     <Info>
-      Adding concurrent agents requires an **active paid subscription**. Extra agents can only be purchased on a paid plan.
+      Adding concurrent agents requires an **active paid subscription**. Without one, the button reads **Upgrade** and takes you to the plans.
     </Info>
 
-    <Frame>
-      <img
-        src="/images/dark_mode/agents-purchase-bar.png"
-        alt="Purchase New Agent(s) bar in the Agent(s) settings"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/agents-purchase-bar.png" alt="The window that opens from Purchase Agents, with the quantity and the price" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/agents-purchase-bar.png" alt="The window that opens from Purchase Agents, with the quantity and the price" className="rounded-[14px]" /></Frame></div>
   </Step>
 
   <Step title="Review your agents">
-    The list shows every agent in your workspace, with its creation date.
+    The **Agents** card shows where your capacity comes from:
 
-    <Frame>
-      <img
-        src="/images/dark_mode/agents-list.png"
-        alt="List of agents in the workspace"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    - **Included in your plan**: the agents that come with your subscription. They're free and can't be removed.
+    - **Additional agents**: the agents you bought, with their price per month each and their monthly total, then one row per agent with its purchase date.
 
-    Agents that come with your subscription are flagged with an **Included in your plan** badge — these are free and can't be removed.
-
-    <Frame>
-      <img
-        src="/images/dark_mode/agents-plan-badge.png"
-        alt="Included in your plan badge on a plan agent"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/agents-list.png" alt="The Agents card with the agents included in the plan and the additional agents" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/agents-list.png" alt="The Agents card with the agents included in the plan and the additional agents" className="rounded-[14px]" /></Frame></div>
   </Step>
 
   <Step title="Remove an agent">
-    To remove an extra agent, click the red **trash** icon next to it.
+    To remove an additional agent, click **Remove** (the trash icon) on its row, then **Remove agent** to confirm. Its row then shows the date it will be removed.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/agents-remove.png"
-        alt="Remove an agent with the trash icon"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/agents-remove.png" alt="The Remove this agent? confirmation" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/agents-remove.png" alt="The Remove this agent? confirmation" className="rounded-[14px]" /></Frame></div>
 
     <Note>
       There are no pro-rata refunds — the agent stays active until the end of the period you've already paid for.
@@ -133,15 +106,10 @@ Agents are managed at the **workspace** level from your Settings, then allocated
   </Step>
 
   <Step title="Allocate agents to a Pearl">
-    After publishing your Pearl, open its overview page, open the **Settings** popover, and set the number of **Agent(s)** for that activity. Allocate 2 agents to a campaign and it handles 2 leads at a time. You can scale this up or down anytime.
+    After publishing your Pearl, open its page, click **Settings**, and pick the number of agents in **Agents** for that activity: it is saved right away. Allocate 2 agents to a campaign and it handles 2 leads at a time. You can scale this up or down anytime.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/agents-allocate-to-pearl.png"
-        alt="Allocate agents to a Pearl from its overview Settings"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/outbound-agents-change-number.png" alt="The Agents list in the Settings of a Pearl's page" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/outbound-agents-change-number.png" alt="The Agents list in the Settings of a Pearl's page" className="rounded-[14px]" /></Frame></div>
   </Step>
 </Steps>
 

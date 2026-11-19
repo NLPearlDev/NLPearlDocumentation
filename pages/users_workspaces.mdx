@@ -57,38 +57,32 @@ Control who can access the current workspace and what each person is allowed to 
 
 ## Managing Users
 
-The **Users** page lets workspace owners and admins invite new members, review existing users, and update their access level.
+Open **Settings** from the profile menu at the bottom of the sidebar, then **Users** (under **Workspace**). Anyone with the **Manage users** permission can invite new members, review existing users, and update their access level.
 
-<Frame>
-  <img
-    src="/images/dark_mode/users-management.png"
-    alt="Users management page"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/users-management.png" alt="The Users tab, with the workspace owner and its members" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/users-management.png" alt="The Users tab, with the workspace owner and its members" className="rounded-[14px]" /></Frame></div>
 
 <Steps>
-  <Step title="Open Users">
-    Go to **Workspace > Users**.
-  </Step>
   <Step title="Invite a user">
-    Click **Invite User**, enter one or more email addresses, then choose the role to assign.
+    Click **Invite User**. In the **Invite users** window, enter one or more addresses in **Emails**, choose a **Role**, then click **Invite**.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/users-invite.png"
-        alt="Invite user dialog"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/users-invite.png" alt="The Invite users window, with the emails and the role" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/users-invite.png" alt="The Invite users window, with the emails and the role" className="rounded-[14px]" /></Frame></div>
+
+    <Info>
+      Inviting users requires a subscription: without one, the button reads **Upgrade**. Your plan sets how many users a workspace can have, and pending invitations count toward that limit.
+    </Info>
+  </Step>
+  <Step title="Follow the invitation">
+    Until it is accepted, the invitation shows as **Invitation pending** in the list, and you can cancel it from its row. The invited person accepts or declines it from their workspace switcher (see [Switching Workspaces](#switching-workspaces)).
   </Step>
   <Step title="Review access">
-    Confirm that each user has the correct role, such as **Owner**, **Admin**, or a custom role created for your team.
+    Change a member's role from the role list on their row. The workspace owner is marked **Owner**: that label is fixed, and the owner can't be removed. To remove a member, click the trash icon on their row, then **Delete user** to confirm.
   </Step>
 </Steps>
 
 <Note>
-  Give users the minimum access they need for their work. You can always update their role later as responsibilities change.
+  Give users the minimum access they need for their work. You can always update their role later as responsibilities change. Both lists have a search field.
 </Note>
 
 ---
@@ -97,49 +91,47 @@ The **Users** page lets workspace owners and admins invite new members, review e
 
 Roles define what users are allowed to do in a workspace. You can use roles to separate responsibilities between admins, operators, support teams, billing teams, and other internal workflows.
 
-To manage roles, go to **Workspace > Users**, then open the **Roles** tab.
+To manage roles, open **Settings → Users**, then the **Roles** tab.
 
-<Frame>
-  <img
-    src="/images/dark_mode/users-add-role.png"
-    alt="Add role on the Roles tab"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/users-add-role.png" alt="The Roles tab, with Add New Role and the list of roles" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/users-add-role.png" alt="The Roles tab, with Add New Role and the list of roles" className="rounded-[14px]" /></Frame></div>
 
 <Steps>
   <Step title="Create a role">
-    Click **Create Role** and enter a clear role name.
+    In **Add New Role** (*Create new authorization role*), click **Create Role** and enter a clear role name.
   </Step>
   <Step title="Select permissions">
-    Choose which actions the role should allow.
+    Tick the actions the role should allow.
 
-    <Frame>
-      <img
-        src="/images/dark_mode/users-role-permissions.png"
-        alt="Role permissions selection"
-        className="rounded-[14px]"
-      />
-    </Frame>
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/users-role-permissions.png" alt="The role window with its permissions by group" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/users-role-permissions.png" alt="The role window with its permissions by group" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="Save the role">
-    Click **Save Role** to make the role available when inviting or updating users.
+    Click **Save role** to make the role available when inviting or updating users.
   </Step>
 </Steps>
 
-Common permissions include:
+Your own roles can be edited (pencil) or deleted (trash). Deleting a role asks you which role to **move** its members to. The built-in roles can't be changed: the eye icon opens them read-only.
 
-| Area | What it allows |
+The permissions are grouped as follows:
+
+| Group | Permission |
 |------|----------------|
-| **Pearls** | Create and edit Pearls, including access to PearlVibe. |
-| **Activities** | Moderate activity status. |
-| **Analytics** | View analytics. |
-| **Leads** | View and moderate leads. |
-| **Calls** | View calls and post-call information. |
-| **Resources** | Manage phone numbers, agents, API keys, and users. |
-| **Advanced settings** | Manage security and sessions. |
-| **Audit log** | View the audit log. |
+| **Pearls** | Create and edit, including access to PearlVibe. |
+| | Moderate activity status: allow changing a Pearl's status. |
+| | View analytics. |
+| | View and moderate leads. |
+| | View calls and post-call information. |
+| | Test call and test chat: allow placing test calls and chats. |
+| **Account** | Manage phone numbers. |
+| | Manage agents. |
+| | Manage API keys. |
+| | Manage users. |
+| | Manage advanced settings: security, sessions, blacklist, email providers, workspace settings. |
+| | View audit log. |
+| **TTS** | Access Voice Studio: clone voices and generate speech. |
 | **Billing** | Manage account billing. |
+| | View usage: credits and minutes consumption. |
 
 <Tip>
   Create role names that match real responsibilities, such as `Support`, `Operations`, `Billing`, or `Admin`.
@@ -151,42 +143,44 @@ Common permissions include:
 
 A **workspace** is an isolated environment with its own Pearls, activities, settings, billing, users, and logs. Use workspaces to separate teams, customers, or projects. Everything above (users and roles) is scoped to the workspace you are currently in.
 
-In the settings menu, the options are split into two groups:
+The **Settings** window groups its pages as follows:
 
-- **User** settings (such as **Profile** and **Security**) are personal to your account and follow you across every workspace.
-- **Workspace** settings (everything listed under the **Workspace** section, like General Settings, Phone Numbers, Text Channels, Agents, Subscriptions & Payments, Users, API Keys, and more) apply **only to the workspace you are currently in**.
+- **Account** (**Profile**, **Security**): personal to you, they follow you across every workspace.
+- **Workspace** (General Settings, Users, Agent(s), Blacklist, Audit Log, Email Providers), **Channels** (Phone Numbers, Text Channels), **Billing** (Subscriptions & Payments, Usage), and **Developer** (API Access): they apply **only to the workspace you are currently in**. The workspace's name heads the Workspace group.
+
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/workspace-settings-menu.png" alt="The Settings window with the Account, Workspace, Channels, Billing and Developer groups" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/workspace-settings-menu.png" alt="The Settings window with the Account, Workspace, Channels, Billing and Developer groups" className="rounded-[14px]" /></Frame></div>
 
 <Note>
-  When you switch workspaces, all the **Workspace** settings change to reflect the selected workspace. Your **User** settings stay the same.
+  When you switch workspaces, every workspace setting changes to reflect the selected workspace. Your **Account** settings stay the same.
 </Note>
 
 ---
 
 ## General Settings
 
-The **General Settings** page manages your workspace identity, notifications, and security preferences.
+The **General Settings** page manages your workspace identity, notifications, and security preferences. Changing them requires the **Manage advanced settings** permission.
 
-<Frame>
-  <img
-    src="/images/dark_mode/workspace-general-settings.png"
-    alt="Workspace general settings"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/workspace-general-settings.png" alt="The General Settings of a workspace" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/workspace-general-settings.png" alt="The General Settings of a workspace" className="rounded-[14px]" /></Frame></div>
 
 | Setting | Description |
 |---------|-------------|
-| **Workspace Name** | The name visible to all members of the workspace. |
+| **Workspace Name** | The name visible to all members of the workspace, up to 15 characters. |
+| **Account ID** | The workspace's identifier, with a copy button. |
 | **Billing Email** | Email used for invoices, receipts, and payment-related notifications. |
 | **Notifications Email** | Email where important alerts and workspace notifications are sent. |
-| **Newsletter** | Opt in to receive product news, feature updates, and occasional announcements. |
-| **Session Timeout** | How long a session on the platform stays active before expiring due to inactivity (in minutes). |
+| **Session Timeout** | How long a session on the platform stays active before expiring due to inactivity, from 30 to 10,080 minutes. |
 | **Public Recordings** | When enabled, call recordings are accessible publicly via a shared link. |
-| **Delete Workspace** | Permanently delete the workspace and all associated data. |
+| **Delete Workspace** | *Owner only.* Permanently delete the workspace and all associated data: you type the workspace's name to confirm. Members see **Leave Workspace** instead. |
 
 <Warning>
   Deleting a workspace is permanent and cannot be undone. All associated data is removed.
 </Warning>
+
+<Note>
+  The newsletter subscription is no longer here: manage it from your **Profile**.
+</Note>
 
 ---
 
@@ -194,25 +188,20 @@ The **General Settings** page manages your workspace identity, notifications, an
 
 You can create a separate workspace when you need to isolate teams, customers, projects, or billing.
 
-<Frame>
-  <img
-    src="/images/dark_mode/workspace-create.png"
-    alt="Create a new workspace"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/workspace-create.png" alt="The New workspace window" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/workspace-create.png" alt="The New workspace window" className="rounded-[14px]" /></Frame></div>
 
 <Steps>
   <Step title="Open the workspace menu">
     Click the current workspace name in the sidebar.
   </Step>
   <Step title="Create the workspace">
-    Click **Create New Workspace**, enter a workspace name, then click **Create**.
+    Click **New workspace**, enter a **Workspace name** (up to 25 characters), then click **Create workspace**. You are switched to it right away.
   </Step>
 </Steps>
 
 <Warning>
-  A new workspace has its own subscription and is billed separately.
+  A new workspace has its own subscription and is billed separately. To create one, you need to own a workspace with a paid plan (or own none yet).
 </Warning>
 
 ---
@@ -221,22 +210,19 @@ You can create a separate workspace when you need to isolate teams, customers, p
 
 If your account belongs to multiple workspaces, use the workspace switcher to move between them. The selected workspace controls which Pearls, activities, settings, billing, users, and logs you are viewing.
 
-<Frame>
-  <img
-    src="/images/dark_mode/workspace-switch.png"
-    alt="Switch between workspaces"
-    className="rounded-[14px]"
-  />
-</Frame>
+<div className="block dark:hidden"><Frame><img src="/images/light_mode/workspace-switch.png" alt="The workspace switcher, with the workspaces you belong to" className="rounded-[14px]" /></Frame></div>
+<div className="hidden dark:block"><Frame><img src="/images/dark_mode/workspace-switch.png" alt="The workspace switcher, with the workspaces you belong to" className="rounded-[14px]" /></Frame></div>
 
 <Steps>
   <Step title="Open the workspace menu">
     Click the workspace name in the platform sidebar.
   </Step>
   <Step title="Choose a workspace">
-    Select the workspace you want to manage from the list.
+    Under **Switch to**, select the workspace you want to manage. Each one shows whether you are its **Owner** or a **Member**.
   </Step>
 </Steps>
+
+The same menu lists the invitations you received, to accept or decline, and offers **Invite members** and **New workspace**. You can also switch workspace from the search, in its **Switch account** group.
 
 ---
 
@@ -244,27 +230,27 @@ If your account belongs to multiple workspaces, use the workspace switcher to mo
 
 You can send a copy of a Pearl to another workspace you belong to - useful when you build agents in a test workspace before moving them to production, or manage several customers from a single account.
 
-<Frame>
-  <img
-    src="/images/dark_mode/pearl-transfer.png"
-    alt="Transfer Pearl dialog"
-    className="rounded-[14px]"
-  />
-</Frame>
-
 <Steps>
   <Step title="Open the transfer dialog">
     On the Pearl's page, open the **Settings** menu and click **Transfer Pearl**. The same option is available from the Pearls list.
   </Step>
   <Step title="Choose the version to transfer">
-    Select which version of the Pearl to send. It becomes **version 1** of the new Pearl in the destination workspace.
+    Select which version of the Pearl to send, then click **Continue**. It becomes **version 1** of the new Pearl in the destination workspace.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/pearl-transfer-version.png" alt="The version to transfer" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/pearl-transfer-version.png" alt="The version to transfer" className="rounded-[14px]" /></Frame></div>
   </Step>
   <Step title="Pick the destination">
     Select one or more workspaces, then click **Transfer**.
+
+    <div className="block dark:hidden"><Frame><img src="/images/light_mode/pearl-transfer.png" alt="The Transfer Pearl window, with the destination workspaces" className="rounded-[14px]" /></Frame></div>
+    <div className="hidden dark:block"><Frame><img src="/images/dark_mode/pearl-transfer.png" alt="The Transfer Pearl window, with the destination workspaces" className="rounded-[14px]" /></Frame></div>
   </Step>
 </Steps>
 
-The Pearl is **copied, not moved**: the original stays in the current workspace, untouched and still running. The copy arrives as a **draft** with a clean slate - no calls, conversations, leads, or usage history follows it - so you can review it and publish it when ready.
+The option appears when you belong to at least two workspaces and can **create and edit** Pearls. You must be an active member of each destination, and each destination's plan must have room for one more Pearl.
+
+The Pearl is **copied, not moved**: the original stays in the current workspace, untouched and still running. The copy arrives as a **draft** named after the original with *- Transfered* at the end, with a clean slate - no calls, conversations, leads, or usage history follows it - so you can review it and publish it when ready. It starts with **one agent**, and a custom hold sound is reset to the default.
 
 <Warning>
   Phone numbers and text channels are not transferred. Before going live, assign the copy a phone number or text channel that belongs to the destination workspace.
