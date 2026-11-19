@@ -13,8 +13,14 @@ The Realtime API gives your app a live, speech-to-speech conversation with your 
 To make your first Realtime API call, you need:
 
 - A [voice Pearl](/pages/getting_started#2-create-your-agent-with-pearlvibe) that is **active**. The call runs its [published](/pages/getting_started#5-publish-your-agent) version.
-- Its **Pearl ID**: on your Pearl's overview page, in the **Settings** popover.
-- An API key, or an OAuth app with the **`pearls:stream`** scope (**Make stream calls through the API** in the platform). See [API Authorization](/api-reference/authorization).
+- Its **Pearl ID**: on your Pearl's overview page, in the **Settings** popover. Hover it to see the full ID, and click it to copy it.
+
+  <div className="block dark:hidden"><Frame><img src="/images/light_mode/realtime-pearl-id.png" alt="The Pearl ID in the Settings popover of a Pearl's page" className="rounded-[14px]" /></Frame></div>
+  <div className="hidden dark:block"><Frame><img src="/images/dark_mode/realtime-pearl-id.png" alt="The Pearl ID in the Settings popover of a Pearl's page" className="rounded-[14px]" /></Frame></div>
+- An API key, or an OAuth app with the **`pearls:stream`** scope (**Make stream calls through the API** in the platform, under **Pearls**, when you create the app in **Settings > API Access**). See [API Authorization](/api-reference/authorization).
+
+  <div className="block dark:hidden"><Frame><img src="/images/light_mode/realtime-stream-scope.png" alt="The Make stream calls through the API scope in the Create an OAuth 2.0 app window" className="rounded-[14px]" /></Frame></div>
+  <div className="hidden dark:block"><Frame><img src="/images/dark_mode/realtime-stream-scope.png" alt="The Make stream calls through the API scope in the Create an OAuth 2.0 app window" className="rounded-[14px]" /></Frame></div>
 - One of the four audio formats, the same in both directions:
 
 | `audioFormat` | Audio | Use it for |
